@@ -8,6 +8,9 @@ sota_for:
   - task:frontier-rl-posttrain-stack
 supersedes: []
 do_not_use_for:
+  - when: "rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL)"
+    reason: "Miles remains the production engine; NgramRL is a model-free n-gram drafter for structured RL rollouts"
+    use_instead: "method:ngramrl"
   - when: "Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL)"
     reason: "Miles remains the production stack; FlashNext-RL is a model-specific prime-rl + vLLM recipe for Flash-Next on 8xB200"
     use_instead: "method:flashnext-rl"

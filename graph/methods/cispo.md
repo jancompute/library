@@ -10,6 +10,18 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
+    reason: "GIFT is a distill+RL token filter; method:cispo remains Pass@1"
+    use_instead: "method:gift"
+  - when: "mix-policy RL under expert prefix guidance with selective rollback (MOER)"
+    reason: "CISPO remains on-policy Pass@1; MOER mixes expert prefixes then rolls back unhelpful guidance"
+    use_instead: "method:moer"
+  - when: "direction-aware token credit from reward-model gradients (DATC)"
+    reason: "CISPO remains sequence-IS Pass@1; DATC reweights tokens by the RM-gradient component along the sampled action"
+    use_instead: "method:datc"
+  - when: "causal bounds / intervention-aware CoT monitorability (not Pass@1)"
+    reason: "Gotcha on CoT monitor evals; does not retarget CISPO"
+    use_instead: "paper:monitorability-causal"
   - when: "retry-aware policy optimization for RLVR (ReAPO)"
     reason: "CISPO remains Pass@1; ReAPO serializes failed GRPO attempts as SSP credit"
     use_instead: "method:reapo"
@@ -126,6 +138,7 @@ do_not_use_for:
     use_instead: "method:rgpo"
 last_reviewed: '2026-10-21'
 papers:
+  - paper:monitorability-causal
   - paper:simhack
   - paper:on-policy-audit-collapse
   - paper:reward-misspecification-cot

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "direction-aware NVFP4 mismatch (TRIAGE)"
+    reason: "TRIAGE is NVFP4; this card is BF16 rounding location"
+    use_instead: "method:rounding-align-rl"
   - when: "native FP4 forward/backward hardware training from scratch"
     reason: "TRIAGE is NVFP4 RL mismatch stabilization; Quartet-II remains native FP4 pretrain"
     use_instead: "method:quartet-ii"

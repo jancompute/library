@@ -6,6 +6,126 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-10-26 — weekday SOTA sweep (GIFT, MOER, AOPD, Edit-OPD, Multi-View OPSD, NESTOR, GS-MoE, LoRA Init Asymmetric, ALTO MXFP4, MS-TTRL, On-Policy Self-Training, DATC, Frontier-OPD, HarnessMM, NgramRL, Rounding-Align RL, MPQ, DRIVE, OpenAttention, LazyFlash, RSIHub, CycleGRPO; notes Muon quadratic polar, Muon structured noise, monitorability causal, reverse-KL limits, hierarchical agent distill, synthetic rewrite laws, looped depth reusable, looped halting heads, speculative diffusion tradeoffs)
+- Twenty-two active plug-ins and nine paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2).
+- Window: 2026-10-26 Librarian weekday sweep after merged PR 50 (watermark 2610.30132, ~1727 nodes, 5f9b7ea plus later README). Covers Friday 2026-10-23 (missed) and Monday 2026-10-26 arXiv cs.LG/cs.CL/cs.AI (2610.30133-2610.32982) plus HF Daily 2026-10-23 through 2026-10-26. New high id 2610.32982.
+- SKIP (considered, not ingested): Twin-World 2610.31544 (authorship/venue risk); Dual-Adaptive Z-Score PPO 2610.32194 (control PPO); Martingale GRPO VLA 2610.32431; Accordion 2610.32492 (inference looping); RSI-Opt 2610.32026; AgenticEvolve 2610.31326; OpenDS 2610.30181 (eval); IQuest-Code-V1 2610.30949 (model card); Kolibri 2610.31945; remaining serving/kernels, PINN, dLLM-inference, and data-selection papers outside train-kernel scope.
+
+### 2026-10-26 — ingest method:gift (active on task:student-distillation; does not supersede method:opd)
+- Added paper:gift, method:gift, recipe:gift (`code_status: released`).
+- Status active (`sota_for: []`). GIFT keeps distillation tokens whose gradient agrees with the RL objective so imitation-focused distill does not fight outcome-driven RL.
+
+### 2026-10-26 — ingest method:moer (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:moer, method:moer, recipe:moer (`code_status: released`).
+- Status active (`sota_for: []`). MOER mixes off-policy expert prefixes into on-policy RL and rolls back guidance that is not correctness-preserving so exploration is not suppressed.
+
+### 2026-10-26 — ingest method:aopd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:aopd, method:aopd, recipe:aopd (`code_status: none`).
+- Status active (`sota_for: []`). AOPD distinguishes teacher preference from student improvement and matches the teacher only on states where the advantage says following helps.
+
+### 2026-10-26 — ingest method:edit-opd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:edit-opd, method:edit-opd, recipe:edit-opd (`code_status: none`).
+- Status active (`sota_for: []`). Edit-OPD repairs VLM perceptual failures by minimal on-policy edits instead of imitating a full teacher trace, because diagram misreads poison later reasoning.
+
+### 2026-10-26 — ingest method:multi-view-opsd (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:multi-view-opsd, method:multi-view-opsd, recipe:multi-view-opsd (`code_status: none`).
+- Status active (`sota_for: []`). Multi-view OPSD treats a gold reference as one realization and trains against several teacher views so the student is less tied to one write-up.
+
+### 2026-10-26 — ingest method:nestor (active on task:pretrain-dense-7b; does not supersede method:muon2)
+- Added paper:nestor, method:nestor, recipe:nestor (`code_status: released`).
+- Status active (`sota_for: []`). NESTOR explores nested sparsity as conditional computation outside the MoE FFN, for pretraining and continual learning.
+
+### 2026-10-26 — ingest method:gs-moe (active on task:pretrain-moe-frontier; does not supersede method:deepseek-v4)
+- Added paper:gs-moe, method:gs-moe, recipe:gs-moe (`code_status: released`).
+- Status active (`sota_for: []`). GS-MoE compresses MoE experts without training by sharing groupwise low-rank subspaces and pruning expert width.
+
+### 2026-10-26 — ingest method:lora-init-asymmetric (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:lora-init-asymmetric, method:lora-init-asymmetric, recipe:lora-init-asymmetric (`code_status: none`).
+- Status active (`sota_for: []`). Once LRs are tuned, vanilla LoRA stays competitive. This card re-initializes LoRA so LoRA+ asymmetric LRs are less grid-brittle.
+
+### 2026-10-26 — ingest method:alto-mxfp4 (active on task:fp4-hardware-training; does not supersede method:quartet-ii)
+- Added paper:alto-mxfp4, method:alto-mxfp4, recipe:alto-mxfp4 (`code_status: none`).
+- Status active (`sota_for: []`). ALTO is an open MXFP4 training recipe for GPT-OSS-20B that targets the BF16 quality gap on MLPerf Small MoE.
+
+### 2026-10-26 — ingest method:ms-ttrl (active on task:label-free-test-time-reasoner; does not supersede method:ttpo)
+- Added paper:ms-ttrl, method:ms-ttrl, recipe:ms-ttrl (`code_status: none`).
+- Status active (`sota_for: []`). MS-TTRL is test-time RL for tasks with several valid solutions, where using generation frequency as reward collapses the solution set.
+
+### 2026-10-26 — ingest method:op-self-training (active on task:data-free-self-evolution; does not supersede method:j-zero)
+- Added paper:op-self-training, method:op-self-training, recipe:op-self-training (`code_status: none`).
+- Status active (`sota_for: []`). On-policy self-training turns self-generated question-answer pairs and privileged self-reasoning into a data-free self-distillation loop.
+
+### 2026-10-26 — ingest method:datc (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:datc, method:datc, recipe:datc (`code_status: none`).
+- Status active (`sota_for: []`). DATC treats token credit as work: the component of the reward-model gradient along the sampled token, instead of broadcasting one response-level advantage.
+
+### 2026-10-26 — ingest method:frontier-opd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:frontier-opd, method:frontier-opd, recipe:frontier-opd (`code_status: none`).
+- Status active (`sota_for: []`). Frontier-OPD finds decision states that are still hard but recoverable and spends teacher OPD there instead of matching the whole trajectory.
+
+### 2026-10-26 — ingest method:harnessmm (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:harnessmm, method:harnessmm, recipe:harnessmm (`code_status: none`).
+- Status active (`sota_for: []`). HarnessMM stops re-invoking reasoning after every tool observation when an earlier call already fixed the next action, and RSI-refines a companion harness.
+
+### 2026-10-26 — ingest method:ngramrl (active on task:frontier-rl-posttrain-stack; does not supersede method:miles)
+- Added paper:ngramrl, method:ngramrl, recipe:ngramrl (`code_status: none`).
+- Status active (`sota_for: []`). NgramRL speeds structured-generation RL rollouts with a rollout-aware n-gram drafter so you do not keep a learned draft model that drifts as the policy moves.
+
+### 2026-10-26 — ingest method:rounding-align-rl (active on task:fp4-rl-train-rollout-alignment; does not supersede method:trace)
+- Added paper:rounding-align-rl, method:rounding-align-rl, recipe:rounding-align-rl (`code_status: none`).
+- Status active (`sota_for: []`). Even identical BF16 weights can make intended on-policy RL off-policy when inference and train round in different places. This card aligns rounding location only.
+
+### 2026-10-26 — ingest method:mpq (active on task:full-lowbit-finetune; does not supersede method:gradcodes)
+- Added paper:mpq, method:mpq, recipe:mpq (`code_status: released`).
+- Status active (`sota_for: []`). MPQ casts PTQ as message passing so a weight block is not committed to one codeword before its neighbors are seen.
+
+### 2026-10-26 — ingest method:drive-ft (active on task:instruct-sft-alignment; does not supersede method:olmo-3)
+- Added paper:drive-ft, method:drive-ft, recipe:drive-ft (`code_status: released`).
+- Status active (`sota_for: []`). DRIVE weights SFT examples by contribution and diversity and adds a prior regularizer so single-stage FT forgets less when the pretrain corpus is inaccessible.
+
+### 2026-10-26 — ingest method:openattention (active on task:posttrain-attention-sparsification; does not supersede method:sas)
+- Added paper:openattention, method:openattention, recipe:openattention (`code_status: released`).
+- Status active (`sota_for: []`). OpenAttention folds the unread KV tail into one proxy token so 1% reads stay usable when sampling the tail misses heavy hitters.
+
+### 2026-10-26 — ingest method:lazyflash (active on task:posttrain-attention-sparsification; does not supersede method:sas)
+- Added paper:lazyflash, method:lazyflash, recipe:lazyflash (`code_status: none`).
+- Status active (`sota_for: []`). LazyFlash keeps a dense attention forward pass and sparsifies the backward so long-context fine-tuning gets a wall-clock win, not just an inference trick.
+
+### 2026-10-26 — ingest method:rsihub (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:rsihub, method:rsihub, recipe:rsihub (`code_status: released`).
+- Status active (`sota_for: []`). RSIHub is shared infrastructure for agent-evolution methods: recipes compose operators and declare what they may mutate.
+
+### 2026-10-26 — ingest method:cyclegrpo (active on task:mllm-finegrained-perception-rl; does not supersede method:vision-rl2)
+- Added paper:cyclegrpo, method:cyclegrpo, recipe:cyclegrpo (`code_status: released`).
+- Status active (`sota_for: []`). CycleGRPO is unified RL that couples region understanding and localization instead of training those directions with separate objectives.
+
+### 2026-10-26 — ingest paper:muon-quadratic-polar (note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:muon-quadratic-polar (`code_status: none`). Quadratic/polar analysis of Muon; not a train kernel.
+
+### 2026-10-26 — ingest paper:muon-structured-noise (note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:muon-structured-noise (`code_status: none`). Structured-noise condition for Muon preconditioning; not a train kernel.
+
+### 2026-10-26 — ingest paper:monitorability-causal (note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:monitorability-causal (`code_status: none`). Causal bounds for CoT monitorability; not a CISPO replacement.
+
+### 2026-10-26 — ingest paper:reverse-kl-limits (note on task:student-distillation; does not retarget method:opd)
+- Added paper:reverse-kl-limits (`code_status: none`). Statistical limits of reverse-KL OPD; not a new matching default.
+
+### 2026-10-26 — ingest paper:hier-agent-distill (note on task:student-distillation; does not retarget method:opd)
+- Added paper:hier-agent-distill (`code_status: none`). Hierarchical on/off-policy for agent distill; not a matching default.
+
+### 2026-10-26 — ingest paper:synthetic-rewrite-laws (note on task:open-data-recipe; does not retarget method:olmo-3)
+- Added paper:synthetic-rewrite-laws (`code_status: none`). Rewrite scaling under compute/data constraints; not a mix default.
+
+### 2026-10-26 — ingest paper:looped-depth-reusable (note on task:recurrent-encoder-decoder-lm; does not retarget method:looped-models-done-right)
+- Added paper:looped-depth-reusable (`code_status: none`). Depth-reuse gotcha for looped LMs; not a new architecture default.
+
+### 2026-10-26 — ingest paper:looped-halting-heads (note on task:recurrent-encoder-decoder-lm; does not retarget method:looped-models-done-right)
+- Added paper:looped-halting-heads (`code_status: none`). Halting-head compute-save gotcha; not a looped-LM default.
+
+### 2026-10-26 — ingest paper:speculative-diffusion-tradeoffs (note on task:diffusion-augmented-ar; does not retarget method:uno)
+- Added paper:speculative-diffusion-tradeoffs (`code_status: none`). Speculative vs diffusion speed/quality tradeoff; not a serving default.
+
 ### 2026-10-22 — weekday SOTA sweep (ReAPO, CSD, TeachBack, Flat-RLVR, EPIC, CORD, SPARE, Right On Q, NormTune, Harness Scaling, BIRD-RL, EMPO, BRACE, LongZero, LAW, PACE, Uni-Mem, Monitorability Post-Training, SSR, DoobPO, FlashNext-RL, TraceForge; notes SimHack, Muon Hessian ortho, ECHO vocab collapse, data-LR schedules, LCCP scaling, target regeneration, 2:4 vs quant, truncated-backprop looped, on-policy audit collapse)
 - Twenty-two active plug-ins and nine paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE).
 - Window: 2026-10-22 Librarian weekday sweep after merged PR 49 (watermark 2610.28632, ~1652 nodes, 17cdd9a). arXiv cs.LG/cs.CL/cs.AI new listing Thu 2026-10-22 (2610.28636-2610.30132) plus HF Daily 2026-10-21 leftovers and 2026-10-22. New high id 2610.30132.

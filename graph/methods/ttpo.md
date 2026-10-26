@@ -7,6 +7,10 @@ status: sota
 sota_for:
   - task:label-free-test-time-reasoner
 supersedes: []
+do_not_use_for:
+  - when: "multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL)"
+    reason: "TTPO remains the unlabeled TTT first hop; MS-TTRL is TTRL when several answers are valid and frequency fights diversity"
+    use_instead: "method:ms-ttrl"
 papers:
   - paper:ttpo
 recipes:

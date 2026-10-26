@@ -7,9 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: 'the locked first hop on task:pretrain-moe-frontier'
-  reason: 'SPARE is an active plug-in; method:deepseek-v4 remains the first hop'
-  use_instead: method:deepseek-v4
+  - when: "training-free MoE compression via groupwise subspace sharing and pruning (GS-MoE)"
+    reason: "SPARE allocates a prune budget from routing entropy; GS-MoE shares subspaces and prunes width"
+    use_instead: "method:gs-moe"
+  - when: 'the locked first hop on task:pretrain-moe-frontier'
+    reason: 'SPARE is an active plug-in; method:deepseek-v4 remains the first hop'
+    use_instead: method:deepseek-v4
 assumptions:
 - 'Frozen MoE checkpoint. Routing entropy from Top-K gate weights on calibration data.'
 last_reviewed: '2026-10-22'

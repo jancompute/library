@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "looped LM depth reuse needs train/run agreement more than normalisation"
+    reason: "Gotcha on Ouro-style loop reuse; does not retarget RLT"
+    use_instead: "paper:looped-depth-reusable"
+  - when: "looped LM halting heads may not save compute"
+    reason: "Gotcha: mixed-iteration halt heads fail; does not retarget RLT"
+    use_instead: "paper:looped-halting-heads"
   - when: "truncated-backprop gradient loss in looped transformers"
     reason: "Gotcha on last-k TBPTT for looped LMs; does not retarget RLT"
     use_instead: "paper:truncated-backprop-looped"
@@ -27,6 +33,8 @@ assumptions:
   - "Code: ifm-ai/xllm-loop (`code_status: released`)."
 last_reviewed: '2026-10-19'
 papers:
+  - paper:looped-depth-reusable
+  - paper:looped-halting-heads
   - paper:truncated-backprop-looped
   - paper:looped-models-done-right-i
   - paper:looped-models-done-right

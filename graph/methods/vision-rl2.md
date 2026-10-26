@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "cycle GRPO coupling region understanding and localization (CycleGRPO)"
+    reason: "Vision-RL2 remains region-proposal RL; CycleGRPO couples understand and localize across spatial/temporal domains"
+    use_instead: "method:cyclegrpo"
   - when: "online adaptive prompt selection / teacher scaffolding for image/VL GRPO"
     reason: "EPS prompt scaffolding remains that first hop; Vision-RL2 trains a region proposal network"
     use_instead: "method:eps-prompt-scaffolding"

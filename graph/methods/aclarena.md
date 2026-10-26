@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "multi-stage agent capability stacking / ACLArena"
+    reason: "ACLArena remains agent continual-learning; NESTOR is nested-sparsity architecture"
+    use_instead: "method:nestor"
   - when: "off-policy merging / donor-checkpoint grafting instead of OPSD for continual learning"
     reason: "ACLArena remains the agent continual-learning first hop; off-policy grafting is a caveat against OPSD for CL"
     use_instead: "method:off-policy-grafting"

@@ -12,6 +12,12 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: "SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE)"
+    reason: "OLMo-3 remains the open instruct stack; DRIVE reweights inaccessible-source SFT to limit forgetting"
+    use_instead: "method:drive-ft"
+  - when: "synthetic rewrite scaling under compute and data constraints"
+    reason: "Gotcha on rewrite spend vs rewriter quality; does not retarget OLMo-3"
+    use_instead: "paper:synthetic-rewrite-laws"
   - when: "preference-optimization vocabulary collapse from common-mode hidden offsets (ECHO)"
     reason: "Gotcha on DPO-family ranking-vs-generation collapse; does not retarget OLMo-3"
     use_instead: "paper:echo-vocab-collapse"
@@ -31,6 +37,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:synthetic-rewrite-laws
   - paper:echo-vocab-collapse
   - paper:dpo-hp-landscape
   - paper:olmo-3

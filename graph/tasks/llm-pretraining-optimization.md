@@ -12,6 +12,10 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "Muon polar update on quadratics / Newton-Schulz pitfalls"
+    to: "paper:muon-quadratic-polar"
+  - when: "Muon preconditioning vs isotropic gradient noise"
+    to: "paper:muon-structured-noise"
   - when: "why Muon orthogonalization fits the neural Hessian (gradient self outer-product at init)"
     to: "paper:muon-hessian-ortho"
   - when: "joint data-mix and LR schedules for pretrain then mid-training"
@@ -115,7 +119,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - pretraining
   - optimizer

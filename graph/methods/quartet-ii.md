@@ -7,6 +7,9 @@ status: sota
 sota_for:
   - task:fp4-hardware-training
 do_not_use_for:
+  - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
+    reason: "Quartet-II / MXFP4 remain native FP4 hardware SOTA; ALTO is a GPT-OSS-20B MXFP4 recipe on MLPerf Small MoE"
+    use_instead: "method:alto-mxfp4"
   - when: "2:4 semi-structured sparsity vs dropping to the next lower precision"
     reason: "Gotcha: if a lower precision exists, 2:4 is the worse next step; does not retarget Quartet-II"
     use_instead: "paper:sparsity-24-vs-quant"

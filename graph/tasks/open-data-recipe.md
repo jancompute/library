@@ -26,6 +26,8 @@ methods:
   - method:synth
   - method:self-play-pretraining
 redirects:
+  - when: "synthetic rewrite scaling under compute and data constraints"
+    to: "paper:synthetic-rewrite-laws"
   - when: "unique-token epoch / repetition geometry under a finite pretrain corpus (not the open mix)"
     to: "task:data-constrained-pretrain"
   - when: "in-language (L2) reasoning SFT rather than a pretrain mix"
@@ -38,7 +40,7 @@ redirects:
     to: "method:specialists-learn-faster"
   - when: "text/vision/audio MoE mixing laws rather than the open text mix"
     to: "method:multimodal-data-mixtures"
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-26'
 tags:
   - pretraining
   - open-data

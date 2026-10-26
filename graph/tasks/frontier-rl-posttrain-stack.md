@@ -19,6 +19,8 @@ out_of_scope:
   - "MoE train–infer mismatch IS correction (CIS-RL)"
   - "Cancellation-aware off-policy sequence masking (CARM)"
 redirects:
+  - when: "rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL)"
+    to: "method:ngramrl"
   - when: "Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL)"
     to: "method:flashnext-rl"
   - when: "scaled omni-modal RL playbook with router freeze and groupwise agentic grading (MiMo-V2.6)"
@@ -67,6 +69,7 @@ current_sota:
     value: "263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)"
     notes: "Miles v0.1 (2609.08368). Process/system SOTA for the frontier post-train engine. Does not replace Poolside factory, SAO, CISPO, Muon2, or mini-SWE-agent. Reward rise is a single-run observation."
 methods:
+  - method:ngramrl
   - method:flashnext-rl
   - method:s3r
   - method:agenttune
@@ -88,7 +91,7 @@ methods:
   - method:lsd
   - method:carm
   - method:nemo-dcr
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - systems
   - training-systems

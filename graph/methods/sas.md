@@ -8,6 +8,12 @@ sota_for:
   - task:posttrain-attention-sparsification
 supersedes: []
 do_not_use_for:
+  - when: "sparse attention with a one-token tail proxy (OpenAttention)"
+    reason: "SAS remains the gated post-train first hop; OpenAttention keeps a 1-token proxy for the unread tail"
+    use_instead: "method:openattention"
+  - when: "forward-dense backward-sparse attention for long-context fine-tuning (LazyFlash)"
+    reason: "SAS remains gated inference/train sparsification; LazyFlash keeps a dense forward and sparsifies the backward for long-context FT"
+    use_instead: "method:lazyflash"
   - when: "dumped corpus much larger than the window"
     reason: "SAS sparsifies attention inside the transformer; RLM offloads the prompt"
     use_instead: "method:rlm"

@@ -8,6 +8,9 @@ sota_for:
   - task:data-free-self-evolution
 supersedes: []
 do_not_use_for:
+  - when: "on-policy self-training from self-generated QA pairs (no external teacher or labeled set)"
+    reason: "J-Zero remains Challenger-Solver-Judge; this card is data-free on-policy self-distillation from self-proposed QA"
+    use_instead: "method:op-self-training"
   - when: "zero-data long-context RL from self-proposed tasks (LongZero)"
     reason: "J-Zero remains Challenger-Solver-Judge; LongZero is long-context RLVR on model-proposed verifiable tasks"
     use_instead: "method:longzero"

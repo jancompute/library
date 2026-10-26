@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: "LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep)"
+    reason: "Quality default remains vanilla LoRA + rsLoRA + LR sweep; this card re-inits LoRA so LoRA+ asymmetric LRs are less brittle"
+    use_instead: "method:lora-init-asymmetric"
   - when: "norm-guided PEFT for reasoning-intensive tasks (NormTune)"
     reason: "Quality default remains vanilla LoRA + rsLoRA + LR sweep; NormTune upweights under-adapted layers by update-norm"
     use_instead: "method:normtune"

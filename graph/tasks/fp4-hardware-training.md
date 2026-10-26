@@ -5,6 +5,10 @@ title: "Native FP4 Hardware Training"
 domain: "compression"
 summary: "End-to-end 4-bit floating-point forward and backward pass training on modern GPU accelerators."
 redirects:
+  - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
+    to: "method:alto-mxfp4"
+  - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
+    to: "method:alto-mxfp4"
   - when: "2:4 semi-structured sparsity vs dropping to the next lower precision"
     to: "paper:sparsity-24-vs-quant"
   - when: "NVFP4 pretrain recipe ingredients at 8B / 30B-A3B (not Quartet-II default)"
@@ -31,6 +35,8 @@ current_sota:
     value: "Co-Default SOTA for microscaling FP4"
     notes: "MXFP4 (2605.09825)."
 methods:
+  - method:alto-mxfp4
+  - method:alto-mxfp4
   - method:nvfp4-pretrain-recipe
   - method:mixed-precision-scaling
   - method:dualquant
@@ -42,7 +48,7 @@ methods:
   - method:kbbq
   - method:trace
   - method:triage
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - compression
   - quantization

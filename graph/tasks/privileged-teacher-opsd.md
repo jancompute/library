@@ -5,6 +5,8 @@ title: "Privileged-Teacher On-Policy Self-Distillation"
 domain: "post-training"
 summary: "On-policy self-distillation where a same-size teacher is privileged with a gold reference solution and a deterministic outcome verifier, rather than a larger frozen teacher model."
 redirects:
+  - when: "multi-view privileged OPSD that reduces reference sensitivity (One Teacher, Many Views)"
+    to: "method:multi-view-opsd"
   - when: "bidirectional preference OPSD so the teacher learns how to teach (TeachBack)"
     to: "method:teachback"
   - when: "privileged retrospective distillation without GT or verifier rewards (RSD)"
@@ -59,6 +61,7 @@ current_sota:
     value: "VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0"
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
+  - method:multi-view-opsd
   - method:teachback
   - method:rsd
   - method:waypoint-opd
@@ -88,7 +91,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - distillation

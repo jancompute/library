@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:lora-init-asymmetric
   - method:normtune
   - method:mupace
   - method:topa
@@ -27,8 +28,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 redirects:
+  - when: "LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep)"
+    to: "method:lora-init-asymmetric"
   - when: "norm-guided PEFT for reasoning-intensive tasks (NormTune)"
     to: "method:normtune"
   - when: "MuPACE Muon for LoRA (meta-learned global step size)"

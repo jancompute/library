@@ -8,6 +8,9 @@ sota_for:
   - task:synthetic-single-stage-pretrain
 supersedes: []
 do_not_use_for:
+  - when: "synthetic rewrite scaling under compute and data constraints"
+    reason: "Gotcha on rewrite spend vs rewriter quality; does not retarget OLMo-3"
+    use_instead: "paper:synthetic-rewrite-laws"
   - when: "choosing the open pretrain mix / Dolma-3 recipe"
     reason: "SYNTH is a seed-grounded synthetic corpus, not a replacement for Dolma-3"
     use_instead: "method:olmo-3"
@@ -26,6 +29,7 @@ assumptions:
   - "Knowledge is capped by ~58k Wikipedia seeds; the model abstains heavily outside that set."
 last_reviewed: "2026-10-03"
 papers:
+  - paper:synthetic-rewrite-laws
   - paper:synth
 recipes:
   - recipe:synth

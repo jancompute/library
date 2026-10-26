@@ -12,6 +12,10 @@ out_of_scope:
   - "Frontier RL post-train engine (Miles)"
   - "W4A4 PTQ noise law (KBBQ)"
 redirects:
+  - when: "rounding-location alignment between inference and train for RL (not NVFP4 QAT)"
+    to: "method:rounding-align-rl"
+  - when: "rounding-location alignment between inference and train for RL (not NVFP4 QAT)"
+    to: "method:rounding-align-rl"
   - when: "native NVFP4 RL execution alignment (miniTE)"
     to: "method:minite"
   - when: "native FP4 forward/backward hardware training from scratch, not RL train–rollout mismatch"
@@ -38,6 +42,8 @@ current_sota:
     value: "up to 2.3×"
     notes: "TRIAGE (2610.07043). Dual-active with TRACE. Method status active. No head-to-head vs TRACE."
 methods:
+  - method:rounding-align-rl
+  - method:rounding-align-rl
   - method:minite
   - method:kv4-rl
   - method:trace
@@ -46,7 +52,7 @@ methods:
   - method:mxfp4-mi355x
   - method:sapo
   - method:cispo
-last_reviewed: '2026-10-20'
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - quantization

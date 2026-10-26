@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "rounding-location alignment between inference and train for RL (not NVFP4 QAT)"
+    reason: "TRACE / TRIAGE remain FP4 train-rollout first hops; this card aligns where BF16 rounding happens across inference and train"
+    use_instead: "method:rounding-align-rl"
   - when: "native FP4 forward/backward hardware training from scratch"
     reason: "TRACE is RL train–rollout QAT; Quartet-II remains native FP4 pretrain"
     use_instead: "method:quartet-ii"
