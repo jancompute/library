@@ -11,6 +11,8 @@ out_of_scope:
   - "24GB quality LoRA in BF16/FP16 (vanilla LoRA + rsLoRA + LR sweep)"
   - "Post-training ternarization of an existing SOTA LLM (ScaleQ-1.58)"
 redirects:
+  - when: "message-passing post-training quantization that does not commit a block before neighbors (MPQ)"
+    to: "method:mpq"
   - when: "QAT recovery via self-generated trajectories (Right On Q)"
     to: "method:right-on-q"
   - when: "E8-QAT 2-bit QAT with implicit lattice codebooks"
@@ -23,7 +25,7 @@ redirects:
     to: "task:fp4-hardware-training"
   - when: "quality LoRA on 24GB without a fully quantized checkpoint constraint"
     to: "task:lora-quality-tuning"
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 current_sota:
   - method: method:gradcodes
     as_of: "2026-09-01"
@@ -32,6 +34,7 @@ current_sota:
     value: "GradCodeS Full 41.63 vs PV-Tuning 36.92 vs QLoRA-4Merge 24.79 vs Base-4 25.85"
     notes: "GradCodeS (2608.30908). Does not replace AQLoRA-Q as 4-bit PEFT default or Quartet-II as NVFP4 hardware training."
 methods:
+  - method:mpq
   - method:right-on-q
   - method:e8-qat
   - method:onlineqat

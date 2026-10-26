@@ -7,16 +7,20 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: 'the locked first hop on task:math-code-rl-dense'
-  reason: 'Monitorability Post-Training is an active plug-in; method:cispo remains the first hop'
-  use_instead: method:cispo
+  - when: "causal bounds / intervention-aware CoT monitorability (not Pass@1)"
+    reason: "Gotcha on CoT monitor evals; does not retarget CISPO"
+    use_instead: "paper:monitorability-causal"
+  - when: 'the locked first hop on task:math-code-rl-dense'
+    reason: 'Monitorability Post-Training is an active plug-in; method:cispo remains the first hop'
+    use_instead: method:cispo
 assumptions:
 - 'CoT tokens are still produced. Mutual information vs the output, no extra labels. No public code as of 2026-10-22.'
 last_reviewed: '2026-10-22'
 papers:
-- paper:monitorability-trainable
+  - paper:monitorability-causal
+  - paper:monitorability-trainable
 recipes:
-- recipe:monitorability-trainable
+  - recipe:monitorability-trainable
 claims:
 - benchmark: 'Three degraded-CoT organisms; undegraded policies vs CoT monitors and probes'
   metric: 'recovered monitorability; unsafe-behavior prediction'

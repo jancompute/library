@@ -8,6 +8,9 @@ sota_for:
   - task:full-lowbit-finetune
 supersedes: []
 do_not_use_for:
+  - when: "message-passing post-training quantization that does not commit a block before neighbors (MPQ)"
+    reason: "GradCodeS remains deployed low-bit FT; MPQ is PTQ that delays codeword commit via message passing"
+    use_instead: "method:mpq"
   - when: "QAT recovery via self-generated trajectories (Right On Q)"
     reason: "GradCodeS remains deployed low-bit FT; Right On Q is on-policy trajectory QAT for long-horizon reasoning"
     use_instead: "method:right-on-q"

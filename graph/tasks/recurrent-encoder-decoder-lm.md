@@ -15,6 +15,10 @@ out_of_scope:
   - "Compute-matched MoE looping of middle layers (SMELT)"
   - "Elastic mixed-depth looped LM training (ELR)"
 redirects:
+  - when: "looped LM depth reuse needs train/run agreement more than normalisation"
+    to: "paper:looped-depth-reusable"
+  - when: "looped LM halting heads may not save compute"
+    to: "paper:looped-halting-heads"
   - when: "truncated-backprop gradient loss in looped transformers"
     to: "paper:truncated-backprop-looped"
   - when: "PAR progress-aligned recurrence for state-tracking length generalization"
@@ -52,7 +56,7 @@ methods:
   - method:deepseek-v41-flash
   - method:ncp-archpreview
   - method:deepseek-v4
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - pretraining
   - architecture

@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:deepseek-v3
 do_not_use_for:
+  - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
+    reason: "NESTOR is nested sparsity; DeepSeek-V4 / Kimi-K3 remain the MoE template"
+    use_instead: "method:nestor"
+  - when: "training-free MoE compression via groupwise subspace sharing and pruning (GS-MoE)"
+    reason: "DeepSeek-V4 remains the MoE pretrain template; GS-MoE is post-hoc expert compression"
+    use_instead: "method:gs-moe"
   - when: "training-free MoE expert prune by routing entropy (SPARE)"
     reason: "DeepSeek-V4 remains the MoE pretrain template; SPARE allocates a prune budget from routing entropy"
     use_instead: "method:spare-moe"

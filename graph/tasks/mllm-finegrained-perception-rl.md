@@ -12,6 +12,8 @@ out_of_scope:
   - "MoE/VL RLVR loss rather than region proposal (SAPO)"
   - "MLLM privileged OPSD with textual spatial guidance (Where-OPD)"
 redirects:
+  - when: "cycle GRPO coupling region understanding and localization (CycleGRPO)"
+    to: "method:cyclegrpo"
   - when: "online adaptive prompt selection / teacher scaffolding for image/VL GRPO"
     to: "task:mllm-rl-prompt-curriculum"
   - when: "video annotation-as-rollout / fine-grained video perception RL"
@@ -30,13 +32,14 @@ current_sota:
     value: "80.1 vs 74.6 / 78.7; 4B aligned 71.1 vs SD-RPN 66.6 with 4.2× fewer tokens"
     notes: "Vision-RL2 (2609.19745). Active region-level RL. Method status active (not sota). Does not replace EPS prompt scaffolding."
 methods:
+  - method:cyclegrpo
   - method:vision-rl2
   - method:eps-prompt-scaffolding
   - method:orarl
   - method:cispo
   - method:sapo
   - method:where-opd
-last_reviewed: "2026-10-02"
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - multimodal-rl

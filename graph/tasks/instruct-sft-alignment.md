@@ -18,6 +18,7 @@ current_sota:
     value: "Industrial SOTA Alt"
     notes: "Nemotron-Cascade-2 (2603.19220) for industrial multi-stage SFT."
 methods:
+  - method:drive-ft
   - method:metacurate
   - method:autosft
   - method:onepo
@@ -34,6 +35,8 @@ methods:
   - method:dco
   - method:opsft
 redirects:
+  - when: "SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE)"
+    to: "method:drive-ft"
   - when: "evolving SWE trajectory filters (MetaCurate)"
     to: "method:metacurate"
   - when: "post-training tunes a pretrained cue-routing circuit (sycophancy heads)"
@@ -48,7 +51,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - instruct

@@ -5,6 +5,18 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
+    to: "method:gift"
+  - when: "advantage-gated on-policy distillation (AOPD / when to follow the teacher)"
+    to: "method:aopd"
+  - when: "minimal-edit on-policy distillation for multimodal reasoning (Edit-OPD)"
+    to: "method:edit-opd"
+  - when: "frontier / learning-edge on-policy distillation for multi-turn agents (Frontier-OPD)"
+    to: "method:frontier-opd"
+  - when: "reverse-KL OPD statistical guarantees and coverage limits"
+    to: "paper:reverse-kl-limits"
+  - when: "hierarchical on/off-policy level for LLM agent distillation"
+    to: "paper:hier-agent-distill"
   - when: "common-support distillation for cross-tokenizer knowledge transfer (CSD)"
     to: "method:csd"
   - when: "conflict-aware joint RL and distillation (CORD)"
@@ -171,6 +183,10 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:gift
+  - method:aopd
+  - method:edit-opd
+  - method:frontier-opd
   - method:csd
   - method:cord
   - method:traceforge
@@ -262,7 +278,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - distillation

@@ -11,6 +11,15 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
+    reason: "Muon2 remains the ~7B optimizer; NESTOR is nested conditional-computation sparsity, not an optimizer"
+    use_instead: "method:nestor"
+  - when: "Muon polar update on quadratics / Newton-Schulz pitfalls"
+    reason: "Gotcha on when PolarGD helps; does not retarget Muon2"
+    use_instead: "paper:muon-quadratic-polar"
+  - when: "Muon preconditioning vs isotropic gradient noise"
+    reason: "Gotcha: isotropic noise yields no Muon gain beyond LR rescale; does not retarget Muon2"
+    use_instead: "paper:muon-structured-noise"
   - when: "why Muon orthogonalization fits the neural Hessian (gradient self outer-product at init)"
     reason: "Gotcha/explanation of Muon vs Hessian structure; does not retarget Muon2"
     use_instead: "paper:muon-hessian-ortho"
@@ -70,6 +79,8 @@ do_not_use_for:
     use_instead: "paper:muon-ns-bias"
 last_reviewed: '2026-10-21'
 papers:
+  - paper:muon-quadratic-polar
+  - paper:muon-structured-noise
   - paper:muon-hessian-ortho
   - paper:data-lr-schedules
   - paper:lccp-scaling

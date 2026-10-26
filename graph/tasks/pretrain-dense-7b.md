@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
+    to: "method:nestor"
   - when: "unique-token epoch / repetition geometry under a finite pretrain corpus"
     to: "task:data-constrained-pretrain"
   - when: "latent-space / next-concept LM architecture rather than dense NTP 7B"
@@ -25,6 +27,7 @@ redirects:
   - when: "one-step prefix-augmented OPD for continued pretrain (PA1-OPD)"
     to: "method:pa1-opd"
 methods:
+  - method:nestor
   - method:pa1-opd
   - method:clean
   - method:dga-muon
@@ -48,7 +51,7 @@ methods:
   - method:synth
   - method:self-play-pretraining
   - method:muonio
-last_reviewed: "2026-10-15"
+last_reviewed: '2026-10-26'
 tags:
   - pretraining
   - dense-lm

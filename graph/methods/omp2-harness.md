@@ -8,6 +8,12 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: "harness token efficiency via guarded decision reuse / RSI (HarnessMM)"
+    reason: "omp2 remains the production kernel; HarnessMM reuses earlier tool-loop decisions and RSI-edits a companion harness"
+    use_instead: "method:harnessmm"
+  - when: "composable framework for comparing agent-evolution / RSI methods (RSIHub)"
+    reason: "omp2 remains the production kernel; RSIHub is shared infrastructure for RSI recipes, not the kernel"
+    use_instead: "method:rsihub"
   - when: "harness evolution via successive scale racing (SSR)"
     reason: "omp2 remains the production kernel; SSR searches evidence combinations as the evolution-task pool grows"
     use_instead: "method:ssr"

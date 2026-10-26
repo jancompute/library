@@ -9,6 +9,24 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
+    reason: "OPD remains matching; GIFT keeps distillation tokens whose gradient agrees with the RL objective"
+    use_instead: "method:gift"
+  - when: "advantage-gated on-policy distillation (AOPD / when to follow the teacher)"
+    reason: "OPD remains matching at every student state; AOPD follows the teacher only when the advantage says it helps the student"
+    use_instead: "method:aopd"
+  - when: "minimal-edit on-policy distillation for multimodal reasoning (Edit-OPD)"
+    reason: "OPD remains token matching; Edit-OPD edits the student's own trajectory instead of imitating a full teacher trace"
+    use_instead: "method:edit-opd"
+  - when: "frontier / learning-edge on-policy distillation for multi-turn agents (Frontier-OPD)"
+    reason: "OPD remains matching; Frontier-OPD supervises only decision states on the student's learning frontier"
+    use_instead: "method:frontier-opd"
+  - when: "reverse-KL OPD statistical guarantees and coverage limits"
+    reason: "Gotcha on reverse-KL coverage / teacher-payload; does not retarget OPD"
+    use_instead: "paper:reverse-kl-limits"
+  - when: "hierarchical on/off-policy level for LLM agent distillation"
+    reason: "Gotcha: history policy vs token-prefix policy; does not retarget OPD"
+    use_instead: "paper:hier-agent-distill"
   - when: "common-support distillation for cross-tokenizer knowledge transfer (CSD)"
     reason: "OPD remains same-tokenizer matching; CSD is cross-tokenizer common-support"
     use_instead: "method:csd"
@@ -146,6 +164,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-10-21'
 papers:
+  - paper:reverse-kl-limits
+  - paper:hier-agent-distill
   - paper:native-safety-opd
   - paper:opdarena
   - paper:opd-teacher-advantage

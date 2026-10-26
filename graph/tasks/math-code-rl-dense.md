@@ -19,6 +19,14 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
+    to: "method:gift"
+  - when: "mix-policy RL under expert prefix guidance with selective rollback (MOER)"
+    to: "method:moer"
+  - when: "direction-aware token credit from reward-model gradients (DATC)"
+    to: "method:datc"
+  - when: "causal bounds / intervention-aware CoT monitorability (not Pass@1)"
+    to: "paper:monitorability-causal"
   - when: "retry-aware policy optimization for RLVR (ReAPO)"
     to: "method:reapo"
   - when: "sharpness-aware RLVR against distribution sharpening (Flat-RLVR)"
@@ -143,6 +151,9 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:gift
+  - method:moer
+  - method:datc
   - method:reapo
   - method:flat-rlvr
   - method:epic
@@ -218,7 +229,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-26'
 tags:
   - post-training
   - reasoning

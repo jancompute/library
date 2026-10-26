@@ -11,7 +11,11 @@ current_sota:
     metric: "test-time accuracy"
     value: "Matches label-supervised OPSD; Qwen3-1.7B 38.0% -> 45.2%"
     notes: "TTPO (2608.27448) uses asymmetric OPSD on agreeing rollouts and Grouped RL on disagreeing rollouts."
+redirects:
+  - when: "multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL)"
+    to: "method:ms-ttrl"
 methods:
+  - method:ms-ttrl
   - method:ttpo
   - method:u-opsd
   - method:j-zero
@@ -19,7 +23,7 @@ methods:
   - method:cispo
   - method:opsa
   - method:bias-only-ttrl
-last_reviewed: "2026-09-18"
+last_reviewed: '2026-10-26'
 tags:
   - test-time-training
   - reasoning
