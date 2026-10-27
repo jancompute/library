@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: 'intervention-certified / sigma-weighted SFT-RL amplification gate'
+    reason: 'Gotcha on hybrid SFT/RL amplification; does not retarget OLMo-3'
+    use_instead: paper:intervention-certified
   - when: "SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE)"
     reason: "OLMo-3 remains the open instruct stack; DRIVE reweights inaccessible-source SFT to limit forgetting"
     use_instead: "method:drive-ft"
@@ -37,6 +40,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:intervention-certified
   - paper:synthetic-rewrite-laws
   - paper:echo-vocab-collapse
   - paper:dpo-hp-landscape

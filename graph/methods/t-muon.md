@@ -7,9 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: 'choosing the ~7B dense pretrain optimizer'
-  reason: 'T-MUON is a t-SVD grouping of Muon updates, not a 7B bake-off'
-  use_instead: method:muon2
+  - when: 'tensor-aware mix-then-polarize optimizer (TUON; not T-MUON)'
+    reason: 'T-MUON groups Muon updates; TUON mix-then-polarizes across layers'
+    use_instead: method:tuon
+  - when: 'choosing the ~7B dense pretrain optimizer'
+    reason: 'T-MUON is a t-SVD grouping of Muon updates, not a 7B bake-off'
+    use_instead: method:muon2
 assumptions:
 - 'Groups structurally related Transformer gradients into third-order tensors. Paper: GPT-2 / LLaMA-style 51M-1.3B FineWeb / FineWeb-Edu.'
 - 'No public code as of 2026-10-20.'

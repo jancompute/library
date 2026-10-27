@@ -8,6 +8,12 @@ sota_for:
   - task:privileged-teacher-opsd
 supersedes: []
 do_not_use_for:
+  - when: 'steered-teacher OPSD against reference hallucination / reconsideration suppression'
+    reason: 'VISTA remains gold-solution privileged OPSD; ST-OPSD steers teacher activations'
+    use_instead: method:steer-teacher
+  - when: 'stage-matched privileged OPSD for localize/reproduce/patch (SWE-Ladder)'
+    reason: 'VISTA remains gold-solution OPSD; SWE-Ladder stages privileged evidence'
+    use_instead: method:swe-ladder
   - when: "multi-view privileged OPSD that reduces reference sensitivity (One Teacher, Many Views)"
     reason: "VISTA remains single-reference gold OPSD; multi-view OPSD conditions the teacher on several realizations of the solution"
     use_instead: "method:multi-view-opsd"
@@ -56,7 +62,7 @@ do_not_use_for:
   - when: "privileged-context content (demo vs feedback vs rephrase) as OPSD drift, not a trainer"
     reason: "VISTA remains the trainer; Privileged Context as Drift is an evidence card"
     use_instead: "method:privileged-context-drift"
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
   - paper:self-distillation-ood
   - paper:pr-opd

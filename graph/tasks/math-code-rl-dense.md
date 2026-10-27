@@ -19,6 +19,18 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "policy-intrinsic exploration then self-distill (SEPO)"
+    to: "method:sepo"
+  - when: "rollout-agreement reward on verified-correct GRPO traces (RoAR)"
+    to: "method:roar"
+  - when: "budgeted strong-verifier audits on low-pass GRPO groups (Hack-Audit / LB)"
+    to: "method:hack-audit"
+  - when: "sign law for entropy drift under sampler mismatch"
+    to: "paper:sign-law-entropy-rlvr"
+  - when: "intervention-certified / sigma-weighted SFT-RL amplification gate"
+    to: "paper:intervention-certified"
+  - when: "Stabilized Selective Scalable Actor-Critic (S3AC), not Pass@1"
+    to: "method:s3ac"
   - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
     to: "method:gift"
   - when: "mix-policy RL under expert prefix guidance with selective rollback (MOER)"
@@ -151,6 +163,10 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:sepo
+  - method:roar
+  - method:hack-audit
+  - method:s3ac
   - method:gift
   - method:moer
   - method:datc
@@ -229,7 +245,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 tags:
   - post-training
   - reasoning

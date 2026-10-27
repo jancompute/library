@@ -7,6 +7,12 @@ status: experimental
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'exact hybrid logp for deferred looped-transformer RL (ScaleRLT)'
+    reason: 'RLT remains the experimental CED architecture; ScaleRLT is the RL logp numeric fix'
+    use_instead: method:scalerlt
+  - when: 'LSTM-style looped transformer with shared KV cache'
+    reason: 'RLT remains CED; this card shares one KV cache across an LSTM-style loop'
+    use_instead: method:lstm-looped-kv
   - when: "truncated-backprop gradient loss in looped transformers"
     reason: "Gotcha on last-k TBPTT for looped LMs; does not retarget RLT"
     use_instead: "paper:truncated-backprop-looped"

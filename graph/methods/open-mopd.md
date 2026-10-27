@@ -8,6 +8,9 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'rollout-free multi-task consolidation from domain-RL history (DoubleFree)'
+    reason: 'Open-MOPD remains live multi-teacher; DoubleFree is rollout-free consolidation'
+    use_instead: method:doublefree
   - when: "capability-aware multi-teacher OPD (CA-MOPD)"
     reason: "Open-MOPD remains the library multi-teacher bake-off; CA-MOPD paper Open-MOPD numbers are not 83.4%"
     use_instead: "method:ca-mopd"

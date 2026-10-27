@@ -5,6 +5,8 @@ title: "1-Bit / Ternary Extreme Weight Quantization"
 domain: "compression"
 summary: "Training ultra-low-bitwidth (-1, 0, 1) foundation models from scratch with native integer-addition matrix kernels."
 redirects:
+  - when: "error-diffusion residual buffers for binary-weight on-device training"
+    to: "method:error-diffusion"
   - when: "Ising / Sigma-Delta sampling for binary-ternary on-edge training"
     to: "method:sigma-delta-sampler"
 current_sota:
@@ -15,6 +17,7 @@ current_sota:
     value: "2026 BitNet SOTA line; parity with dense 2B4T baseline"
     notes: "Sparse-BitNet (2603.05168); keep 2B4T as dense cite."
 methods:
+  - method:error-diffusion
   - method:sigma-delta-sampler
   - method:sparse-bitnet
   - method:scaleq-158
@@ -24,7 +27,7 @@ methods:
   - method:bitembed
   - method:bitnet-b158
   - method:af1
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-27'
 tags:
   - compression
   - quantization

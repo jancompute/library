@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'lessons that carry chance from noisy outcomes into the next decision'
+    reason: 'ACE remains write-time playbook; this is a registered chance-carrying-lesson gotcha'
+    use_instead: paper:luck-carrying-lessons
   - when: "unified online RL of construction and retrieval for agent memory (Uni-Mem)"
     reason: "ACE remains write-time playbook; Uni-Mem jointly RL-trains construction and retrieval with Stage-Decoupled GRPO"
     use_instead: "method:uni-mem"
@@ -33,6 +36,7 @@ assumptions:
   - "Generator / Reflector / Curator. Incremental bullets, not rewrite. Needs execution feedback."
 last_reviewed: "2026-09-24"
 papers:
+  - paper:luck-carrying-lessons
   - paper:ace
 recipes:
   - recipe:ace

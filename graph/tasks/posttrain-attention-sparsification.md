@@ -12,6 +12,8 @@ out_of_scope:
   - "SWE issue-to-patch harness"
   - "KV-compressed CED MoE serving (DeepSeek-V4.1-Flash)"
 redirects:
+  - when: "interleaved scatter/gather static sparse attention (INTRA)"
+    to: "method:intra"
   - when: "sparse attention with a one-token tail proxy (OpenAttention)"
     to: "method:openattention"
   - when: "forward-dense backward-sparse attention for long-context fine-tuning (LazyFlash)"
@@ -34,10 +36,11 @@ current_sota:
     value: "+6.0 to +7.7 MATH500; +10.6 to +15.5 GPQA-Diamond"
     notes: "SAS (2609.13141). End-to-end LM-loss gates vs Top-K + dense-attention distillation. Narrow task only."
 methods:
+  - method:intra
   - method:openattention
   - method:lazyflash
   - method:sas
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 tags:
   - efficiency
   - sparse-attention

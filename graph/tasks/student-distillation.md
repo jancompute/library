@@ -5,6 +5,8 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "rollout-free multi-task consolidation from domain-RL history (DoubleFree)"
+    to: "method:doublefree"
   - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
     to: "method:gift"
   - when: "advantage-gated on-policy distillation (AOPD / when to follow the teacher)"
@@ -183,6 +185,7 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:doublefree
   - method:gift
   - method:aopd
   - method:edit-opd
@@ -278,7 +281,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 tags:
   - post-training
   - distillation

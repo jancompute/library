@@ -12,6 +12,10 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "tensor-aware mix-then-polarize optimizer (TUON; not T-MUON)"
+    to: "method:tuon"
+  - when: "last-iterate finite Newton-Schulz Muon stationarity"
+    to: "paper:muon-last-iterate-ns"
   - when: "Muon polar update on quadratics / Newton-Schulz pitfalls"
     to: "paper:muon-quadratic-polar"
   - when: "Muon preconditioning vs isotropic gradient noise"
@@ -81,6 +85,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:tuon
   - method:hymuon
   - method:polar-switch
   - method:t-muon
@@ -119,7 +124,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 tags:
   - pretraining
   - optimizer

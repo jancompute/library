@@ -11,6 +11,12 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'tensor-aware mix-then-polarize optimizer (TUON; not T-MUON)'
+    reason: 'Muon2 remains the ~7B default; TUON mixes layers then polarizes T-SVD slices'
+    use_instead: method:tuon
+  - when: 'last-iterate finite Newton-Schulz Muon stationarity'
+    reason: 'Gotcha on last-iterate finite-NS Muon; does not retarget Muon2'
+    use_instead: paper:muon-last-iterate-ns
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
     reason: "Muon2 remains the ~7B optimizer; NESTOR is nested conditional-computation sparsity, not an optimizer"
     use_instead: "method:nestor"
@@ -77,8 +83,9 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
+  - paper:muon-last-iterate-ns
   - paper:muon-quadratic-polar
   - paper:muon-structured-noise
   - paper:muon-hessian-ortho

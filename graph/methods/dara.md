@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'priority-preserving primary/auxiliary advantage fusion (PAPO)'
+    reason: 'DARA remains density-aware aggregation; PAPO preserves primary-advantage sign'
+    use_instead: method:papo
+  - when: 'group Pareto-dominance reuse of conflict-filtered rollouts (GPDPO)'
+    reason: 'DARA remains density-aware aggregation; GPDPO recovers Pareto pairs'
+    use_instead: method:gpdpo
   - when: "single-turn dense math/code Pass@1 RLVR (one verifier reward)"
     reason: "CISPO remains Pass@1; DARA reweights multi-reward GDPO-style advantages by active-group density"
     use_instead: "method:cispo"

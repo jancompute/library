@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'turn-scale advantage plus turn-level IS (MPO), not async stragglers'
+    reason: 'SAO remains async; MPO is multiscale credit'
+    use_instead: method:mpo
   - when: "harness scaling / train through a factorized harness space (Harness Scaling)"
     reason: "SAO remains async stragglers; Harness Scaling varies the execution harness"
     use_instead: "method:harness-scaling"
@@ -73,7 +76,7 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-27'
 papers:
   - paper:muon-lh-rl
   - paper:sao
