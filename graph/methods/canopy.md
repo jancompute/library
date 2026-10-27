@@ -8,6 +8,18 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
+    reason: 'CANOPY remains checker coverage; FORK adds a precision/necessity rubric objective'
+    use_instead: method:fork-precision
+  - when: 'progress-aware advantage shaping / Agentic Reference Graph (ProAS)'
+    reason: 'CANOPY remains coverage; ProAS reshapes group advantages with a reference graph'
+    use_instead: method:proas
+  - when: 'turn-scale advantage plus turn-level IS (MPO)'
+    reason: 'CANOPY remains coverage; MPO anchors credit at turns'
+    use_instead: method:mpo
+  - when: 'when fine-grained process credit helps vs hurts (video-edit horizon)'
+    reason: 'Gotcha: decaying process rewards help long-horizon edits and can fail on shorter ones'
+    use_instead: paper:credit-helps-hurts
   - when: "conflict-aware joint RL and distillation (CORD)"
     reason: "CANOPY remains checker outcome-only; CORD is a joint RL+distill gradient projector"
     use_instead: "method:cord"
@@ -81,8 +93,9 @@ assumptions:
   - "A held-out unit-test / patch verifier exists. Sparse fully-correct reward, not pass-fraction."
   - "Paper: Qwen3-14B on AppWorld train split (90 tasks), veRL, n=32, 50 turns / 32k train, 100 turns / 61k test, KL β=1e-4, lr 3e-6, 90 steps, hardest tier kept."
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
+  - paper:credit-helps-hurts
   - paper:agentic-self-distill-reality
   - paper:actionopd
   - paper:hp-rlvr

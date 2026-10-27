@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; this is a format/LR confound'
+    use_instead: paper:lora-task-format
   - when: "LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep)"
     reason: "Quality default remains vanilla LoRA + rsLoRA + LR sweep; this card re-inits LoRA so LoRA+ asymmetric LRs are less brittle"
     use_instead: "method:lora-init-asymmetric"
@@ -36,6 +39,7 @@ do_not_use_for:
     reason: "Quality default is a single-adapter recipe; READ owns multi-skill composition"
     use_instead: "method:read-lora"
 papers:
+  - paper:lora-task-format
   - paper:lr-matters-lora
   - paper:lora-unified-study
   - paper:topa
@@ -50,6 +54,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Vanilla LoRA with rank-stabilized scaling (rsLoRA, alpha/sqrt(r)) and calibrated learning rate sweep."
+last_reviewed: '2026-10-27'
 tags:
   - peft
   - lora

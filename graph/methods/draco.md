@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
+    reason: 'DRACO remains outcome-blind rubric credit; FORK adds precision/necessity on a rubric host'
+    use_instead: method:fork-precision
+  - when: 'when fine-grained process credit helps vs hurts (video-edit horizon)'
+    reason: 'Gotcha on process vs outcome credit by horizon; does not retarget DRACO'
+    use_instead: paper:credit-helps-hurts
   - when: "a programmatic checker exists and sparse outcome RL is enough"
     reason: "CANOPY is the outcome-only sufficiency protocol; DRACO is for when there is no checker"
     use_instead: "method:canopy"
@@ -27,6 +33,7 @@ assumptions:
   - "Paper: Qwen3.6-27B and Qwen2.5-32B-Instruct LoRA GRPO, 8x H100, B=16, G=6, GPT-5.4 judge. AppWorld train 90 tasks. Ground-truth tests used only at eval."
 last_reviewed: "2026-10-05"
 papers:
+  - paper:credit-helps-hurts
   - paper:draco
 recipes:
   - recipe:draco

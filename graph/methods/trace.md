@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'end-to-end MXFP8 RL train-rollout grid matching on Blackwell'
+    reason: 'TRACE remains NVFP4 dual-active; this card is MXFP8 matching'
+    use_instead: method:mxfp8-rl
   - when: "rounding-location alignment between inference and train for RL (not NVFP4 QAT)"
     reason: "TRACE / TRIAGE remain FP4 train-rollout first hops; this card aligns where BF16 rounding happens across inference and train"
     use_instead: "method:rounding-align-rl"

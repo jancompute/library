@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'priority-preserving primary/auxiliary advantage fusion (PAPO)'
+    reason: 'CorrGRPO remains dual-active aggregation; PAPO preserves primary-advantage sign'
+    use_instead: method:papo
+  - when: 'group Pareto-dominance reuse of conflict-filtered rollouts (GPDPO)'
+    reason: 'CorrGRPO remains aggregation; GPDPO recovers Pareto pairs from filtered rollouts'
+    use_instead: method:gpdpo
   - when: "single-turn dense math/code Pass@1 RLVR (one verifier reward)"
     reason: "CISPO remains Pass@1; CorrGRPO is multi-reward GRPO covariance normalization"
     use_instead: "method:cispo"

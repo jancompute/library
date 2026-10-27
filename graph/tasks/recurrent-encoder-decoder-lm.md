@@ -15,6 +15,10 @@ out_of_scope:
   - "Compute-matched MoE looping of middle layers (SMELT)"
   - "Elastic mixed-depth looped LM training (ELR)"
 redirects:
+  - when: "exact hybrid logp for deferred looped-transformer RL (ScaleRLT)"
+    to: "method:scalerlt"
+  - when: "LSTM-style looped transformer with shared KV cache"
+    to: "method:lstm-looped-kv"
   - when: "looped LM depth reuse needs train/run agreement more than normalisation"
     to: "paper:looped-depth-reusable"
   - when: "looped LM halting heads may not save compute"
@@ -49,6 +53,8 @@ current_sota:
     value: "none reported"
     notes: "RLT (2026-09-12). Experimental. Report develops encoder memory + all-token recurrence; does not report measured results. Conceptual sibling of DeepSeek-V4.1-Flash CED, not a replacement."
 methods:
+  - method:scalerlt
+  - method:lstm-looped-kv
   - method:par
   - method:elr
   - method:looped-models-done-right
@@ -56,7 +62,7 @@ methods:
   - method:deepseek-v41-flash
   - method:ncp-archpreview
   - method:deepseek-v4
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 tags:
   - pretraining
   - architecture

@@ -28,8 +28,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-27'
 redirects:
+  - when: "task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep)"
+    to: "paper:lora-task-format"
   - when: "LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep)"
     to: "method:lora-init-asymmetric"
   - when: "norm-guided PEFT for reasoning-intensive tasks (NormTune)"

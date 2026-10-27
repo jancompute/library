@@ -10,6 +10,24 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'policy-intrinsic exploration then self-distill (SEPO)'
+    reason: 'CISPO remains Pass@1; SEPO elicits then distills in-distribution solutions'
+    use_instead: method:sepo
+  - when: 'rollout-agreement reward on verified-correct GRPO traces (RoAR)'
+    reason: 'CISPO remains Pass@1; RoAR adds agreement among verified-correct traces'
+    use_instead: method:roar
+  - when: 'budgeted strong-verifier audits on low-pass GRPO groups (Hack-Audit / LB)'
+    reason: 'CISPO remains Pass@1; LB spends a strong-verifier budget on low-pass groups'
+    use_instead: method:hack-audit
+  - when: 'sign law for entropy drift under sampler mismatch'
+    reason: 'Gotcha: sampler mismatch sets the sign of entropy drift; does not retarget CISPO'
+    use_instead: paper:sign-law-entropy-rlvr
+  - when: 'intervention-certified / sigma-weighted SFT-RL amplification gate'
+    reason: 'Gotcha: hybrid SFT/RL can amplify pretrained tool-pattern behavior; does not retarget CISPO'
+    use_instead: paper:intervention-certified
+  - when: 'Stabilized Selective Scalable Actor-Critic (S3AC), not Pass@1'
+    reason: 'CISPO remains Pass@1; S3AC is a long-CoT critic recipe'
+    use_instead: method:s3ac
   - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
     reason: "GIFT is a distill+RL token filter; method:cispo remains Pass@1"
     use_instead: "method:gift"
@@ -136,8 +154,10 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
+  - paper:sign-law-entropy-rlvr
+  - paper:intervention-certified
   - paper:monitorability-causal
   - paper:simhack
   - paper:on-policy-audit-collapse

@@ -12,6 +12,10 @@ out_of_scope:
   - "Dense AR Pass@1 RLVR (CISPO)"
   - "Continuous diffusion language model pretrain (SemiCat / DoubleCat)"
 redirects:
+  - when: "dLLM unmasking-schedule distillation (dSpark)"
+    to: "method:dspark"
+  - when: "denoising token credit assignment for dLLM RL (DTCA)"
+    to: "method:dtca"
   - when: "masked dLLM lookahead-edit SFT (LED; not AR-delta recycle)"
     to: "method:led"
   - when: "calibration-free dLLM quantization (not AR-delta recycle)"
@@ -40,6 +44,8 @@ current_sota:
     value: "AR delta on converted dLLM approaches direct diffusion PT and composes with it; AR/diffusion deltas nearly orthogonal"
     notes: "A2D (2610.08108). Method status active. Does not replace DiffusionOPSD / Self-OPD / CanvasAnneal."
 methods:
+  - method:dspark
+  - method:dtca
   - method:led
   - method:forkgrpo
   - method:justopd
@@ -50,7 +56,7 @@ methods:
   - method:diffusion-opsd
   - method:self-opd
   - method:uno
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-27'
 tags:
   - diffusion
   - post-training

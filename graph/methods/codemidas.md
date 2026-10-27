@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'error-targeted RL for terminal-agent misbehaviors (MiRL)'
+    reason: 'CodeMidas remains the source-code env factory; MiRL trains against named terminal errors'
+    use_instead: method:mirl
   - when: "stateful data-centric agentic RL / SQL env isolation (BIRD-RL)"
     reason: "CodeMidas builds envs from source; BIRD-RL is SQL-state isolation plus curriculum"
     use_instead: "method:bird-rl"

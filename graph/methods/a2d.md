@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'dLLM unmasking-schedule distillation (dSpark)'
+    reason: 'A2D recycles an AR weight delta; dSpark distills commit schedules'
+    use_instead: method:dspark
+  - when: 'denoising token credit assignment for dLLM RL (DTCA)'
+    reason: 'A2D recycles an AR delta; DTCA is dLLM RL token credit'
+    use_instead: method:dtca
   - when: "masked dLLM lookahead-edit SFT (LED; not AR-delta recycle)"
     reason: "A2D remains AR-delta recycle; LED is MDM lookahead-edit SFT"
     use_instead: "method:led"

@@ -7,18 +7,21 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: recycle an AR post-training weight delta onto a converted dLLM
-  reason: A2D recycles a weight delta; ForkGRPO is dLLM RL from high-entropy forks
-  use_instead: method:a2d
-- when: AR→discrete-dLLM on-policy distillation
-  reason: JustOPD distills AR logits; ForkGRPO is GRPO-family RL on the dLLM
-  use_instead: method:justopd
-- when: curriculum RL for a discrete diffusion LM (canvas anneal)
-  reason: CanvasAnneal is canvas curriculum; ForkGRPO forks rollouts
-  use_instead: method:canvasanneal
-- when: single-turn dense AR math/code Pass@1 RLVR
-  reason: CISPO remains AR Pass@1
-  use_instead: method:cispo
+  - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
+    reason: 'ForkGRPO is dLLM rollout forking; FORK here is a rubric precision reward'
+    use_instead: method:fork-precision
+  - when: recycle an AR post-training weight delta onto a converted dLLM
+    reason: A2D recycles a weight delta; ForkGRPO is dLLM RL from high-entropy forks
+    use_instead: method:a2d
+  - when: AR→discrete-dLLM on-policy distillation
+    reason: JustOPD distills AR logits; ForkGRPO is GRPO-family RL on the dLLM
+    use_instead: method:justopd
+  - when: curriculum RL for a discrete diffusion LM (canvas anneal)
+    reason: CanvasAnneal is canvas curriculum; ForkGRPO forks rollouts
+    use_instead: method:canvasanneal
+  - when: single-turn dense AR math/code Pass@1 RLVR
+    reason: CISPO remains AR Pass@1
+    use_instead: method:cispo
 assumptions:
 - Discrete diffusion LM RL. Fork continuations from high-entropy intermediate states; reuse prefixes; mix within-state group advantages with MC state-value differences.
 - No dedicated repo as of 2026-10-15 (JustGRPO host exists separately).

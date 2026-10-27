@@ -11,6 +11,8 @@ out_of_scope:
   - "Dumped 10M-token prompt"
   - "System-One control plane for conversational memory ops (Jev-Mem)"
 redirects:
+  - when: "lessons that carry chance from noisy outcomes into the next decision"
+    to: "paper:luck-carrying-lessons"
   - when: "unified online RL of construction and retrieval for agent memory (Uni-Mem)"
     to: "method:uni-mem"
   - when: "dumped corpus ≫ window"
@@ -25,7 +27,7 @@ redirects:
     to: "method:jitmem"
   - when: "recurrent textual harness that backward-revises retrieved reflections (not write-time playbook)"
     to: "method:reharness"
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-27'
 current_sota:
   - method: method:ace
     as_of: "2025-10"

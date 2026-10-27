@@ -8,6 +8,9 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: 'harness skill rewrite to match executor capability (Skill Adaptation)'
+    reason: 'omp2 remains the production kernel; skill adaptation rewrites skills to the executor'
+    use_instead: method:skill-adaptation
   - when: "harness token efficiency via guarded decision reuse / RSI (HarnessMM)"
     reason: "omp2 remains the production kernel; HarnessMM reuses earlier tool-loop decisions and RSI-edits a companion harness"
     use_instead: "method:harnessmm"
@@ -65,7 +68,7 @@ do_not_use_for:
 assumptions:
   - "You are implementing a harness kernel, not wrapping a 100-line ReAct loop."
   - "The four envelope tests must hold: multiplexed workspace, remote driver, spectator, untrusted factory."
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
   - paper:harness-elicitation-expansion
   - paper:harness-playbook

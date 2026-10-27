@@ -6,6 +6,117 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-10-27 — weekday SOTA sweep (S3AC, FORK precision, ProAS, Steered-Teacher OPSD, MiRL, SWE-Ladder, INTRA, Error-Diffusion, dSpark, SEPO, TUON, PAPO, GPDPO, MXFP8 RL, DTCA, ScaleRLT, MPO, RoAR, Skill Adaptation, LSTM-looped KV, DoubleFree, Hack-Audit; notes sign-law entropy, Muon last-iterate NS, LoRA task format, credit helps/hurts, luck-carrying lessons, intervention-certified)
+- Twenty-two active plug-ins and six paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / T-MUON / ForkGRPO).
+- Window: 2026-10-27 Librarian weekday sweep after merged PR 51 (watermark 2610.32982, ~1802 nodes). Covers Tuesday 2026-10-27 arXiv cs.LG/cs.CL/cs.AI after 2610.32982 plus HF Daily 2026-10-26 leftovers and 2026-10-27. New high id 2610.35868.
+- SKIP (considered, not ingested): DecisionRAG 2610.35868 (retrieval, not a train kernel); TraceQuery; Packed-SS; AGQ; RAQ-MLA; HobbyLM; SPARTA; FedSEAM; Skill-infinity; modern DLM how-to; control RL scaling laws; GRASP; OPAL; CalibraRL; EvoRouter; InterQ-RL; Trajectory2Gym; Harness-Model Collaboration; W2S collusion; HARP-LoRA; T2D; 2610.33025. FORK precision (2610.33512) is not ForkGRPO. TUON (2610.35130) is not T-MUON. ProAS 2610.18683 was SKIPPED 2026-10-14 and is ingested here.
+
+### 2026-10-27 — ingest method:s3ac (active on task:token-level-critic-rl; does not supersede method:bpco)
+- Added paper:s3ac, method:s3ac, recipe:s3ac (`code_status: none`).
+- Status active (`sota_for: []`). S3AC trains a long-CoT critic plus DAPS so group baselines are not spent on already-easy prompts.
+
+### 2026-10-27 — ingest method:fork-precision (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:fork-precision, method:fork-precision, recipe:fork-precision (`code_status: none`).
+- Status active (`sota_for: []`). FORK scores necessity and factual correctness so rubric RL does not win coverage by dumping extra unused content. Distinct from method:forkgrpo.
+
+### 2026-10-27 — ingest method:proas (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:proas, method:proas, recipe:proas (`code_status: released`).
+- Status active (`sota_for: []`). ProAS builds an Agentic Reference Graph and reshapes group advantages so winner traces do not reinforce structurally unreasonable actions.
+
+### 2026-10-27 — ingest method:steer-teacher (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:steer-teacher, method:steer-teacher, recipe:steer-teacher (`code_status: none`).
+- Status active (`sota_for: []`). Steered-teacher OPSD edits teacher activations against reference hallucination and reconsideration suppression instead of leaving the gold teacher unregularized.
+
+### 2026-10-27 — ingest method:mirl (active on task:coding-agent-rl-environment-construction; does not supersede method:codemidas)
+- Added paper:mirl, method:mirl, recipe:mirl (`code_status: released`).
+- Status active (`sota_for: []`). MiRL trains terminal agents against named misbehaviors and re-checks those errors, rather than only synthesizing new issue-to-patch envs.
+
+### 2026-10-27 — ingest method:swe-ladder (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:swe-ladder, method:swe-ladder, recipe:swe-ladder (`code_status: released`).
+- Status active (`sota_for: []`). SWE-Ladder stages privileged OPSD as localize / reproduce / patch so the student is not given the full gold patch at once.
+
+### 2026-10-27 — ingest method:intra (active on task:posttrain-attention-sparsification; does not supersede method:sas)
+- Added paper:intra, method:intra, recipe:intra (`code_status: released`).
+- Status active (`sota_for: []`). INTRA interleaves scatter and gather sparse layers so long-range tokens remain reachable without dense all-pairs coverage.
+
+### 2026-10-27 — ingest method:error-diffusion (active on task:1bit-extreme-quantization; does not supersede method:sparse-bitnet)
+- Added paper:error-diffusion, method:error-diffusion, recipe:error-diffusion (`code_status: released`).
+- Status active (`sota_for: []`). Error diffusion stores a few bits of dithered residual instead of latent weights plus Adam state for on-device binary-weight adapts.
+
+### 2026-10-27 — ingest method:dspark (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:dspark, method:dspark, recipe:dspark (`code_status: released`).
+- Status active (`sota_for: []`). dSpark distills dLLM unmasking / commit schedules rather than recycling an AR weight delta.
+
+### 2026-10-27 — ingest method:sepo (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:sepo, method:sepo, recipe:sepo (`code_status: none`).
+- Status active (`sota_for: []`). SEPO elicits an in-distribution correct trace when the policy cannot sample one, then distills that self-teacher back.
+
+### 2026-10-27 — ingest method:tuon (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:tuon, method:tuon, recipe:tuon (`code_status: none`).
+- Status active (`sota_for: []`). TUON mixes layers then polarizes T-SVD slices. Distinct from method:t-muon.
+
+### 2026-10-27 — ingest method:papo (active on task:multi-reward-rlvr; does not supersede method:corrgrpo)
+- Added paper:papo, method:papo, recipe:papo (`code_status: announced`).
+- Status active (`sota_for: []`). PAPO fuses primary and auxiliary advantages so a large auxiliary term cannot flip the primary preference.
+
+### 2026-10-27 — ingest method:gpdpo (active on task:multi-reward-rlvr; does not supersede method:corrgrpo)
+- Added paper:gpdpo, method:gpdpo, recipe:gpdpo (`code_status: none`).
+- Status active (`sota_for: []`). GPDPO recovers Pareto-dominance pairs from conflict-filtered multi-reward rollouts instead of discarding them.
+
+### 2026-10-27 — ingest method:mxfp8-rl (active on task:fp4-rl-train-rollout-alignment; does not supersede method:trace)
+- Added paper:mxfp8-rl, method:mxfp8-rl, recipe:mxfp8-rl (`code_status: none`).
+- Status active (`sota_for: []`). MXFP8 RL matching puts the sampler on the learner's MXFP8 grid on Blackwell so train-rollout KL shrinks versus a BF16 sampler.
+
+### 2026-10-27 — ingest method:dtca (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:dtca, method:dtca, recipe:dtca (`code_status: none`).
+- Status active (`sota_for: []`). DTCA reweights denoising-token credit in dLLM RL instead of recycling an AR delta or forking high-entropy states.
+
+### 2026-10-27 — ingest method:scalerlt (active on task:recurrent-encoder-decoder-lm; does not supersede method:recurrent-looped-transformer)
+- Added paper:scalerlt, method:scalerlt, recipe:scalerlt (`code_status: none`).
+- Status active (`sota_for: []`). ScaleRLT uses exact hybrid logp for deferred looped-transformer RL so the learner matches the rollout density.
+
+### 2026-10-27 — ingest method:mpo (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:mpo, method:mpo, recipe:mpo (`code_status: none`).
+- Status active (`sota_for: []`). MPO estimates advantages at the assistant-turn scale, applies turn-level IS, then splits token credit.
+
+### 2026-10-27 — ingest method:roar (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:roar, method:roar, recipe:roar (`code_status: none`).
+- Status active (`sota_for: []`). RoAR adds a rollout-agreement reward among verified-correct GRPO traces so Pass@1 is not the only credit.
+
+### 2026-10-27 — ingest method:skill-adaptation (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:skill-adaptation, method:skill-adaptation, recipe:skill-adaptation (`code_status: announced`).
+- Status active (`sota_for: []`). Skill adaptation rewrites harness skills to the executor so a skill that helps a strong model does not tank a weaker one.
+
+### 2026-10-27 — ingest method:lstm-looped-kv (active on task:recurrent-encoder-decoder-lm; does not supersede method:recurrent-looped-transformer)
+- Added paper:lstm-looped-kv, method:lstm-looped-kv, recipe:lstm-looped-kv (`code_status: none`).
+- Status active (`sota_for: []`). LSTM-style looped transformer shares one KV cache across loop visits instead of growing a per-loop cache.
+
+### 2026-10-27 — ingest method:doublefree (active on task:student-distillation; does not supersede method:opd)
+- Added paper:doublefree, method:doublefree, recipe:doublefree (`code_status: none`).
+- Status active (`sota_for: []`). DoubleFree consolidates domain-RL specialists from stored traces and precomputed teacher logp without live student rollouts.
+
+### 2026-10-27 — ingest method:hack-audit (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:hack-audit, method:hack-audit, recipe:hack-audit (`code_status: none`).
+- Status active (`sota_for: []`). Hack-Audit spends a strong-verifier budget on the lowest-pass GRPO groups and reflects caught hacks about the failure reward.
+
+### 2026-10-27 — ingest paper:sign-law-entropy-rlvr (note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:sign-law-entropy-rlvr (`code_status: none`). Sampler mismatch sets the sign of RLVR entropy drift; not a CISPO replacement.
+
+### 2026-10-27 — ingest paper:muon-last-iterate-ns (note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:muon-last-iterate-ns (`code_status: none`). Last-iterate finite Newton-Schulz Muon stationarity; sibling of paper:muon-ns-bias.
+
+### 2026-10-27 — ingest paper:lora-task-format (note on task:lora-quality-tuning; does not retarget method:lr-matters-lora)
+- Added paper:lora-task-format (`code_status: none`). Task format / LR confound in LoRA vs full FT; quality default remains rsLoRA + LR sweep.
+
+### 2026-10-27 — ingest paper:credit-helps-hurts (note on task:outcome-only-long-horizon-agent-rl; does not retarget method:canopy)
+- Added paper:credit-helps-hurts (`code_status: none`). Fine-grained process credit can help long-horizon edits and hurt shorter ones.
+
+### 2026-10-27 — ingest paper:luck-carrying-lessons (note on task:agent-memory; does not retarget method:ace)
+- Added paper:luck-carrying-lessons (`code_status: none`). LLM-written lessons can carry chance from noisy outcomes into the next decision.
+
+### 2026-10-27 — ingest paper:intervention-certified (note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:intervention-certified (`code_status: none`). Hybrid SFT/RL can amplify pretrained tool-pattern behavior; sigma-weighted gate, not a CISPO replacement.
+
 ### 2026-10-26 — weekday SOTA sweep (GIFT, MOER, AOPD, Edit-OPD, Multi-View OPSD, NESTOR, GS-MoE, LoRA Init Asymmetric, ALTO MXFP4, MS-TTRL, On-Policy Self-Training, DATC, Frontier-OPD, HarnessMM, NgramRL, Rounding-Align RL, MPQ, DRIVE, OpenAttention, LazyFlash, RSIHub, CycleGRPO; notes Muon quadratic polar, Muon structured noise, monitorability causal, reverse-KL limits, hierarchical agent distill, synthetic rewrite laws, looped depth reusable, looped halting heads, speculative diffusion tradeoffs)
 - Twenty-two active plug-ins and nine paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2).
 - Window: 2026-10-26 Librarian weekday sweep after merged PR 50 (watermark 2610.30132, ~1727 nodes, 5f9b7ea plus later README). Covers Friday 2026-10-23 (missed) and Monday 2026-10-26 arXiv cs.LG/cs.CL/cs.AI (2610.30133-2610.32982) plus HF Daily 2026-10-23 through 2026-10-26. New high id 2610.32982.

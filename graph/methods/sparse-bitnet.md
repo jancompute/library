@@ -9,6 +9,9 @@ sota_for:
 supersedes:
   - method:bitnet-b158
 do_not_use_for:
+  - when: 'error-diffusion residual buffers for binary-weight on-device training'
+    reason: 'Sparse-BitNet remains native 1.58-bit pretrain; error diffusion replaces latent+Adam state'
+    use_instead: method:error-diffusion
   - when: "Ising / Sigma-Delta sampling for binary-ternary on-edge training"
     reason: "Sparse-BitNet remains the 2026 BitNet line; Sigma-Delta Sampler is an Ising/ΣΔ trainer"
     use_instead: "method:sigma-delta-sampler"

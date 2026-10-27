@@ -9,6 +9,9 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'rollout-free multi-task consolidation from domain-RL history (DoubleFree)'
+    reason: 'OPD remains matching; DoubleFree consolidates historical RL traces without live rollouts'
+    use_instead: method:doublefree
   - when: "gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT)"
     reason: "OPD remains matching; GIFT keeps distillation tokens whose gradient agrees with the RL objective"
     use_instead: "method:gift"
@@ -162,7 +165,7 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-27'
 papers:
   - paper:reverse-kl-limits
   - paper:hier-agent-distill

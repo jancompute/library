@@ -12,6 +12,7 @@ current_sota:
     value: "Matches or exceeds group-relative GRPO baseline with 1 response per prompt"
     notes: "BPCO (2608.23566) actor-critic recipe with DPPO, bounded value head, MC targets, and length-adaptive GAE."
 methods:
+  - method:s3ac
   - method:probe-po
   - method:tppo
   - method:bpco
@@ -22,6 +23,8 @@ methods:
   - method:dr-grpo
   - method:slca-grpo
 redirects:
+  - when: "Stabilized Selective Scalable Actor-Critic for long-CoT (S3AC)"
+    to: "method:s3ac"
   - when: "sparse prefix probes then redistributed GRPO credit (ProbePO), not a learned critic"
     to: "method:probe-po"
   - when: "Actor-then-Critic IS-aligned critic after axiomatic token credit"
@@ -30,7 +33,7 @@ redirects:
     to: "task:tool-agent-segment-credit"
   - when: "cumulative log-odds value parameterization (TPPO / Tracking-Value PPO)"
     to: "method:tppo"
-last_reviewed: '2026-10-20'
+last_reviewed: '2026-10-27'
 tags:
   - post-training
   - rl-alignment
