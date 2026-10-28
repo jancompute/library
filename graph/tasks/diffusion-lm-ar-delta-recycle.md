@@ -12,6 +12,12 @@ out_of_scope:
   - "Dense AR Pass@1 RLVR (CISPO)"
   - "Continuous diffusion language model pretrain (SemiCat / DoubleCat)"
 redirects:
+  - when: "cross-budget self-distillation for masked dLLMs (HiLo-RD)"
+    to: "method:hilo-rd"
+  - when: "unified discrete-diffusion cross-paradigm OPD (NLD-Uni)"
+    to: "method:nld-uni"
+  - when: "temporal self-conditioning inside a frozen masked dLLM (TDLM)"
+    to: "method:tdlm"
   - when: "dLLM unmasking-schedule distillation (dSpark)"
     to: "method:dspark"
   - when: "denoising token credit assignment for dLLM RL (DTCA)"
@@ -44,6 +50,9 @@ current_sota:
     value: "AR delta on converted dLLM approaches direct diffusion PT and composes with it; AR/diffusion deltas nearly orthogonal"
     notes: "A2D (2610.08108). Method status active. Does not replace DiffusionOPSD / Self-OPD / CanvasAnneal."
 methods:
+  - method:hilo-rd
+  - method:nld-uni
+  - method:tdlm
   - method:dspark
   - method:dtca
   - method:led
@@ -56,7 +65,7 @@ methods:
   - method:diffusion-opsd
   - method:self-opd
   - method:uno
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 tags:
   - diffusion
   - post-training

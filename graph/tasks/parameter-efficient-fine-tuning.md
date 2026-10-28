@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:simplex-lora
   - method:lr-matters-lora
   - method:aqlora-q
   - method:autoqra
@@ -38,8 +39,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: "2026-09-28"
+last_reviewed: "2026-10-28"
 redirects:
+  - when: "simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA)"
+    to: "method:simplex-lora"
   - when: "instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA quality"
     to: "task:instruct-sft-alignment"
   - when: "stacking independently trained LoRA adapters / sequential skill add without an inference router"

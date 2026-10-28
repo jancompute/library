@@ -11,6 +11,9 @@ current_sota:
     metric: "avg accuracy"
     value: "+8.5% to +10.7% over base; beats supervised OPSD by +2.3% to +3.2% on non-thinking"
     notes: "u-OPSD (2608.06296) majority-votes own rollouts and distills pseudo-solution-conditioned distribution onto disagreeing paths."
+redirects:
+  - when: "majority-vote unsupervised RLVR collapse from cross-task coupling"
+    to: "paper:unsupervised-rlvr-collapse"
 methods:
   - method:u-opsd
   - method:ttpo
@@ -18,7 +21,7 @@ methods:
   - method:opdvr
   - method:cispo
   - method:opsa
-last_reviewed: "2026-09-01"
+last_reviewed: "2026-10-28"
 tags:
   - post-training
   - distillation

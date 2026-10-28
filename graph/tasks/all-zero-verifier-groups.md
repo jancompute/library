@@ -5,6 +5,8 @@ title: "All-Zero Verifier Groups & Process Supervision"
 domain: "post-training"
 summary: "Robust reinforcement learning gradient estimation and process reward supervision when verification groups contain zero positive solutions."
 redirects:
+  - when: "policy-compatible joint decoding when all rollouts fail (PICO)"
+    to: "method:pico"
   - when: "hindsight-to-foresight distillation when verifier groups are silent (SRD)"
     to: "method:srd"
   - when: "escaping the RLVR zero-advantage trap with recursive calibrated problem synthesis"
@@ -19,6 +21,7 @@ current_sota:
     value: "Default SOTA for verifier gating"
     notes: "VeriGate (2605.30451) gates process supervision strictly behind trusted outcome checks."
 methods:
+  - method:pico
   - method:magicbeanstalk
   - method:tips
   - method:srd
@@ -28,7 +31,7 @@ methods:
   - method:cliff
   - method:thinkprior
   - method:graft
-last_reviewed: "2026-10-12"
+last_reviewed: "2026-10-28"
 tags:
   - post-training
   - reasoning

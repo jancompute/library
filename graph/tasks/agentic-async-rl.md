@@ -22,6 +22,8 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "environment-task rollout scheduling under a finite budget (EnvSched)"
+    to: "method:envsched"
   - when: "turn-scale advantage plus turn-level IS (MPO), not async stragglers"
     to: "method:mpo"
   - when: "harness scaling / train through a factorized harness space (Harness Scaling)"
@@ -90,6 +92,7 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:envsched
   - method:mpo
   - method:harness-scaling
   - method:bird-rl
@@ -125,7 +128,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 tags:
   - post-training
   - agentic

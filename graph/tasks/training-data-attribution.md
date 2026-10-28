@@ -12,6 +12,8 @@ out_of_scope:
   - "Unlearning trainers and forget-set optimization"
   - "Fused MoE expert attribution (gpt-oss, Mixtral, Qwen-MoE, OLMoE)"
 redirects:
+  - when: "surface-form-robust gradient attribution for instruction data (CIGA)"
+    to: "method:ciga"
   - when: "mix-ratio search or replacing an open pretrain mix"
     to: "task:open-data-recipe"
   - when: "SAE dictionaries, circuits, or effect geometry"
@@ -20,7 +22,7 @@ redirects:
     to: "task:industrial-model-building"
   - when: "output-layer-gradient data selection for SFT/RL (cheaper LESS/GradAlign features)"
     to: "method:lesser"
-last_reviewed: "2026-10-05"
+last_reviewed: "2026-10-28"
 current_sota:
   - method: method:magic
     as_of: "2026-09-01"
@@ -29,6 +31,7 @@ current_sota:
     value: "0.983 ± 0.005"
     notes: "MAGIC (2504.16430) via Bergson Table 1. Narrow LDS claim only. Bergson is the library, not the SOTA algorithm. Does not retarget mix, train-kernel, factory, or SAE SOTA."
 methods:
+  - method:ciga
   - method:magic
   - method:bergson
   - method:trackstar

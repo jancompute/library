@@ -12,6 +12,14 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "Gram-Schmidt radial projection for Muon without fixing weight norm (MuonGS)"
+    to: "method:muongs"
+  - when: "Muon MoE routed-expert loss-spike attenuation (EnergyCal)"
+    to: "method:energycal"
+  - when: "sharpness-aware Muon / momentum-guided SAM perturbation (MuSAM / MoMuSAM)"
+    to: "method:musam"
+  - when: "Edge of Stability / Edge of Convexity in LLM pretrain (quadratic LR pitfalls)"
+    to: "paper:edge-of-stability-llm"
   - when: "tensor-aware mix-then-polarize optimizer (TUON; not T-MUON)"
     to: "method:tuon"
   - when: "last-iterate finite Newton-Schulz Muon stationarity"
@@ -85,6 +93,9 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:muongs
+  - method:energycal
+  - method:musam
   - method:tuon
   - method:hymuon
   - method:polar-switch
@@ -124,7 +135,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 tags:
   - pretraining
   - optimizer
@@ -158,6 +169,10 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 - **Optional nested-width supernet (not this optimizer default)**: `method:shell-elastic` (`arXiv:2610.15124`). Mean val loss 0.028/0.005/0.018 nats below best baseline at 119M–1.69B. Code jincan333/ShellElastic. HF Daily 2026-10-14. Does not replace Muon2, ELR, or Puro-2B.
 - **Optional history-adaptive spectral clipping (not this 7B default)**: `method:cast-ssc` (`arXiv:2610.19761`). Distinct from `method:cast` (cross-tokenizer OPD). 19.08B MoE mean val 1.26e-2 below SSC-constant. No public code. Does not replace Muon2 or Musec.
 - **Gotcha (finite Newton-Schulz)**: `paper:muon-ns-bias` (`arXiv:2610.20112`). Practical Muon with finite NS + epsilon selects Frobenius max-margin; log-growing NS recovers spectral. Does not retarget Muon2.
+- **Optional Gram-Schmidt radial Muon (not this 7B default)**: `method:muongs` (`arXiv:2610.37647`). vs MuonH at 160M/400M and 1B-total MoE; dense token-equivalent speedup up to ~15%. No public code. Does not replace Muon2.
+- **Optional MoE Muon spike damper (not this 7B default)**: `method:energycal` (`arXiv:2610.37062`). 4B MoE spike burden -99.51% / PPL -4.06% vs lower-LR MuonH. No public code. Does not replace Muon2.
+- **Optional sharpness-aware Muon (not this 7B default)**: `method:musam` (`arXiv:2610.37225`). MuSAM extra gradient; MoMuSAM uses momentum. No public code. Does not replace Muon2.
+- **Gotcha (Edge of Stability / Convexity)**: `paper:edge-of-stability-llm` (`arXiv:2610.36778`). Quadratic LR rules fail; persistent negative curvature (EoC) plus EoS. Does not retarget Muon2.
 
 - **Optional mask-aware attention kernel**: `method:flashmask-3` (`arXiv:2610.17901`, NeurIPS 2026). +45–141% TFLOPs vs FlashMask; 118B-A14B e2e +7.3–11.0%. Code PaddlePaddle/FlashMask. Does not replace Muon2.
 

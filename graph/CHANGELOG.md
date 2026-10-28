@@ -6,6 +6,100 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-10-28 — weekday SOTA sweep (MuonGS, EnergyCal, MuSAM, Guided-RLVR, MPOPD, SetGRPO, PICO, AdaRoll-GRPO, CONCUR, HiLo-RD, CoHARL, ConCal, EnvSched, SimplexLoRA, ResCom, DuplexTune, NLD-Uni, TDLM, CIGA, SynthAPI; notes Edge of Stability, delta-learning limits, unsupervised RLVR collapse)
+- Twenty active plug-ins and three paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC).
+- Window: 2026-10-28 Librarian weekday sweep after merged PR 52 (watermark 2610.35868, ~1874 nodes, 22632da). Covers Wednesday 2026-10-28 arXiv cs.LG/cs.CL/cs.AI after 2610.35868 plus HF Daily 2026-10-27 leftovers and 2026-10-28. New high id 2610.37658.
+- SKIP (considered, not ingested): KORA 2610.35869 (execution control, not a train kernel); DISCO 2610.35957 (distributed spec decode serving); PORTAL 2610.37658 (test-time intervention controller); Heads of Security 2610.37657 (prompt-injection gates); Lattice Gauge attention 2610.37656; rocket landing curriculum 2610.35954; medical KD 2610.35961; Live-OPSD; RPSD; Trinity; Channel Selection; DecisionRAG leftovers; Trajectory2Gym leftovers; remaining serving/kernels, PINN, medical, and control papers outside train-kernel scope.
+
+### 2026-10-28 — ingest method:muongs (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:muongs, method:muongs, recipe:muongs (`code_status: none`).
+- Status active (`sota_for: []`). MuonGS Gram-Schmidt-projects the radial Muon update without freezing weight norm so effective LR grows like sqrt(T).
+
+### 2026-10-28 — ingest method:energycal (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:energycal, method:energycal, recipe:energycal (`code_status: none`).
+- Status active (`sota_for: []`). EnergyCal attenuates routed-expert Newton-Schulz updates by their finite-step energy to cut MoE Muon loss spikes. Mention on task:pretrain-moe-frontier.
+
+### 2026-10-28 — ingest method:musam (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:musam, method:musam, recipe:musam (`code_status: none`).
+- Status active (`sota_for: []`). MuSAM is SAM on Muon's orthogonalized update; MoMuSAM uses momentum as the perturbation so the extra clean-gradient step drops.
+
+### 2026-10-28 — ingest method:guided-rlvr (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:guided-rlvr, method:guided-rlvr, recipe:guided-rlvr (`code_status: none`).
+- Status active (`sota_for: []`). A lightweight controller injects steering tokens at critical thinking steps so RLVR rollouts do not collapse onto a narrow trace set.
+
+### 2026-10-28 — ingest method:mpopd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:mpopd, method:mpopd, recipe:mpopd (`code_status: released`).
+- Status active (`sota_for: []`). MPOPD samples a geometric student-teacher mixture from a local trust-region so the teacher is not asked to supervise unreachable student traces.
+
+### 2026-10-28 — ingest method:setgrpo (active on task:multi-reward-rlvr; does not supersede method:corrgrpo)
+- Added paper:setgrpo, method:setgrpo, recipe:setgrpo (`code_status: none`).
+- Status active (`sota_for: []`). SetGRPO risk-gates GRPO group updates inside a joint uncertainty set so grader noise cannot reverse the group's direction.
+
+### 2026-10-28 — ingest method:pico (active on task:all-zero-verifier-groups; does not supersede method:verigate)
+- Added paper:pico, method:pico, recipe:pico (`code_status: none`).
+- Status active (`sota_for: []`). PICO jointly decodes expert-guided policy-compatible traces under a divergence budget when verifier groups are silent. Mention on task:math-code-rl-dense.
+
+### 2026-10-28 — ingest method:adaroll-grpo (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:adaroll-grpo, method:adaroll-grpo, recipe:adaroll-grpo (`code_status: none`).
+- Status active (`sota_for: []`). AdaRoll-GRPO learns offline Bayes-adaptive per-question rollout allocation so hard prompts get enough positives without extra online optimization.
+
+### 2026-10-28 — ingest method:concur (active on task:multi-reward-rlvr; does not supersede method:corrgrpo)
+- Added paper:concur, method:concur, recipe:concur (`code_status: none`).
+- Status active (`sota_for: []`). CONCUR projects gated auxiliaries onto the nearest vector monotone in the primary reward so an auxiliary cannot flip the group's primary order.
+
+### 2026-10-28 — ingest method:hilo-rd (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:hilo-rd, method:hilo-rd, recipe:hilo-rd (`code_status: none`).
+- Status active (`sota_for: []`). HiLo-RD matches large-window teacher states to cropped small-window views so dLLMs do not freeze answer fragments at the window boundary.
+
+### 2026-10-28 — ingest method:coharl (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:coharl, method:coharl, recipe:coharl (`code_status: none`).
+- Status active (`sota_for: []`). CoHARL co-evolves a shared policy with a population of executable harnesses rewritten from execution traces during training.
+
+### 2026-10-28 — ingest method:concal (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:concal, method:concal, recipe:concal (`code_status: released`).
+- Status active (`sota_for: []`). ConCal pools continuation evidence across matched incoming transitions so credit is not hostage to one sampled suffix.
+
+### 2026-10-28 — ingest method:envsched (active on task:agentic-async-rl; does not supersede method:sao)
+- Added paper:envsched, method:envsched, recipe:envsched (`code_status: none`).
+- Status active (`sota_for: []`). EnvSched schedules a finite rollout budget over environment-task pairs for informative reward differences and underobserved interaction patterns.
+
+### 2026-10-28 — ingest method:simplex-lora (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:simplex-lora, method:simplex-lora, recipe:simplex-lora (`code_status: released`).
+- Status active (`sota_for: []`). SimplexLoRA learns frozen per-adapter simplex weights in a short warm-up and reallocates rank under a fixed parameter budget. EMNLP 2026 Findings. Mention on task:parameter-efficient-fine-tuning.
+
+### 2026-10-28 — ingest method:rescom (active on task:fp4-hardware-training; does not supersede method:quartet-ii)
+- Added paper:rescom, method:rescom, recipe:rescom (`code_status: none`).
+- Status active (`sota_for: []`). ResCom stores a closed-form low-rank correction from the activation rounding residual so W+A PTQ can tell same-bin activations apart.
+
+### 2026-10-28 — ingest method:duplextune (active on task:full-param-memory-efficient-pretrain; does not supersede method:scale)
+- Added paper:duplextune, method:duplextune, recipe:duplextune (`code_status: none`).
+- Status active (`sota_for: []`). DuplexTune replays coupled hidden states through frozen MoE modules via trainable width bridges on two residual streams.
+
+### 2026-10-28 — ingest method:nld-uni (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:nld-uni, method:nld-uni, recipe:nld-uni (`code_status: none`).
+- Status active (`sota_for: []`). NLD-Uni distills an AR VLM and a continuous flow model into one discrete diffusion LLM with cross-paradigm OPD. Mention on task:student-distillation.
+
+### 2026-10-28 — ingest method:tdlm (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:tdlm, method:tdlm, recipe:tdlm (`code_status: none`).
+- Status active (`sota_for: []`). TDLM lets unresolved positions attend to their own hidden-state history inside a frozen denoiser. Mention on task:continuous-diffusion-lm-pretrain.
+
+### 2026-10-28 — ingest method:ciga (active on task:training-data-attribution; does not supersede method:magic)
+- Added paper:ciga, method:ciga, recipe:ciga (`code_status: none`).
+- Status active (`sota_for: []`). CIGA keeps layers whose gradients stay stable under semantics-preserving rewrites, then fuses those features so instruction-data scores track content.
+
+### 2026-10-28 — ingest method:synthapi (active on task:coding-agent-rl-environment-construction; does not supersede method:codemidas)
+- Added paper:synthapi, method:synthapi, recipe:synthapi (`code_status: none`).
+- Status active (`sota_for: []`). SynthAPI synthesizes tool-use environments with explicit tool/task/database controls; a 849-model scaling law says tool and database diversity start to dominate task count.
+
+### 2026-10-28 — ingest paper:edge-of-stability-llm (note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:edge-of-stability-llm (`code_status: none`). Quadratic LR rules fail under persistent negative curvature (EoC) plus EoS.
+
+### 2026-10-28 — ingest paper:delta-learning-limits (note on task:direct-preference-alignment; does not retarget method:olmo-3)
+- Added paper:delta-learning-limits (`code_status: none`). Single-pair delta-learning injects generator-dependent biases that predict the preference label independent of response quality.
+
+### 2026-10-28 — ingest paper:unsupervised-rlvr-collapse (note on task:label-free-reasoner-posttrain; does not retarget method:u-opsd)
+- Added paper:unsupervised-rlvr-collapse (`code_status: none`). Majority-vote unsupervised RLVR collapses from a shared cross-task coupling mode as the training set grows.
+
 ### 2026-10-27 — weekday SOTA sweep (S3AC, FORK precision, ProAS, Steered-Teacher OPSD, MiRL, SWE-Ladder, INTRA, Error-Diffusion, dSpark, SEPO, TUON, PAPO, GPDPO, MXFP8 RL, DTCA, ScaleRLT, MPO, RoAR, Skill Adaptation, LSTM-looped KV, DoubleFree, Hack-Audit; notes sign-law entropy, Muon last-iterate NS, LoRA task format, credit helps/hurts, luck-carrying lessons, intervention-certified)
 - Twenty-two active plug-ins and six paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / T-MUON / ForkGRPO).
 - Window: 2026-10-27 Librarian weekday sweep after merged PR 51 (watermark 2610.32982, ~1802 nodes). Covers Tuesday 2026-10-27 arXiv cs.LG/cs.CL/cs.AI after 2610.32982 plus HF Daily 2026-10-26 leftovers and 2026-10-27. New high id 2610.35868.

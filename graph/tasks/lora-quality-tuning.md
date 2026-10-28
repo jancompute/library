@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:simplex-lora
   - method:lora-init-asymmetric
   - method:normtune
   - method:mupace
@@ -28,8 +29,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 redirects:
+  - when: "simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA)"
+    to: "method:simplex-lora"
   - when: "task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep)"
     to: "paper:lora-task-format"
   - when: "LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep)"
