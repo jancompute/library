@@ -9,6 +9,8 @@ redirects:
     to: "method:alto-mxfp4"
   - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
     to: "method:alto-mxfp4"
+  - when: "activation-residual compensation for W+A PTQ (ResCom; not native FP4 training)"
+    to: "method:rescom"
   - when: "2:4 semi-structured sparsity vs dropping to the next lower precision"
     to: "paper:sparsity-24-vs-quant"
   - when: "NVFP4 pretrain recipe ingredients at 8B / 30B-A3B (not Quartet-II default)"
@@ -35,6 +37,7 @@ current_sota:
     value: "Co-Default SOTA for microscaling FP4"
     notes: "MXFP4 (2605.09825)."
 methods:
+  - method:rescom
   - method:alto-mxfp4
   - method:alto-mxfp4
   - method:nvfp4-pretrain-recipe
@@ -48,7 +51,7 @@ methods:
   - method:kbbq
   - method:trace
   - method:triage
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-28'
 tags:
   - compression
   - quantization

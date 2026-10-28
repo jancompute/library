@@ -10,6 +10,8 @@ out_of_scope:
   - "Native FP4 hardware training from scratch (Quartet-II)"
   - "Quality LoRA on 24GB (vanilla LoRA + rsLoRA + LR sweep)"
 redirects:
+  - when: "coupled-state replay for MoE adaptation memory (DuplexTune)"
+    to: "method:duplextune"
   - when: "Adam second-moment pooling (AdamPM)"
     to: "method:adampm"
   - when: "drift-aware streaming k-PCA GaLore-family low-rank LLM training (Ori)"
@@ -44,6 +46,7 @@ current_sota:
     value: "Default SOTA for memory-efficient full-parameter training"
     notes: "SCALE (2506.16659, ICML 2026) not GaLore."
 methods:
+  - method:duplextune
   - method:adampm
   - method:ori
   - method:lct
@@ -56,7 +59,7 @@ methods:
   - method:scale
   - method:galore
   - method:taco
-last_reviewed: '2026-10-20'
+last_reviewed: '2026-10-28'
 tags:
   - efficiency
   - optimizer

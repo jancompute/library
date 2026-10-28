@@ -15,6 +15,8 @@ out_of_scope:
   - "Category-aware SWE expert RL on already-executable tasks (Category-Aware SWE Experts)"
   - "Mechanism-first stateful tool envs from solved math dynamics (VHD-Play)"
 redirects:
+  - when: "controllable synthetic tool-use env scaling (SynthAPI)"
+    to: "method:synthapi"
   - when: "error-targeted RL for terminal-agent misbehaviors (MiRL)"
     to: "method:mirl"
   - when: "stateful data-centric agentic RL / SQL env isolation (BIRD-RL)"
@@ -53,6 +55,7 @@ current_sota:
     value: "DeepSWE 10.0→21.7; ProgramBench AS 4.5→21.5; TB v2.1 +8.5pp (63.7→72.2)"
     notes: "CodeMidas (2609.22068). Active env factory. Method status active (not sota). Does not replace CANOPY / SAO / Miles / mini-SWE-agent."
 methods:
+  - method:synthapi
   - method:mirl
   - method:bird-rl
   - method:agentic-rl-data-scaling
@@ -69,7 +72,7 @@ methods:
   - method:miles
   - method:category-aware-swe-experts
   - method:vhd-play
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 tags:
   - post-training
   - agentic

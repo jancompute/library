@@ -19,6 +19,12 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "steering-token exploration for RLVR (Guided-RLVR)"
+    to: "method:guided-rlvr"
+  - when: "offline BAMDP GRPO rollout allocation (AdaRoll-GRPO)"
+    to: "method:adaroll-grpo"
+  - when: "policy-compatible joint decoding when all rollouts fail (PICO; not Pass@1 default)"
+    to: "method:pico"
   - when: "policy-intrinsic exploration then self-distill (SEPO)"
     to: "method:sepo"
   - when: "rollout-agreement reward on verified-correct GRPO traces (RoAR)"
@@ -163,6 +169,9 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:guided-rlvr
+  - method:adaroll-grpo
+  - method:pico
   - method:sepo
   - method:roar
   - method:hack-audit
@@ -245,7 +254,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-28'
 tags:
   - post-training
   - reasoning

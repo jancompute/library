@@ -15,6 +15,8 @@ out_of_scope:
 - Text-to-image / flow reward alignment (DiffusionOPSD / Self-OPD)
 - Lossless multi-token / diffusion-augmented AR serving (Uno)
 redirects:
+- when: "temporal self-conditioning inside a frozen masked dLLM (TDLM; not continuous pretrain)"
+  to: "method:tdlm"
 - when: "pure self-conditioning continuous DLM (LAW)"
   to: "method:law"
 - when: "Large Flow Language Models (Lafa blockwise flow from AR init)"

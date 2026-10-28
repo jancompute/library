@@ -13,6 +13,8 @@ out_of_scope:
   - "NVL72 fused dispatch megakernel (Mixture-of-Kittens)"
   - "Olympiad specialist post-train (Nemotron IMO Gold)"
 redirects:
+  - when: "Muon MoE routed-expert loss-spike attenuation (EnergyCal; not the architecture template)"
+    to: "method:energycal"
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
     to: "method:nestor"
   - when: "training-free MoE compression via groupwise subspace sharing and pruning (GS-MoE)"
@@ -53,6 +55,7 @@ current_sota:
     value: "Frontier Co-Default SOTA"
     notes: "Kimi-K3 (2607.24653) architecture co-default with DeepSeek-V4."
 methods:
+  - method:energycal
   - method:nestor
   - method:gs-moe
   - method:gs-moe
@@ -78,7 +81,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:drmoet
   - method:maskerade
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-28'
 tags:
   - pretraining
   - moe

@@ -42,6 +42,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) → `method:aide2`
   - do not use when harness curriculum as a non-stationary bandit over failure-pattern arms → `method:activesaddler`
 - **Redirects**:
+  - when population co-evolution of executable harnesses with a shared policy (CoHARL) → `method:coharl`
   - when harness skill rewrite to match executor capability (Skill Adaptation) → `method:skill-adaptation`
   - when harness token efficiency via guarded decision reuse / RSI (HarnessMM) → `method:harnessmm`
   - when composable framework for comparing agent-evolution / RSI methods (RSIHub) → `method:rsihub`
@@ -267,6 +268,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Redirects**:
   - when MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO) → `method:alto-mxfp4`
   - when MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO) → `method:alto-mxfp4`
+  - when activation-residual compensation for W+A PTQ (ResCom; not native FP4 training) → `method:rescom`
   - when 2:4 semi-structured sparsity vs dropping to the next lower precision → `paper:sparsity-24-vs-quant`
   - when NVFP4 pretrain recipe ingredients at 8B / 30B-A3B (not Quartet-II default) → `method:nvfp4-pretrain-recipe`
   - when dual-scale calibration-free W+A PTQ for AR LLMs (not native FP4 training) → `method:dualquant`
@@ -301,6 +303,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when curriculum RL for a discrete diffusion LM (canvas anneal) → `method:canvasanneal`
   - do not use when aligning text-to-image diffusion or flow models with rewards → `method:diffusion-opsd`
 - **Redirects**:
+  - when temporal self-conditioning inside a frozen masked dLLM (TDLM; not continuous pretrain) → `method:tdlm`
   - when pure self-conditioning continuous DLM (LAW) → `method:law`
   - when Large Flow Language Models (Lafa blockwise flow from AR init) → `method:lafa`
   - when 16x DLM-vs-AR pretrain compute gap under ELBO vs exact likelihood (discrete MDM/BD3LM/E2D2) → `paper:dlm-ar-compute-gap`
@@ -323,6 +326,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when discrete DLM curriculum RL with a teacher canvas → `method:canvasanneal`
   - do not use when lossless multi-token AR serving → `method:uno`
 - **Redirects**:
+  - when cross-budget self-distillation for masked dLLMs (HiLo-RD) → `method:hilo-rd`
+  - when unified discrete-diffusion cross-paradigm OPD (NLD-Uni) → `method:nld-uni`
+  - when temporal self-conditioning inside a frozen masked dLLM (TDLM) → `method:tdlm`
   - when dLLM unmasking-schedule distillation (dSpark) → `method:dspark`
   - when denoising token credit assignment for dLLM RL (DTCA) → `method:dtca`
   - when masked dLLM lookahead-edit SFT (LED; not AR-delta recycle) → `method:led`
@@ -437,6 +443,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when ternary abs-max column-wise one-sparse optimizer for full-param LLM FT → `method:taco`
   - do not use when choosing the ~7B dense pretrain optimizer → `method:muon2`
 - **Redirects**:
+  - when coupled-state replay for MoE adaptation memory (DuplexTune) → `method:duplextune`
   - when Adam second-moment pooling (AdamPM) → `method:adampm`
   - when drift-aware streaming k-PCA GaLore-family low-rank LLM training (Ori) → `method:ori`
   - when losslessly compressed GPU train tensors (LCT Huffman) → `method:lct`
@@ -464,6 +471,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when dynamic tangent LoRA branch via residual-gradient SVD → `method:dt-lora`
   - do not use when stacking independently trained LoRA adapters / sequential skill add without an inference router → `method:read-lora`
 - **Redirects**:
+  - when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) → `method:simplex-lora`
   - when task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep) → `paper:lora-task-format`
   - when LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep) → `method:lora-init-asymmetric`
   - when norm-guided PEFT for reasoning-intensive tasks (NormTune) → `method:normtune`
@@ -502,6 +510,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **SOTA**: `method:aqlora-q` `2608.23816` (as_of 2026-08-26) — 4-Bit Single GPU PEFT: 4-Bit SOTA Speed/Recipe Default
   - do not use when NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic) → `method:pact-nvfp4-lora`
 - **Redirects**:
+  - when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) → `method:simplex-lora`
   - when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA quality → `task:instruct-sft-alignment`
   - when stacking independently trained LoRA adapters / sequential skill add without an inference router → `task:lora-skill-composition`
 
@@ -547,6 +556,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when mix-ratio search or replacing an open pretrain mix → `method:olmo-3`
   - do not use when output-layer-gradient data selection for SFT/RL (cheaper LESS/GradAlign features) → `method:lesser`
 - **Redirects**:
+  - when surface-form-robust gradient attribution for instruction data (CIGA) → `method:ciga`
   - when mix-ratio search or replacing an open pretrain mix → `task:open-data-recipe`
   - when SAE dictionaries, circuits, or effect geometry → `task:mechanistic-interpretability-dictionaries`
   - when factory process / experiments-as-code / lineage → `task:industrial-model-building`
@@ -604,6 +614,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when structural credit split for tool-call vs natural-language-summary tokens, not async stragglers → `task:tool-agent-segment-credit`
   - do not use when CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes) → `method:ftw`
 - **Redirects**:
+  - when environment-task rollout scheduling under a finite budget (EnvSched) → `method:envsched`
   - when turn-scale advantage plus turn-level IS (MPO), not async stragglers → `method:mpo`
   - when harness scaling / train through a factorized harness space (Harness Scaling) → `method:harness-scaling`
   - when stateful data-centric agentic RL / SQL env isolation (BIRD-RL) → `method:bird-rl`
@@ -671,6 +682,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when hindsight-to-foresight distillation when verifier groups are silent → `method:srd`
   - do not use when multi-model / all-fail group salvage by peer trajectory exchange → `method:graft`
 - **Redirects**:
+  - when policy-compatible joint decoding when all rollouts fail (PICO) → `method:pico`
   - when hindsight-to-foresight distillation when verifier groups are silent (SRD) → `method:srd`
   - when escaping the RLVR zero-advantage trap with recursive calibrated problem synthesis → `method:magicbeanstalk`
   - when outcome-only RL inducing process supervision / generative PRMs (TIPS) → `method:tips`
@@ -690,6 +702,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when mechanism-first stateful tool envs (not OSS source) → `task:mechanism-grounded-agentic-rl-env`
   - do not use when long-horizon terminal-agent data engine / pre-completed work detection → `method:terminalhorizon`
 - **Redirects**:
+  - when controllable synthetic tool-use env scaling (SynthAPI) → `method:synthapi`
   - when error-targeted RL for terminal-agent misbehaviors (MiRL) → `method:mirl`
   - when stateful data-centric agentic RL / SQL env isolation (BIRD-RL) → `method:bird-rl`
   - when compute-optimal agentic RL env/task/trajectory allocation (not the env factory) → `method:agentic-rl-data-scaling`
@@ -749,6 +762,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when unique-token epoch / repetition geometry under a finite pretrain corpus → `task:data-constrained-pretrain`
   - do not use when SFT-free RL-only domain adaptation from a base model → `method:onepo`
 - **Redirects**:
+  - when single-pair delta-learning generator bias in DPO → `paper:delta-learning-limits`
   - when preference-optimization vocabulary collapse from common-mode hidden offsets (ECHO) → `paper:echo-vocab-collapse`
   - when DPO hyperparameter landscape and transfer across scale → `paper:dpo-hp-landscape`
 
@@ -807,6 +821,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when OPSD entropy overshoot on a privileged / gold-conditioned teacher → `method:e2-opsd`
   - do not use when privileged OPSD gains collapse at scale; verified on-policy scaffolds → `method:oasis`
   - do not use when privileged-context content as OPSD drift rather than unlabeled consensus → `method:privileged-context-drift`
+- **Redirects**:
+  - when majority-vote unsupervised RLVR collapse from cross-task coupling → `paper:unsupervised-rlvr-collapse`
 
 ### task:label-free-test-time-reasoner — Label-Free Test-Time Reasoning and Policy Optimization
 - **SOTA**: `method:ttpo` `2608.27448` (as_of 2026-08-28) — AIME24 / AIME25 / AMC23 / MATH500 / OlympiadBench (TTT): Matches label-supervised OPSD; Qwen3-1.7B 38.0% -> 45.2%
@@ -866,6 +882,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when on-policy parameter update direction SFT (OPSFT), not Pass@1 RLVR → `method:opsft`
   - do not use when adaptive ground-truth rationale scaffolding for sparse-reward RLVR → `method:rgpo`
 - **Redirects**:
+  - when steering-token exploration for RLVR (Guided-RLVR) → `method:guided-rlvr`
+  - when offline BAMDP GRPO rollout allocation (AdaRoll-GRPO) → `method:adaroll-grpo`
+  - when policy-compatible joint decoding when all rollouts fail (PICO; not Pass@1 default) → `method:pico`
   - when policy-intrinsic exploration then self-distill (SEPO) → `method:sepo`
   - when rollout-agreement reward on verified-correct GRPO traces (RoAR) → `method:roar`
   - when budgeted strong-verifier audits on low-pass GRPO groups (Hack-Audit / LB) → `method:hack-audit`
@@ -1018,6 +1037,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when cancellation-aware off-policy response mask → `method:carm`
   - do not use when lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL) → `method:lmopd`
 - **Redirects**:
+  - when grader-noise coefficient-set calibration on rubric GRPO (SetGRPO) → `method:setgrpo`
+  - when gated-auxiliary projection so auxiliaries cannot reverse the primary (CONCUR) → `method:concur`
   - when priority-preserving primary/auxiliary advantage fusion (PAPO) → `method:papo`
   - when group Pareto-dominance reuse of conflict-filtered rollouts (GPDPO) → `method:gpdpo`
   - when reward-specific token-level credit (leave-one-out verifier replay; MRTPO) → `method:mrtpo`
@@ -1086,6 +1107,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when continuation-sharing action-value calibration (ConCal) → `method:concal`
   - when rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO) → `method:fork-precision`
   - when progress-aware advantage shaping / Agentic Reference Graph (ProAS) → `method:proas`
   - when turn-scale advantage plus turn-level IS (MPO) → `method:mpo`
@@ -1308,6 +1330,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when lexicographic priority multi-objective OPD from reward-specialist teachers → `method:lmopd`
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
 - **Redirects**:
+  - when teacher-guided geometric-mixture OPD rollouts (MPOPD) → `method:mpopd`
+  - when unified discrete-diffusion cross-paradigm OPD (NLD-Uni; not text OPD default) → `method:nld-uni`
   - when rollout-free multi-task consolidation from domain-RL history (DoubleFree) → `method:doublefree`
   - when gradient-informed filtering of distillation tokens inside distillation-augmented RL (GIFT) → `method:gift`
   - when advantage-gated on-policy distillation (AOPD / when to follow the teacher) → `method:aopd`
@@ -1614,6 +1638,10 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when Gram-Schmidt radial projection for Muon without fixing weight norm (MuonGS) → `method:muongs`
+  - when Muon MoE routed-expert loss-spike attenuation (EnergyCal) → `method:energycal`
+  - when sharpness-aware Muon / momentum-guided SAM perturbation (MuSAM / MoMuSAM) → `method:musam`
+  - when Edge of Stability / Edge of Convexity in LLM pretrain (quadratic LR pitfalls) → `paper:edge-of-stability-llm`
   - when tensor-aware mix-then-polarize optimizer (TUON; not T-MUON) → `method:tuon`
   - when last-iterate finite Newton-Schulz Muon stationarity → `paper:muon-last-iterate-ns`
   - when Muon polar update on quadratics / Newton-Schulz pitfalls → `paper:muon-quadratic-polar`
@@ -1714,6 +1742,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when training-free MoE expert prune by routing entropy (SPARE) → `method:spare-moe`
 - **SOTA**: `method:kimi-k3` `2607.24653` (as_of 2026-08-26) — Frontier MoE Benchmarks & Long-Context Throughput: Frontier Co-Default SOTA
 - **Redirects**:
+  - when Muon MoE routed-expert loss-spike attenuation (EnergyCal; not the architecture template) → `method:energycal`
   - when nested sparsity for scalable pretraining and continual learning (NESTOR) → `method:nestor`
   - when training-free MoE compression via groupwise subspace sharing and pruning (GS-MoE) → `method:gs-moe`
   - when training-free MoE compression via groupwise subspace sharing and pruning (GS-MoE) → `method:gs-moe`
