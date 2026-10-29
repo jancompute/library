@@ -51,6 +51,7 @@ task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
   when recurrent textual harness for agentic continual learning (not the production kernel) -> method:reharness
 task:agent-memory -> method:ace (2610.33029, 2025-10)
+  when memory tax / net value of agent memory vs naive RAG -> paper:memory-tax
   when lessons that carry chance from noisy outcomes into the next decision -> paper:luck-carrying-lessons
   when unified online RL of construction and retrieval for agent memory (Uni-Mem) -> method:uni-mem
   when dumped corpus ≫ window -> task:long-context-prompt-offload
@@ -166,6 +167,7 @@ task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.19408, 2026-10-07)
   when 16x DLM-vs-AR pretrain compute gap under ELBO vs exact likelihood -> paper:dlm-ar-compute-gap
   when dLLM RL that forks from high-entropy intermediate states (ForkGRPO) -> method:forkgrpo
 task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 2026-10-13)
+  when Wiener-informed decoding / trainable Wiener path for pixel-space flow (WiD) -> method:wid
   when Schedule-Free / LR decay instead of constant-LR EMA for large diffusion -> method:schedule-free-diffusion
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
@@ -406,6 +408,7 @@ task:math-code-rl-dense -> method:cispo (2610.34044, 2026-08-26)
   when adaptive replay for RLVR reasoning diversity (TAR) -> method:tar-rlvr
   when sparse prefix probes then redistributed GRPO credit (ProbePO) -> method:probe-po
   when what RL brings to reasoning (sparse decision replace) -> paper:what-rl-brings
+  when what outcome RL buys (finishing / reliability / rarely reach) -> paper:outcome-rl-buys
   when GRPO vs rejection-sampling FT controlled comparison -> paper:grpo-vs-rft
   when anatomy of off-policy PG (IS / KL / baselines) -> paper:off-policy-pg-anatomy
   when short-window RLVR via concurrent verifiable problems (CCR) -> method:ccr
@@ -1443,6 +1446,12 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 512. **Unsupervised RLVR collapse** (claim note, no new method): `paper:unsupervised-rlvr-collapse` (`arXiv:2610.37553`) on `task:label-free-reasoner-posttrain`. Cross-task coupling drives majority-vote collapse. Does **not** retarget u-OPSD.
 
+513. **WiD**: **WiD** (`method:wid`, `arXiv:2610.36192`) on `task:pixel-diffusion-pretrain`. Active plug-in. Trainable Wiener path in a native pixel decoder; PixelDiT-XL IN-256 FID 1.53 at 500 epochs vs native 1.54 at 800. Does **not** replace Representation Guidance.
+
+514. **What outcome RL buys** (claim note, no new method): `paper:outcome-rl-buys` (`arXiv:2610.34894`) on `task:math-code-rl-dense`. Finishing is 82% of the pass@1 change at 4k/8k; reach ≤2.1 pp. Complements `paper:what-rl-brings`. Does **not** retarget CISPO.
+
+515. **Memory tax** (claim note, no new method): `paper:memory-tax` (`arXiv:2610.34073`) on `task:agent-memory`. Eleven memory systems vs naive RAG; many underperform. Keep a raw-history retrieval path. Does **not** retarget ACE.
+
 ---
 
 ## 4. Supersedes Edges & Lineage
@@ -1956,6 +1965,9 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `paper:edge-of-stability-llm` (2610.36778) is an EoS/EoC quadratic-LR gotcha. It does not retarget `muon2`.
 - `paper:delta-learning-limits` (2610.37058) is a single-pair DPO generator-bias gotcha. It does not retarget `olmo-3`.
 - `paper:unsupervised-rlvr-collapse` (2610.37553) is a majority-vote unsupervised-RLVR collapse gotcha. It does not retarget `u-opsd`.
+- `wid` (2610.36192) is an active Wiener-informed pixel-decoder plug-in. It does not supersede `representation-guidance`.
+- `paper:outcome-rl-buys` (2610.34894) is an outcome-RL finishing/reliability/reach gotcha. It does not retarget `cispo`.
+- `paper:memory-tax` (2610.34073) is a net-value-of-memory gotcha vs naive RAG. It does not retarget `ace`.
 
 ---
 

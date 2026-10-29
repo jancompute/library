@@ -71,6 +71,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:agent-memory — Agent Memory
 - **Scope**: How an agent stores and updates strategies across tasks. Not dumped-prompt RLM and not a SWE loop.
 - **SOTA**: `method:ace` `2610.33029` (as_of 2025-10) — AppWorld, DeepSeek-V3.1: ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%
+  - do not use when memory tax / net value of agent memory vs naive RAG → `paper:memory-tax`
   - do not use when lessons that carry chance from noisy outcomes into the next decision → `paper:luck-carrying-lessons`
   - do not use when unified online RL of construction and retrieval for agent memory (Uni-Mem) → `method:uni-mem`
   - do not use when recursive summary as the only long-context strategy → `method:rlm`
@@ -80,6 +81,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when System-One control plane for memory ops (typing, routing, budget, traversal) → `method:jev-mem`
   - do not use when read-time curation of raw trajectories (not write-time playbook) → `method:jitmem`
 - **Redirects**:
+  - when memory tax / net value of agent memory vs naive RAG → `paper:memory-tax`
   - when lessons that carry chance from noisy outcomes into the next decision → `paper:luck-carrying-lessons`
   - when unified online RL of construction and retrieval for agent memory (Uni-Mem) → `method:uni-mem`
   - when dumped corpus ≫ window → `task:long-context-prompt-offload`
@@ -346,10 +348,12 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:pixel-diffusion-pretrain — Pixel-Space Diffusion Transformer Pretraining
 - **Scope**: Pixel-space DiT / flow-matching image pretrain (ImageNet FID, GenEval). First hop is Representation Guidance. Not image/flow reward alignment, not continuous text diffusion LMs, not discrete dLLM recycle.
 - **SOTA**: `method:representation-guidance` `2610.12978` (as_of 2026-10-13) — ImageNet-256 XL/16 FID; ImageNet-512 FID; GenEval: IN-256 FID 1.55; IN-512 FID 1.74; GenEval 0.89
+  - do not use when Wiener-informed decoding / trainable Wiener path for pixel-space flow (WiD) → `method:wid`
   - do not use when Schedule-Free / LR decay instead of constant-LR EMA for large diffusion → `method:schedule-free-diffusion`
   - do not use when aligning text-to-image diffusion or flow models with rewards → `method:diffusion-opsd`
   - do not use when continuous diffusion language model pretrain → `method:semicat`
 - **Redirects**:
+  - when Wiener-informed decoding / trainable Wiener path for pixel-space flow (WiD) → `method:wid`
   - when Schedule-Free / LR decay instead of constant-LR EMA for large diffusion → `method:schedule-free-diffusion`
   - when aligning text-to-image diffusion or flow models with rewards → `task:posttrain-diffusion`
   - when continuous diffusion language model pretrain (not pixel DiT) → `task:continuous-diffusion-lm-pretrain`
@@ -855,6 +859,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when adaptive replay for RLVR reasoning diversity (TAR) → `method:tar-rlvr`
   - do not use when sparse prefix probes then redistributed GRPO credit (ProbePO) → `method:probe-po`
   - do not use when what RL brings to reasoning (sparse decision replace) → `paper:what-rl-brings`
+  - do not use when what outcome RL buys (finishing / reliability / rarely reach) → `paper:outcome-rl-buys`
   - do not use when GRPO vs rejection-sampling FT controlled comparison → `paper:grpo-vs-rft`
   - do not use when anatomy of off-policy PG (IS / KL / baselines) → `paper:off-policy-pg-anatomy`
   - do not use when single-rollout token credit via causal vs hindsight JSD (HP-RLVR) → `method:hp-rlvr`
@@ -907,6 +912,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when adaptive replay for RLVR reasoning diversity (TAR) → `method:tar-rlvr`
   - when sparse prefix probes then redistributed GRPO credit (ProbePO) → `method:probe-po`
   - when what RL brings to reasoning (sparse decision replace) → `paper:what-rl-brings`
+  - when what outcome RL buys (finishing / reliability / rarely reach) → `paper:outcome-rl-buys`
   - when GRPO vs rejection-sampling FT controlled comparison → `paper:grpo-vs-rft`
   - when anatomy of off-policy PG (IS / KL / baselines) → `paper:off-policy-pg-anatomy`
   - when short-window RLVR via concurrent verifiable problems (CCR) → `method:ccr`
@@ -1229,6 +1235,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when adaptive replay for RLVR reasoning diversity (TAR) → `method:tar-rlvr`
   - do not use when sparse prefix probes then redistributed GRPO credit (ProbePO) → `method:probe-po`
   - do not use when what RL brings to reasoning (sparse decision replace) → `paper:what-rl-brings`
+  - do not use when what outcome RL buys (finishing / reliability / rarely reach) → `paper:outcome-rl-buys`
   - do not use when GRPO vs rejection-sampling FT controlled comparison → `paper:grpo-vs-rft`
   - do not use when anatomy of off-policy PG (IS / KL / baselines) → `paper:off-policy-pg-anatomy`
   - do not use when single-rollout token credit via causal vs hindsight JSD (HP-RLVR) → `method:hp-rlvr`

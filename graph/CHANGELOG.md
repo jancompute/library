@@ -6,6 +6,23 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-10-29 — weekday SOTA sweep (WiD; notes outcome-rl-buys, memory-tax)
+- One active plug-in and two paper-only notes. No current_sota retarget (Representation Guidance / CISPO / ACE stay; Muon2 / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC).
+- Window: 2026-10-29 Librarian weekday sweep after merged PR 53 (watermark 2610.37658, ~1937 nodes, cc09d96). Thursday 2026-10-29 arXiv cs.LG/cs.CL/cs.AI listing is not posted yet (Wed 28 Oct remains the latest; high id still 2610.37658). Covers HF Daily 2026-10-28 leftovers and 2026-10-29. Watermark unchanged at 2610.37658.
+- SKIP (considered, not ingested): Timestral 2610.37585 (time-series FM recipe, no library task); Fin-SD / hint-matter 2610.36082 (finance OPSD); GEPA-Curator 2610.37651 (prompt RSI curator, frozen weights); AdaPRA 2610.33245 (data-science harness); PhysEvolve 2610.34921 (physics VLM self-evolution); SARL 2610.30435 (search-agent RL, prior-window skip); TAO 2610.37230 (serving); Lexical Imprint 2602.10657 (Feb paper); Trinity; Channel Selection; Harness-Model Collaboration; RSI Arena; MemoryTax 2610.29823 (different short note from 2610.34073); Truncate-or-Not (already paper:truncated-backprop-looped). HF Daily 2026-10-29 rest: DTCA and LongZero already ingested; RealCLI, TauIndianBankBench, CausGround, HuGe, OmniSpectra, audio/video, remaining serving/eval.
+
+### 2026-10-29 — ingest method:wid (active on task:pixel-diffusion-pretrain; does not supersede method:representation-guidance)
+- Added paper:wid, method:wid, recipe:wid (`code_status: none`).
+- Status active (`sota_for: []`). WiD injects a trainable patch-PCA Wiener path into a native pixel decoder. PixelDiT-XL ImageNet-256 FID 1.53 at 500 epochs vs native 1.54 at 800. Not a head-to-head vs Representation Guidance.
+
+### 2026-10-29 — ingest paper:outcome-rl-buys (claim note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:outcome-rl-buys (`code_status: released`, shanyang-me/outcome-rl-buys). Linked from method:cispo.
+- Finishing is 82% of the pass@1 change at 4k/8k; reach ≤2.1 pp. Complements paper:what-rl-brings.
+
+### 2026-10-29 — ingest paper:memory-tax (claim note on task:agent-memory; does not retarget method:ace)
+- Added paper:memory-tax (`code_status: none`). Linked from method:ace.
+- Eleven memory systems vs naive RAG; many underperform two-round RAG. Keep a raw-history retrieval path. Complements paper:luck-carrying-lessons. Distinct from 2610.29823.
+
 ### 2026-10-28 — weekday SOTA sweep (MuonGS, EnergyCal, MuSAM, Guided-RLVR, MPOPD, SetGRPO, PICO, AdaRoll-GRPO, CONCUR, HiLo-RD, CoHARL, ConCal, EnvSched, SimplexLoRA, ResCom, DuplexTune, NLD-Uni, TDLM, CIGA, SynthAPI; notes Edge of Stability, delta-learning limits, unsupervised RLVR collapse)
 - Twenty active plug-ins and three paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC).
 - Window: 2026-10-28 Librarian weekday sweep after merged PR 52 (watermark 2610.35868, ~1874 nodes, 22632da). Covers Wednesday 2026-10-28 arXiv cs.LG/cs.CL/cs.AI after 2610.35868 plus HF Daily 2026-10-27 leftovers and 2026-10-28. New high id 2610.37658.
