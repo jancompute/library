@@ -76,6 +76,9 @@ do_not_use_for:
   - when: "what RL brings to reasoning (sparse decision replace)"
     reason: "Gotcha: most GRPO pass@1 lives in ~4% of greedy tokens; does not retarget CISPO"
     use_instead: "paper:what-rl-brings"
+  - when: "what outcome RL buys (finishing / reliability / rarely reach)"
+    reason: "Gotcha: most pass@1 at tight budgets is finishing, not reach; does not retarget CISPO"
+    use_instead: "paper:outcome-rl-buys"
   - when: "GRPO vs rejection-sampling FT controlled comparison"
     reason: "Gotcha: GRPO still beats tuned RFT on a procedural task; does not retarget CISPO"
     use_instead: "paper:grpo-vs-rft"
@@ -154,7 +157,7 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-29'
 papers:
   - paper:sign-law-entropy-rlvr
   - paper:intervention-certified
@@ -163,6 +166,7 @@ papers:
   - paper:on-policy-audit-collapse
   - paper:reward-misspecification-cot
   - paper:what-rl-brings
+  - paper:outcome-rl-buys
   - paper:grpo-vs-rft
   - paper:off-policy-pg-anatomy
   - paper:hp-rlvr

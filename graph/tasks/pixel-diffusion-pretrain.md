@@ -15,6 +15,8 @@ out_of_scope:
 - Discrete dLLM AR-delta recycle (A2D)
 - Video reward models / RGPO (RewardVerse)
 redirects:
+  - when: "Wiener-informed decoding / trainable Wiener path for pixel-space flow (WiD)"
+    to: "method:wid"
   - when: "Schedule-Free / LR decay instead of constant-LR EMA for large diffusion"
     to: "method:schedule-free-diffusion"
   - when: aligning text-to-image diffusion or flow models with rewards
@@ -32,12 +34,13 @@ current_sota:
   notes: Representation Guidance (2610.12978). Method status active. Listed here as
     first hop; method sota_for stays empty. Does not replace DiffusionOPSD / Self-OPD.
 methods:
+  - method:wid
   - method:schedule-free-diffusion
   - method:representation-guidance
   - method:diffusion-opsd
   - method:self-opd
   - method:semicat
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-29'
 tags:
 - diffusion
 - pretraining
@@ -58,4 +61,5 @@ Train a pixel-space diffusion or flow-matching transformer for images. This task
 - **Primary (this task only)**: **Representation Guidance** (`method:representation-guidance`, `paper:representation-guidance` `arXiv:2610.12978`). Status `active`. Method `sota_for` stays empty. Code Pan-Zihao/Representation-Guidance.
 - **Not This Task**: `method:diffusion-opsd` / `method:self-opd` remain image/flow post-train; `method:semicat` remains continuous text diffusion LM.
 - **Optional Schedule-Free diffusion optimizer**: `method:schedule-free-diffusion` (`arXiv:2610.22945`). Beats constant-LR EMA; transfers to ReFL/DMD. Does not replace Representation Guidance.
+- **Optional Wiener-informed decoder**: `method:wid` (`arXiv:2610.36192`). PixelDiT-XL IN-256 FID 1.53 at 500 epochs vs native 1.54 at 800. Not a head-to-head vs Representation Guidance. Does not replace Representation Guidance.
 

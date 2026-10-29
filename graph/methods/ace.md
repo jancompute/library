@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'memory tax / net value of agent memory vs naive RAG'
+    reason: 'ACE remains write-time playbook; this is a net-value gotcha vs raw-history retrieval'
+    use_instead: paper:memory-tax
   - when: 'lessons that carry chance from noisy outcomes into the next decision'
     reason: 'ACE remains write-time playbook; this is a registered chance-carrying-lesson gotcha'
     use_instead: paper:luck-carrying-lessons
@@ -34,9 +37,10 @@ do_not_use_for:
     use_instead: "method:jitmem"
 assumptions:
   - "Generator / Reflector / Curator. Incremental bullets, not rewrite. Needs execution feedback."
-last_reviewed: "2026-09-24"
+last_reviewed: "2026-10-29"
 papers:
   - paper:luck-carrying-lessons
+  - paper:memory-tax
   - paper:ace
 recipes:
   - recipe:ace

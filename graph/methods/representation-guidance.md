@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "Wiener-informed decoding / trainable Wiener path for pixel-space flow (WiD)"
+    reason: "RG remains pixel DiT first hop; WiD is a native-decoder plug-in on PixelDiT/DeCo"
+    use_instead: "method:wid"
   - when: "Schedule-Free / LR decay instead of constant-LR EMA for large diffusion"
     reason: "RG remains pixel DiT first hop; Schedule-Free is the optimizer/EMA schedule"
     use_instead: "method:schedule-free-diffusion"
@@ -20,9 +23,10 @@ assumptions:
 - 'Pixel-space DiT / flow matching. Paper: ImageNet-256/512 class-conditional; GenEval
   / DPG-Bench.'
 - 'Code: Pan-Zihao/Representation-Guidance (code_status: released).'
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-29'
 papers:
   - paper:representation-guidance
+  - paper:wid
   - paper:schedule-free-diffusion
 recipes:
   - recipe:representation-guidance

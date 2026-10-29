@@ -11,6 +11,8 @@ out_of_scope:
   - "Dumped 10M-token prompt"
   - "System-One control plane for conversational memory ops (Jev-Mem)"
 redirects:
+  - when: "memory tax / net value of agent memory vs naive RAG"
+    to: "paper:memory-tax"
   - when: "lessons that carry chance from noisy outcomes into the next decision"
     to: "paper:luck-carrying-lessons"
   - when: "unified online RL of construction and retrieval for agent memory (Uni-Mem)"
@@ -27,7 +29,7 @@ redirects:
     to: "method:jitmem"
   - when: "recurrent textual harness that backward-revises retrieved reflections (not write-time playbook)"
     to: "method:reharness"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-29'
 current_sota:
   - method: method:ace
     as_of: "2025-10"
@@ -66,4 +68,5 @@ Agents need memory that accumulates strategies without collapsing under rewrite.
 - **Active (System-One-controlled store)**: `method:jev-mem` (`arXiv:2609.23986`) — typed control plane for typing, routing, budget, traversal, scoring, stop; System Two only for hard reasoning. LoCoMo judge 0.777. Does not replace ACE or Code2Skill.
 - **Active (read-time curator)**: `method:jitmem` (`arXiv:2609.27334`) — keep raw trajectories; curate at read time from immediate task success. ALFWorld/WebShop/τ² +16.2/+16.3/+3.9 vs write-time baselines. Does not retarget ACE.
 - **Active (recurrent reflection harness, not this playbook default)**: `method:reharness` (`arXiv:2610.12668`) on `task:agent-continual-learning`. Edits retrieved reflections after the instance. Does not replace ACE, Code2Skill, or Jev-Mem.
+- **Gotcha (memory tax)**: `paper:memory-tax` (`arXiv:2610.34073`). Eleven memory systems vs naive RAG; many underperform two-round RAG. Keep a raw-history retrieval path. Complements paper:luck-carrying-lessons. Does not retarget ACE.
 - **do_not_use**: recursive summary as the only long-context strategy.
