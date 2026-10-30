@@ -8,6 +8,15 @@ sota_for:
   - task:privileged-teacher-opsd
 supersedes: []
 do_not_use_for:
+  - when: 'teacher-evolution self-distillation (TESD)'
+    reason: 'VISTA remains gold-solution OPSD; TESD evolves the self-teacher from rollout rewards'
+    use_instead: method:tesd
+  - when: 'token-level multi-teacher adaptive OPSD (MTA-OPSD)'
+    reason: 'VISTA remains single-reference gold OPSD; MTA-OPSD picks a teacher per token'
+    use_instead: method:mta-opsd
+  - when: 'multi-mask selective self-distillation (MASS)'
+    reason: 'VISTA remains gold-solution OPSD; MASS aggregates masked views of one solution'
+    use_instead: method:mass-opsd
   - when: 'steered-teacher OPSD against reference hallucination / reconsideration suppression'
     reason: 'VISTA remains gold-solution privileged OPSD; ST-OPSD steers teacher activations'
     use_instead: method:steer-teacher
@@ -62,7 +71,7 @@ do_not_use_for:
   - when: "privileged-context content (demo vs feedback vs rephrase) as OPSD drift, not a trainer"
     reason: "VISTA remains the trainer; Privileged Context as Drift is an evidence card"
     use_instead: "method:privileged-context-drift"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-30'
 papers:
   - paper:self-distillation-ood
   - paper:pr-opd

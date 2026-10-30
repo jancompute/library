@@ -8,6 +8,12 @@ sota_for:
   - task:diffusion-augmented-ar
 supersedes: []
 do_not_use_for:
+  - when: 'KL-recovery MTP gradient / Soft-MTP (not serving)'
+    reason: 'Uno remains serving; Soft-MTP is an MTP pretrain CE residual fix'
+    use_instead: method:soft-mtp
+  - when: 'multi-draft OPD for parallel diffusion drafters (MDraft)'
+    reason: 'Uno remains serving; MDraft is drafter OPD under prefix mismatch'
+    use_instead: method:mdraft
   - when: "speculative diffusion is not lossless AR speculative decoding"
     reason: "Gotcha on dLLM vs lossless spec decode; does not retarget Uno"
     use_instead: "paper:speculative-diffusion-tradeoffs"
@@ -39,7 +45,7 @@ assumptions:
   - "AR backbone exists (train from scratch or attach LoRA diffusion weights to an open-weight AR LLM). Paper 8B from-scratch + Qwen3-8B adapters."
   - "Lossless decode needs AR verification of diffusion drafts (Ψ-Spec). Linear B=4 for system throughput; tree (B,K,V)=(16,32,32) for batch-1. Tree verification wants FlashAttention-3."
   - "Diffusion Distillation on Qwen3-8B: OpenThoughts3-1.2M, LoRA rank 128 / α 2048, global batch 128, LR 1e-5, tv-gamma 1."
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-30'
 papers:
   - paper:speculative-diffusion-tradeoffs
   - paper:target-regeneration

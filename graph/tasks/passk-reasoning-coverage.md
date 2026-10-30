@@ -18,7 +18,11 @@ methods:
   - method:dapo
   - method:datpo
   - method:dart-es
-last_reviewed: "2026-10-07"
+redirects:
+  - when: "pass@1 vs pass@k no-free-lunch under RLVR"
+    to: "paper:rlvr-no-free-lunch"
+
+last_reviewed: '2026-10-30'
 tags:
   - post-training
   - rl-alignment

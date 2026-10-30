@@ -9,6 +9,15 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)'
+    reason: 'OPD remains matching; ATI-OPD repairs drifted prefixes'
+    use_instead: method:ati-opd
+  - when: 'calibrated multi-teacher OPD for dynamic MoE (C-MOPD)'
+    reason: 'OPD remains single-teacher matching; C-MOPD is calibrated Top-K MOPD'
+    use_instead: method:c-mopd
+  - when: 'entropy-shape correlation predicts the OPD teacher (ESC)'
+    reason: 'Gotcha/protocol on where-to-branch; does not retarget OPD'
+    use_instead: paper:opd-entropy-shape
   - when: 'rollout-free multi-task consolidation from domain-RL history (DoubleFree)'
     reason: 'OPD remains matching; DoubleFree consolidates historical RL traces without live rollouts'
     use_instead: method:doublefree
@@ -165,8 +174,9 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-30'
 papers:
+  - paper:opd-entropy-shape
   - paper:reverse-kl-limits
   - paper:hier-agent-distill
   - paper:native-safety-opd

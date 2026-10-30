@@ -6,6 +6,111 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-10-30 — weekday SOTA sweep (AIR, Soft-MTP, ATI-OPD, TESD, WISD, SCOPE-agent, MTA-OPSD, TACE, SCARL, GGA-PW, data-constrained HP ensemble, MDraft, CoCA, RACE, IDM, A-RSI, MASS, C-MOPD, WebAnything, H2R; notes RLVR no-free-lunch, Muon first MoE layer, weight-update leverage, quantization loss spikes, OPD entropy-shape)
+- Twenty active plug-ins and five paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning).
+- Window: 2026-10-30 Librarian weekday sweep after merged PR 54 (watermark 2610.37658, 1942 nodes, 42f6767). Covers Thursday 2026-10-29 and Friday 2026-10-30 arXiv cs.LG/cs.CL/cs.AI after 2610.37658 (Thu listing now posted; first new id 2610.37712) plus HF Daily 2026-10-29 leftovers and 2026-10-30. New high id 2610.40655.
+- SKIP (considered, not ingested): Nemotron 3.5 model card; Artifact Distillation (inference); TableTune serving; Sandman k8s; VeriCUA eval; KARMA frozen-harness; Echo visual-control RL; PushT planners; Routed CL; CALM training-free memory; LRMoE systems; ClosedLoopGaussian Countdown; AgenticDS; dLLM KV quant; Hessian PTQ; sequential FT replay; Adam epsilon test; HotPOT operators; Rubricon; textbook self-learning RL; CORAL harness; UMM continual analysis; tokenizer membership; GiGPPO iOS UI; on-policy RAG embeddings; teacher-bridges null; MGO-SC CIFAR; remaining serving/eval/harness-only and control papers. HF Daily 2026-10-29 already covered in PR 54.
+
+### 2026-10-30 — ingest method:air-elr (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:air-elr, method:air-elr, recipe:air-elr (`code_status: none`).
+- Status active (`sota_for: []`). AIR affine 1/sqrt(t) effective-LR schedule under weight-normalized training; ~0.01 loss vs cosine on 128B-token MoE.
+
+### 2026-10-30 — ingest method:soft-mtp (active on task:diffusion-augmented-ar; does not supersede method:uno)
+- Added paper:soft-mtp, method:soft-mtp, recipe:soft-mtp (`code_status: released`, JaydenTeoh/Soft-MTP).
+- Status active (`sota_for: []`). Recovers the KL self-distillation term in MTP CE and drops the noisy residual. Mention on task:pretrain-dense-7b.
+
+### 2026-10-30 — ingest method:ati-opd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:ati-opd, method:ati-opd, recipe:ati-opd (`code_status: none`).
+- Status active (`sota_for: []`). Adaptive teacher-prefix splice at the earliest high-disagreement span on long-sequence OPD.
+
+### 2026-10-30 — ingest method:tesd (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:tesd, method:tesd, recipe:tesd (`code_status: none`).
+- Status active (`sota_for: []`). Teacher-evolution self-distillation: score self-teacher rollouts on correctness and context independence, then reliability-weight the student.
+
+### 2026-10-30 — ingest method:wisd (active on task:teacher-free-on-policy-self-adaptation; does not supersede method:opsa)
+- Added paper:wisd, method:wisd, recipe:wisd (`code_status: released`, jet-ai-projects/WISD).
+- Status active (`sota_for: []`). Weakening-induced OPSD via quant or prune; Qwen3.5-4B prune HMMT 57.7→70.5 / LiveCodeBench v6 39.1→56.7.
+
+### 2026-10-30 — ingest method:scope-agent-opsd (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:scope-agent-opsd, method:scope-agent-opsd, recipe:scope-agent-opsd (`code_status: none`).
+- Status active (`sota_for: []`). Critical-step agent OPSD. Qwen2.5-3B ALFWorld 97.7 / WebShop 85.2. Distinct from method:scope-opsd and method:scope-t2i.
+
+### 2026-10-30 — ingest method:mta-opsd (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:mta-opsd, method:mta-opsd, recipe:mta-opsd (`code_status: released`, xingzhejun/MTA-OPSD).
+- Status active (`sota_for: []`). Token-level multi-teacher adaptive OPSD.
+
+### 2026-10-30 — ingest method:tace (active on task:multi-reward-rlvr; does not supersede method:corrgrpo)
+- Added paper:tace, method:tace, recipe:tace (`code_status: none`).
+- Status active (`sota_for: []`). Two-stage OT baseline plus budget-neutral token credit. Mention on task:math-code-rl-moe.
+
+### 2026-10-30 — ingest method:scarl (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:scarl, method:scarl, recipe:scarl (`code_status: released`, kezhh163/scarl).
+- Status active (`sota_for: []`). Sequence confidence-aligned RL; never re-signs the base advantage.
+
+### 2026-10-30 — ingest method:gga-pw (active on task:linear-time-sequence-modeling; does not supersede method:mamba-2)
+- Added paper:gga-pw, method:gga-pw, recipe:gga-pw (`code_status: none`).
+- Status active (`sota_for: []`). GGA mixed-precision plus Pure-Write recency window for GDN state quant. Sibling of method:pace.
+
+### 2026-10-30 — ingest method:data-constrained-hp-ensemble (active on task:data-constrained-pretrain; does not supersede method:repeated-token-worth)
+- Added paper:data-constrained-hp-ensemble, method:data-constrained-hp-ensemble, recipe:data-constrained-hp-ensemble (`code_status: none`).
+- Status active (`sota_for: []`). HP-transfer power laws plus ensembling; FineWeb 100M unique tokens −0.15 nats.
+
+### 2026-10-30 — ingest method:mdraft (active on task:diffusion-augmented-ar; does not supersede method:uno)
+- Added paper:mdraft, method:mdraft, recipe:mdraft (`code_status: none`).
+- Status active (`sota_for: []`). Multi-draft OPD for parallel diffusion drafters under prefix mismatch.
+
+### 2026-10-30 — ingest method:coca (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:coca, method:coca, recipe:coca (`code_status: none`).
+- Status active (`sota_for: []`). Capability-aware policy+rubric co-evolution. Distinct from method:race-rubric.
+
+### 2026-10-30 — ingest method:race-rubric (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:race-rubric, method:race-rubric, recipe:race-rubric (`code_status: none`).
+- Status active (`sota_for: []`). Reward-adaptive co-evolution: informative groups train the policy; rubric phase on saturation. Distinct from method:coca.
+
+### 2026-10-30 — ingest method:idm (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd)
+- Added paper:idm, method:idm, recipe:idm (`code_status: released`, inclusionAI/IDM).
+- Status active (`sota_for: []`). Intrinsic distribution matching: DMD score difference plus EMA feature mean/std. LongText-Bench 94.25% ZH / 90.20% EN at 2 NFE.
+
+### 2026-10-30 — ingest method:a-rsi (active on task:data-free-self-evolution; does not supersede method:j-zero)
+- Added paper:a-rsi, method:a-rsi, recipe:a-rsi (`code_status: none`; project seerray-lab.github.io/A-RSI/).
+- Status active (`sota_for: []`). Adaptive task-pool refresh for zero-data multimodal RSI from training logs.
+
+### 2026-10-30 — ingest method:mass-opsd (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:mass-opsd, method:mass-opsd, recipe:mass-opsd (`code_status: none`).
+- Status active (`sota_for: []`). Multi-mask selective self-distillation over views of one gold solution.
+
+### 2026-10-30 — ingest method:c-mopd (active on task:student-distillation; does not supersede method:open-mopd)
+- Added paper:c-mopd, method:c-mopd, recipe:c-mopd (`code_status: none`).
+- Status active (`sota_for: []`). Calibrated Top-K multi-teacher OPD for a dynamic MoE (Turing-20B-A2B 0.9988 overall). Paper Open-MOPD is not the library 83.4% bake-off.
+
+### 2026-10-30 — ingest method:webanything (active on task:hybrid-computer-use-agent-rl; does not supersede method:recreationworld)
+- Added paper:webanything, method:webanything, recipe:webanything (`code_status: released`, china-qijizhifeng/Web-Anything).
+- Status active (`sota_for: []`). Automated wild-web env reconstruction; 244 sites / Qwen3.5-9B REAL +9.9pp.
+
+### 2026-10-30 — ingest method:h2r (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:h2r, method:h2r, recipe:h2r (`code_status: none`).
+- Status active (`sota_for: []`). Hierarchical hint-based reward for math RLVR on HiMath sub-questions.
+
+### 2026-10-30 — ingest paper:rlvr-no-free-lunch (claim note on task:math-code-rl-dense / task:passk-reasoning-coverage; does not retarget method:cispo)
+- Added paper:rlvr-no-free-lunch (`code_status: released`, yliusci/no-free-lunch-rlvr). Linked from method:cispo and method:es-reasoning.
+- Every pass@1 gain has a pass@k price under exclusive specialization. Complements paper:sharpening-tax.
+
+### 2026-10-30 — ingest paper:muon-first-moe-layer (claim note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:muon-first-moe-layer (`code_status: released`, marcoshernanz/muon-moe-routing). Linked from method:muon2 and method:energycal.
+- Muon roughly doubles first MoE layer routing-bias span; batch-mean subtract or halved LR removes most of the rise.
+
+### 2026-10-30 — ingest paper:weight-update-leverage (claim note on task:llm-pretraining-optimization / task:instruct-sft-alignment; does not retarget method:muon2)
+- Added paper:weight-update-leverage (`code_status: none`). Linked from method:muon2 and method:olmo-3.
+- Stage-wise leverage; bf16 without an fp32 master freezes 36–99% of coordinates.
+
+### 2026-10-30 — ingest paper:quantization-loss-spikes (claim note on task:llm-pretraining-optimization; does not retarget method:muon2)
+- Added paper:quantization-loss-spikes (`code_status: none`). Linked from method:muon2.
+- LM-head quantization time-bomb loss spikes; SGD+momentum on the head suppresses logit growth.
+
+### 2026-10-30 — ingest paper:opd-entropy-shape (claim note on task:student-distillation; does not retarget method:opd)
+- Added paper:opd-entropy-shape (`code_status: released`, maybenotime/opd-esc). Linked from method:opd.
+- Entropy-shape correlation (ESC) predicts the OPD teacher; where-to-branch is causal.
+
 ### 2026-10-29 — weekday SOTA sweep (WiD; notes outcome-rl-buys, memory-tax)
 - One active plug-in and two paper-only notes. No current_sota retarget (Representation Guidance / CISPO / ACE stay; Muon2 / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC).
 - Window: 2026-10-29 Librarian weekday sweep after merged PR 53 (watermark 2610.37658, ~1937 nodes, cc09d96). Thursday 2026-10-29 arXiv cs.LG/cs.CL/cs.AI listing is not posted yet (Wed 28 Oct remains the latest; high id still 2610.37658). Covers HF Daily 2026-10-28 leftovers and 2026-10-29. Watermark unchanged at 2610.37658.

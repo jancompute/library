@@ -8,10 +8,14 @@ sota_for:
   - task:passk-reasoning-coverage
 supersedes: []
 do_not_use_for:
+  - when: 'pass@1 vs pass@k no-free-lunch under RLVR'
+    reason: 'Gotcha on the pass@1 vs pass@k frontier; does not retarget ES-reasoning'
+    use_instead: paper:rlvr-no-free-lunch
   - when: "difficulty-aware reweighting + targeted replay on an ES trainer"
     reason: "ES-reasoning remains Pass@K; DART-ES is a reweight/replay plug-in"
     use_instead: "method:dart-es"
 papers:
+  - paper:rlvr-no-free-lunch
   - paper:es-reasoning
   - paper:sharpening-tax
   - paper:dart-es

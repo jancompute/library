@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'automated wild-web env reconstruction (WebAnything)'
+    reason: 'RecreationWorld remains hybrid CUA first hop; WebAnything reconstructs wild-web envs'
+    use_instead: method:webanything
   - when: "scalable mobile-agent envs / hybrid GUI+app-native tools (OpenMobile-2)"
     reason: "RecreationWorld remains hybrid CUA first hop; OpenMobile-2 is mobile env+RL"
     use_instead: "method:openmobile-2"
@@ -26,7 +29,7 @@ assumptions:
   - "Hybrid CUA: the agent interleaves GUI exploration, implementation, and visual verification of its own artifacts. Five platforms: Ubuntu, macOS, Windows, Android, Web."
   - "Reward is reference-as-oracle: hidden programmatic and visual assertions derived from a running reference, frozen after human review."
   - "Code and RecreationBench released. RecreationBench is 250 tasks, 50 per platform."
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-30'
 papers:
   - paper:recreationworld
   - paper:openmobile-2

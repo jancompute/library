@@ -8,6 +8,9 @@ sota_for:
   - task:teacher-free-on-policy-self-adaptation
 supersedes: []
 do_not_use_for:
+  - when: 'weakening-induced OPSD via quant/prune (WISD)'
+    reason: 'OPSA remains entropy-adaptive negatives; WISD contrasts a weaker clone'
+    use_instead: method:wisd
   - when: "verifiable labels exist and the goal is Pass@1 math/code RLVR"
     reason: "OPSA is supervision-free self-adaptation, not labeled RLVR"
     use_instead: "method:cispo"
@@ -36,7 +39,7 @@ assumptions:
   - "Train-time unlabeled prompt corpus exists (paper: DAPO-17k questions, labels unused)."
   - "Policy can sample long on-policy rollouts; paper trains Qwen3-1.7B/4B and Qwen3.5-9B in non-thinking mode on 8 GPUs via slime."
   - "Does not require shared vocab or white-box teacher logits."
-last_reviewed: "2026-09-01"
+last_reviewed: '2026-10-30'
 papers:
   - paper:opsa
 recipes:

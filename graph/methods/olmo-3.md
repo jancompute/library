@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: 'leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master'
+    reason: 'Gotcha on stage-wise leverage / master weights; does not retarget OLMo-3'
+    use_instead: paper:weight-update-leverage
   - when: 'intervention-certified / sigma-weighted SFT-RL amplification gate'
     reason: 'Gotcha on hybrid SFT/RL amplification; does not retarget OLMo-3'
     use_instead: paper:intervention-certified
@@ -40,6 +43,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:weight-update-leverage
   - paper:intervention-certified
   - paper:synthetic-rewrite-laws
   - paper:echo-vocab-collapse
@@ -57,7 +61,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Dolma-3 multi-trillion token open mix + Dolci curated SFT and verifiable reward alignment."
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - open-data

@@ -35,6 +35,8 @@ methods:
   - method:dco
   - method:opsft
 redirects:
+  - when: "leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master"
+    to: "paper:weight-update-leverage"
   - when: "SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE)"
     to: "method:drive-ft"
   - when: "evolving SWE trajectory filters (MetaCurate)"
@@ -51,7 +53,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-30'
 tags:
   - post-training
   - instruct

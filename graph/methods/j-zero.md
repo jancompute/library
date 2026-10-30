@@ -8,6 +8,9 @@ sota_for:
   - task:data-free-self-evolution
 supersedes: []
 do_not_use_for:
+  - when: 'adaptive task refresh for zero-data multimodal RSI (A-RSI)'
+    reason: 'J-Zero remains Challenger-Solver-Judge; A-RSI refreshes a multimodal task pool'
+    use_instead: method:a-rsi
   - when: "on-policy self-training from self-generated QA pairs (no external teacher or labeled set)"
     reason: "J-Zero remains Challenger-Solver-Judge; this card is data-free on-policy self-distillation from self-proposed QA"
     use_instead: "method:op-self-training"

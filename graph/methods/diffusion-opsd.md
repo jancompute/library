@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: 'intrinsic distribution matching / EMA moment constraint on DMD (IDM)'
+    reason: 'DiffusionOPSD remains reward OPSD; IDM is few-step DMD plus EMA moments'
+    use_instead: method:idm
   - when: "likelihood-free RL fine-tune of diffusion/flow policies (DoobPO)"
     reason: "DiffusionOPSD remains on-policy self-distill; DoobPO uses a Doob h-transform because action likelihoods are intractable"
     use_instead: "method:doobpo"
@@ -30,7 +33,7 @@ claims:
     date: "2026-08-27"
     verified: true
     notes: "Translates image-level reward gradients into bounded positive/negative clean-output targets for intermediate denoising queries."
-last_reviewed: "2026-10-06"
+last_reviewed: '2026-10-30'
 tags:
   - diffusion
   - post-training

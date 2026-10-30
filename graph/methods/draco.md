@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'capability-aware policy+rubric co-evolution (CoCA)'
+    reason: 'DRACO remains outcome-blind rubric credit; CoCA diagnoses criterion difficulty'
+    use_instead: method:coca
+  - when: 'reward-adaptive co-evolution of policy and rubric (RACE)'
+    reason: 'DRACO remains rubric credit; RACE routes groups and switches phases'
+    use_instead: method:race-rubric
   - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
     reason: 'DRACO remains outcome-blind rubric credit; FORK adds precision/necessity on a rubric host'
     use_instead: method:fork-precision
@@ -31,7 +37,7 @@ do_not_use_for:
 assumptions:
   - "No ground-truth success signal at train time. A frozen judge can propose and score rubrics and cite responsible steps."
   - "Paper: Qwen3.6-27B and Qwen2.5-32B-Instruct LoRA GRPO, 8x H100, B=16, G=6, GPT-5.4 judge. AppWorld train 90 tasks. Ground-truth tests used only at eval."
-last_reviewed: "2026-10-05"
+last_reviewed: '2026-10-30'
 papers:
   - paper:credit-helps-hurts
   - paper:draco

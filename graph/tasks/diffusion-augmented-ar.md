@@ -13,6 +13,10 @@ out_of_scope:
   - "Speculative draft co-train inside long-context RL (Online Draft Co-Training / NeMo RL)"
   - "Input-heavy agentic / KV-compressed CED MoE serving (DeepSeek-V4.1-Flash)"
 redirects:
+  - when: "KL-recovery MTP gradient / Soft-MTP (not serving)"
+    to: "method:soft-mtp"
+  - when: "multi-draft OPD for parallel diffusion drafters (MDraft)"
+    to: "method:mdraft"
   - when: "speculative diffusion is not lossless AR speculative decoding"
     to: "paper:speculative-diffusion-tradeoffs"
   - when: "target regeneration shrinks draft-training objective gains"
@@ -43,12 +47,14 @@ current_sota:
     value: "SWE-Verified 68.4 vs DiffusionGemma 18.7; system 5255 tok/s vs 1136 / 1197; Uno Qwen 1.6× vs base AR at max batch"
     notes: "Uno (2609.04010). Does not replace DiffusionOPSD/Self-OPD, Muon2, or CISPO."
 methods:
+  - method:soft-mtp
+  - method:mdraft
   - method:dstill
   - method:d-pal
   - method:echo-mtp
   - method:uno
   - method:online-draft-cotrain
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-30'
 tags:
   - efficiency
   - inference

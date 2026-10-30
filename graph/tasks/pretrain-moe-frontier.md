@@ -13,6 +13,8 @@ out_of_scope:
   - "NVL72 fused dispatch megakernel (Mixture-of-Kittens)"
   - "Olympiad specialist post-train (Nemotron IMO Gold)"
 redirects:
+  - when: "Muon raises first MoE layer routing-bias span (not the architecture template)"
+    to: "paper:muon-first-moe-layer"
   - when: "Muon MoE routed-expert loss-spike attenuation (EnergyCal; not the architecture template)"
     to: "method:energycal"
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
@@ -81,7 +83,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:drmoet
   - method:maskerade
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - moe
