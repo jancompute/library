@@ -8,6 +8,9 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'calibrated multi-teacher OPD for dynamic MoE (C-MOPD)'
+    reason: 'Open-MOPD remains the library 83.4% bake-off; C-MOPD is Turing dynamic-MoE calibration'
+    use_instead: method:c-mopd
   - when: 'rollout-free multi-task consolidation from domain-RL history (DoubleFree)'
     reason: 'Open-MOPD remains live multi-teacher; DoubleFree is rollout-free consolidation'
     use_instead: method:doublefree
@@ -44,7 +47,7 @@ do_not_use_for:
   - when: "representation-level (hidden-state) multi-teacher OPD"
     reason: "Open-MOPD remains token-share / gap-aware budget; Latent-MOPD matches specialist hidden states"
     use_instead: "method:latent-mopd"
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-10-30'
 papers:
   - paper:road-mopd
   - paper:delta-mopd

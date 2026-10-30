@@ -7,17 +7,21 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: 'the locked first hop on task:llm-pretraining-optimization'
-  reason: 'Muon2 remains the ~7B dense pretrain optimizer; EnergyCal attenuates routed-expert Muon updates on sparse MoE spikes'
-  use_instead: method:muon2
-- when: 'choosing the frontier MoE architecture template'
-  reason: 'DeepSeek-V4 / Kimi-K3 remain the MoE template; EnergyCal is a Muon spike damper'
-  use_instead: task:pretrain-moe-frontier
+  - when: 'Muon raises first MoE layer routing-bias span'
+    reason: 'EnergyCal damps routed-expert Newton-Schulz energy; this gotcha is first-layer bias span'
+    use_instead: paper:muon-first-moe-layer
+  - when: 'the locked first hop on task:llm-pretraining-optimization'
+    reason: 'Muon2 remains the ~7B dense pretrain optimizer; EnergyCal attenuates routed-expert Muon updates on sparse MoE spikes'
+    use_instead: method:muon2
+  - when: 'choosing the frontier MoE architecture template'
+    reason: 'DeepSeek-V4 / Kimi-K3 remain the MoE template; EnergyCal is a Muon spike damper'
+    use_instead: task:pretrain-moe-frontier
 assumptions:
 - '4B-parameter sparse MoE with MuonH / Muon. No persistent optimizer state. No public code as of 2026-10-28.'
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-10-30'
 papers:
-- paper:energycal
+  - paper:muon-first-moe-layer
+  - paper:energycal
 recipes:
 - recipe:energycal
 claims:

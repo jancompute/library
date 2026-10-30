@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'HP-transfer power laws + ensembling under a unique-token budget'
+    reason: 'Repeated-Token Worth remains epoch pricing; this card transfers HPs and ensembles'
+    use_instead: method:data-constrained-hp-ensemble
   - when: "open multi-trillion-token web / Dolma mix with unique data not binding"
     reason: "OLMo-3 remains the open mix; this card is unique-data-constrained epoch geometry"
     use_instead: "method:olmo-3"
@@ -20,7 +23,7 @@ assumptions:
   - Unique pretrain data, not compute, is the binding constraint.
   - "Paper: pricing vs one epoch on the same data and vs fresh data at equal compute."
   - "No public code as of 2026-10-06 (`code_status: none`)."
-last_reviewed: "2026-10-06"
+last_reviewed: '2026-10-30'
 papers:
   - paper:repeated-token-worth
 recipes:

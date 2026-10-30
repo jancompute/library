@@ -7,12 +7,15 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
-- when: 'the locked first hop on task:linear-time-sequence-modeling'
-  reason: 'PACE is an active plug-in; method:mamba-2 remains the first hop'
-  use_instead: method:mamba-2
+  - when: 'GGA mixed-precision + Pure-Write window for GDN recurrent-state quant'
+    reason: 'PACE is periodic 4-bit SSM rounding; GGA-PW is GDN mixed-precision plus pure-write'
+    use_instead: method:gga-pw
+  - when: 'the locked first hop on task:linear-time-sequence-modeling'
+    reason: 'PACE is an active plug-in; method:mamba-2 remains the first hop'
+    use_instead: method:mamba-2
 assumptions:
 - 'Fixed-size recurrent state. Periodic rounding plus a short token buffer. No public code as of 2026-10-22.'
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-30'
 papers:
 - paper:pace
 recipes:

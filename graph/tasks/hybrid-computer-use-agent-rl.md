@@ -12,6 +12,8 @@ out_of_scope:
   - "Trained mobile-only GUI policy on AndroidWorld (MAI-UI / UI-TARS-2)"
   - "Coding-agent RL env construction from source code (CodeMidas)"
 redirects:
+  - when: "automated wild-web env reconstruction (WebAnything)"
+    to: "method:webanything"
   - when: "scalable mobile-agent envs / hybrid GUI+app-native tools (OpenMobile-2)"
     to: "method:openmobile-2"
   - when: "mocked-app GUI eval+RL platform with real-phone transfer (MAI-Gym)"
@@ -36,6 +38,7 @@ current_sota:
     value: "58.1% overall; full programmatic pass 2.8%"
     notes: "RecreationWorld (2609.22000). Active hybrid CUA train/eval. Method status active (not sota). Does not demote Claude computer-use on OSWorld 2.0."
 methods:
+  - method:webanything
   - method:openmobile-2
   - method:mai-gym
   - method:os-helix
@@ -45,7 +48,7 @@ methods:
   - method:ui-tars-2
   - method:mai-ui
   - method:mini-swe-agent
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-10-30'
 tags:
   - agents
   - computer-use

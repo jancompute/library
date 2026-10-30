@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer"
+    to: "method:soft-mtp"
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
     to: "method:nestor"
   - when: "unique-token epoch / repetition geometry under a finite pretrain corpus"
@@ -27,6 +29,7 @@ redirects:
   - when: "one-step prefix-augmented OPD for continued pretrain (PA1-OPD)"
     to: "method:pa1-opd"
 methods:
+  - method:soft-mtp
   - method:nestor
   - method:pa1-opd
   - method:clean
@@ -51,7 +54,7 @@ methods:
   - method:synth
   - method:self-play-pretraining
   - method:muonio
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - dense-lm

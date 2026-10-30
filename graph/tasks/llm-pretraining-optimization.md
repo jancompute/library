@@ -12,6 +12,14 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)"
+    to: "method:air-elr"
+  - when: "Muon raises first MoE layer routing-bias span"
+    to: "paper:muon-first-moe-layer"
+  - when: "leverage of a weight update across pretrain / SFT / RL / DPO; bf16 freeze without fp32 master"
+    to: "paper:weight-update-leverage"
+  - when: "LM-head quantization time-bomb loss spikes; SGD-momentum on the head"
+    to: "paper:quantization-loss-spikes"
   - when: "Gram-Schmidt radial projection for Muon without fixing weight norm (MuonGS)"
     to: "method:muongs"
   - when: "Muon MoE routed-expert loss-spike attenuation (EnergyCal)"
@@ -93,6 +101,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:air-elr
   - method:muongs
   - method:energycal
   - method:musam
@@ -135,7 +144,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - optimizer
@@ -180,3 +189,8 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 - **Gotcha (optimizer switch cost)**: `paper:optimizer-switch-cost` (`arXiv:2610.22650`). 1.2B Llama-3 AdamW↔Muon interpolations; little mismatch penalty. Does not retarget Muon2.
 - **Optional Polar Switch orthogonalizer**: `method:polar-switch` (`arXiv:2610.26742`). 15.5-18.7% lower runtime vs Polar Express. Code zhehangdu/polar-switch. Does not replace Muon2.
 - **Optional t-SVD Muon**: `method:t-muon` (`arXiv:2610.24938`). Head-wise identity t-Muon on 51M-1.3B FineWeb. No public code. Does not replace Muon2.
+
+- **Optional AIR ELR schedule (not this 7B default)**: `method:air-elr` (`arXiv:2610.40362`). Affine 1/sqrt(t) ELR; ~0.01 loss vs cosine on 128B-token MoE. No public code. Does not replace Muon2.
+- **Gotcha (Muon first MoE layer)**: `paper:muon-first-moe-layer` (`arXiv:2610.37914`). Muon roughly doubles first-layer routing-bias span. Code marcoshernanz/muon-moe-routing. Does not retarget Muon2.
+- **Gotcha (weight-update leverage)**: `paper:weight-update-leverage` (`arXiv:2610.37719`). bf16 without fp32 master freezes 36-99% of coords. Does not retarget Muon2.
+- **Gotcha (quantization loss spikes)**: `paper:quantization-loss-spikes` (`arXiv:2610.38277`). LM-head quant time-bombs; SGD+momentum on the head. Does not retarget Muon2.

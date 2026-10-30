@@ -16,6 +16,8 @@ out_of_scope:
   - "Verifier-grounded privileged-hindsight trajectory balance (FlowBalance)"
   - "Zero-natural-data self-play pretraining from random init (UTM programs)"
 redirects:
+  - when: "weakening-induced OPSD via quant/prune (WISD; no privileged info)"
+    to: "method:wisd"
   - when: "verifiable labels exist and the goal is Pass@1 RLVR"
     to: "task:math-code-rl-dense"
   - when: "a strong teacher is available and the goal is intentional distillation"
@@ -40,6 +42,7 @@ current_sota:
     value: "OPSA 48.85 / 35.31 / 23.33 vs base 13.44 / 9.69 / 5.73; beats OPD 32.08 / 20.52 / 13.85 and GRPO 33.96 / 25.31 / 15.10"
     notes: "OPSA (2608.31046). Supervision-free. Does not replace CISPO when labels exist or OPD when intentional teacher distillation is the goal."
 methods:
+  - method:wisd
   - method:opsa
   - method:ra-opd
   - method:self-routing
@@ -51,7 +54,7 @@ methods:
   - method:flowbalance
   - method:opsd-collapse-review
   - method:nsd
-last_reviewed: "2026-10-03"
+last_reviewed: '2026-10-30'
 tags:
   - post-training
   - on-policy

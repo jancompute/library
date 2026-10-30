@@ -11,6 +11,18 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)'
+    reason: 'Muon2 remains the ~7B optimizer; AIR is an ELR schedule'
+    use_instead: method:air-elr
+  - when: 'Muon raises first MoE layer routing-bias span'
+    reason: 'Gotcha on first-layer expert overload under Muon; does not retarget Muon2'
+    use_instead: paper:muon-first-moe-layer
+  - when: 'leverage of a weight update; bf16 freeze without fp32 master'
+    reason: 'Gotcha on stage-wise leverage / master weights; does not retarget Muon2'
+    use_instead: paper:weight-update-leverage
+  - when: 'LM-head quantization time-bomb loss spikes'
+    reason: 'Gotcha on LM-head quant error; does not retarget Muon2'
+    use_instead: paper:quantization-loss-spikes
   - when: 'tensor-aware mix-then-polarize optimizer (TUON; not T-MUON)'
     reason: 'Muon2 remains the ~7B default; TUON mixes layers then polarizes T-SVD slices'
     use_instead: method:tuon
@@ -83,8 +95,11 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-30'
 papers:
+  - paper:muon-first-moe-layer
+  - paper:weight-update-leverage
+  - paper:quantization-loss-spikes
   - paper:muon-last-iterate-ns
   - paper:muon-quadratic-polar
   - paper:muon-structured-noise

@@ -19,6 +19,12 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "sequence confidence-aligned RL (SCARL)"
+    to: "method:scarl"
+  - when: "hierarchical hint-based reward for math RLVR (H2R)"
+    to: "method:h2r"
+  - when: "pass@1 vs pass@k no-free-lunch under RLVR"
+    to: "paper:rlvr-no-free-lunch"
   - when: "steering-token exploration for RLVR (Guided-RLVR)"
     to: "method:guided-rlvr"
   - when: "offline BAMDP GRPO rollout allocation (AdaRoll-GRPO)"
@@ -171,6 +177,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:scarl
+  - method:h2r
   - method:guided-rlvr
   - method:adaroll-grpo
   - method:pico
@@ -256,7 +264,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-10-29'
+last_reviewed: '2026-10-30'
 tags:
   - post-training
   - reasoning
@@ -342,3 +350,7 @@ Training dense language models to generate long chains of thought (CoT) and veri
 - **Gotcha (what outcome RL buys)**: `paper:outcome-rl-buys` (`arXiv:2610.34894`). Finishing is 82% of the pass@1 change at 4k/8k; reach ≤2.1 pp. Code shanyang-me/outcome-rl-buys. Complements paper:what-rl-brings. Does not retarget CISPO.
 - **Gotcha (GRPO vs RFT)**: `paper:grpo-vs-rft` (`arXiv:2610.25812`). GRPO beats 27-run-tuned RFT on a procedural counting task. Does not retarget CISPO.
 - **Gotcha (off-policy PG anatomy)**: `paper:off-policy-pg-anatomy` (`arXiv:2610.25725`). Consistency needs trajectory IS or KL plus a baseline equal to the optimal soft value. Use with `paper:score-centering-pg`. Does not retarget CISPO.
+
+- **Optional sequence-confidence advantage reshape**: `method:scarl` (`arXiv:2610.40407`). Never re-signs; code kezhh163/scarl. Does not replace CISPO.
+- **Optional hierarchical hint RLVR**: `method:h2r` (`arXiv:2610.39934`). HiMath sub-question rewards. No public code. Does not replace CISPO.
+- **Gotcha (no free lunch in RLVR)**: `paper:rlvr-no-free-lunch` (`arXiv:2610.39295`). Every pass@1 gain has a pass@k price. Code yliusci/no-free-lunch-rlvr. Does not retarget CISPO.

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'two-stage OT baseline + budget-neutral token credit (TACE)'
+    reason: 'CorrGRPO remains Pearson aggregation; TACE OT-maps rewards and conserves token credit'
+    use_instead: method:tace
   - when: 'priority-preserving primary/auxiliary advantage fusion (PAPO)'
     reason: 'CorrGRPO remains dual-active aggregation; PAPO preserves primary-advantage sign'
     use_instead: method:papo
@@ -32,7 +35,7 @@ assumptions:
   - "Several sequence-level reward components on a GRPO-family host. Paper: Qwen2.5-Coder 0.5B–7B coding; also tool calling and agent security. GDPO is a paper baseline, not a library method."
   - "Zero-variance reward rows/columns of the correlation matrix are zeroed, including the diagonal."
   - "Official code HKUST-KnowComp/CorrGRPO released as of 2026-10-01."
-last_reviewed: "2026-10-05"
+last_reviewed: '2026-10-30'
 papers:
   - paper:corrgrpo
 recipes:

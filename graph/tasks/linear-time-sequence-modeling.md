@@ -12,6 +12,7 @@ current_sota:
     value: "8x vs standard attention"
     notes: "State Space Duality (SSD) connects structured state spaces with matrix multiplication tensor cores."
 methods:
+  - method:gga-pw
   - method:pace
   - method:kronlstm
   - method:replayssm
@@ -20,6 +21,8 @@ methods:
   - method:gated-deltanet-2
   - method:sas
 redirects:
+  - when: "GGA mixed-precision + Pure-Write window for GDN recurrent-state quant"
+    to: "method:gga-pw"
   - when: "periodic 4-bit recurrent-state quantization (PACE)"
     to: "method:pace"
   - when: "Kronecker delta rule linear attention (KronLSTM; not an LSTM)"
@@ -28,7 +31,7 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM)"
     to: "method:replayssm"
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - architecture

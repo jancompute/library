@@ -10,6 +10,15 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'sequence confidence-aligned RL (SCARL)'
+    reason: 'CISPO remains Pass@1; SCARL reshapes advantages by confidence gap'
+    use_instead: method:scarl
+  - when: 'hierarchical hint-based reward for math RLVR (H2R)'
+    reason: 'CISPO remains Pass@1; H2R adds sub-question hint rewards'
+    use_instead: method:h2r
+  - when: 'pass@1 vs pass@k no-free-lunch under RLVR'
+    reason: 'Gotcha: every pass@1 gain has a pass@k price; does not retarget CISPO'
+    use_instead: paper:rlvr-no-free-lunch
   - when: 'policy-intrinsic exploration then self-distill (SEPO)'
     reason: 'CISPO remains Pass@1; SEPO elicits then distills in-distribution solutions'
     use_instead: method:sepo
@@ -157,8 +166,9 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-10-29'
+last_reviewed: '2026-10-30'
 papers:
+  - paper:rlvr-no-free-lunch
   - paper:sign-law-entropy-rlvr
   - paper:intervention-certified
   - paper:monitorability-causal

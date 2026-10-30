@@ -12,6 +12,8 @@ out_of_scope:
   - "Fully synthetic single-stage pretrain from Wikipedia/Wikibooks seeds (SYNTH)"
   - "Zero-natural-data self-play pretrain (UTM programs)"
 redirects:
+  - when: "HP-transfer power laws + ensembling under a unique-token budget"
+    to: "method:data-constrained-hp-ensemble"
   - when: "open pretrain mix / Dolma-3 recipe rather than unique-token epoch geometry"
     to: "task:open-data-recipe"
   - when: "choosing the ~7B dense pretrain optimizer"
@@ -38,13 +40,14 @@ current_sota:
     value: "r=8 beats r=16 with fewer training tokens"
     notes: "Repetition-Count Selection (2610.05126). Rankings reverse with scale. Dual-active with repeated-token-worth. Method status active. Does not replace OLMo-3."
 methods:
+  - method:data-constrained-hp-ensemble
   - method:scaling-repeated-data
   - method:repeated-token-worth
   - method:repetition-count-selection
   - method:olmo-3
   - method:moe-data-repetition
   - method:muon2
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-10-30'
 tags:
   - pretraining
   - data-curriculum

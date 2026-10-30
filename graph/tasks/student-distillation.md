@@ -5,6 +5,12 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)"
+    to: "method:ati-opd"
+  - when: "calibrated multi-teacher OPD for dynamic MoE (C-MOPD)"
+    to: "method:c-mopd"
+  - when: "entropy-shape correlation predicts the OPD teacher (ESC)"
+    to: "paper:opd-entropy-shape"
   - when: "teacher-guided geometric-mixture OPD rollouts (MPOPD)"
     to: "method:mpopd"
   - when: "unified discrete-diffusion cross-paradigm OPD (NLD-Uni; not text OPD default)"
@@ -189,6 +195,8 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:ati-opd
+  - method:c-mopd
   - method:mpopd
   - method:nld-uni
   - method:doublefree
@@ -287,7 +295,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-10-30'
 tags:
   - post-training
   - distillation

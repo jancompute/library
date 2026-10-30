@@ -8,6 +8,9 @@ sota_for:
   - task:linear-time-sequence-modeling
 supersedes: []
 do_not_use_for:
+  - when: 'GGA mixed-precision + Pure-Write window for GDN recurrent-state quant'
+    reason: 'Mamba-2 remains the architecture hop; GGA-PW is GDN state quant'
+    use_instead: method:gga-pw
   - when: "periodic 4-bit recurrent-state quantization (PACE)"
     reason: "Mamba-2 remains the linear-time architecture hop; PACE is post-hoc 4-bit state storage with periodic rounding"
     use_instead: "method:pace"

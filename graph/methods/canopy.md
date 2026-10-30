@@ -8,6 +8,15 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD)'
+    reason: 'CANOPY remains checker coverage; this SCOPE distills only error steps'
+    use_instead: method:scope-agent-opsd
+  - when: 'capability-aware policy+rubric co-evolution (CoCA)'
+    reason: 'CANOPY remains coverage; CoCA co-evolves a rubric with capability diagnosis'
+    use_instead: method:coca
+  - when: 'reward-adaptive co-evolution of policy and rubric (RACE)'
+    reason: 'CANOPY remains coverage; RACE routes groups and switches rubric phases'
+    use_instead: method:race-rubric
   - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
     reason: 'CANOPY remains checker coverage; FORK adds a precision/necessity rubric objective'
     use_instead: method:fork-precision
@@ -93,7 +102,7 @@ assumptions:
   - "A held-out unit-test / patch verifier exists. Sparse fully-correct reward, not pass-fraction."
   - "Paper: Qwen3-14B on AppWorld train split (90 tasks), veRL, n=32, 50 turns / 32k train, 100 turns / 61k test, KL β=1e-4, lr 3e-6, 90 steps, hardest tier kept."
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-10-30'
 papers:
   - paper:credit-helps-hurts
   - paper:agentic-self-distill-reality
