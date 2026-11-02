@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
+    reason: 'SMELT remains compute-matched MoE looping; UpLoop is dense progressive-depth copy'
+    use_instead: method:uploop
   - when: "asymmetric compute across looped MoE visits (compress first, full-res second)"
     reason: "SMELT remains matched middle-layer looping; LatentLoop reallocates FLOPs to width"
     use_instead: "method:latentloop"

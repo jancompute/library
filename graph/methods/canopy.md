@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO)'
+    reason: 'CANOPY remains checker coverage; TSBPO is a tree allocator plus sibling/observation-group credit'
+    use_instead: method:tsbpo
   - when: 'critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD)'
     reason: 'CANOPY remains checker coverage; this SCOPE distills only error steps'
     use_instead: method:scope-agent-opsd

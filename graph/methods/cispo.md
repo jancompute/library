@@ -10,6 +10,12 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'scramble-order CoT causality reward (CRoS)'
+    reason: 'CISPO remains Pass@1; CRoS adds a scramble-order causality reward on a GRPO host'
+    use_instead: method:cros
+  - when: 'steering-vector advantage-repair on all-wrong GRPO groups (SV-Training)'
+    reason: 'CISPO remains Pass@1; SV-Training repairs GRPO advantages on all-wrong groups'
+    use_instead: method:sv-training
   - when: 'sequence confidence-aligned RL (SCARL)'
     reason: 'CISPO remains Pass@1; SCARL reshapes advantages by confidence gap'
     use_instead: method:scarl

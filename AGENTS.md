@@ -75,6 +75,7 @@ task:harness-distillation -> method:harness-zero (2609.24974, 2026-09-22)
   when async RL -> task:agentic-async-rl
   when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) -> method:aide2
 task:hybrid-computer-use-agent-rl -> method:recreationworld (2609.22000, 2026-09-21)
+  when 4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork) -> method:mage-vl-cowork
   when automated wild-web env reconstruction (WebAnything) -> method:webanything
   when scalable mobile-agent envs / hybrid GUI+app-native tools (OpenMobile-2) -> method:openmobile-2
   when mocked-app GUI eval+RL platform with real-phone transfer (MAI-Gym) -> method:mai-gym
@@ -151,7 +152,8 @@ task:continuous-diffusion-lm-pretrain -> method:semicat (2610.17590, 2026-10-13)
   when curriculum RL for a discrete diffusion LM (canvas anneal) -> method:canvasanneal
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
-task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.19408, 2026-10-07)
+task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.41574, 2026-10-07)
+  when LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle) -> method:byod
   when cross-budget self-distillation for masked dLLMs (HiLo-RD) -> method:hilo-rd
   when unified discrete-diffusion cross-paradigm OPD (NLD-Uni) -> method:nld-uni
   when temporal self-conditioning inside a frozen masked dLLM (TDLM) -> method:tdlm
@@ -277,6 +279,8 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
 task:agentic-async-rl -> method:sao (2610.20256, 2026-08-26)
+  when group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO) -> method:li2sao
+  when discrepancy-lag correction of sampler/trainer mismatch (DLC) -> method:dlc
   when environment-task rollout scheduling under a finite budget (EnvSched) -> method:envsched
   when turn-scale advantage plus turn-level IS (MPO), not async stragglers -> method:mpo
   when harness scaling / train through a factorized harness space (Harness Scaling) -> method:harness-scaling
@@ -365,6 +369,8 @@ task:direct-preference-alignment -> method:olmo-3 (2610.37719, 2026-08-26)
   when DPO hyperparameter landscape and transfer across scale -> paper:dpo-hp-landscape
 task:distill-reasoner-verifier -> method:opdvr (2608.24696, 2026-08-27)
 task:fp4-rl-train-rollout-alignment -> method:trace (2610.07767, 2026-10-07) + method:triage (2610.07043, 2026-10-07)
+  when discrepancy-lag correction of sampler/trainer mismatch (DLC) -> method:dlc
+  when unbiased fp32 to bf16 export of the served copy (Fair Cast) -> method:fair-cast
   when end-to-end MXFP8 RL train-rollout grid matching on Blackwell -> method:mxfp8-rl
   when rounding-location alignment between inference and train for RL (not NVFP4 QAT) -> method:rounding-align-rl
   when rounding-location alignment between inference and train for RL (not NVFP4 QAT) -> method:rounding-align-rl
@@ -375,6 +381,7 @@ task:fp4-rl-train-rollout-alignment -> method:trace (2610.07767, 2026-10-07) + m
   when production post-train stack rather than FP4 RL numerics -> task:frontier-rl-posttrain-stack
   when INT4 KV-cache async RLVR rollouts with INT8 sink/recent protection (not NVFP4 train–rollout mismatch) -> method:kv4-rl
 task:instruct-sft-alignment -> method:olmo-3 (2610.37719, 2026-08-26) + method:nemotron-cascade-2 (2603.19220, 2026-08-26)
+  when steering-vector residual-stream hook in SFT/distill (SV-Training) -> method:sv-training
   when leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master -> paper:weight-update-leverage
   when SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE) -> method:drive-ft
   when evolving SWE trajectory filters (MetaCurate) -> method:metacurate
@@ -389,6 +396,8 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2610.07842, 2026-08-28)
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
 task:math-code-rl-dense -> method:cispo (2610.39295, 2026-08-26)
+  when scramble-order CoT causality reward (CRoS) -> method:cros
+  when steering-vector advantage-repair on all-wrong GRPO groups (SV-Training) -> method:sv-training
   when sequence confidence-aligned RL (SCARL) -> method:scarl
   when hierarchical hint-based reward for math RLVR (H2R) -> method:h2r
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
@@ -514,6 +523,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2610.35497, 2026-09-04)
+  when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) -> method:tsbpo
   when critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE) -> method:scope-agent-opsd
   when capability-aware policy+rubric co-evolution (CoCA) -> method:coca
   when reward-adaptive co-evolution of policy and rubric (RACE) -> method:race-rubric
@@ -596,6 +606,9 @@ task:privileged-teacher-opsd -> method:vista (2610.18613, 2026-08-31)
 task:reasoning-rl-alignment -> method:cispo (2610.39295, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2610.39020, 2026-08-26) + method:open-mopd (2610.13521, 2026-08-28)
+  when black-box step queries then SFT when the teacher hides CoT (Stepwise Querying) -> method:stepwise-querying
+  when EMA teacher-student displacement replaces Muon momentum (Muon-RT) -> method:muon-rt
+  when steering-vector residual-stream hook in SFT/distill (SV-Training) -> method:sv-training
   when adaptive teacher prefix splice for long-sequence OPD (ATI-OPD) -> method:ati-opd
   when calibrated multi-teacher OPD for dynamic MoE (C-MOPD) -> method:c-mopd
   when entropy-shape correlation predicts the OPD teacher (ESC) -> paper:opd-entropy-shape
@@ -728,6 +741,7 @@ task:web-search-agent-rl -> method:iris (2609.04304, 2026-09-08)
   when agentic RSI / routing-harness post-train, not search-agent climbing -> task:agentic-rsi-routing-posttrain
 task:budget-consumer-pretrain -> method:puro-2b (2608.27370, 2026-08-31)
 task:compute-matched-moe-looped-pretrain -> method:smelt (2610.19975, 2026-09-01)
+  when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) -> method:uploop
   when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) -> method:looped-models-done-right
   when choosing the frontier MoE architecture template -> task:pretrain-moe-frontier
   when expert-parallel all-to-all layout rather than looping -> task:pretrain-moe-frontier
@@ -751,7 +765,9 @@ task:dense-to-moe-upcycling -> method:maskerade (2610.19232, 2026-10-07)
   when communication-efficient expert layout rather than mask-expert upcycling -> method:ce-moe
   when static sparse upcycling via token-indexed embedding residuals (not routed mask experts) -> method:staple
   when heterogeneous per-layer expert utilization on a converted dense FFN -> method:spectral-moe
-task:elastic-depth-looped-lm -> method:elr (2610.12582, 2026-10-13)
+task:elastic-depth-looped-lm -> method:elr (2610.42030, 2026-10-13)
+  when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) -> method:uploop
+  when post-train loops on a finished checkpoint (no-free-loop) -> paper:no-free-loop
   when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) -> method:looped-models-done-right
   when compute-matched MoE looping of middle layers (FLOPs/params/KV matched) -> task:compute-matched-moe-looped-pretrain
   when experimental CED all-token recurrence, not mixed-depth looping -> task:recurrent-encoder-decoder-lm
@@ -771,6 +787,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2610.37914, 2026-08-26)
+  when EMA teacher-student displacement replaces Muon momentum (Muon-RT) -> method:muon-rt
   when affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR) -> method:air-elr
   when Muon raises first MoE layer routing-bias span -> paper:muon-first-moe-layer
   when leverage of a weight update across pretrain / SFT / RL / DPO; bf16 freeze without fp32 master -> paper:weight-update-leverage
@@ -1532,6 +1549,30 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 540. **OPD entropy-shape** (claim note, no new method): `paper:opd-entropy-shape` (`arXiv:2610.39020`) on `task:student-distillation`. Entropy-shape correlation predicts the OPD teacher. Code maybenotime/opd-esc. Does **not** retarget OPD.
 
+541. **Li2SAO**: **Li2SAO** (`method:li2sao`, `arXiv:2610.40726`) on `task:agentic-async-rl`. Active plug-in. Group-relative critic bootstrap then single-rollout GAE. Code jd-cc-coder/Li2SAO. Does **not** replace SAO.
+
+542. **DLC**: **DLC** (`method:dlc`, `arXiv:2610.40945`) on `task:fp4-rl-train-rollout-alignment`. Active plug-in. Splits numerical discrepancy from policy lag; ESS<0.5 resync. Code Skylanding/Training-Inference-Mismatch. Mention on `task:agentic-async-rl`. Does **not** replace TRACE / TRIAGE.
+
+543. **Fair Cast**: **Fair Cast** (`method:fair-cast`, `arXiv:2610.41073`) on `task:fp4-rl-train-rollout-alignment`. Active plug-in. Unbiased fp32-to-bf16 export so sub-ulp RL updates survive. Code andrewgcodes/faircast. Distinct from Rounding-Align RL / DLC. Does **not** replace TRACE / TRIAGE.
+
+544. **Muon-RT**: **Muon-RT** (`method:muon-rt`, `arXiv:2610.41104`) on `task:llm-pretraining-optimization`. Active plug-in. Reuses EMA teacher-student displacement as Muon history for SDFT/SDPO. Mention on `task:student-distillation`. Does **not** replace Muon2 or OPD.
+
+545. **Mage-VL-Cowork**: **Mage-VL-Cowork** (`method:mage-vl-cowork`, `arXiv:2610.40747`) on `task:hybrid-computer-use-agent-rl`. Active plug-in. 4B five-stage hybrid CUA; OSWorld-Verified 66.0% is not OSWorld 2.0. Code microsoft/Mage. Distinct from OS-Helix. Does **not** replace RecreationWorld or Claude computer-use.
+
+546. **BYOD**: **BYOD** (`method:byod`, `arXiv:2610.41574`) on `task:diffusion-lm-ar-delta-recycle`. Active plug-in. LoRA-only AR→masked DLM conversion (4.1–5.8% params). Code RuurdKuiper/BYOD. Distinct from JustOPD. Does **not** replace A2D.
+
+547. **UpLoop**: **UpLoop** (`method:uploop`, `arXiv:2610.41720`) on `task:elastic-depth-looped-lm`. Active plug-in. FLOP-matched dense upcycling into a looped Transformer; 1.3B 22.99→27.52. Mention on `task:compute-matched-moe-looped-pretrain`. Does **not** replace ELR, SMELT, or Looped Models Done Right.
+
+548. **Stepwise Querying**: **Stepwise Querying** (`method:stepwise-querying`, `arXiv:2610.41769`) on `task:student-distillation`. Active plug-in. Black-box teacher step queries then ordinary SFT; 14/16 wins. Sibling of TraceForge. Does **not** replace OPD.
+
+549. **SV-Training**: **SV-Training** (`method:sv-training`, `arXiv:2610.40998`, NeurIPS 2026) on `task:instruct-sft-alignment`. Active plug-in. Residual-stream steering for SFT/distill (+12% thinking-teacher) and GRPO all-wrong advantage-repair. Code tiejin98/sv_training. Mentions on `task:student-distillation` / `task:math-code-rl-dense`. Does **not** replace OLMo-3, OPD, or CISPO.
+
+550. **CRoS**: **CRoS** (`method:cros`, `arXiv:2610.42054`) on `task:math-code-rl-dense`. Active plug-in. Scramble-order CoT causality reward; Gemma-3-4B OOD 46.8 vs 43.8. Project xxiaoyuuuu.github.io/CRoS-Page. Does **not** replace CISPO.
+
+551. **TSBPO**: **TSBPO** (`method:tsbpo`, `arXiv:2610.41697`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Tree allocator plus sibling/observation-group credit; Qwen2.5-1.5B ALFWorld 97.79/96.64, WebShop 81.07. Does **not** replace CANOPY.
+
+552. **No free loop** (claim note, no new method): `paper:no-free-loop` (`arXiv:2610.42030`) on `method:elr` / `method:uploop` / `method:looped-models-done-right`. Post-train loops pay only at 0.8B; 4B/9B fail the equal-parameter test. Does **not** retarget ELR.
+
 ---
 
 ## 4. Supersedes Edges & Lineage
@@ -2073,6 +2114,18 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `paper:weight-update-leverage` (2610.37719) is a stage-wise leverage / bf16-master gotcha. It does not retarget `muon2` or `olmo-3`.
 - `paper:quantization-loss-spikes` (2610.38277) is an LM-head quantization time-bomb gotcha. It does not retarget `muon2`.
 - `paper:opd-entropy-shape` (2610.39020) is an OPD teacher-selection entropy-shape gotcha. It does not retarget `opd`.
+- `li2sao` (2610.40726) is an active group-relative critic-bootstrap plug-in. It does not supersede `sao`.
+- `dlc` (2610.40945) is an active discrepancy-lag correction plug-in. It does not supersede `trace` or `triage`.
+- `fair-cast` (2610.41073) is an active unbiased fp32-to-bf16 export plug-in. Distinct from `rounding-align-rl` / `dlc`. It does not supersede `trace` or `triage`.
+- `muon-rt` (2610.41104) is an active EMA-teacher Muon-history plug-in. It does not supersede `muon2` or `opd`.
+- `mage-vl-cowork` (2610.40747) is an active 4B hybrid CUA curriculum plug-in. Distinct from `os-helix`. It does not supersede `recreationworld` or `claude-computer-use`.
+- `byod` (2610.41574) is an active LoRA-only AR→masked DLM conversion plug-in. Distinct from `justopd`. It does not supersede `a2d`.
+- `uploop` (2610.41720) is an active FLOP-matched dense looped-upcycling plug-in. It does not supersede `elr`, `smelt`, or `looped-models-done-right`.
+- `stepwise-querying` (2610.41769) is an active black-box step-query distill plug-in. Sibling of `traceforge`. It does not supersede `opd`.
+- `sv-training` (2610.40998, NeurIPS 2026) is an active residual-stream steering plug-in. It does not supersede `olmo-3`, `opd`, or `cispo`.
+- `cros` (2610.42054) is an active scramble-order CoT causality plug-in. It does not supersede `cispo`.
+- `tsbpo` (2610.41697) is an active tree-allocator plus sibling-credit plug-in. It does not supersede `canopy`.
+- `paper:no-free-loop` (2610.42030) is a post-train looping gotcha. It does not retarget `elr`, `uploop`, or `looped-models-done-right`.
 
 ---
 

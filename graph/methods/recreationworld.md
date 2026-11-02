@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: '4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)'
+    reason: 'RecreationWorld remains hybrid CUA first hop; Mage is a 4B five-stage trained policy'
+    use_instead: method:mage-vl-cowork
+  - when: 'native GUI+code CUA trained with step-balanced GSPO (OS-Helix)'
+    reason: 'RecreationWorld remains recreation; OS-Helix is a trained native GUI+code CUA'
+    use_instead: method:os-helix
   - when: 'automated wild-web env reconstruction (WebAnything)'
     reason: 'RecreationWorld remains hybrid CUA first hop; WebAnything reconstructs wild-web envs'
     use_instead: method:webanything

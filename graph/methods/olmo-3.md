@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: 'steering-vector residual-stream hook in SFT/distill (SV-Training)'
+    reason: 'OLMo-3 remains the open instruct stack; SV-Training is a residual-stream hook'
+    use_instead: method:sv-training
   - when: 'leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master'
     reason: 'Gotcha on stage-wise leverage / master weights; does not retarget OLMo-3'
     use_instead: paper:weight-update-leverage

@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
+    reason: 'This card is Huginn-style dense fixed-point looping; UpLoop is an upcycling schedule'
+    use_instead: method:uploop
+  - when: 'post-train loops on a finished checkpoint (no-free-loop)'
+    reason: 'Gotcha: loops added after pretrain pay only at 0.8B; does not retarget Huginn looping'
+    use_instead: paper:no-free-loop
   - when: "looped LM depth reuse needs train/run agreement more than normalisation"
     reason: "Gotcha on Ouro-style loop reuse; does not retarget RLT"
     use_instead: "paper:looped-depth-reusable"
@@ -33,6 +39,7 @@ assumptions:
   - "Code: ifm-ai/xllm-loop (`code_status: released`)."
 last_reviewed: '2026-10-19'
 papers:
+  - paper:no-free-loop
   - paper:looped-depth-reusable
   - paper:looped-halting-heads
   - paper:truncated-backprop-looped

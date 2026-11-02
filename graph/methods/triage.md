@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
+    reason: 'TRIAGE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag'
+    use_instead: method:dlc
+  - when: 'unbiased fp32 to bf16 export of the served copy (Fair Cast)'
+    reason: 'TRIAGE remains NVFP4 dual-active; Fair Cast is unbiased bf16 export of an fp32 master'
+    use_instead: method:fair-cast
   - when: "direction-aware NVFP4 mismatch (TRIAGE)"
     reason: "TRIAGE is NVFP4; this card is BF16 rounding location"
     use_instead: "method:rounding-align-rl"

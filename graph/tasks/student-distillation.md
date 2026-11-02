@@ -5,6 +5,12 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)"
+    to: "method:stepwise-querying"
+  - when: "EMA teacher-student displacement replaces Muon momentum (Muon-RT)"
+    to: "method:muon-rt"
+  - when: "steering-vector residual-stream hook in SFT/distill (SV-Training)"
+    to: "method:sv-training"
   - when: "adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)"
     to: "method:ati-opd"
   - when: "calibrated multi-teacher OPD for dynamic MoE (C-MOPD)"
@@ -195,6 +201,9 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:stepwise-querying
+  - method:muon-rt
+  - method:sv-training
   - method:ati-opd
   - method:c-mopd
   - method:mpopd
@@ -295,7 +304,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - distillation

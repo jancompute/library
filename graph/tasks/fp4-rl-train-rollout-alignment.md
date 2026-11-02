@@ -12,6 +12,10 @@ out_of_scope:
   - "Frontier RL post-train engine (Miles)"
   - "W4A4 PTQ noise law (KBBQ)"
 redirects:
+  - when: "discrepancy-lag correction of sampler/trainer mismatch (DLC)"
+    to: "method:dlc"
+  - when: "unbiased fp32 to bf16 export of the served copy (Fair Cast)"
+    to: "method:fair-cast"
   - when: "end-to-end MXFP8 RL train-rollout grid matching on Blackwell"
     to: "method:mxfp8-rl"
   - when: "rounding-location alignment between inference and train for RL (not NVFP4 QAT)"
@@ -44,6 +48,8 @@ current_sota:
     value: "up to 2.3×"
     notes: "TRIAGE (2610.07043). Dual-active with TRACE. Method status active. No head-to-head vs TRACE."
 methods:
+  - method:dlc
+  - method:fair-cast
   - method:mxfp8-rl
   - method:rounding-align-rl
   - method:rounding-align-rl
@@ -55,7 +61,7 @@ methods:
   - method:mxfp4-mi355x
   - method:sapo
   - method:cispo
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - quantization
@@ -82,3 +88,5 @@ This is **not** native FP4 hardware training from scratch.
 - **Not This Task**: `method:quartet-ii` remains native FP4 hardware training; `method:cispo` / `method:sapo` remain the RL losses.
 - **Optional INT4 KV rollout cache (not this first hop)**: `method:kv4-rl` (`arXiv:2610.14448`). 1.80× rollout vs BF16 KV on Qwen3-8B-Base GRPO; naive INT4 −5.24pp MATH-500 even with TIS. No public code. Does not replace TRACE / TRIAGE.
 - **Optional native NVFP4 RL execution path**: `method:minite` (`arXiv:2610.23928`). Qwen3-30B-A3B 33540 tok/s, 1.39x BF16. Weight/format match is not enough. Dual-active with TRACE/TRIAGE. Does not replace Quartet-II.
+- **Optional discrepancy-lag correction**: `method:dlc` (`arXiv:2610.40945`). Centers numerical discrepancy, clips lag ratio, ESS<0.5 resync. Code Skylanding/Training-Inference-Mismatch. Does not replace TRACE / TRIAGE.
+- **Optional unbiased bf16 export**: `method:fair-cast` (`arXiv:2610.41073`). 18/25 seed-pairs ahead, mean +6.1. Code andrewgcodes/faircast. Distinct from Rounding-Align RL. Does not replace TRACE / TRIAGE.

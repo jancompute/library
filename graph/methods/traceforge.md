@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)'
+  reason: 'TraceForge regenerates student-family traces from a teacher answer; Stepwise Querying queries the teacher for step details'
+  use_instead: method:stepwise-querying
 - when: 'the locked first hop on task:student-distillation'
   reason: 'TraceForge is an active plug-in; method:opd remains the first hop'
   use_instead: method:opd

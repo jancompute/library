@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "EMA teacher-student displacement replaces Muon momentum (Muon-RT)"
+    to: "method:muon-rt"
   - when: "affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)"
     to: "method:air-elr"
   - when: "Muon raises first MoE layer routing-bias span"
@@ -101,6 +103,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:muon-rt
   - method:air-elr
   - method:muongs
   - method:energycal
@@ -144,7 +147,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-02'
 tags:
   - pretraining
   - optimizer

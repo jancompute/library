@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
+  reason: 'ELR remains mixed-depth elastic recurrence; UpLoop is a FLOP-matched dense upcycling schedule'
+  use_instead: method:uploop
+- when: 'post-train loops on a finished checkpoint (no-free-loop)'
+  reason: 'Gotcha: loops added after pretrain pay only at 0.8B; does not retarget ELR'
+  use_instead: paper:no-free-loop
 - when: Huginn-style dense fixed-point looping with terminal KV sharing
   reason: ELR is mixed-depth elastic recurrence, not Huginn depth-prior looping
   use_instead: method:looped-models-done-right
@@ -23,6 +29,7 @@ assumptions:
 - No public code as of 2026-10-13.
 last_reviewed: '2026-10-13'
 papers:
+- paper:no-free-loop
 - paper:elr
 recipes:
 - recipe:elr

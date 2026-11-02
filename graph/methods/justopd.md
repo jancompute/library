@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'LoRA-only AR to masked DLM conversion (BYOD; not on-policy distill)'
+  reason: 'JustOPD distills AR logits on-policy; BYOD freezes the AR base and trains LoRA'
+  use_instead: method:byod
 - when: dLLM RL that forks from high-entropy intermediate states (ForkGRPO)
   reason: JustOPD distills AR logits; ForkGRPO is GRPO-family RL on the dLLM
   use_instead: method:forkgrpo

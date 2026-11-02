@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle)'
+    reason: 'A2D recycles a weight delta; BYOD freezes the AR base and trains LoRA'
+    use_instead: method:byod
   - when: 'dLLM unmasking-schedule distillation (dSpark)'
     reason: 'A2D recycles an AR weight delta; dSpark distills commit schedules'
     use_instead: method:dspark
@@ -35,6 +38,7 @@ assumptions:
   - "Converted discrete diffusion LM from an AR checkpoint, plus an AR post-training delta. No official GitHub as of 2026-10-07."
 last_reviewed: '2026-10-19'
 papers:
+  - paper:byod
   - paper:forkgrpo
   - paper:dlm-ar-compute-gap
   - paper:justopd

@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "node_count": 2007,
-  "edge_count": 8133,
+  "node_count": 2041,
+  "edge_count": 8276,
   "nodes": [
     {
       "id": "recipe:geotransolver",
@@ -291,6 +291,34 @@
       "body": "# ActObs Observation-Token SFT\n\n## Hardware & Environment Setup\n- No official GitHub as of 2026-09-18 (`arXiv:2609.20715`). `repo_url: none found`. `code_status: none`.\n- Async default stays SAO. SWE loop stays mini-SWE-agent. This recipe only changes which tokens in a trace get SFT loss.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\nimport torch\nimport torch.nn.functional as F\n\n\ndef actobs_sft_loss(\n    logits: torch.Tensor,\n    labels: torch.Tensor,\n    is_action: torch.Tensor,\n    is_observation: torch.Tensor,\n) -> torch.Tensor:\n    \"\"\"Loss on action and observation tokens; ignore prompt/padding.\"\"\"\n    n, t, v = logits.shape\n    logp = F.log_softmax(logits, dim=-1)\n    token_nll = F.nll_loss(logp.reshape(n * t, v), labels.reshape(n * t), reduction=\"none\").view(n, t)\n    mask = (is_action | is_observation).to(token_nll.dtype)\n    denom = mask.sum().clamp_min(1.0)\n    return (token_nll * mask).sum() / denom\n```\n\n## Critical Hyperparameters & Tuning Advice\n- Observations are already in the sequence. Do not add a second forward pass or extra parameters.\n- Keep the GRPO stage. Comparing SFT-only checkpoints hides the paper's result.\n- Action-only masking is the ablation, not a recommended default once RL starts."
     },
     {
+      "id": "recipe:byod",
+      "type": "recipe",
+      "title": "BYOD",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/byod.md",
+      "metadata": {
+        "id": "recipe:byod",
+        "type": "recipe",
+        "title": "BYOD",
+        "method": "method:byod",
+        "task": "task:diffusion-lm-ar-delta-recycle",
+        "target_hardware": "Paper: one Colab GPU, 3.1-4.0h per 7B-9B conversion",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/RuurdKuiper/BYOD",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0",
+          "peft"
+        ],
+        "tags": [
+          "recipe",
+          "byod"
+        ]
+      },
+      "body": "# BYOD\n\n## Hardware & Environment Setup\n- Official: `https://github.com/RuurdKuiper/BYOD`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef byod_trainable(name, param):\n    return \"lora_\" in name and param.requires_grad\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:mona",
       "type": "recipe",
       "title": "MONA Pretraining Recipe",
@@ -569,6 +597,33 @@
       "body": "# GRASP Generative Action Recipe\n\n```python\nimport torch\n\nprint(\"GRASP flow matching action policy loaded\")\n```"
     },
     {
+      "id": "recipe:stepwise-querying",
+      "type": "recipe",
+      "title": "Stepwise Querying",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/stepwise-querying.md",
+      "metadata": {
+        "id": "recipe:stepwise-querying",
+        "type": "recipe",
+        "title": "Stepwise Querying",
+        "method": "method:stepwise-querying",
+        "task": "task:student-distillation",
+        "target_hardware": "Paper: two-student math/code SFT",
+        "framework": "PyTorch",
+        "repo_url": "none found",
+        "code_status": "none",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "stepwise-querying"
+        ]
+      },
+      "body": "# Stepwise Querying\n\n## Hardware & Environment Setup\n- Official: `none found`.\n- `code_status: none` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\nQUERIES = (\"derive\", \"check\", \"correct\")\n\ndef stepwise_prompts(problem, step, kind):\n    if kind not in QUERIES:\n        raise ValueError(kind)\n    return f\"{kind} step {step} of: {problem}\"\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:cispo",
       "type": "recipe",
       "title": "CISPO Dense Reasoning RL Recipe",
@@ -790,6 +845,33 @@
         ]
       },
       "body": "# Sparse-BitNet 1.58-Bit Pretraining Recipe\n\n```python\nimport torch\n\nprint(\"Sparse-BitNet 1.58-bit BitLinear and dynamic activation sparsity loaded\")\n```"
+    },
+    {
+      "id": "recipe:li2sao",
+      "type": "recipe",
+      "title": "Li2SAO",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/li2sao.md",
+      "metadata": {
+        "id": "recipe:li2sao",
+        "type": "recipe",
+        "title": "Li2SAO",
+        "method": "method:li2sao",
+        "task": "task:agentic-async-rl",
+        "target_hardware": "Paper: slime async RL",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/jd-cc-coder/Li2SAO",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "li2sao"
+        ]
+      },
+      "body": "# Li2SAO\n\n## Hardware & Environment Setup\n- Official: `https://github.com/jd-cc-coder/Li2SAO`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef li2sao_bootstrap(rewards, values, cold):\n    centered = rewards - rewards.mean()\n    if cold:\n        actor_adv = centered\n        critic_target = centered\n        return actor_adv, critic_target\n    return rewards - values, rewards\n```\n\nDo not retarget locked SOTA from this recipe."
     },
     {
       "id": "recipe:op-self-training",
@@ -2183,6 +2265,33 @@
         ]
       },
       "body": "# ShellElastic nested-width supernet\n\n## Hardware & Environment Setup\n- Official: `https://github.com/jincan333/ShellElastic`.\n- `code_status: released` as of 2026-10-14.\n\n- HF Daily 2026-10-14.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef nested_widths_ok(widths: list[int]) -> bool:\n    if not widths or any(w <= 0 for w in widths):\n        raise ValueError(\"widths must be positive\")\n    return widths == sorted(widths)\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
+      "id": "recipe:muon-rt",
+      "type": "recipe",
+      "title": "Muon-RT",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/muon-rt.md",
+      "metadata": {
+        "id": "recipe:muon-rt",
+        "type": "recipe",
+        "title": "Muon-RT",
+        "method": "method:muon-rt",
+        "task": "task:llm-pretraining-optimization",
+        "target_hardware": "Paper: 7B SDFT / SDPO",
+        "framework": "PyTorch",
+        "repo_url": "none found",
+        "code_status": "none",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "muon-rt"
+        ]
+      },
+      "body": "# Muon-RT\n\n## Hardware & Environment Setup\n- Official: `none found`.\n- `code_status: none` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef muon_rt_buf(teacher_w, student_w, grad, mix=0.5):\n    disp = student_w - teacher_w\n    radial = (disp * student_w).sum() / student_w.pow(2).sum().clamp_min(1e-8)\n    tangent = disp - radial * student_w\n    return mix * tangent + (1.0 - mix) * grad\n```\n\nDo not retarget locked SOTA from this recipe."
     },
     {
       "id": "recipe:rewardverse",
@@ -4833,6 +4942,33 @@
       "body": "# MoE Sparsity LR/Batch Scaling\n\n## Hardware & Environment Setup\n- No official GitHub as of 2026-09-09. Architecture default stays DeepSeek-V4 / Kimi-K3.\n\n## Quickstart Implementation\n\n```python\ndef scale_batch(tokens: float, activation: float, b0: float, d_exp: float, a_exp: float) -> float:\n    \"\"\"B* ∝ D^{d_exp} * A^{a_exp} at the paper's fixed-sparsity-then-A form.\"\"\"\n    return b0 * (tokens ** d_exp) * (activation ** a_exp)\n\n\ndef scale_lr(compute: float, activation: float, lr0: float, c_exp: float, a_exp: float) -> float:\n    \"\"\"η* ∝ C^{c_exp} * A^{a_exp}. Robust to size/data split at fixed sparsity.\"\"\"\n    return lr0 * (compute ** c_exp) * (activation ** a_exp)\n```\n\n## Critical Hyperparameters & Tuning Advice\n- Fit exponents on a sparsity family you control; do not copy dense μP LR blindly onto ultra-sparse MoE.\n- Held-out check in the paper is 12B / 1/64. Re-check before a frontier run."
     },
     {
+      "id": "recipe:mage-vl-cowork",
+      "type": "recipe",
+      "title": "Mage-VL-Cowork",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/mage-vl-cowork.md",
+      "metadata": {
+        "id": "recipe:mage-vl-cowork",
+        "type": "recipe",
+        "title": "Mage-VL-Cowork",
+        "method": "method:mage-vl-cowork",
+        "task": "task:hybrid-computer-use-agent-rl",
+        "target_hardware": "Paper: 4B hybrid CUA",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/microsoft/Mage",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "mage-vl-cowork"
+        ]
+      },
+      "body": "# Mage-VL-Cowork\n\n## Hardware & Environment Setup\n- Official: `https://github.com/microsoft/Mage`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\nSTAGES = (\"midtrain\", \"sft_gui\", \"sft_code\", \"sft_hybrid\", \"rl\")\n\ndef mage_curriculum(stage):\n    return STAGES.index(stage)\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:ra-opd",
       "type": "recipe",
       "title": "RA-OPD Reward-Aligned Trajectory Filter",
@@ -7421,6 +7557,33 @@
       "body": "# Prefix reverse-KL clip\n\n## Hardware & Environment Setup\n- Official: `https://github.com/LiChengxi666/EPIC`.\n- `code_status: released` as of 2026-10-22.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\nimport math\n\ndef prefix_rkld_coord(r: float) -> float:\n    if r <= 0:\n        raise ValueError('r')\n    return r - 1.0 - math.log(r)\n```\n\nDo not retarget locked SOTA from this recipe."
     },
     {
+      "id": "recipe:tsbpo",
+      "type": "recipe",
+      "title": "TSBPO",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/tsbpo.md",
+      "metadata": {
+        "id": "recipe:tsbpo",
+        "type": "recipe",
+        "title": "TSBPO",
+        "method": "method:tsbpo",
+        "task": "task:outcome-only-long-horizon-agent-rl",
+        "target_hardware": "Paper: Qwen2.5-1.5B ALFWorld / WebShop",
+        "framework": "PyTorch",
+        "repo_url": "none found",
+        "code_status": "none",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "tsbpo"
+        ]
+      },
+      "body": "# TSBPO\n\n## Hardware & Environment Setup\n- Official: `none found`.\n- `code_status: none` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef tsbpo_adv(sib_return, sib_mean, obs_return, obs_mean):\n    traj = sib_return - sib_mean\n    step = obs_return - obs_mean\n    return traj + step\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:deepseek-v4",
       "type": "recipe",
       "title": "DeepSeek-V4 MoE Training Recipe",
@@ -9029,6 +9192,33 @@
       "body": "# JitMem Read-Time Curator\n\n## Hardware & Environment Setup\n- No official GitHub as of 2026-09-24 (`arXiv:2609.27334`). `repo_url: none found`. `code_status: none`.\n- Playbook default stays ACE. Repository skills stay Code2Skill. System-One control stays Jev-Mem.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\n\n\n@dataclass\nclass Trajectory:\n    task: str\n    steps: list[str]\n    success: bool\n\n\n@dataclass\nclass MemoryBank:\n    traces: list[Trajectory] = field(default_factory=list)\n\n    def retrieve(self, task: str, k: int = 4) -> list[Trajectory]:\n        scored = sorted(\n            self.traces,\n            key=lambda t: sum(w in t.task.lower() for w in task.lower().split()),\n            reverse=True,\n        )\n        return scored[:k]\n\n    def update(self, traj: Trajectory) -> None:\n        if traj.success:\n            self.traces.append(traj)\n\n\ndef curator_advantage(rewards: list[float]) -> list[float]:\n    if not rewards:\n        return []\n    mean = sum(rewards) / len(rewards)\n    return [r - mean for r in rewards]\n```\n\nKeep raw traces. Retrieve, curate for the current task, execute, then store only quality-gated successes. Train the curator with group-relative advantages on immediate task reward.\n\n## Critical Hyperparameters & Tuning Advice\n- Do not distill at write time. The same trace must be allowed to yield different payloads.\n- Freeze the executor. Immediate reward is the point of read-time curation.\n- Untrained read-time curation is already a strong ablation; train only if that baseline is in place."
     },
     {
+      "id": "recipe:dlc",
+      "type": "recipe",
+      "title": "DLC",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/dlc.md",
+      "metadata": {
+        "id": "recipe:dlc",
+        "type": "recipe",
+        "title": "DLC",
+        "method": "method:dlc",
+        "task": "task:fp4-rl-train-rollout-alignment",
+        "target_hardware": "Paper: Qwen3-0.6B / 1.7B disaggregated RL",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/Skylanding/Training-Inference-Mismatch",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "dlc"
+        ]
+      },
+      "body": "# DLC\n\n## Hardware & Environment Setup\n- Official: `https://github.com/Skylanding/Training-Inference-Mismatch`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef dlc_step(disc, lag_ratio, ess, ess_min=0.5):\n    centered = disc - disc.mean()\n    clipped = lag_ratio.clamp(0.2, 5.0)\n    return centered, clipped, ess < ess_min\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:framegrpo",
       "type": "recipe",
       "title": "Multi-frame video GRPO",
@@ -9309,6 +9499,33 @@
         ]
       },
       "body": "# W2S-OPD Distillation Recipe\n\n```python\nimport torch\n\nprint(\"W2S-OPD weak-to-strong recipe loaded\")\n```"
+    },
+    {
+      "id": "recipe:uploop",
+      "type": "recipe",
+      "title": "UpLoop",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/uploop.md",
+      "metadata": {
+        "id": "recipe:uploop",
+        "type": "recipe",
+        "title": "UpLoop",
+        "method": "method:uploop",
+        "task": "task:elastic-depth-looped-lm",
+        "target_hardware": "Paper: dense looped pretrain through 1.3B",
+        "framework": "PyTorch",
+        "repo_url": "none found",
+        "code_status": "none",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "uploop"
+        ]
+      },
+      "body": "# UpLoop\n\n## Hardware & Environment Setup\n- Official: `none found`.\n- `code_status: none` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef uploop_schedule(step, copy_until, loop_after):\n    if step < copy_until:\n        return \"grow\"\n    if step >= loop_after:\n        return \"loop_middle\"\n    return \"train\"\n```\n\nDo not retarget locked SOTA from this recipe."
     },
     {
       "id": "recipe:doobpo",
@@ -10603,6 +10820,33 @@
       "body": "# Super-Tuning Subspace Recipe\n\n```python\nimport torch\n\nprint(\"Super-Tuning subspace projection loaded\")\n```"
     },
     {
+      "id": "recipe:sv-training",
+      "type": "recipe",
+      "title": "SV-Training",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/sv-training.md",
+      "metadata": {
+        "id": "recipe:sv-training",
+        "type": "recipe",
+        "title": "SV-Training",
+        "method": "method:sv-training",
+        "task": "task:instruct-sft-alignment",
+        "target_hardware": "Paper: SFT/distill and GRPO post-train",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/tiejin98/sv_training",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "sv-training"
+        ]
+      },
+      "body": "# SV-Training\n\n## Hardware & Environment Setup\n- Official: `https://github.com/tiejin98/sv_training`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\n\ndef sv_hook(hidden, direction, scale):\n    return hidden + scale * direction\n\ndef sv_repair(adv, wrong_mask, direction_score):\n    repaired = adv.clone()\n    repaired[wrong_mask] = direction_score[wrong_mask]\n    return repaired\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:muonio",
       "type": "recipe",
       "title": "MuonIO Embedding and LM-Head Updates",
@@ -11306,6 +11550,33 @@
         ]
       },
       "body": "# MLVC Deployable Video Codec Recipe\n\n```python\nimport torch\n\nprint(\"MLVC edge deployable video codec loaded\")\n```"
+    },
+    {
+      "id": "recipe:fair-cast",
+      "type": "recipe",
+      "title": "Fair Cast",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/fair-cast.md",
+      "metadata": {
+        "id": "recipe:fair-cast",
+        "type": "recipe",
+        "title": "Fair Cast",
+        "method": "method:fair-cast",
+        "task": "task:fp4-rl-train-rollout-alignment",
+        "target_hardware": "Paper: Qwen3-0.6B to 4B RL export",
+        "framework": "PyTorch",
+        "repo_url": "https://github.com/andrewgcodes/faircast",
+        "code_status": "released",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "fair-cast"
+        ]
+      },
+      "body": "# Fair Cast\n\n## Hardware & Environment Setup\n- Official: `https://github.com/andrewgcodes/faircast`.\n- `code_status: released` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\nimport torch\n\ndef fair_cast(master):\n    delta = master.float() - master.to(torch.bfloat16).float()\n    scale = (master.abs() / 128).clamp_min(torch.finfo(torch.bfloat16).eps)\n    noise = (torch.rand_like(master) - 0.5) * scale\n    return (master + noise).to(torch.bfloat16)\n```\n\nDo not retarget locked SOTA from this recipe."
     },
     {
       "id": "recipe:htmuon",
@@ -14265,6 +14536,33 @@
       "body": "# Factorized Fourier Neural Operator (F-FNO) Recipe\n\n## Hardware & Environment Setup\n- Recommended Hardware: 1x NVIDIA RTX 4090 or A100.\n- Repository: `https://github.com/alasdairtran/fourierflow`.\n- Data: 2D/3D Navier-Stokes turbulence datasets.\n\n## Hyperparameters & Optimization\n- Loss: Relative L2 Loss.\n- Optimizer: AdamW, lr=1e-3, cosine schedule, weight_decay=1e-4."
     },
     {
+      "id": "recipe:cros",
+      "type": "recipe",
+      "title": "CRoS",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/recipes/cros.md",
+      "metadata": {
+        "id": "recipe:cros",
+        "type": "recipe",
+        "title": "CRoS",
+        "method": "method:cros",
+        "task": "task:math-code-rl-dense",
+        "target_hardware": "Paper: Gemma-3-4B Reasoning Gym",
+        "framework": "PyTorch",
+        "repo_url": "none found",
+        "code_status": "none",
+        "pip_dependencies": [
+          "torch>=2.5.0"
+        ],
+        "tags": [
+          "recipe",
+          "cros"
+        ]
+      },
+      "body": "# CRoS\n\n## Hardware & Environment Setup\n- Official: `none found`. Project: `https://xxiaoyuuuu.github.io/CRoS-Page`.\n- `code_status: none` as of 2026-11-02.\n\n## Quickstart Implementation\n\n```python\nfrom __future__ import annotations\nimport random\n\ndef scramble_steps(steps, rng=None):\n    order = list(steps)\n    (rng or random).shuffle(order)\n    return order\n\ndef cros_reward(answer_ok, scrambled_ok):\n    return float(answer_ok) + float(answer_ok and not scrambled_ok)\n```\n\nDo not retarget locked SOTA from this recipe."
+    },
+    {
       "id": "recipe:prep-opd",
       "type": "recipe",
       "title": "Prep-OPD Prepare-then-Freeze Teacher",
@@ -16580,6 +16878,14 @@
         ],
         "redirects": [
           {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "to": "method:dlc"
+          },
+          {
+            "when": "unbiased fp32 to bf16 export of the served copy (Fair Cast)",
+            "to": "method:fair-cast"
+          },
+          {
             "when": "end-to-end MXFP8 RL train-rollout grid matching on Blackwell",
             "to": "method:mxfp8-rl"
           },
@@ -16635,6 +16941,8 @@
           }
         ],
         "methods": [
+          "method:dlc",
+          "method:fair-cast",
           "method:mxfp8-rl",
           "method:rounding-align-rl",
           "method:rounding-align-rl",
@@ -16647,7 +16955,7 @@
           "method:sapo",
           "method:cispo"
         ],
-        "last_reviewed": "2026-10-27",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "quantization",
@@ -16657,7 +16965,7 @@
           "moe"
         ]
       },
-      "body": "# FP4 RL Train–Rollout Quantization Alignment\n\n## Problem Definition\nNative FP4 / NVFP4 RL is not the same problem as training from scratch in FP4. The train-side rounding grid can disagree with rollout-side quantization; MoE routing amplifies the mismatch. This task owns **aligning or stabilizing that grid**, not the kernel of Pass@1 RLVR and not Quartet-II pretrain.\n\nThis is **not** native FP4 hardware training from scratch.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: MoE LM RL rollouts under FP4/NVFP4 (Qwen3.5-35B-A3B / 122B-A10B; Qwen3-4B / 30B-A3B); rollout throughput and end-to-end step time versus unaligned FP4 RL.\n- **Evaluation Pitfalls**: TRACE and TRIAGE have **no head-to-head**. TRACE caches rollout mantissa/scale into QAT; TRIAGE rebalances amplifying negative-advantage/negative-gap updates. Do not retarget Quartet-II.\n\n## SOTA Recommendation (as of 2026-10-07)\n- **Primary (rollout-guided QAT, this task only)**: **TRACE** (`method:trace`, `paper:trace` `arXiv:2610.07767`). Status `active`. Dual-active with TRIAGE.\n- **Primary (direction-aware NVFP4 mismatch, this task only)**: **TRIAGE** (`method:triage`, `paper:triage` `arXiv:2610.07043`). Status `active`. Dual-active with TRACE.\n- **Not This Task**: `method:quartet-ii` remains native FP4 hardware training; `method:cispo` / `method:sapo` remain the RL losses.\n- **Optional INT4 KV rollout cache (not this first hop)**: `method:kv4-rl` (`arXiv:2610.14448`). 1.80× rollout vs BF16 KV on Qwen3-8B-Base GRPO; naive INT4 −5.24pp MATH-500 even with TIS. No public code. Does not replace TRACE / TRIAGE.\n- **Optional native NVFP4 RL execution path**: `method:minite` (`arXiv:2610.23928`). Qwen3-30B-A3B 33540 tok/s, 1.39x BF16. Weight/format match is not enough. Dual-active with TRACE/TRIAGE. Does not replace Quartet-II."
+      "body": "# FP4 RL Train–Rollout Quantization Alignment\n\n## Problem Definition\nNative FP4 / NVFP4 RL is not the same problem as training from scratch in FP4. The train-side rounding grid can disagree with rollout-side quantization; MoE routing amplifies the mismatch. This task owns **aligning or stabilizing that grid**, not the kernel of Pass@1 RLVR and not Quartet-II pretrain.\n\nThis is **not** native FP4 hardware training from scratch.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: MoE LM RL rollouts under FP4/NVFP4 (Qwen3.5-35B-A3B / 122B-A10B; Qwen3-4B / 30B-A3B); rollout throughput and end-to-end step time versus unaligned FP4 RL.\n- **Evaluation Pitfalls**: TRACE and TRIAGE have **no head-to-head**. TRACE caches rollout mantissa/scale into QAT; TRIAGE rebalances amplifying negative-advantage/negative-gap updates. Do not retarget Quartet-II.\n\n## SOTA Recommendation (as of 2026-10-07)\n- **Primary (rollout-guided QAT, this task only)**: **TRACE** (`method:trace`, `paper:trace` `arXiv:2610.07767`). Status `active`. Dual-active with TRIAGE.\n- **Primary (direction-aware NVFP4 mismatch, this task only)**: **TRIAGE** (`method:triage`, `paper:triage` `arXiv:2610.07043`). Status `active`. Dual-active with TRACE.\n- **Not This Task**: `method:quartet-ii` remains native FP4 hardware training; `method:cispo` / `method:sapo` remain the RL losses.\n- **Optional INT4 KV rollout cache (not this first hop)**: `method:kv4-rl` (`arXiv:2610.14448`). 1.80× rollout vs BF16 KV on Qwen3-8B-Base GRPO; naive INT4 −5.24pp MATH-500 even with TIS. No public code. Does not replace TRACE / TRIAGE.\n- **Optional native NVFP4 RL execution path**: `method:minite` (`arXiv:2610.23928`). Qwen3-30B-A3B 33540 tok/s, 1.39x BF16. Weight/format match is not enough. Dual-active with TRACE/TRIAGE. Does not replace Quartet-II.\n- **Optional discrepancy-lag correction**: `method:dlc` (`arXiv:2610.40945`). Centers numerical discrepancy, clips lag ratio, ESS<0.5 resync. Code Skylanding/Training-Inference-Mismatch. Does not replace TRACE / TRIAGE.\n- **Optional unbiased bf16 export**: `method:fair-cast` (`arXiv:2610.41073`). 18/25 seed-pairs ahead, mean +6.1. Code andrewgcodes/faircast. Distinct from Rounding-Align RL. Does not replace TRACE / TRIAGE."
     },
     {
       "id": "task:operator-fourier-adapt",
@@ -16822,6 +17130,14 @@
         ],
         "redirects": [
           {
+            "when": "group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)",
+            "to": "method:li2sao"
+          },
+          {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "to": "method:dlc"
+          },
+          {
             "when": "environment-task rollout scheduling under a finite budget (EnvSched)",
             "to": "method:envsched"
           },
@@ -16957,6 +17273,8 @@
           }
         ],
         "methods": [
+          "method:li2sao",
+          "method:dlc",
           "method:envsched",
           "method:mpo",
           "method:harness-scaling",
@@ -16994,7 +17312,7 @@
           "method:slca-grpo",
           "method:ftw"
         ],
-        "last_reviewed": "2026-10-28",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "agentic",
@@ -17662,6 +17980,7 @@
           }
         ],
         "methods": [
+          "method:sv-training",
           "method:drive-ft",
           "method:metacurate",
           "method:autosft",
@@ -17680,6 +17999,10 @@
           "method:opsft"
         ],
         "redirects": [
+          {
+            "when": "steering-vector residual-stream hook in SFT/distill (SV-Training)",
+            "to": "method:sv-training"
+          },
           {
             "when": "leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master",
             "to": "paper:weight-update-leverage"
@@ -17717,7 +18040,7 @@
             "to": "method:opsft"
           }
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "instruct",
@@ -17726,7 +18049,7 @@
           "dolci"
         ]
       },
-      "body": "# Chat / Instruct SFT & General Alignment\n\n## Problem Definition\nTransforming base pre-trained models into safe, capable, instruction-following conversational assistants without degrading core knowledge.\n\n## SOTA Recommendation (as of 2026-09-11)\n- **Primary Open Stack**: **OLMo-3 Dolci** (`method:olmo-3`, 2512.13961).\n- **Industrial Alternative**: **Nemotron-Cascade-2** (`method:nemotron-cascade-2`, 2603.19220).\n- **Optional reasoning-trace shaping**: `method:partial-reasoning-traces` (`arXiv:2609.07103`). Prefer partial/truncated CoT over dumping complete traces. Does not replace OLMo-3 / Cascade.\n- **L2 in-language reasoning (not this general instruct task)**: `method:tiny-aya-l2-thinker` on `task:multilingual-l2-reasoning-sft`.\n- **Noisy preference labels**: `method:plc-dpo` on `task:direct-preference-alignment`. Does not replace Dolci.\n- **Optional drift-budget instruct FT**: `method:dco` (`arXiv:2609.13680`) chooses update direction (layer-selective probe) under an anchored-KL budget. Reverses QA-only FT failure while keeping reasoning. Does not replace OLMo-3 / Cascade / Delta Learning / Open-MOPD / LoRA quality.\n- **Optional on-policy-direction SFT**: `method:opsft` (`arXiv:2609.36659`). Qwen3-4B DeepMath mean 40.11 vs GRPO 38.96 vs SFT 34.22 (6.4h vs 16.5h). Mention on `task:math-code-rl-dense`. Code ssfgunner/OPSFT. Does not replace OLMo-3 or CISPO.\n\n- **Optional agentic SFT data research**: `method:autosft` (`arXiv:2610.22194`). Analysis +6.5 IFEval; synthesis +3.4. Code Thinking-Space/AutoSFT. Does not replace OLMo-3.\n- **Optional evolving SWE trajectory filter**: `method:metacurate` (`arXiv:2610.23134`). Highest mean SWE-Verified among compared SFT filters. Does not replace OLMo-3 or AutoSFT.\n- **Gotcha (cue-routing circuit)**: `paper:posttrain-cue-routing` (`arXiv:2610.22937`). Chat SFT can activate pretrained sycophancy heads. Does not retarget OLMo-3."
+      "body": "# Chat / Instruct SFT & General Alignment\n\n## Problem Definition\nTransforming base pre-trained models into safe, capable, instruction-following conversational assistants without degrading core knowledge.\n\n## SOTA Recommendation (as of 2026-09-11)\n- **Primary Open Stack**: **OLMo-3 Dolci** (`method:olmo-3`, 2512.13961).\n- **Industrial Alternative**: **Nemotron-Cascade-2** (`method:nemotron-cascade-2`, 2603.19220).\n- **Optional reasoning-trace shaping**: `method:partial-reasoning-traces` (`arXiv:2609.07103`). Prefer partial/truncated CoT over dumping complete traces. Does not replace OLMo-3 / Cascade.\n- **L2 in-language reasoning (not this general instruct task)**: `method:tiny-aya-l2-thinker` on `task:multilingual-l2-reasoning-sft`.\n- **Noisy preference labels**: `method:plc-dpo` on `task:direct-preference-alignment`. Does not replace Dolci.\n- **Optional drift-budget instruct FT**: `method:dco` (`arXiv:2609.13680`) chooses update direction (layer-selective probe) under an anchored-KL budget. Reverses QA-only FT failure while keeping reasoning. Does not replace OLMo-3 / Cascade / Delta Learning / Open-MOPD / LoRA quality.\n- **Optional on-policy-direction SFT**: `method:opsft` (`arXiv:2609.36659`). Qwen3-4B DeepMath mean 40.11 vs GRPO 38.96 vs SFT 34.22 (6.4h vs 16.5h). Mention on `task:math-code-rl-dense`. Code ssfgunner/OPSFT. Does not replace OLMo-3 or CISPO.\n\n- **Optional agentic SFT data research**: `method:autosft` (`arXiv:2610.22194`). Analysis +6.5 IFEval; synthesis +3.4. Code Thinking-Space/AutoSFT. Does not replace OLMo-3.\n- **Optional evolving SWE trajectory filter**: `method:metacurate` (`arXiv:2610.23134`). Highest mean SWE-Verified among compared SFT filters. Does not replace OLMo-3 or AutoSFT.\n- **Gotcha (cue-routing circuit)**: `paper:posttrain-cue-routing` (`arXiv:2610.22937`). Chat SFT can activate pretrained sycophancy heads. Does not retarget OLMo-3.\n- **Optional steering-vector train hook**: `method:sv-training` (`arXiv:2610.40998`, NeurIPS 2026). Up to +12% thinking-teacher distill; GRPO advantage-repair on all-wrong groups. Code tiejin98/sv_training. Does not replace OLMo-3."
     },
     {
       "id": "task:multilingual-l2-reasoning-sft",
@@ -18671,6 +18994,10 @@
         ],
         "redirects": [
           {
+            "when": "EMA teacher-student displacement replaces Muon momentum (Muon-RT)",
+            "to": "method:muon-rt"
+          },
+          {
             "when": "affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)",
             "to": "method:air-elr"
           },
@@ -18848,6 +19175,7 @@
           }
         ],
         "methods": [
+          "method:muon-rt",
           "method:air-elr",
           "method:muongs",
           "method:energycal",
@@ -18892,7 +19220,7 @@
           "method:adam-beta-cubic",
           "method:bulkboost"
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "pretraining",
           "optimizer",
@@ -19593,6 +19921,14 @@
         ],
         "redirects": [
           {
+            "when": "scramble-order CoT causality reward (CRoS)",
+            "to": "method:cros"
+          },
+          {
+            "when": "steering-vector advantage-repair on all-wrong GRPO groups (SV-Training)",
+            "to": "method:sv-training"
+          },
+          {
             "when": "sequence confidence-aligned RL (SCARL)",
             "to": "method:scarl"
           },
@@ -19904,6 +20240,8 @@
           }
         ],
         "methods": [
+          "method:cros",
+          "method:sv-training",
           "method:scarl",
           "method:h2r",
           "method:guided-rlvr",
@@ -19992,7 +20330,7 @@
           "method:opsft",
           "method:rgpo"
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "reasoning",
@@ -20256,6 +20594,14 @@
         ],
         "redirects": [
           {
+            "when": "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)",
+            "to": "method:uploop"
+          },
+          {
+            "when": "post-train loops on a finished checkpoint (no-free-loop)",
+            "to": "paper:no-free-loop"
+          },
+          {
             "when": "Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing)",
             "to": "method:looped-models-done-right"
           },
@@ -20287,13 +20633,14 @@
           }
         ],
         "methods": [
+          "method:uploop",
           "method:shell-elastic",
           "method:elr",
           "method:looped-models-done-right",
           "method:smelt",
           "method:recurrent-looped-transformer"
         ],
-        "last_reviewed": "2026-10-14",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "pretraining",
           "looped-lm",
@@ -20301,7 +20648,7 @@
           "elastic-depth"
         ]
       },
-      "body": "# Elastic-Depth Looped Language Models\n\n## Problem Definition\nA looped LM is usually trained at one recurrence depth. This task owns **one weight set that is trained under mixed loop counts** so decode can pick 1–K loops, including a late conversion of an unlooped checkpoint.\n\nThis is **not** Huginn-style fixed-point looping and not SMELT's compute-matched MoE layer looping.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: 10-task avg vs a matched unlooped baseline at 1 loop and at 4 loops (paper: 4B dense, 30B-A3B MoE); optional AAII (Koi-4B).\n- **Evaluation Pitfalls**: Do not cite SMELT FLOP-savings or Huginn KV-sharing as ELR results. One-loop 4B dense can sit slightly below the unlooped baseline.\n\n## SOTA Recommendation (as of 2026-10-13)\n- **Primary (this task only)**: **ELR** (`method:elr`, `paper:elr` `arXiv:2610.12582`). Status `active`. Listed here as first hop; method `sota_for` stays empty. No public code.\n- **Not This Task**: `method:looped-models-done-right` remains Huginn-style dense looping; `method:smelt` remains compute-matched MoE looping; `method:recurrent-looped-transformer` remains experimental CED.\n- **Not this task (nested width, not mixed depth)**: `method:shell-elastic` (`arXiv:2610.15124`) on `task:llm-pretraining-optimization`. Does not replace ELR."
+      "body": "# Elastic-Depth Looped Language Models\n\n## Problem Definition\nA looped LM is usually trained at one recurrence depth. This task owns **one weight set that is trained under mixed loop counts** so decode can pick 1–K loops, including a late conversion of an unlooped checkpoint.\n\nThis is **not** Huginn-style fixed-point looping and not SMELT's compute-matched MoE layer looping.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: 10-task avg vs a matched unlooped baseline at 1 loop and at 4 loops (paper: 4B dense, 30B-A3B MoE); optional AAII (Koi-4B).\n- **Evaluation Pitfalls**: Do not cite SMELT FLOP-savings or Huginn KV-sharing as ELR results. One-loop 4B dense can sit slightly below the unlooped baseline.\n\n## SOTA Recommendation (as of 2026-10-13)\n- **Primary (this task only)**: **ELR** (`method:elr`, `paper:elr` `arXiv:2610.12582`). Status `active`. Listed here as first hop; method `sota_for` stays empty. No public code.\n- **Not This Task**: `method:looped-models-done-right` remains Huginn-style dense looping; `method:smelt` remains compute-matched MoE looping; `method:recurrent-looped-transformer` remains experimental CED.\n- **Not this task (nested width, not mixed depth)**: `method:shell-elastic` (`arXiv:2610.15124`) on `task:llm-pretraining-optimization`. Does not replace ELR.\n- **Optional FLOP-matched dense upcycling**: `method:uploop` (`arXiv:2610.41720`). 1.3B 22-task avg 22.99→27.52. No public code. Does not replace ELR.\n- **Gotcha (post-train loops)**: `paper:no-free-loop` (`arXiv:2610.42030`). Loops added after pretrain pay only at 0.8B; 4B/9B fail the equal-parameter test. Does not retarget ELR."
     },
     {
       "id": "task:directed-sssp-nonneg",
@@ -20433,6 +20780,10 @@
         ],
         "redirects": [
           {
+            "when": "4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)",
+            "to": "method:mage-vl-cowork"
+          },
+          {
             "when": "automated wild-web env reconstruction (WebAnything)",
             "to": "method:webanything"
           },
@@ -20480,6 +20831,7 @@
           }
         ],
         "methods": [
+          "method:mage-vl-cowork",
           "method:webanything",
           "method:openmobile-2",
           "method:mai-gym",
@@ -20491,7 +20843,7 @@
           "method:mai-ui",
           "method:mini-swe-agent"
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "agents",
           "computer-use",
@@ -20499,7 +20851,7 @@
           "recreationworld"
         ]
       },
-      "body": "# Hybrid Computer-Use Agent RL\n\n## Problem Definition\nGUI computer-use and terminal/code agents advanced on separate tracks. Hybrid CUAs must explore a running interface, implement software, and visually verify their own artifacts with no prescribed stage order. This task is that train/eval setting: recreation against a running reference, hidden programmatic and visual assertions, five platforms (Ubuntu, macOS, Windows, Android, Web).\n\nOSWorld 2.0 paper-protocol ranking is a different shelf.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: RecreationBench (250 tasks, 50 per platform); OOD coding / hybrid CUA transfer after recreation training.\n- **Evaluation Pitfalls**: High overall scores can hide near-zero full programmatic pass. Do not mix RecreationBench with OSWorld 2.0 binary/partial.\n\n## SOTA Recommendation (as of 2026-09-21)\n- **Primary Method (this task only)**: **RecreationWorld** (`method:recreationworld`, `paper:recreationworld` `arXiv:2609.22000`). Status `active`. Listed here as first hop; method `sota_for` stays empty.\n- **Not This Task**: `method:claude-computer-use` remains OSWorld 2.0 paper-protocol ranking; `method:mini-swe-agent` remains issue-to-patch; `method:canopy` remains AppWorld coverage; `method:mai-ui` / `method:ui-tars-2` remain trained GUI-only policies.\n- **Optional synthesized GUI env factory (not this first hop)**: `method:softwaregym` (`arXiv:2610.12611`) 182 synthesized apps; OSWorld Pass@3 41.39%→56.97% after training (transfer, not paper-protocol ranking). No public code. Does not replace RecreationWorld or Claude computer-use.\n\n- **Optional mocked-app GUI RL platform**: `method:mai-gym` (`arXiv:2610.20939`). MobileWorld 78.4%; real-phone 28.8→48.1. Code Tongyi-MAI/MAI-Gym. OSWorld-Verified is not OSWorld 2.0. Does not replace RecreationWorld.\n- **Optional native GUI+code CUA**: `method:os-helix` (`arXiv:2610.22234`). 27B-RL OSWorld-Verified 66.44% (not OSWorld 2.0). Code os-copilot/OS-Helix. Distinct from OpenGCUA. Does not demote Claude computer-use.\n- **Optional scalable mobile gym**: `method:openmobile-2` (`arXiv:2610.14157`). AndroidWorld 79.9 / MobileWorld 50.4 / SPA-Bench 31.9→59.6. Does not replace RecreationWorld or Claude computer-use."
+      "body": "# Hybrid Computer-Use Agent RL\n\n## Problem Definition\nGUI computer-use and terminal/code agents advanced on separate tracks. Hybrid CUAs must explore a running interface, implement software, and visually verify their own artifacts with no prescribed stage order. This task is that train/eval setting: recreation against a running reference, hidden programmatic and visual assertions, five platforms (Ubuntu, macOS, Windows, Android, Web).\n\nOSWorld 2.0 paper-protocol ranking is a different shelf.\n\n## Evaluation Protocol\n- **Primary Benchmarks**: RecreationBench (250 tasks, 50 per platform); OOD coding / hybrid CUA transfer after recreation training.\n- **Evaluation Pitfalls**: High overall scores can hide near-zero full programmatic pass. Do not mix RecreationBench with OSWorld 2.0 binary/partial.\n\n## SOTA Recommendation (as of 2026-09-21)\n- **Primary Method (this task only)**: **RecreationWorld** (`method:recreationworld`, `paper:recreationworld` `arXiv:2609.22000`). Status `active`. Listed here as first hop; method `sota_for` stays empty.\n- **Not This Task**: `method:claude-computer-use` remains OSWorld 2.0 paper-protocol ranking; `method:mini-swe-agent` remains issue-to-patch; `method:canopy` remains AppWorld coverage; `method:mai-ui` / `method:ui-tars-2` remain trained GUI-only policies.\n- **Optional synthesized GUI env factory (not this first hop)**: `method:softwaregym` (`arXiv:2610.12611`) 182 synthesized apps; OSWorld Pass@3 41.39%→56.97% after training (transfer, not paper-protocol ranking). No public code. Does not replace RecreationWorld or Claude computer-use.\n\n- **Optional mocked-app GUI RL platform**: `method:mai-gym` (`arXiv:2610.20939`). MobileWorld 78.4%; real-phone 28.8→48.1. Code Tongyi-MAI/MAI-Gym. OSWorld-Verified is not OSWorld 2.0. Does not replace RecreationWorld.\n- **Optional native GUI+code CUA**: `method:os-helix` (`arXiv:2610.22234`). 27B-RL OSWorld-Verified 66.44% (not OSWorld 2.0). Code os-copilot/OS-Helix. Distinct from OpenGCUA. Does not demote Claude computer-use.\n- **Optional 4B five-stage hybrid CUA**: `method:mage-vl-cowork` (`arXiv:2610.40747`). OSWorld-Verified 66.0% (not OSWorld 2.0). Code microsoft/Mage. Sibling of OS-Helix. Does not replace RecreationWorld or Claude computer-use.\n- **Optional scalable mobile gym**: `method:openmobile-2` (`arXiv:2610.14157`). AndroidWorld 79.9 / MobileWorld 50.4 / SPA-Bench 31.9→59.6. Does not replace RecreationWorld or Claude computer-use."
     },
     {
       "id": "task:neural-video-gpu",
@@ -21708,6 +22060,10 @@
         ],
         "redirects": [
           {
+            "when": "tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO)",
+            "to": "method:tsbpo"
+          },
+          {
             "when": "critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE)",
             "to": "method:scope-agent-opsd"
           },
@@ -21907,6 +22263,7 @@
           }
         ],
         "methods": [
+          "method:tsbpo",
           "method:scope-agent-opsd",
           "method:coca",
           "method:race-rubric",
@@ -21956,7 +22313,7 @@
           "method:metarubric",
           "method:hierarchical-moe-routing-control"
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "agentic",
@@ -22247,6 +22604,18 @@
         "domain": "post-training",
         "summary": "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models.",
         "redirects": [
+          {
+            "when": "black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)",
+            "to": "method:stepwise-querying"
+          },
+          {
+            "when": "EMA teacher-student displacement replaces Muon momentum (Muon-RT)",
+            "to": "method:muon-rt"
+          },
+          {
+            "when": "steering-vector residual-stream hook in SFT/distill (SV-Training)",
+            "to": "method:sv-training"
+          },
           {
             "when": "adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)",
             "to": "method:ati-opd"
@@ -22619,6 +22988,9 @@
           }
         ],
         "methods": [
+          "method:stepwise-querying",
+          "method:muon-rt",
+          "method:sv-training",
           "method:ati-opd",
           "method:c-mopd",
           "method:mpopd",
@@ -22720,7 +23092,7 @@
           "method:latent-mopd",
           "method:rp-opd"
         ],
-        "last_reviewed": "2026-10-30",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "post-training",
           "distillation",
@@ -22754,6 +23126,10 @@
           "Elastic mixed-depth looped LM training (ELR)"
         ],
         "redirects": [
+          {
+            "when": "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)",
+            "to": "method:uploop"
+          },
           {
             "when": "Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing)",
             "to": "method:looped-models-done-right"
@@ -22802,6 +23178,7 @@
           }
         ],
         "methods": [
+          "method:uploop",
           "method:latentloop",
           "method:elr",
           "method:smelt",
@@ -22809,7 +23186,7 @@
           "method:deepseek-v4",
           "method:kimi-k3"
         ],
-        "last_reviewed": "2026-10-15",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "pretraining",
           "moe",
@@ -22842,6 +23219,10 @@
           "Continuous diffusion language model pretrain (SemiCat / DoubleCat)"
         ],
         "redirects": [
+          {
+            "when": "LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle)",
+            "to": "method:byod"
+          },
           {
             "when": "cross-budget self-distillation for masked dLLMs (HiLo-RD)",
             "to": "method:hilo-rd"
@@ -22914,6 +23295,7 @@
           }
         ],
         "methods": [
+          "method:byod",
           "method:hilo-rd",
           "method:nld-uni",
           "method:tdlm",
@@ -22930,7 +23312,7 @@
           "method:self-opd",
           "method:uno"
         ],
-        "last_reviewed": "2026-10-28",
+        "last_reviewed": "2026-11-02",
         "tags": [
           "diffusion",
           "post-training",
@@ -25030,6 +25412,40 @@
       "body": "# Don't Mask the Environment: Observation Supervision Changes How Agents Explore Under RL\n\n## Abstract Summary\nAgent traces record actions and what the environment returns. Standard SFT puts loss only on agent-authored action tokens and treats observations as context. ActObs also supervises the observation tokens already in each trajectory. Deployed agents never emit observations; predicting them is a consequence model that adds no data, parameters, sequence tokens, or extra forward passes. SFT numbers look similar; GRPO then diverges. On Qwen3-4B, GRPO from ActObs raises pass@k at every evaluated budget on Terminal-Bench 2.0 vs action-only SFT. On Qwen3-8B it trades some pass@1 for higher pass@k (+3.4 pp at pass@16) and more distinct tasks. The gap transfers to aider-polyglot (+4.2 pp pass@1 at 4B), unseen in SFT and RL. ActObs keeps more entropy during RL with less policy movement, staying closer to the SFT init. Action and observation gradients rapidly become orthogonal; action-only SFT leaves a large residual observation gradient and degrades environment prediction below the base model.\n\n## Key Contributions\n1. **Observation-token SFT** on traces that already contain environment text; no extra data or parameters.\n2. **SFT looks similar, GRPO does not**: exploration after RL is the measured difference.\n3. **Gradient geometry**: action vs observation grads go orthogonal; action-only training unlearns consequence prediction.\n\n## Empirical Highlights\n- Qwen3-4B Terminal-Bench 2.0: GRPO from ActObs beats action-only at every evaluated pass@k.\n- Qwen3-8B Terminal-Bench 2.0: +3.4 pp at pass@16; more distinct tasks; some pass@1 given up.\n- aider-polyglot (unseen): +4.2 pp pass@1 at 4B.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2609.20715`\n- No official GitHub as of 2026-09-18 (`recipe:actobs` `code_status: none`)."
     },
     {
+      "id": "paper:byod",
+      "type": "paper",
+      "title": "BYOD: Build Your Own DLM - Efficient Autoregressive-to-Diffusion Language Model Conversion",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/byod.md",
+      "metadata": {
+        "id": "paper:byod",
+        "type": "paper",
+        "title": "BYOD: Build Your Own DLM - Efficient Autoregressive-to-Diffusion Language Model Conversion",
+        "authors": [
+          "Ruurd J. A. Kuiper",
+          "Robert A. Bagheri"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41574",
+        "url": "https://arxiv.org/abs/2610.41574",
+        "methods": [
+          "method:byod"
+        ],
+        "cites": [
+          "paper:a2d",
+          "paper:justopd"
+        ],
+        "tags": [
+          "dllm",
+          "lora",
+          "active"
+        ]
+      },
+      "body": "# BYOD: Build Your Own DLM\n\n## Abstract Summary\nBYOD is a LoRA-only AR-to-masked-DLM conversion. Base weights stay frozen; adapters are 4.1-5.8% of final parameters. Converts Gemma 2 9B, Llama 3.1 8B, Qwen2.5 7B, and Ministral 8B in 3.1-4.0 hours on one Colab GPU with at most 102.4M tokens. BYOD-Gemma averages 50.6% vs LLaDA 8B Instruct 51.9% on nine tasks. Open-generation perplexity at low NFE remains the gap: 8.3-11.1 vs LLaDA 4.1 and AR parents 2.2-3.0 at 128 tokens / 64 steps.\n\n## Key Contributions\n1. LoRA-only AR to masked DLM conversion without architecture-specific full FT.\n\n## Empirical Highlights\nCode github.com/RuurdKuiper/BYOD. Distinct from method:a2d (weight-delta recycle) and method:justopd (on-policy distill).\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41574`\n- Code: `https://github.com/RuurdKuiper/BYOD` (`code_status: released`)."
+    },
+    {
       "id": "paper:mona",
       "type": "paper",
       "title": "MONA: Momentum Orthogonalization with Nesterov Acceleration",
@@ -25513,6 +25929,41 @@
       "body": "# Distilling the Shape of Uncertainty: What On-Policy Distillation Learns and How to Predict It\n\n## Abstract Summary\nOPD learns both which tokens to consider and where to keep paths open. Entropy shape (the sequence of next-token entropies) plus ESC (entropy-shape correlation) predicts teacher quality. Intervening on teacher entropy while freezing token preferences shows where-to-branch causally drives OPD gains. Code maybenotime/opd-esc.\n\n## Key Contributions\n1. ESC teacher-selection protocol for OPD; not an OPD replacement.\n\n## Empirical Highlights\nPre-OPD ESC picks the best teacher for both students vs existing predictors. Does not retarget method:opd.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.39020`\n- Code: `https://github.com/maybenotime/opd-esc (`code_status: released`).`"
     },
     {
+      "id": "paper:stepwise-querying",
+      "type": "paper",
+      "title": "Stepwise-Querying: Distilling Reasoning without Access to Teacher Chain-of-Thought",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/stepwise-querying.md",
+      "metadata": {
+        "id": "paper:stepwise-querying",
+        "type": "paper",
+        "title": "Stepwise-Querying: Distilling Reasoning without Access to Teacher Chain-of-Thought",
+        "authors": [
+          "Dicong Yu",
+          "Wenhua Wang",
+          "Tian Wang"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41769",
+        "url": "https://arxiv.org/abs/2610.41769",
+        "methods": [
+          "method:stepwise-querying"
+        ],
+        "cites": [
+          "paper:traceforge",
+          "paper:opd"
+        ],
+        "tags": [
+          "distillation",
+          "black-box",
+          "active"
+        ]
+      },
+      "body": "# Stepwise-Querying: Distilling Reasoning without Access to Teacher Chain-of-Thought\n\n## Abstract Summary\nBlack-box teachers may return only answers and short solutions. Stepwise Querying asks the same teacher independent questions for intermediate derivations, validity checks, and step corrections, then SFT on the assembled solutions. Highest score in 14 of 16 comparisons across two teachers, two students, and four math/code benches. SEIG is a frozen-student log-ratio diagnostic of stepwise vs global explanations.\n\n## Key Contributions\n1. Black-box step queries that recover reasoning supervision without teacher CoT traces, then ordinary SFT.\n\n## Empirical Highlights\nNo public code as of 2026-11-02. Sibling of method:traceforge. Does not retarget method:opd.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41769`\n- Code: none found (`code_status: none`)."
+    },
+    {
       "id": "paper:s2d-opd",
       "type": "paper",
       "title": "Not Every Token Is Worth Distilling: Selective Supervision for Direct-OPD",
@@ -25776,6 +26227,49 @@
         ]
       },
       "body": "# Sparse-BitNet: 1.58-Bit Native Extreme Quantization with Dynamic Activation Sparsity\n\n## Abstract Summary\nSparse-BitNet represents the 2026 BitNet line, combining native 1.58-bit ternary weight optimization with dynamic activation sparsity to push extreme quantization efficiency beyond original BitNet b1.58.\n\n## Key Contributions\n1. **2026 BitNet Line**: Native 1.58-bit ternary weights coupled with sparse dynamic activation gating.\n2. **Energy Efficiency**: Achieves sub-1.5-bit effective compute cost with zero quality degradation relative to dense 2B4T baselines.\n\n## Open Source Repository\n- Implementation: `https://github.com/AAzdi/Sparse-BitNet`"
+    },
+    {
+      "id": "paper:li2sao",
+      "type": "paper",
+      "title": "Li2SAO: Lifting Light Single-Rollout Asynchronous RL Optimization via Group-Relative Actor-Critic Bootstrapping",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/li2sao.md",
+      "metadata": {
+        "id": "paper:li2sao",
+        "type": "paper",
+        "title": "Li2SAO: Lifting Light Single-Rollout Asynchronous RL Optimization via Group-Relative Actor-Critic Bootstrapping",
+        "authors": [
+          "Zichen Bai",
+          "Yanli Wang",
+          "Yang Liu",
+          "Junhao Shi",
+          "Xueqin Liu",
+          "Jinguo Sun",
+          "Muye Li",
+          "Shaoqiang Zheng",
+          "Xuefei Diao",
+          "Zhuwei Zeng",
+          "Nan Duan",
+          "Peng Cao"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.40726",
+        "url": "https://arxiv.org/abs/2610.40726",
+        "methods": [
+          "method:li2sao"
+        ],
+        "cites": [
+          "paper:sao"
+        ],
+        "tags": [
+          "async-rl",
+          "actor-critic",
+          "active"
+        ]
+      },
+      "body": "# Li2SAO: Lifting Light Single-Rollout Asynchronous RL Optimization via Group-Relative Actor-Critic Bootstrapping\n\n## Abstract Summary\nSAO needs a closed-source pretrained value model. A lightweight SAO without that critic (LiSAO) loses to GRPO on single-turn reasoning and lags early because the critic is cold. Li2SAO bootstraps: while the critic is cold, a group-relative advantage trains the actor and a group-centered return trains the critic, then training switches to single-rollout GAE. It catches GRPO early and raises the later ceiling on agentic tasks.\n\n## Key Contributions\n1. Group-relative actor-critic bootstrap for single-rollout async RL without a pretrained value model.\n\n## Empirical Highlights\nCode github.com/jd-cc-coder/Li2SAO (slime). Does not retarget method:sao.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.40726`\n- Code: `https://github.com/jd-cc-coder/Li2SAO` (`code_status: released`)."
     },
     {
       "id": "paper:op-self-training",
@@ -27959,6 +28453,41 @@
       "body": "# The Ephemeral Cost of Switching Optimizers Across LLM Training Stages\n\n## Abstract Summary\n1.2B Llama-3 models pretrained from scratch while interpolating AdamW and Muon across pretrain, continued pretrain, and SFT. Final performance is largely explained by the independent effects of the pretraining and post-training optimizers; downstream gains from switching to Muon for SFT persist even after full AdamW pretraining. Little evidence of a meaningful optimizer-mismatch penalty.\n\n## Key Contributions\n1. Systematic AdamW↔Muon interpolations at 1.2B across pretrain / CPT / SFT.\n2. Mismatch cost is small relative to each stage's optimizer choice.\n3. NeurIPS 2026 Transitioning from Pre-Training to Post-Training workshop.\n\n## Empirical Highlights\n- Do not treat optimizer-stage matching as a hard constraint on a Muon2 pretrain plus AdamW SFT (or the reverse) without measuring it.\n- Does not retarget Muon2.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.22650`\n- Code: `none found` (`code_status: none`)."
     },
     {
+      "id": "paper:muon-rt",
+      "type": "paper",
+      "title": "MUON-RT Reusing the Teacher's Trajectory for Momentum-Free Muon for LLM Self-Distillation",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/muon-rt.md",
+      "metadata": {
+        "id": "paper:muon-rt",
+        "type": "paper",
+        "title": "MUON-RT Reusing the Teacher's Trajectory for Momentum-Free Muon for LLM Self-Distillation",
+        "authors": [
+          "Aryan Das",
+          "Vinay Kumar Verma",
+          "Aakansha Mishra"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41104",
+        "url": "https://arxiv.org/abs/2610.41104",
+        "methods": [
+          "method:muon-rt"
+        ],
+        "cites": [
+          "paper:muon2",
+          "paper:opd"
+        ],
+        "tags": [
+          "muon",
+          "distillation",
+          "active"
+        ]
+      },
+      "body": "# MUON-RT Reusing the Teacher's Trajectory for Momentum-Free Muon for LLM Self-Distillation\n\n## Abstract Summary\nEMA-teacher self-distillation already stores a history of student updates, so Muon's extra momentum buffer is redundant memory. Muon-RT reuses the teacher-student displacement for hidden matrices: drop the radial component, spectrally normalize, mix with the current gradient after Newton-Schulz. On Qwen2.5-7B-Instruct SDFT it beats AdamW by 2.6 points with 42% less persistent memory and momentum Muon by 5.4 with 27% less. On Olmo-3-7B-Instruct SDPO it beats AdamW by 2.0.\n\n## Key Contributions\n1. Momentum-free Muon that reuses EMA teacher-student displacement during self-distillation.\n\n## Empirical Highlights\nNo public code as of 2026-11-02. Does not retarget method:muon2 or method:opd.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41104`\n- Code: none found (`code_status: none`)."
+    },
+    {
       "id": "paper:rewardverse",
       "type": "paper",
       "title": "RewardVerse: Rubric-Guided Policy Optimization for Video Reward Modeling",
@@ -29396,6 +29925,42 @@
         ]
       },
       "body": "# Spectrally Targeted Muon\n\n## Abstract Summary\nMuon sets every singular value of the update to one. Spectrally Targeted Muon orthogonalizes only singular values above or below a threshold tau, interpolating normalized SGD and Muon, using Newton-Schulz on a shifted Gram matrix (no SVD). Small momentum singular values are not noise: orthogonalizing everything except the few largest nearly matches Muon while touching a small fraction of the momentum. On language models every momentum singular value is far below one, so Muon wins by amplifying directions too small to train at raw scale. Beside Muon2 / BulkBoost / Musec. No official GitHub as of 2026-10-09.\n\n## Key Contributions\n1. Thresholded orthogonalization interpolates normalized SGD and Muon without SVD.\n2. Small singular values of momentum are the trainable signal on LMs, not noise.\n3. Flattening the largest singular values keeps the parameter spectrum flat but is not what drives the loss.\n\n## Empirical Highlights\n- CIFAR-10 and NanoGPT speedruns. Orthogonalizing all but the few largest nearly matches Muon.\n- Top-only orthogonalization falls short even though it holds almost all of the momentum mass.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.10965`\n- Code: none found as of 2026-10-09 (`code_status: none`)."
+    },
+    {
+      "id": "paper:no-free-loop",
+      "type": "paper",
+      "title": "There Is No Free Loop: When Does Looping a Trained Model Pay for Its Inference Compute?",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/no-free-loop.md",
+      "metadata": {
+        "id": "paper:no-free-loop",
+        "type": "paper",
+        "title": "There Is No Free Loop: When Does Looping a Trained Model Pay for Its Inference Compute?",
+        "authors": [
+          "Rhea Sanjay Sukthanker",
+          "Pashmina Cameron"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.42030",
+        "url": "https://arxiv.org/abs/2610.42030",
+        "methods": [
+          "method:elr",
+          "method:uploop",
+          "method:looped-models-done-right"
+        ],
+        "cites": [
+          "paper:elr",
+          "paper:uploop",
+          "paper:looped-models-done-right"
+        ],
+        "tags": [
+          "looped-lm",
+          "gotcha"
+        ]
+      },
+      "body": "# There Is No Free Loop: When Does Looping a Trained Model Pay for Its Inference Compute?\n\n## Abstract Summary\nAdding a loop after pretraining keeps parameter count, disk, memory, and train cost unchanged, but every generated token pays about (N+m)/N times the unlooped cost. Against an equal-parameter unlooped twin and an equal-FLOP unlooped use of the same inference budget, only the looped 0.8B Qwen3/Qwen3.5 model beats both. At 4B and 9B the looped model fails the equal-parameter test even though the unlooped 9B still scores up to 13 points above the 4B, so the benches are not saturated.\n\n## Key Contributions\n1. Post-train loops pay only at 0.8B; 4B/9B fail the equal-parameter test.\n\n## Empirical Highlights\nGotcha on method:elr / method:uploop / method:looped-models-done-right. Does not retarget those first hops. Train-time loops (UpLoop, ELR, Huginn) are a different setting.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.42030`\n- Code: none found (`code_status: none`)."
     },
     {
       "id": "paper:ngn",
@@ -32258,6 +32823,60 @@
         ]
       },
       "body": "# Hyperparameter Scaling Laws Across MoE Sparsity\n\n## Abstract Summary\nOptimal LR and batch size for MoE shift with activation ratio and are not explained by total or activated parameter count alone. 1,800 pretrain runs, six activated-parameter scales, up to 6B non-embedding params, ~20T tokens, 200,000 H800-GPU-hours. Two regimes: at fixed sparsity, optimal batch size power-laws with tokens D while optimal LR scales with compute C (robust to size/data split); across sparsity, activation ratio A is an extra multiplicative power-law factor. Unified laws transfer; a held-out 12B total / 1/64 activated MoE stays near the predicted optima. Guidance for MoE pretrain HPs. Does not replace DeepSeek-V4 / Kimi-K3 architecture or Muon2.\n\n## Key Contributions\n1. **Sparsity-dependent HP transfer** beyond param-count laws.\n2. **Two regimes**: B*(D) at fixed sparsity; η*(C); A as a multiplicative factor.\n3. **Held-out 12B 1/64 MoE** near predicted optima.\n\n## Empirical Highlights\n- 1,800 runs / ~20T tokens / 200k H800-hours.\n- Predicted HPs remain close to observed optima on a held-out ultra-sparse 12B.\n\n## Open Source Repository & Resources\n- No official GitHub as of 2026-09-09."
+    },
+    {
+      "id": "paper:mage-vl-cowork",
+      "type": "paper",
+      "title": "Mage-VL-Cowork: A Full Training Recipe to Learn Hybrid Computer Use From Evolved Harnesses",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/mage-vl-cowork.md",
+      "metadata": {
+        "id": "paper:mage-vl-cowork",
+        "type": "paper",
+        "title": "Mage-VL-Cowork: A Full Training Recipe to Learn Hybrid Computer Use From Evolved Harnesses",
+        "authors": [
+          "Xiaoyi Zhang",
+          "Haoqing Wang",
+          "Xinjie Zhang",
+          "Xiang Ming",
+          "Xing Wang",
+          "Senqiao Yang",
+          "Kaichen Zhang",
+          "Zhaoyang Jia",
+          "Andong Tan",
+          "Xinjiang Wang",
+          "Jinghao Guo",
+          "Yifei Shen",
+          "Xiao Li",
+          "Peng Zhang",
+          "Xun Guo",
+          "Jiahao Li",
+          "Shicheng Zheng",
+          "Jinglu Wang",
+          "Zongyu Guo",
+          "Wenxuan Xie",
+          "Bin Li",
+          "Yan Lu"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.40747",
+        "url": "https://arxiv.org/abs/2610.40747",
+        "methods": [
+          "method:mage-vl-cowork"
+        ],
+        "cites": [
+          "paper:os-helix",
+          "paper:recreationworld"
+        ],
+        "tags": [
+          "computer-use",
+          "hybrid",
+          "active"
+        ]
+      },
+      "body": "# Mage-VL-Cowork: A Full Training Recipe to Learn Hybrid Computer Use From Evolved Harnesses\n\n## Abstract Summary\nMage-VL-Cowork is a 4B hybrid CUA trained through a five-stage midtraining/SFT/RL curriculum. Mage-CUA-Forge synthesizes 293,806 desktop and web tasks across 6,915 skills and cuts recurring per-task spend 82.6%. Teacher harnesses are evolved rather than distilled from a default teacher. Mage-VL-Cowork-4B reaches 66.0% on OSWorld-Verified.\n\n## Key Contributions\n1. Five-stage hybrid CUA recipe plus skill-conditioned task forge.\n\n## Empirical Highlights\nOSWorld-Verified 66.0% at 4B is not OSWorld 2.0 paper protocol. Code github.com/microsoft/Mage. Sibling of method:os-helix. Does not demote method:recreationworld or method:claude-computer-use.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.40747`\n- Code: `https://github.com/microsoft/Mage` (`code_status: released`).\n- Project: `https://microsoft.github.io/Mage`"
     },
     {
       "id": "paper:ra-opd",
@@ -36551,6 +37170,40 @@
       "body": "# EPIC\n\n## Abstract Summary\nEPIC treats the autoregressive prefix as the IS change of measure and clips the exact reverse-KL coordinate r-1-log r of the prefix likelihood ratio instead of a token-local PPO clip.\n\n## Key Contributions\n1. EPIC as an active plug-in on `task:math-code-rl-dense`.\n\n## Empirical Highlights\n- outperforms standard and sequence-level clipping on math benches; competitive with routing-replay alternatives at lower memory. Does not retarget `method:cispo`.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.29999`\n- Code: `https://github.com/LiChengxi666/EPIC` (`code_status: released`)."
     },
     {
+      "id": "paper:tsbpo",
+      "type": "paper",
+      "title": "TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/tsbpo.md",
+      "metadata": {
+        "id": "paper:tsbpo",
+        "type": "paper",
+        "title": "TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents",
+        "authors": [
+          "Rui Yu",
+          "Chong Mu",
+          "Jinchuan Zhang"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41697",
+        "url": "https://arxiv.org/abs/2610.41697",
+        "methods": [
+          "method:tsbpo"
+        ],
+        "cites": [
+          "paper:canopy"
+        ],
+        "tags": [
+          "agent-rl",
+          "tree",
+          "active"
+        ]
+      },
+      "body": "# TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents\n\n## Abstract Summary\nTSBPO trains interactive agents from terminal outcomes with one sampling-to-update loop. A likelihood-fitted Root/Branch allocator spends a fixed rollout budget on continuations likely to contrast. Trajectory advantages compare sibling segments; observation-group step advantages compare matched task/observation states. The actor sums clipped token surrogates over each complete response and normalizes across active turns. Qwen2.5-1.5B: ALFWorld 97.79% seen / 96.64% unseen; WebShop 81.07% over six stochastic episodes on 500 test goals.\n\n## Key Contributions\n1. Tree Root/Branch allocator plus sibling and observation-group advantages for outcome-only agent RL.\n\n## Empirical Highlights\nNo public code as of 2026-11-02. WebShop step-term ablation 75.93% at the same update-100 eval. Does not retarget method:canopy.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41697`\n- Code: none found (`code_status: none`)."
+    },
+    {
       "id": "paper:deepseek-v4",
       "type": "paper",
       "title": "DeepSeek-V4: Frontier Sparse Mixture-of-Experts Architecture",
@@ -39098,6 +39751,41 @@
       "body": "# Just-in-Time Memory: Learning to Curate Task-Adaptive Memory for LLM Agents\n\n## Abstract Summary\nMost agentic memory systems curate at write time: a finished trajectory is distilled into a fixed reflection, skill, or strategy and later retrieved by similarity. That decision is irreversible and query-independent, and learning the writer is a long-horizon credit problem. JitMem keeps raw trajectories and defers curation to read time. A curator sees the current task plus retrieved traces and synthesizes a compact task-adaptive payload. Because that payload is consumed on the same task, the curator trains from immediate success (GRPO over candidate payloads, frozen executor). Even an untrained read-time curator is competitive with write-time baselines; training compounds.\n\n## Key Contributions\n1. **Read-time curation**: same stored trajectory yields different payloads for different downstream tasks.\n2. **Immediate curator reward**: no task-grouping scaffold required by learned write-time curators (SkillOS).\n3. **JitMem**: lossless episodic bank + BM25 retrieve + GRPO curator + frozen executor.\n\n## Empirical Highlights\n- ALFWorld / WebShop / \\(\\tau^2\\)-bench: +16.2 / +16.3 / +3.9 absolute success vs strongest write-time baseline.\n- Qwen3-8B executor: ALFWorld 77.4 vs SkillOS 61.2 (+16.2); WebShop SR 32.8 vs SkillOS 16.5 (+16.3).\n- Compact payload cuts input tokens 50.3%–56.3% and executor steps 28.4%–31.4% vs write-time methods.\n- Untrained JitMem-gemini already competitive (WebShop 61.0 vs SkillOS 41.0 with Gemini-2.5-Pro curator/executor).\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2609.27334`\n- No public GitHub found as of 2026-09-24 (`recipe:jitmem` `code_status: none`)."
     },
     {
+      "id": "paper:dlc",
+      "type": "paper",
+      "title": "On the Origin and Evolution of Training-Inference Mismatch in LLM Reinforcement Learning",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/dlc.md",
+      "metadata": {
+        "id": "paper:dlc",
+        "type": "paper",
+        "title": "On the Origin and Evolution of Training-Inference Mismatch in LLM Reinforcement Learning",
+        "authors": [
+          "Yu Li",
+          "Yufa Zhou",
+          "Tian Lan"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.40945",
+        "url": "https://arxiv.org/abs/2610.40945",
+        "methods": [
+          "method:dlc"
+        ],
+        "cites": [
+          "paper:trace",
+          "paper:rounding-align-rl"
+        ],
+        "tags": [
+          "rl",
+          "numerics",
+          "active"
+        ]
+      },
+      "body": "# On the Origin and Evolution of Training-Inference Mismatch in LLM Reinforcement Learning\n\n## Abstract Summary\nDisaggregated RL splits sampled-token error into a nearly constant numerical discrepancy of the engine and a policy lag of the trainer. Centering the score at each prefix removes the numerical bias. Importance weighting cuts the lag loop only while the lag ratio stays concentrated; on Qwen3-1.7B it fails when ESS of the ratio falls below one half. Discrepancy-lag correction (DLC) centers the numerical error, clips the lag ratio against the sampler weights, and resynchronizes the sampler when ESS < 0.5.\n\n## Key Contributions\n1. Split training-inference mismatch into numerical discrepancy vs policy lag, then DLC.\n\n## Empirical Highlights\nUnder a stale sampler, DLC keeps KL from on-policy training within 2x the KL between two independent on-policy runs on Qwen3-0.6B and 1.7B. Code github.com/Skylanding/Training-Inference-Mismatch. Does not retarget method:trace.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.40945`\n- Code: `https://github.com/Skylanding/Training-Inference-Mismatch` (`code_status: released`)."
+    },
+    {
       "id": "paper:framegrpo",
       "type": "paper",
       "title": "FrameGRPO: Incentivizing Video Reasoning via Multi-Frame Rollouts and Temporal Credit",
@@ -39574,6 +40262,44 @@
         ]
       },
       "body": "# W2S-OPD: Weak-to-Strong On-Policy Distillation\n\n## Abstract Summary\nW2S-OPD demonstrates that on-policy distillation enables weak teachers to elicit superhuman latent reasoning capabilities in stronger base student models through iterative self-correction.\n\n## Key Contributions\n1. **Weak-to-Strong Generalization**: Distillation protocol eliciting latent student capabilities beyond weak teacher limits.\n2. **Iterative Bootstrapping**: Self-improving student-teacher co-evolution.\n\n## Open Source Repository\n- Implementation: `https://github.com/Yu-Fangxu/W2S-OPD` (claimed)"
+    },
+    {
+      "id": "paper:uploop",
+      "type": "paper",
+      "title": "UpLoop: Training Looped Transformers via Upcycling at No Extra Pretraining Compute",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/uploop.md",
+      "metadata": {
+        "id": "paper:uploop",
+        "type": "paper",
+        "title": "UpLoop: Training Looped Transformers via Upcycling at No Extra Pretraining Compute",
+        "authors": [
+          "Cheng Liang",
+          "Tengfei Zhang",
+          "Ya Zhang",
+          "Yanfeng Wang",
+          "Zhouhan Lin"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41720",
+        "url": "https://arxiv.org/abs/2610.41720",
+        "methods": [
+          "method:uploop"
+        ],
+        "cites": [
+          "paper:elr",
+          "paper:smelt",
+          "paper:looped-models-done-right"
+        ],
+        "tags": [
+          "pretraining",
+          "looped-lm",
+          "active"
+        ]
+      },
+      "body": "# UpLoop: Training Looped Transformers via Upcycling at No Extra Pretraining Compute\n\n## Abstract Summary\nUpLoop trains a looped Transformer while matching a dense baseline on final parameter count, total tokens, and training FLOPs. Training starts shallow, copies learned layers to grow depth, and spends the early compute savings on later shared-middle-block loops. At 1.3B the 22-task average rises 22.99 to 27.52; gains also transfer after math SFT.\n\n## Key Contributions\n1. FLOP-matched dense looped pretrain via progressive depth copy then shared middle-block loops.\n\n## Empirical Highlights\nNo public code as of 2026-11-02. Does not retarget method:elr, method:smelt, or method:looped-models-done-right.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41720`\n- Code: none found (`code_status: none`)."
     },
     {
       "id": "paper:doobpo",
@@ -41736,6 +42462,44 @@
       "body": "# Super-Tuning: Subspace-Preserving Parameter-Efficient Adaptation\n\n## Abstract Summary\nSuper-Tuning constrains parameter-efficient updates to stay within the principal subspace of the pre-trained model representations, minimizing out-of-distribution performance degradation.\n\n## Key Contributions\n1. **Subspace Preservation**: Constrained low-rank projections aligned with pre-trained spectral geometry.\n2. **OOD Robustness**: Superior out-of-domain generalization compared to unconstrained LoRA.\n\n## Open Source Repository\n- Implementation: `none found`"
     },
     {
+      "id": "paper:sv-training",
+      "type": "paper",
+      "title": "Steering Vectors as a Training Signal in LLM Post-Training",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/sv-training.md",
+      "metadata": {
+        "id": "paper:sv-training",
+        "type": "paper",
+        "title": "Steering Vectors as a Training Signal in LLM Post-Training",
+        "authors": [
+          "Tiejin Chen",
+          "Maunil Vyas",
+          "Huaiyuan Yao",
+          "Hua Wei"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.40998",
+        "url": "https://arxiv.org/abs/2610.40998",
+        "methods": [
+          "method:sv-training"
+        ],
+        "cites": [
+          "paper:olmo-3",
+          "paper:minimax-m1",
+          "paper:opd"
+        ],
+        "tags": [
+          "sft",
+          "distillation",
+          "rlvr",
+          "active"
+        ]
+      },
+      "body": "# Steering Vectors as a Training Signal in LLM Post-Training\n\n## Abstract Summary\nSteering vectors can guide parameter updates, not only inference. A hidden-state hook during teacher-forced SFT/distill improves over plain SFT, with gains scaling with the off-policy gap and reaching 12% when distilling from thinking-mode teachers (three seeds). In GRPO, a correctness-contrast direction repairs advantages on wrong rollouts, including otherwise zero-gradient all-wrong groups. NeurIPS 2026.\n\n## Key Contributions\n1. Residual-stream steering as a train-time hook for SFT/distill and as GRPO advantage-repair on all-wrong groups.\n\n## Empirical Highlights\nCode github.com/tiejin98/sv_training. Failure boundaries: code generation can break the direction, cross-family layer transfer can break placement, inference-time application on an SV-trained checkpoint can break the regime. Does not retarget method:olmo-3, method:opd, or method:cispo.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.40998`\n- Code: `https://github.com/tiejin98/sv_training` (`code_status: released`)."
+    },
+    {
       "id": "paper:muonio",
       "type": "paper",
       "title": "MuonIO: Principled Norm-Aware Descent for Embedding Tables and Language Model Heads",
@@ -42821,6 +43585,41 @@
         ]
       },
       "body": "# MLVC: Mobile and Lightweight Neural Video Compression for Edge Deployment\n\n## Abstract Summary\nMLVC presents a lightweight neural video codec optimized specifically for mobile NPU and edge deployment, achieving real-time decoding with ultra-low thermal and power overhead, establishing the deployable NVC SOTA default.\n\n## Key Contributions\n1. **Edge-Optimized Architecture**: Pruned contextual transforms tailored for mobile NPUs and edge DSPs.\n2. **Deployable SOTA Default**: Real-time 60 FPS 1080p decoding on mobile SoCs with VVC-competitive compression.\n\n## Open Source Repository\n- Implementation: `https://github.com/microsoft/mlvc`"
+    },
+    {
+      "id": "paper:fair-cast",
+      "type": "paper",
+      "title": "bf16 Rounding Silently Discards Most RL Policy Updates: A Hidden Training-Inference Mismatch and an Unbiased One-Line Fix",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/fair-cast.md",
+      "metadata": {
+        "id": "paper:fair-cast",
+        "type": "paper",
+        "title": "bf16 Rounding Silently Discards Most RL Policy Updates: A Hidden Training-Inference Mismatch and an Unbiased One-Line Fix",
+        "authors": [
+          "Andrew Gao",
+          "William Gao"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.41073",
+        "url": "https://arxiv.org/abs/2610.41073",
+        "methods": [
+          "method:fair-cast"
+        ],
+        "cites": [
+          "paper:rounding-align-rl",
+          "paper:weight-update-leverage"
+        ],
+        "tags": [
+          "rl",
+          "numerics",
+          "bf16",
+          "active"
+        ]
+      },
+      "body": "# bf16 Rounding Silently Discards Most RL Policy Updates\n\n## Abstract Summary\nRL keeps fp32 master weights and serves rollouts from a bf16 copy via round-to-nearest. At common LRs most per-step updates are smaller than half a bf16 spacing, so the served policy lags 50-150 steps; on Qwen3-1.7B only 0.4-0.5% of served weights change per step. Fair Cast exports with an unbiased rule (stochastic rounding or error feedback) and trains on the served copy. One line at the export call; 22-38 ms per 1.7B export.\n\n## Key Contributions\n1. Unbiased fp32 to bf16 export plus train-on-served-copy so RL updates are not silently dropped.\n\n## Empirical Highlights\n18/25 matched seed-pairs ahead, 6 tied, 1 behind; mean +6.1. Zebra puzzles 0.57 +/- 0.16 vs round-to-nearest 0.33 +/- 0.10. Code github.com/andrewgcodes/faircast. Distinct from method:rounding-align-rl (rounding location) and method:trace (NVFP4).\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.41073`\n- Code: `https://github.com/andrewgcodes/faircast` (`code_status: released`)."
     },
     {
       "id": "paper:htmuon",
@@ -48039,6 +48838,42 @@
       "body": "# Factorized Fourier Neural Operators\n\n## Abstract Summary\nWe propose the Factorized Fourier Neural Operator (F-FNO), a learning-based approach for simulating partial differential equations (PDEs). Starting from a recently proposed Fourier representation of flow fields, the F-FNO bridges the performance gap between pure machine learning approaches to that of the best numerical or hybrid solvers. This is achieved with new representations - separable spectral layers and improved residual connections - and a combination of training strategies such as the Markov assumption, Gaussian noise, and cosine learning rate decay. On several challenging benchmark PDEs on regular grids, structured meshes, and point clouds, the F-FNO can scale to deeper networks and outperform both the FNO and the geo-FNO, reducing the error by 83% on the Navier-Stokes problem, 31% on the elasticity problem, 57% on the airfoil flow problem, and 60% on the plastic forging problem. Compared to the state-of-the-art pseudo-spectral method, the F-FNO can take a step size that is an order of magnitude larger in time and achieve an order of magnitude speedup to produce the same solution quality.\n\n## Key Contributions\n- Formulates and evaluates `ffno` for scientific machine learning and neural operator problems.\n- Validated on standardized benchmarks with reproducible empirical metrics.\n\n## Open Source Repository\n- Implementation: `https://github.com/alasdairtran/fourierflow`"
     },
     {
+      "id": "paper:cros",
+      "type": "paper",
+      "title": "CRoS: Causality Reward on Scrambled CoTs Improves Accuracy and Reasoning Faithfulness",
+      "domain": null,
+      "status": null,
+      "file_path": "graph/papers/cros.md",
+      "metadata": {
+        "id": "paper:cros",
+        "type": "paper",
+        "title": "CRoS: Causality Reward on Scrambled CoTs Improves Accuracy and Reasoning Faithfulness",
+        "authors": [
+          "Xiao Yu",
+          "Justin Chih-Yao Chen",
+          "Zaid Khan",
+          "Hyunji Lee",
+          "Mohit Bansal"
+        ],
+        "year": 2026,
+        "month": 10,
+        "arxiv_id": "2610.42054",
+        "url": "https://arxiv.org/abs/2610.42054",
+        "methods": [
+          "method:cros"
+        ],
+        "cites": [
+          "paper:minimax-m1"
+        ],
+        "tags": [
+          "rlvr",
+          "causality",
+          "active"
+        ]
+      },
+      "body": "# CRoS: Causality Reward on Scrambled CoTs Improves Accuracy and Reasoning Faithfulness\n\n## Abstract Summary\nOutcome-only RLVR does not guarantee that the CoT caused the answer. Deletion/error-injection causality metrics confound information change with true causality and, as rewards, shrink informative CoTs. CRoS scrambles step order without changing step content. On Reasoning Gym with Gemma-3-4B it reaches 46.8% on five unseen logic/games sets vs 43.8% strongest baseline, CoT-Pass@K 43.4 vs 41.4 (K=1 to 128), and hint acknowledgment 34.0 vs 20.2.\n\n## Key Contributions\n1. Order-scramble CoT causality reward that preserves step content.\n\n## Empirical Highlights\nProject xxiaoyuuuu.github.io/CRoS-Page. No public GitHub as of 2026-11-02. Does not retarget method:cispo.\n\n## Open Source Repository & Resources\n- Paper: `https://arxiv.org/abs/2610.42054`\n- Project: `https://xxiaoyuuuu.github.io/CRoS-Page`\n- Code: none found (`code_status: none`)."
+    },
+    {
       "id": "paper:agents-md-ctxbench",
       "type": "paper",
       "title": "Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding Agents?",
@@ -52112,6 +52947,64 @@
       "body": "# ActObs (Observation-Token SFT before GRPO)\n\n## Method Overview\nActObs is SFT on the observation tokens that already sit in agent traces, not only on action tokens. The deployed policy still samples actions; predicting observations is a train-time consequence model. After SFT the two inits look similar. After GRPO they do not: ActObs explores more (higher entropy, less policy drift from the SFT checkpoint) and raises pass@k. Action-only SFT leaves a residual observation gradient and can make environment prediction worse than the base model.\n\n## When to Use\n- Tool/terminal agents where you already log observations and the next stage is GRPO-family RL.\n\n## When NOT to Use\n- Async stragglers → `method:sao`. SWE harness → `method:mini-swe-agent`. AppWorld coverage → `method:canopy`. Pass@1 math → `method:cispo`.\n\n## Relation to Existing SOTA\n- Active plug-in on `task:agentic-async-rl`. Mentions on `task:software-engineering-agent-harness` and `task:outcome-only-long-horizon-agent-rl`. Does **not** enter `current_sota`. Does **not** supersede `method:sao`, `method:mini-swe-agent`, or `method:canopy`.\n\n## Gotchas & Failure Modes\n- Do not judge the method at the SFT checkpoint. The paper's split is after GRPO.\n- Qwen3-8B gives up some pass@1 for pass@k. Measure the budget you actually serve.\n- No public trainer as of 2026-09-18."
     },
     {
+      "id": "method:byod",
+      "type": "method",
+      "title": "BYOD",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/byod.md",
+      "metadata": {
+        "id": "method:byod",
+        "type": "method",
+        "title": "BYOD",
+        "category": "diffusion-alignment",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "recycle an AR post-training weight delta onto a converted dLLM",
+            "reason": "A2D recycles a weight delta; BYOD is LoRA-only AR to masked DLM conversion",
+            "use_instead": "method:a2d"
+          },
+          {
+            "when": "AR to discrete-dLLM on-policy distillation rather than LoRA conversion",
+            "reason": "JustOPD distills AR logits on-policy; BYOD freezes the AR base and trains LoRA",
+            "use_instead": "method:justopd"
+          }
+        ],
+        "assumptions": [
+          "Frozen AR checkpoint plus LoRA adapters. Official code RuurdKuiper/BYOD."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:byod"
+        ],
+        "recipes": [
+          "recipe:byod"
+        ],
+        "claims": [
+          {
+            "benchmark": "Gemma 2 9B / Llama 3.1 8B / Qwen2.5 7B / Ministral 8B nine-task avg vs LLaDA 8B Instruct",
+            "metric": "accuracy; conversion cost",
+            "value": "BYOD-Gemma 50.6 vs LLaDA 51.9; 4.1-5.8% params; 3.1-4.0h Colab; <=102.4M tokens",
+            "baseline": "LLaDA 8B Instruct; AR parents; A2D weight-delta; JustOPD",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41574",
+            "notes": "Does not retarget method:a2d. Open-gen PPL 8.3-11.1 vs LLaDA 4.1 is the remaining gap."
+          }
+        ],
+        "tags": [
+          "dllm",
+          "lora",
+          "active"
+        ]
+      },
+      "body": "# BYOD\n\n## Method Overview\nBYOD converts an AR LM into a masked diffusion LM with LoRA only: freeze every base parameter, train 4.1-5.8% adapters so the model can generate from fully masked sequences with bidirectional context.\n\n## When to Use\n- You already have an AR checkpoint and want a masked DLM without full-model fine-tune or A2D's weight-delta recycle.\n\n## When NOT to Use\nA2D remains AR-delta recycle. JustOPD remains on-policy AR-to-dLLM distill.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:a2d` or `method:justopd`.\n\n## Gotchas & Failure Modes\n- Open-generation quality at low NFE is the principal gap.\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off."
+    },
+    {
       "id": "method:mona",
       "type": "method",
       "title": "MONA (Momentum Orthogonalization with Nesterov Acceleration)",
@@ -52697,6 +53590,64 @@
       "body": "# GRASP Generative Action Planning\n\n## Method Overview\nGRASP uses flow-matched continuous action generation conditioned on real-time visual tactile streams for multimodal manipulation tasks.\n\n## When to Use\n- Reactive physical robot manipulation under visual occlusions."
     },
     {
+      "id": "method:stepwise-querying",
+      "type": "method",
+      "title": "Stepwise Querying",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/stepwise-querying.md",
+      "metadata": {
+        "id": "method:stepwise-querying",
+        "type": "method",
+        "title": "Stepwise Querying",
+        "category": "distillation",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:student-distillation",
+            "reason": "OPD remains matching when teacher logp is available; Stepwise Querying is black-box SFT",
+            "use_instead": "method:opd"
+          },
+          {
+            "when": "family-native reasoning traces when the teacher hides CoT (TraceForge)",
+            "reason": "TraceForge regenerates student-family traces from a teacher answer; Stepwise Querying queries the teacher for step details",
+            "use_instead": "method:traceforge"
+          }
+        ],
+        "assumptions": [
+          "Black-box teacher that answers step queries. No public code as of 2026-11-02."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:stepwise-querying"
+        ],
+        "recipes": [
+          "recipe:stepwise-querying"
+        ],
+        "claims": [
+          {
+            "benchmark": "Two teachers, two students, four math/code benches vs three black-box baselines",
+            "metric": "win count",
+            "value": "highest score in 14 of 16 comparisons",
+            "baseline": "global teacher solution SFT; TraceForge-style hidden-CoT reconstruction not the paper bake-off",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41769",
+            "notes": "Does not retarget method:opd. Sibling of method:traceforge."
+          }
+        ],
+        "tags": [
+          "distillation",
+          "black-box",
+          "active"
+        ]
+      },
+      "body": "# Stepwise Querying\n\n## Method Overview\nStepwise Querying elicits intermediate derivations, validity checks, and corrections from a black-box teacher that withholds CoT, then trains the student with ordinary SFT on the assembled solutions.\n\n## When to Use\n- Distillation when the teacher returns answers but not internal CoT, and you can query that same teacher per step.\n\n## When NOT to Use\nTeacher logp available → `method:opd`. Teacher answer without a queryable step API → `method:traceforge`.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:opd`. Sibling of `method:traceforge`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- Incorrect-answer trajectories can still help if intermediate steps are valid; further decomposition yields limited extra gain.\n- No public code as of 2026-11-02."
+    },
+    {
       "id": "method:cispo",
       "type": "method",
       "title": "CISPO (Clipped IS-weight Policy Optimization)",
@@ -52717,6 +53668,16 @@
           "method:dapo"
         ],
         "do_not_use_for": [
+          {
+            "when": "scramble-order CoT causality reward (CRoS)",
+            "reason": "CISPO remains Pass@1; CRoS adds a scramble-order causality reward on a GRPO host",
+            "use_instead": "method:cros"
+          },
+          {
+            "when": "steering-vector advantage-repair on all-wrong GRPO groups (SV-Training)",
+            "reason": "CISPO remains Pass@1; SV-Training repairs GRPO advantages on all-wrong groups",
+            "use_instead": "method:sv-training"
+          },
           {
             "when": "sequence confidence-aligned RL (SCARL)",
             "reason": "CISPO remains Pass@1; SCARL reshapes advantages by confidence gap",
@@ -53464,6 +54425,59 @@
         ]
       },
       "body": "# Sparse-BitNet (1.58-Bit Native Pretraining)\n\n## Method Overview\nSparse-BitNet represents the 2026 BitNet generation, combining native 1.58-bit ternary {-1, 0, +1} weight optimization with dynamic activation sparsity:\n1. **Ternary Pretraining**: Native addition-only BitLinear matrix projections.\n2. **Dynamic Sparsity**: Sparse activation gating providing higher energy efficiency than dense 1.58-bit models.\n\n## When to Use\n- Default SOTA method for training native 1.58-bit ternary LLMs from scratch.\n\n## Supersession\n- Supersedes `method:bitnet-b158` as the active 2026 BitNet line (keep 2B4T dense baseline as download reference)."
+    },
+    {
+      "id": "method:li2sao",
+      "type": "method",
+      "title": "Li2SAO",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/li2sao.md",
+      "metadata": {
+        "id": "method:li2sao",
+        "type": "method",
+        "title": "Li2SAO",
+        "category": "rl-alignment",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:agentic-async-rl",
+            "reason": "SAO remains async straggler replay; Li2SAO bootstraps a light critic then switches to single-rollout GAE",
+            "use_instead": "method:sao"
+          }
+        ],
+        "assumptions": [
+          "Async single-rollout RL without a pretrained value model. Official code jd-cc-coder/Li2SAO on slime."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:li2sao"
+        ],
+        "recipes": [
+          "recipe:li2sao"
+        ],
+        "claims": [
+          {
+            "benchmark": "Single-turn reasoning and multi-turn agentic async RL vs GRPO / LiSAO",
+            "metric": "early-training catch-up and later ceiling without a pretrained critic",
+            "value": "catches or surpasses GRPO early; raises later agentic ceiling vs LiSAO",
+            "baseline": "GRPO; LiSAO (SAO without pretrained value model)",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.40726",
+            "notes": "Does not retarget method:sao."
+          }
+        ],
+        "tags": [
+          "async-rl",
+          "actor-critic",
+          "active"
+        ]
+      },
+      "body": "# Li2SAO\n\n## Method Overview\nLi2SAO lifts light single-rollout async RL by group-relative actor-critic bootstrapping: while the critic is cold, group-relative advantage updates the actor and group-centered return updates the critic, then training switches to single-rollout GAE.\n\n## When to Use\n- Async single-rollout agentic RL when you cannot use SAO's closed-source pretrained value model.\n\n## When NOT to Use\nSAO remains the async straggler first hop.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:sao`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- The bootstrap is a critic-warmup, not a replacement for SAO's straggler replay."
     },
     {
       "id": "method:op-self-training",
@@ -55641,6 +56655,11 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)",
+            "reason": "SMELT remains compute-matched MoE looping; UpLoop is dense progressive-depth copy",
+            "use_instead": "method:uploop"
+          },
+          {
             "when": "asymmetric compute across looped MoE visits (compress first, full-res second)",
             "reason": "SMELT remains matched middle-layer looping; LatentLoop reallocates FLOPs to width",
             "use_instead": "method:latentloop"
@@ -56741,6 +57760,64 @@
       "body": "# ShellElastic (+ μE)\n\n## Method Overview\nTrain a nested-width supernet whose inner subnets sit in a block-lower-triangular layout, so one outer pass updates all widths. μE transfers μP-style HPs from a small nested run.\n\n## When to Use\n- Need many widths from one pretrain at about the cost of the widest model, with HPs that transfer.\n\n## When NOT to Use\n~7B optimizer → `method:muon2`. Mixed-depth looping → `method:elr`. Consumer 2B from scratch → `method:puro-2b`.\n\n## Relation to Existing SOTA\nActive plug-in on `task:llm-pretraining-optimization` (`sota_for: []`). Mention on `task:elastic-depth-looped-lm`. Does **not** replace Muon2, ELR, or Puro-2B.\n\n## Gotchas & Failure Modes\n- Width elasticity, not depth/loop elasticity.\n- Table 2 is vs elastic-width baselines, not a Muon2 7B bake-off."
     },
     {
+      "id": "method:muon-rt",
+      "type": "method",
+      "title": "Muon-RT",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/muon-rt.md",
+      "metadata": {
+        "id": "method:muon-rt",
+        "type": "method",
+        "title": "Muon-RT",
+        "category": "optimizer",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:llm-pretraining-optimization",
+            "reason": "Muon2 remains the ~7B optimizer; Muon-RT reuses an EMA teacher trajectory for self-distillation",
+            "use_instead": "method:muon2"
+          },
+          {
+            "when": "same-tokenizer single-teacher matching distillation",
+            "reason": "OPD remains matching; Muon-RT is a Muon-family optimizer for EMA self-distillation",
+            "use_instead": "method:opd"
+          }
+        ],
+        "assumptions": [
+          "EMA-teacher self-distillation (SDFT / SDPO). No public code as of 2026-11-02."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:muon-rt"
+        ],
+        "recipes": [
+          "recipe:muon-rt"
+        ],
+        "claims": [
+          {
+            "benchmark": "Qwen2.5-7B-Instruct SDFT; Olmo-3-7B-Instruct SDPO",
+            "metric": "average accuracy vs AdamW / momentum Muon; persistent optimizer memory",
+            "value": "SDFT +2.6 vs AdamW (42% less mem) / +5.4 vs momentum Muon (27% less); SDPO +2.0 vs AdamW",
+            "baseline": "AdamW; momentum Muon",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41104",
+            "notes": "Does not retarget method:muon2. Mention on task:student-distillation."
+          }
+        ],
+        "tags": [
+          "muon",
+          "distillation",
+          "active"
+        ]
+      },
+      "body": "# Muon-RT\n\n## Method Overview\nMuon-RT drops Muon momentum on hidden matrices and reuses the EMA teacher-student displacement as the history: remove the radial component, spectrally normalize, then mix with the Newton-Schulz orthogonalized gradient.\n\n## When to Use\n- Self-distillation with an EMA teacher where Muon momentum is extra persistent memory.\n\n## When NOT to Use\nMuon2 remains the ~7B pretrain optimizer. OPD remains matching distillation.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:muon2` or `method:opd`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- Requires an EMA teacher; not a drop-in for from-scratch NTP.\n- No public code as of 2026-11-02."
+    },
+    {
       "id": "method:rewardverse",
       "type": "method",
       "title": "RewardVerse (RGPO)",
@@ -57833,6 +58910,11 @@
         ],
         "supersedes": [],
         "do_not_use_for": [
+          {
+            "when": "tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO)",
+            "reason": "CANOPY remains checker coverage; TSBPO is a tree allocator plus sibling/observation-group credit",
+            "use_instead": "method:tsbpo"
+          },
           {
             "when": "critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD)",
             "reason": "CANOPY remains checker coverage; this SCOPE distills only error steps",
@@ -60370,6 +61452,16 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)",
+            "reason": "ELR remains mixed-depth elastic recurrence; UpLoop is a FLOP-matched dense upcycling schedule",
+            "use_instead": "method:uploop"
+          },
+          {
+            "when": "post-train loops on a finished checkpoint (no-free-loop)",
+            "reason": "Gotcha: loops added after pretrain pay only at 0.8B; does not retarget ELR",
+            "use_instead": "paper:no-free-loop"
+          },
+          {
             "when": "Huginn-style dense fixed-point looping with terminal KV sharing",
             "reason": "ELR is mixed-depth elastic recurrence, not Huginn depth-prior looping",
             "use_instead": "method:looped-models-done-right"
@@ -60391,6 +61483,7 @@
         ],
         "last_reviewed": "2026-10-13",
         "papers": [
+          "paper:no-free-loop",
           "paper:elr"
         ],
         "recipes": [
@@ -63528,6 +64621,69 @@
         ]
       },
       "body": "# MoE Sparsity Hyperparameter Scaling\n\n## Method Overview\nUnified LR/batch scaling laws that include activation ratio A. At fixed sparsity, B* ~ D^α and η* ~ C^β; across sparsity, A is a multiplicative factor. Active pretrain guidance. Does not replace DeepSeek-V4 / Kimi-K3 or Muon2.\n\n## When to Use\n- Transferring LR/batch across MoE sparsity, including ultra-sparse (1/64) models.\n\n## When NOT to Use\n- Architecture default → `method:deepseek-v4` / `method:kimi-k3`. Dense optimizer → `method:muon2`.\n\n## Relation to Existing SOTA\n- Active on `task:pretrain-moe-frontier`. Does **not** enter `current_sota`.\n\n## Gotchas & Failure Modes\n- Paper scale is 6B (held-out 12B), not frontier 100B+. Treat as HP transfer, not an architecture win."
+    },
+    {
+      "id": "method:mage-vl-cowork",
+      "type": "method",
+      "title": "Mage-VL-Cowork",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/mage-vl-cowork.md",
+      "metadata": {
+        "id": "method:mage-vl-cowork",
+        "type": "method",
+        "title": "Mage-VL-Cowork",
+        "category": "agent-harness",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "hybrid GUI+code recreation train/eval (RecreationWorld)",
+            "reason": "RecreationWorld remains the hybrid CUA first hop; Mage is a 4B five-stage trained policy",
+            "use_instead": "method:recreationworld"
+          },
+          {
+            "when": "desktop/OS GUI ranking on OSWorld 2.0 paper protocol",
+            "reason": "OSWorld-Verified is not the locked ranking protocol",
+            "use_instead": "method:claude-computer-use"
+          },
+          {
+            "when": "native GUI+code CUA trained with step-balanced GSPO (OS-Helix)",
+            "reason": "OS-Helix is the other trained hybrid CUA sibling; Mage is a 4B evolved-harness recipe",
+            "use_instead": "method:os-helix"
+          }
+        ],
+        "assumptions": [
+          "Hybrid GUI+code CUA that must be trained. Paper: 4B. Code microsoft/Mage."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:mage-vl-cowork"
+        ],
+        "recipes": [
+          "recipe:mage-vl-cowork"
+        ],
+        "claims": [
+          {
+            "benchmark": "OSWorld-Verified (NOT OSWorld 2.0)",
+            "metric": "success at 4B after five-stage curriculum",
+            "value": "66.0%",
+            "baseline": "untrained / earlier Mage stages; OS-Helix 27B-RL 66.44% is a different scale",
+            "date": "2026-11-02",
+            "verified": false,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.40747",
+            "notes": "Does not demote method:claude-computer-use. Does not replace method:recreationworld. Distinct from method:os-helix."
+          }
+        ],
+        "tags": [
+          "computer-use",
+          "hybrid",
+          "active"
+        ]
+      },
+      "body": "# Mage-VL-Cowork\n\n## Method Overview\nMage-VL-Cowork trains a 4B hybrid CUA through a five-stage midtraining/SFT/RL curriculum on tasks synthesized by Mage-CUA-Forge, evolving teacher harnesses instead of distilling a default teacher.\n\n## When to Use\n- Training a small on-device hybrid GUI+code CUA from a multimodally aligned checkpoint.\n\n## When NOT to Use\nRecreationWorld remains the hybrid CUA train/eval first hop. Claude computer-use remains OSWorld 2.0 ranking.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:recreationworld` or `method:claude-computer-use`. Sibling of `method:os-helix`.\n\n## Gotchas & Failure Modes\n- OSWorld-Verified is not OSWorld 2.0 paper protocol.\n- Paper claims are preprint-dated 2026-11-02; no locked-SOTA bake-off."
     },
     {
       "id": "method:ra-opd",
@@ -67608,6 +68764,16 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "reason": "TRIAGE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag",
+            "use_instead": "method:dlc"
+          },
+          {
+            "when": "unbiased fp32 to bf16 export of the served copy (Fair Cast)",
+            "reason": "TRIAGE remains NVFP4 dual-active; Fair Cast is unbiased bf16 export of an fp32 master",
+            "use_instead": "method:fair-cast"
+          },
+          {
             "when": "direction-aware NVFP4 mismatch (TRIAGE)",
             "reason": "TRIAGE is NVFP4; this card is BF16 rounding location",
             "use_instead": "method:rounding-align-rl"
@@ -70123,6 +71289,11 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)",
+            "reason": "OS-Helix is the other trained hybrid CUA sibling; Mage is a 4B evolved-harness recipe",
+            "use_instead": "method:mage-vl-cowork"
+          },
+          {
             "when": "desktop/OS GUI ranking on OSWorld 2.0 paper protocol",
             "reason": "OSWorld-Verified is not the locked ranking protocol",
             "use_instead": "method:claude-computer-use"
@@ -70352,6 +71523,64 @@
         ]
       },
       "body": "# EPIC\n\n## Method Overview\nEPIC treats the autoregressive prefix as the IS change of measure and clips the exact reverse-KL coordinate r-1-log r of the prefix likelihood ratio instead of a token-local PPO clip.\n\n## When to Use\n- Long-response or off-policy RLVR where token-level clips ignore prefix drift, especially sparse-MoE policies.\n\n## When NOT to Use\nDefault dense Pass@1 → `method:cispo`. MoE/VL default → `method:sapo`. Target-ESS tempered IS → `method:tetpo`.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:cispo`.\n\n## Gotchas & Failure Modes\n- Derived for AR prefixes, not a CISPO substitute.\n- Code LiChengxi666/EPIC."
+    },
+    {
+      "id": "method:tsbpo",
+      "type": "method",
+      "title": "TSBPO",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/tsbpo.md",
+      "metadata": {
+        "id": "method:tsbpo",
+        "type": "method",
+        "title": "TSBPO",
+        "category": "rl-alignment",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:outcome-only-long-horizon-agent-rl",
+            "reason": "CANOPY remains checker coverage; TSBPO is a tree allocator plus sibling/observation-group credit",
+            "use_instead": "method:canopy"
+          },
+          {
+            "when": "variable environment latency / async stragglers",
+            "reason": "SAO remains async straggler replay; TSBPO is outcome-only tree credit",
+            "use_instead": "method:sao"
+          }
+        ],
+        "assumptions": [
+          "Interactive agent RL from terminal outcomes with replayable physical trees. No public code as of 2026-11-02."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:tsbpo"
+        ],
+        "recipes": [
+          "recipe:tsbpo"
+        ],
+        "claims": [
+          {
+            "benchmark": "Qwen2.5-1.5B ALFWorld / WebShop",
+            "metric": "stochastic success",
+            "value": "ALFWorld 97.79 seen / 96.64 unseen; WebShop 81.07 on 500 test goals x 6 episodes",
+            "baseline": "step-term ablation WebShop 75.93 at update-100; CANOPY AppWorld ranking is a different protocol",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41697",
+            "notes": "Does not retarget method:canopy."
+          }
+        ],
+        "tags": [
+          "agent-rl",
+          "tree",
+          "active"
+        ]
+      },
+      "body": "# TSBPO\n\n## Method Overview\nTSBPO is a tree-structured sampling-to-update loop: a Root/Branch allocator spends a fixed rollout budget on contrasting continuations, sibling trajectory advantages and observation-group step advantages assign delayed credit, and the actor sums clipped token surrogates over complete responses then normalizes across active turns.\n\n## When to Use\n- Outcome-only interactive agent RL when you can replay physical trees and need to decide which task/state continuations to sample under a fixed budget.\n\n## When NOT to Use\nCANOPY remains checker coverage. SAO remains async stragglers.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:canopy` or `method:sao`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off against CANOPY AppWorld.\n- Avoid response-length averaging in the policy-gradient term; TSBPO normalizes across active turns instead.\n- No public code as of 2026-11-02."
     },
     {
       "id": "method:deepseek-v4",
@@ -71011,6 +72240,16 @@
           "method:dr-grpo"
         ],
         "do_not_use_for": [
+          {
+            "when": "group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)",
+            "reason": "SAO remains async straggler replay; Li2SAO bootstraps a light critic then switches to single-rollout GAE",
+            "use_instead": "method:li2sao"
+          },
+          {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "reason": "SAO remains async stragglers; DLC splits numerical discrepancy from policy lag",
+            "use_instead": "method:dlc"
+          },
           {
             "when": "turn-scale advantage plus turn-level IS (MPO), not async stragglers",
             "reason": "SAO remains async; MPO is multiscale credit",
@@ -73906,6 +75145,16 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "reason": "TRACE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag",
+            "use_instead": "method:dlc"
+          },
+          {
+            "when": "unbiased fp32 to bf16 export of the served copy (Fair Cast)",
+            "reason": "TRACE remains NVFP4 dual-active; Fair Cast is unbiased bf16 export of an fp32 master",
+            "use_instead": "method:fair-cast"
+          },
+          {
             "when": "end-to-end MXFP8 RL train-rollout grid matching on Blackwell",
             "reason": "TRACE remains NVFP4 dual-active; this card is MXFP8 matching",
             "use_instead": "method:mxfp8-rl"
@@ -73989,6 +75238,11 @@
           "method:tulu3-rlvr"
         ],
         "do_not_use_for": [
+          {
+            "when": "steering-vector residual-stream hook in SFT/distill (SV-Training)",
+            "reason": "OLMo-3 remains the open instruct stack; SV-Training is a residual-stream hook",
+            "use_instead": "method:sv-training"
+          },
           {
             "when": "leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master",
             "reason": "Gotcha on stage-wise leverage / master weights; does not retarget OLMo-3",
@@ -74411,6 +75665,64 @@
         ]
       },
       "body": "# JitMem (Just-in-Time Memory)\n\n## Method Overview\nWrite-time memory (ACE-style playbooks, skills, reflections) decides what to keep before the future query is known. JitMem stores raw trajectories and curates at read time. Retrieve top-\\(k\\) traces (BM25 on the task text), then a curator synthesizes a compact payload conditioned on the current task. The payload is consumed immediately, so the curator trains with GRPO against same-task success of a frozen executor. Quality-gated storage keeps only judged-successful traces.\n\nACE remains the incremental playbook default. Code2Skill remains repository-grounded skills. Jev-Mem remains the System-One control plane.\n\n## When to Use\n- Persistent episodic memory where write-time irreversible summaries are the wrong abstraction, and you can train (or even just prompt) a read-time curator from immediate task success.\n\n## When NOT to Use\n- Write-time execution-feedback playbook → `method:ace`. Typed System-One memory ops → `method:jev-mem`. Skills from source before interaction → `method:code2skill`.\n\n## Relation to Existing SOTA\n- Active on `task:agent-memory` beside ACE / Code2Skill / Jev-Mem. Does **not** enter `current_sota`. Does **not** supersede `method:ace`.\n\n## Gotchas & Failure Modes\n- ALFWorld / WebShop / \\(\\tau^2\\) are not AppWorld. Do not retarget ACE from these numbers.\n- No public code as of 2026-09-24.\n- Untrained read-time curation already carries much of the gain; RL on the curator is compounding, not the whole method.\n- The executor stays frozen. Do not backprop through the agent loop \"to be safe.\""
+    },
+    {
+      "id": "method:dlc",
+      "type": "method",
+      "title": "DLC (Discrepancy-Lag Correction)",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/dlc.md",
+      "metadata": {
+        "id": "method:dlc",
+        "type": "method",
+        "title": "DLC (Discrepancy-Lag Correction)",
+        "category": "quantization",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:fp4-rl-train-rollout-alignment",
+            "reason": "TRACE / TRIAGE remain FP4 train-rollout first hops; DLC splits numerical discrepancy from policy lag",
+            "use_instead": "method:trace"
+          },
+          {
+            "when": "unbiased fp32 to bf16 export of the served copy (Fair Cast)",
+            "reason": "Fair Cast fixes round-to-nearest export; DLC corrects discrepancy vs lag after sampling",
+            "use_instead": "method:fair-cast"
+          }
+        ],
+        "assumptions": [
+          "Disaggregated sampler/trainer RL. Official code Skylanding/Training-Inference-Mismatch."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:dlc"
+        ],
+        "recipes": [
+          "recipe:dlc"
+        ],
+        "claims": [
+          {
+            "benchmark": "Stale-sampler LLM RL on Qwen3-0.6B / 1.7B vs per-token IS / KL-on-sampler-prefix",
+            "metric": "KL to on-policy training; collapse prevention",
+            "value": "KL within 2x two independent on-policy runs; ESS<0.5 resync prevents collapses IS leaves",
+            "baseline": "per-token mismatch corrections; KL measured on sampler prefixes",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.40945",
+            "notes": "Does not retarget method:trace. Mention on task:agentic-async-rl."
+          }
+        ],
+        "tags": [
+          "rl",
+          "numerics",
+          "active"
+        ]
+      },
+      "body": "# DLC (Discrepancy-Lag Correction)\n\n## Method Overview\nDLC splits sampled-token error into a nearly constant numerical discrepancy and a trainer policy lag. Center the discrepancy, clip the lag ratio against the sampler weights, and resynchronize the sampler when the lag-ratio ESS falls below 0.5.\n\n## When to Use\n- Disaggregated RL where IS or prefix-KL corrections still collapse under stale weights.\n\n## When NOT to Use\nDefault on `task:fp4-rl-train-rollout-alignment` remains `method:trace`. SAO remains async stragglers.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:trace` or `method:sao`. Distinct from `method:fair-cast` and `method:rounding-align-rl`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- IS fails at the step where lag-ratio ESS drops below one half; DLC's resync is the load-bearing piece."
     },
     {
       "id": "method:framegrpo",
@@ -74984,6 +76296,70 @@
         ]
       },
       "body": "# W2S-OPD (Weak-to-Strong On-Policy Distillation)\n\n## Method Overview\nW2S-OPD matches a weaker teacher on stronger-student prefixes (on-policy verification and self-correction). `method:oprd` is the reverse-distill cousin: it rescales the student's verifier gradient along the teacher policy-shift and does **not** use the weak policy as a matching target. Keep both; neither replaces OPD or CISPO.\n\n## When to Use\n- Bootstrapping large capable base models with smaller, fast supervisor teachers via matching.\n\n## When NOT to Use\n- Reverse distillation / verifier-aligned teacher shift → `method:oprd`.\n- Strong-teacher matching default → `method:opd`. Pass@1 RLVR → `method:cispo`.\n\n## Relation to Existing SOTA\n- Active on `task:student-distillation`. Does **not** supersede `method:opd`. Is **not** superseded by `method:oprd`."
+    },
+    {
+      "id": "method:uploop",
+      "type": "method",
+      "title": "UpLoop",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/uploop.md",
+      "metadata": {
+        "id": "method:uploop",
+        "type": "method",
+        "title": "UpLoop",
+        "category": "architecture",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the first hop on task:elastic-depth-looped-lm",
+            "reason": "ELR remains mixed-depth elastic recurrence; UpLoop is a FLOP-matched dense upcycling schedule",
+            "use_instead": "method:elr"
+          },
+          {
+            "when": "compute-matched MoE looping of middle layers (FLOPs/params/KV matched)",
+            "reason": "SMELT remains MoE layer looping; UpLoop is dense progressive-depth copy",
+            "use_instead": "method:smelt"
+          },
+          {
+            "when": "Huginn-style dense fixed-point looping with terminal KV sharing",
+            "reason": "Looped Models Done Right remains Huginn looping; UpLoop is an upcycling schedule",
+            "use_instead": "method:looped-models-done-right"
+          }
+        ],
+        "assumptions": [
+          "Dense looped Transformer pretrain matched on params, tokens, and train FLOPs. No public code as of 2026-11-02."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:uploop",
+          "paper:no-free-loop"
+        ],
+        "recipes": [
+          "recipe:uploop"
+        ],
+        "claims": [
+          {
+            "benchmark": "1.3B dense looped pretrain, 22 downstream tasks vs matched dense baseline",
+            "metric": "average score",
+            "value": "22.99 to 27.52",
+            "baseline": "matched-params/tokens/FLOPs dense Transformer; ELR / SMELT / Huginn not the paper bake-off",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41720",
+            "notes": "Does not retarget method:elr. Mention on task:compute-matched-moe-looped-pretrain."
+          }
+        ],
+        "tags": [
+          "pretraining",
+          "looped-lm",
+          "active"
+        ]
+      },
+      "body": "# UpLoop\n\n## Method Overview\nUpLoop upcycles a dense Transformer into a looped model at no extra pretrain compute: start shallow, copy learned layers to grow depth, then spend the saved early FLOPs on repeated execution of a shared middle block.\n\n## When to Use\n- You want looped-Transformer gains under a matched dense pretrain FLOP/param/token budget, not mixed-depth serving.\n\n## When NOT to Use\nELR remains mixed-depth elastic recurrence. SMELT remains compute-matched MoE looping. Huginn-style looping remains Looped Models Done Right. Post-train loops on a finished checkpoint are `paper:no-free-loop`.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:elr`, `method:smelt`, or `method:looped-models-done-right`.\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- No public code as of 2026-11-02.\n- Post-train loops on already-pretrained 4B/9B models fail the equal-parameter test (`paper:no-free-loop`)."
     },
     {
       "id": "method:doobpo",
@@ -76892,6 +78268,21 @@
         ],
         "do_not_use_for": [
           {
+            "when": "black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)",
+            "reason": "OPD remains matching when teacher logp is available; Stepwise Querying is black-box SFT",
+            "use_instead": "method:stepwise-querying"
+          },
+          {
+            "when": "EMA teacher-student displacement replaces Muon momentum (Muon-RT)",
+            "reason": "OPD remains matching; Muon-RT is a Muon-family optimizer for EMA self-distillation",
+            "use_instead": "method:muon-rt"
+          },
+          {
+            "when": "steering-vector residual-stream hook in SFT/distill (SV-Training)",
+            "reason": "OPD remains matching; SV-Training injects a steering direction during teacher-forced distill",
+            "use_instead": "method:sv-training"
+          },
+          {
             "when": "adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)",
             "reason": "OPD remains matching; ATI-OPD repairs drifted prefixes",
             "use_instead": "method:ati-opd"
@@ -77647,6 +79038,11 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)",
+            "reason": "TraceForge regenerates student-family traces from a teacher answer; Stepwise Querying queries the teacher for step details",
+            "use_instead": "method:stepwise-querying"
+          },
+          {
             "when": "the locked first hop on task:student-distillation",
             "reason": "TraceForge is an active plug-in; method:opd remains the first hop",
             "use_instead": "method:opd"
@@ -78313,6 +79709,70 @@
         ]
       },
       "body": "# Super-Tuning (Subspace-Preserving Adaptation)\n\n## Method Overview\nSuper-Tuning constrains adapter updates to remain within the principal spectral subspace of the pre-trained weights, avoiding representational drift.\n\n## When to Use\n- Fine-tuning where out-of-distribution robustness and retention of broad pre-trained world knowledge are essential."
+    },
+    {
+      "id": "method:sv-training",
+      "type": "method",
+      "title": "SV-Training",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/sv-training.md",
+      "metadata": {
+        "id": "method:sv-training",
+        "type": "method",
+        "title": "SV-Training",
+        "category": "alignment",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:instruct-sft-alignment",
+            "reason": "OLMo-3 remains the open instruct stack; SV-Training is a residual-stream hook",
+            "use_instead": "method:olmo-3"
+          },
+          {
+            "when": "same-tokenizer single-teacher matching distillation",
+            "reason": "OPD remains matching; SV-Training injects a steering direction during teacher-forced distill",
+            "use_instead": "method:opd"
+          },
+          {
+            "when": "single-turn dense math/code Pass@1 RLVR",
+            "reason": "CISPO remains Pass@1; SV-Training repairs GRPO advantages on all-wrong groups",
+            "use_instead": "method:cispo"
+          }
+        ],
+        "assumptions": [
+          "SFT, distillation, or GRPO with a residual-stream steering direction. Official code tiejin98/sv_training."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:sv-training"
+        ],
+        "recipes": [
+          "recipe:sv-training"
+        ],
+        "claims": [
+          {
+            "benchmark": "SFT/distill from thinking-mode teachers; GRPO all-wrong groups",
+            "metric": "accuracy vs plain SFT/distill; recovered GRPO signal",
+            "value": "up to +12% thinking-teacher distill (3 seeds); advantage-repair transfers to held-out math",
+            "baseline": "plain SFT/distill; GRPO without SV repair; entropy-aware zero-variance remedies",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "peer-reviewed",
+            "source_url": "https://arxiv.org/abs/2610.40998",
+            "notes": "NeurIPS 2026. Does not retarget method:olmo-3, method:opd, or method:cispo. Mentions on task:student-distillation and task:math-code-rl-dense."
+          }
+        ],
+        "tags": [
+          "sft",
+          "distillation",
+          "rlvr",
+          "active"
+        ]
+      },
+      "body": "# SV-Training\n\n## Method Overview\nSV-Training uses residual-stream steering vectors as a training signal: a hidden-state hook during teacher-forced SFT/distill, and a correctness-contrast advantage-repair on wrong GRPO rollouts including all-wrong groups.\n\n## When to Use\n- SFT or distillation with a large off-policy gap (especially thinking-mode teachers), or GRPO groups that would otherwise be zero-gradient.\n\n## When NOT to Use\nOLMo-3 remains instruct SFT. OPD remains matching distillation. CISPO remains Pass@1 RLVR.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:olmo-3`, `method:opd`, or `method:cispo`.\n\n## Gotchas & Failure Modes\n- Code generation can break the direction; cross-family layer transfer can break placement; applying the vector at inference on an SV-trained checkpoint can break the regime.\n- Paper claims are NeurIPS-2026 dated 2026-11-02; no locked-SOTA bake-off."
     },
     {
       "id": "method:muonio",
@@ -79878,6 +81338,65 @@
       "body": "# MLVC (Deployable Neural Video Codec)\n\n## Method Overview\nMLVC is the state-of-the-art deployable neural video codec designed specifically for mobile NPUs and edge hardware:\n1. **Lightweight Entropy Contexts**: Pruned transforms tailored for edge DSP/NPU compute limits.\n2. **Edge SOTA**: Real-time 60 FPS 1080p playback with ultra-low thermal consumption.\n\n## When to Use\n- Default SOTA method for deployable edge and mobile neural video compression.\n\n## Supersession\n- Supersedes `method:dcvcrt` as the deployable edge NVC standard."
     },
     {
+      "id": "method:fair-cast",
+      "type": "method",
+      "title": "Fair Cast",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/fair-cast.md",
+      "metadata": {
+        "id": "method:fair-cast",
+        "type": "method",
+        "title": "Fair Cast",
+        "category": "quantization",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:fp4-rl-train-rollout-alignment",
+            "reason": "TRACE / TRIAGE remain FP4 train-rollout first hops; Fair Cast is unbiased bf16 export of an fp32 master",
+            "use_instead": "method:trace"
+          },
+          {
+            "when": "rounding-location alignment between inference and train (not export rounding)",
+            "reason": "Rounding-Align RL matches where rounding happens; Fair Cast changes how the master is cast",
+            "use_instead": "method:rounding-align-rl"
+          }
+        ],
+        "assumptions": [
+          "Split fp32-master / bf16-served RL. Official code andrewgcodes/faircast."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:fair-cast"
+        ],
+        "recipes": [
+          "recipe:fair-cast"
+        ],
+        "claims": [
+          {
+            "benchmark": "Qwen3-0.6B to 4B RL, AdamW and Muon, 25 matched seed-pairs",
+            "metric": "seed-pair wins / mean gain vs round-to-nearest export",
+            "value": "18 ahead / 6 tied / 1 behind; mean +6.1; zebra 0.57+/-0.16 vs 0.33+/-0.10",
+            "baseline": "round-to-nearest fp32 to bf16 export; existing mismatch corrections that compare two post-round copies",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.41073",
+            "notes": "Does not retarget method:trace. Distinct from method:rounding-align-rl and method:dlc."
+          }
+        ],
+        "tags": [
+          "rl",
+          "numerics",
+          "bf16",
+          "active"
+        ]
+      },
+      "body": "# Fair Cast\n\n## Method Overview\nFair Cast replaces round-to-nearest fp32-to-bf16 export with an unbiased rule (stochastic rounding or error feedback) and computes the RL loss on the served copy so per-step updates smaller than half a bf16 spacing are not discarded.\n\n## When to Use\n- RL that keeps an fp32 master and serves a bf16 copy, especially when only a tiny fraction of served weights change per step.\n\n## When NOT to Use\nDefault on `task:fp4-rl-train-rollout-alignment` remains `method:trace`.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:trace`. Distinct from `method:rounding-align-rl` (location) and `method:dlc` (discrepancy vs lag).\n\n## Gotchas & Failure Modes\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- Round-to-nearest lag can act as a regularizer; restore it explicitly if a task needs it.\n- Existing mismatch corrections cannot see this lag if they compare two copies downstream of the same rounding."
+    },
+    {
       "id": "method:htmuon",
       "type": "method",
       "title": "HTmuon (Heavy-Tailed Muon)",
@@ -80293,6 +81812,11 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle)",
+            "reason": "A2D recycles a weight delta; BYOD freezes the AR base and trains LoRA",
+            "use_instead": "method:byod"
+          },
+          {
             "when": "dLLM unmasking-schedule distillation (dSpark)",
             "reason": "A2D recycles an AR weight delta; dSpark distills commit schedules",
             "use_instead": "method:dspark"
@@ -80338,6 +81862,7 @@
         ],
         "last_reviewed": "2026-10-19",
         "papers": [
+          "paper:byod",
           "paper:forkgrpo",
           "paper:dlm-ar-compute-gap",
           "paper:justopd",
@@ -81840,6 +83365,11 @@
           "method:muon-scalable"
         ],
         "do_not_use_for": [
+          {
+            "when": "EMA teacher-student displacement replaces Muon momentum (Muon-RT)",
+            "reason": "Muon2 remains the ~7B optimizer; Muon-RT reuses an EMA teacher trajectory for self-distillation",
+            "use_instead": "method:muon-rt"
+          },
           {
             "when": "affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)",
             "reason": "Muon2 remains the ~7B optimizer; AIR is an ELR schedule",
@@ -86755,6 +88285,16 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "discrepancy-lag correction of sampler/trainer mismatch (DLC)",
+            "reason": "Rounding-Align RL matches where rounding happens; DLC splits discrepancy vs lag after sampling",
+            "use_instead": "method:dlc"
+          },
+          {
+            "when": "unbiased fp32 to bf16 export of the served copy (Fair Cast)",
+            "reason": "Rounding-Align RL matches rounding location; Fair Cast changes how the master is cast",
+            "use_instead": "method:fair-cast"
+          },
+          {
             "when": "the locked first hop on task:fp4-rl-train-rollout-alignment",
             "reason": "TRACE / TRIAGE remain FP4 train-rollout first hops; this card aligns where BF16 rounding happens across inference and train",
             "use_instead": "method:trace"
@@ -87825,6 +89365,59 @@
         ]
       },
       "body": "# Factorized Fourier Neural Operator (F-FNO)\n\n## Method Overview\nFactorized Fourier Neural Operators (F-FNO) address the quadratic parameter scaling of standard FNO in multidimensional settings:\n1. **Separable Fourier Layers**: Decomposes multidimensional spectral weights into separable 1D Fourier transforms along each coordinate axis.\n2. **Spectral Skip Connections**: Incorporates spectral domain residual connections and improved normalization.\n\n## When to Use\n- Active baseline when memory constraints prevent scaling standard FNO to 3D domains."
+    },
+    {
+      "id": "method:cros",
+      "type": "method",
+      "title": "CRoS",
+      "domain": null,
+      "status": "active",
+      "file_path": "graph/methods/cros.md",
+      "metadata": {
+        "id": "method:cros",
+        "type": "method",
+        "title": "CRoS",
+        "category": "rl-alignment",
+        "status": "active",
+        "sota_for": [],
+        "supersedes": [],
+        "do_not_use_for": [
+          {
+            "when": "the locked first hop on task:math-code-rl-dense",
+            "reason": "CISPO remains Pass@1; CRoS adds a scramble-order causality reward on a GRPO host",
+            "use_instead": "method:cispo"
+          }
+        ],
+        "assumptions": [
+          "Dense math/logic RLVR with a CoT that can be step-scrambled. Project page only; no public GitHub as of 2026-11-02."
+        ],
+        "last_reviewed": "2026-11-02",
+        "papers": [
+          "paper:cros"
+        ],
+        "recipes": [
+          "recipe:cros"
+        ],
+        "claims": [
+          {
+            "benchmark": "Reasoning Gym Gemma-3-4B, five unseen logic/games sets",
+            "metric": "OOD accuracy / CoT-Pass@K avg / hint acknowledgment",
+            "value": "46.8 vs 43.8 / 43.4 vs 41.4 / 34.0 vs 20.2",
+            "baseline": "outcome reward and deletion/error-injection causality rewards",
+            "date": "2026-11-02",
+            "verified": true,
+            "evidence_level": "preprint",
+            "source_url": "https://arxiv.org/abs/2610.42054",
+            "notes": "Does not retarget method:cispo."
+          }
+        ],
+        "tags": [
+          "rlvr",
+          "causality",
+          "active"
+        ]
+      },
+      "body": "# CRoS\n\n## Method Overview\nCRoS rewards CoT causality by scrambling reasoning-step order without changing step content, so the metric is not confounded by information deletion or error injection.\n\n## When to Use\n- Outcome RLVR where you also need the CoT to cause the answer, not just match it.\n\n## When NOT to Use\nCISPO remains Pass@1 dense RLVR.\n\n## Relation to Existing SOTA\nActive plug-in (`sota_for: []`). Does **not** replace `method:cispo`.\n\n## Gotchas & Failure Modes\n- Deletion/error-injection causality rewards can shrink informative CoTs and cut exploration.\n- Paper claims are dated 2026-11-02; no locked-SOTA bake-off.\n- No public GitHub as of 2026-11-02."
     },
     {
       "id": "method:prep-opd",
@@ -89995,6 +91588,16 @@
         "sota_for": [],
         "supersedes": [],
         "do_not_use_for": [
+          {
+            "when": "4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)",
+            "reason": "RecreationWorld remains hybrid CUA first hop; Mage is a 4B five-stage trained policy",
+            "use_instead": "method:mage-vl-cowork"
+          },
+          {
+            "when": "native GUI+code CUA trained with step-balanced GSPO (OS-Helix)",
+            "reason": "RecreationWorld remains recreation; OS-Helix is a trained native GUI+code CUA",
+            "use_instead": "method:os-helix"
+          },
           {
             "when": "automated wild-web env reconstruction (WebAnything)",
             "reason": "RecreationWorld remains hybrid CUA first hop; WebAnything reconstructs wild-web envs",
@@ -92247,6 +93850,16 @@
         "supersedes": [],
         "do_not_use_for": [
           {
+            "when": "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)",
+            "reason": "This card is Huginn-style dense fixed-point looping; UpLoop is an upcycling schedule",
+            "use_instead": "method:uploop"
+          },
+          {
+            "when": "post-train loops on a finished checkpoint (no-free-loop)",
+            "reason": "Gotcha: loops added after pretrain pay only at 0.8B; does not retarget Huginn looping",
+            "use_instead": "paper:no-free-loop"
+          },
+          {
             "when": "looped LM depth reuse needs train/run agreement more than normalisation",
             "reason": "Gotcha on Ouro-style loop reuse; does not retarget RLT",
             "use_instead": "paper:looped-depth-reusable"
@@ -92288,6 +93901,7 @@
         ],
         "last_reviewed": "2026-10-19",
         "papers": [
+          "paper:no-free-loop",
           "paper:looped-depth-reusable",
           "paper:looped-halting-heads",
           "paper:truncated-backprop-looped",
@@ -92733,6 +94347,11 @@
         "sota_for": [],
         "supersedes": [],
         "do_not_use_for": [
+          {
+            "when": "LoRA-only AR to masked DLM conversion (BYOD; not on-policy distill)",
+            "reason": "JustOPD distills AR logits on-policy; BYOD freezes the AR base and trains LoRA",
+            "use_instead": "method:byod"
+          },
           {
             "when": "dLLM RL that forks from high-entropy intermediate states (ForkGRPO)",
             "reason": "JustOPD distills AR logits; ForkGRPO is GRPO-family RL on the dLLM",
@@ -93444,6 +95063,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:byod",
+      "target": "method:byod",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:byod",
+      "target": "recipe:byod",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:byod",
+      "target": "task:diffusion-lm-ar-delta-recycle",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:mona",
       "target": "method:mona",
       "relation": "implements",
@@ -93624,6 +95261,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:stepwise-querying",
+      "target": "method:stepwise-querying",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:stepwise-querying",
+      "target": "recipe:stepwise-querying",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:stepwise-querying",
+      "target": "task:student-distillation",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:cispo",
       "target": "method:cispo",
       "relation": "implements",
@@ -93764,6 +95419,24 @@
     {
       "source": "recipe:sparse-bitnet",
       "target": "task:1bit-extreme-quantization",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
+      "source": "recipe:li2sao",
+      "target": "method:li2sao",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:li2sao",
+      "target": "recipe:li2sao",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:li2sao",
+      "target": "task:agentic-async-rl",
       "relation": "recipe_for_task",
       "properties": {}
     },
@@ -94663,6 +96336,24 @@
     },
     {
       "source": "recipe:shell-elastic",
+      "target": "task:llm-pretraining-optimization",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
+      "source": "recipe:muon-rt",
+      "target": "method:muon-rt",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:muon-rt",
+      "target": "recipe:muon-rt",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:muon-rt",
       "target": "task:llm-pretraining-optimization",
       "relation": "recipe_for_task",
       "properties": {}
@@ -96378,6 +98069,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:mage-vl-cowork",
+      "target": "method:mage-vl-cowork",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:mage-vl-cowork",
+      "target": "recipe:mage-vl-cowork",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:mage-vl-cowork",
+      "target": "task:hybrid-computer-use-agent-rl",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:ra-opd",
       "target": "method:ra-opd",
       "relation": "implements",
@@ -98052,6 +99761,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:tsbpo",
+      "target": "method:tsbpo",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:tsbpo",
+      "target": "recipe:tsbpo",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:tsbpo",
+      "target": "task:outcome-only-long-horizon-agent-rl",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:deepseek-v4",
       "target": "method:deepseek-v4",
       "relation": "implements",
@@ -99078,6 +100805,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:dlc",
+      "target": "method:dlc",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:dlc",
+      "target": "recipe:dlc",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:dlc",
+      "target": "task:fp4-rl-train-rollout-alignment",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:framegrpo",
       "target": "method:framegrpo",
       "relation": "implements",
@@ -99254,6 +100999,24 @@
     {
       "source": "recipe:w2s-opd",
       "target": "task:student-distillation",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
+      "source": "recipe:uploop",
+      "target": "method:uploop",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:uploop",
+      "target": "recipe:uploop",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:uploop",
+      "target": "task:elastic-depth-looped-lm",
       "relation": "recipe_for_task",
       "properties": {}
     },
@@ -100104,6 +101867,24 @@
       "properties": {}
     },
     {
+      "source": "recipe:sv-training",
+      "target": "method:sv-training",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:sv-training",
+      "target": "recipe:sv-training",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:sv-training",
+      "target": "task:instruct-sft-alignment",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
       "source": "recipe:muonio",
       "target": "method:muonio",
       "relation": "implements",
@@ -100550,6 +102331,24 @@
     {
       "source": "recipe:mlvc",
       "target": "task:learned-video-compression",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
+      "source": "recipe:fair-cast",
+      "target": "method:fair-cast",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:fair-cast",
+      "target": "recipe:fair-cast",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:fair-cast",
+      "target": "task:fp4-rl-train-rollout-alignment",
       "relation": "recipe_for_task",
       "properties": {}
     },
@@ -102458,6 +104257,24 @@
     {
       "source": "recipe:ffno",
       "target": "task:operator-grid-pde",
+      "relation": "recipe_for_task",
+      "properties": {}
+    },
+    {
+      "source": "recipe:cros",
+      "target": "method:cros",
+      "relation": "implements",
+      "properties": {}
+    },
+    {
+      "source": "method:cros",
+      "target": "recipe:cros",
+      "relation": "implemented_by",
+      "properties": {}
+    },
+    {
+      "source": "recipe:cros",
+      "target": "task:math-code-rl-dense",
       "relation": "recipe_for_task",
       "properties": {}
     },
@@ -104379,6 +106196,30 @@
     },
     {
       "source": "task:fp4-rl-train-rollout-alignment",
+      "target": "method:dlc",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:dlc",
+      "target": "task:fp4-rl-train-rollout-alignment",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:fp4-rl-train-rollout-alignment",
+      "target": "method:fair-cast",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:fair-cast",
+      "target": "task:fp4-rl-train-rollout-alignment",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:fp4-rl-train-rollout-alignment",
       "target": "method:mxfp8-rl",
       "relation": "addresses_task_method",
       "properties": {}
@@ -104790,6 +106631,30 @@
         "value": "Default SOTA for agentic async RL",
         "notes": "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
       }
+    },
+    {
+      "source": "task:agentic-async-rl",
+      "target": "method:li2sao",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:li2sao",
+      "target": "task:agentic-async-rl",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:agentic-async-rl",
+      "target": "method:dlc",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:dlc",
+      "target": "task:agentic-async-rl",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:agentic-async-rl",
@@ -106304,6 +108169,18 @@
         "value": "Industrial SOTA Alt",
         "notes": "Nemotron-Cascade-2 (2603.19220) for industrial multi-stage SFT."
       }
+    },
+    {
+      "source": "task:instruct-sft-alignment",
+      "target": "method:sv-training",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:sv-training",
+      "target": "task:instruct-sft-alignment",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:instruct-sft-alignment",
@@ -108146,6 +110023,18 @@
         "value": "~2x token efficiency vs AdamW",
         "notes": "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
       }
+    },
+    {
+      "source": "task:llm-pretraining-optimization",
+      "target": "method:muon-rt",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:muon-rt",
+      "target": "task:llm-pretraining-optimization",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:llm-pretraining-optimization",
@@ -110273,6 +112162,30 @@
     },
     {
       "source": "task:math-code-rl-dense",
+      "target": "method:cros",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:cros",
+      "target": "task:math-code-rl-dense",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:math-code-rl-dense",
+      "target": "method:sv-training",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:sv-training",
+      "target": "task:math-code-rl-dense",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:math-code-rl-dense",
       "target": "method:scarl",
       "relation": "addresses_task_method",
       "properties": {}
@@ -111811,6 +113724,18 @@
     },
     {
       "source": "task:elastic-depth-looped-lm",
+      "target": "method:uploop",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:uploop",
+      "target": "task:elastic-depth-looped-lm",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:elastic-depth-looped-lm",
       "target": "method:shell-elastic",
       "relation": "addresses_task_method",
       "properties": {}
@@ -112054,6 +113979,18 @@
         "value": "58.1% overall; full programmatic pass 2.8%",
         "notes": "RecreationWorld (2609.22000). Active hybrid CUA train/eval. Method status active (not sota). Does not demote Claude computer-use on OSWorld 2.0."
       }
+    },
+    {
+      "source": "task:hybrid-computer-use-agent-rl",
+      "target": "method:mage-vl-cowork",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:mage-vl-cowork",
+      "target": "task:hybrid-computer-use-agent-rl",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:hybrid-computer-use-agent-rl",
@@ -114485,6 +116422,18 @@
     },
     {
       "source": "task:outcome-only-long-horizon-agent-rl",
+      "target": "method:tsbpo",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:tsbpo",
+      "target": "task:outcome-only-long-horizon-agent-rl",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:outcome-only-long-horizon-agent-rl",
       "target": "method:scope-agent-opsd",
       "relation": "addresses_task_method",
       "properties": {}
@@ -115502,6 +117451,42 @@
         "value": "83.4% headroom recovery in a single deployable student",
         "notes": "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
       }
+    },
+    {
+      "source": "task:student-distillation",
+      "target": "method:stepwise-querying",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:stepwise-querying",
+      "target": "task:student-distillation",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:student-distillation",
+      "target": "method:muon-rt",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:muon-rt",
+      "target": "task:student-distillation",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:student-distillation",
+      "target": "method:sv-training",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:sv-training",
+      "target": "task:student-distillation",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:student-distillation",
@@ -116731,6 +118716,18 @@
     },
     {
       "source": "task:compute-matched-moe-looped-pretrain",
+      "target": "method:uploop",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:uploop",
+      "target": "task:compute-matched-moe-looped-pretrain",
+      "relation": "targets_task",
+      "properties": {}
+    },
+    {
+      "source": "task:compute-matched-moe-looped-pretrain",
       "target": "method:latentloop",
       "relation": "addresses_task_method",
       "properties": {}
@@ -116826,6 +118823,18 @@
         "value": "AR delta on converted dLLM approaches direct diffusion PT and composes with it; AR/diffusion deltas nearly orthogonal",
         "notes": "A2D (2610.08108). Method status active. Does not replace DiffusionOPSD / Self-OPD / CanvasAnneal."
       }
+    },
+    {
+      "source": "task:diffusion-lm-ar-delta-recycle",
+      "target": "method:byod",
+      "relation": "addresses_task_method",
+      "properties": {}
+    },
+    {
+      "source": "method:byod",
+      "target": "task:diffusion-lm-ar-delta-recycle",
+      "relation": "targets_task",
+      "properties": {}
     },
     {
       "source": "task:diffusion-lm-ar-delta-recycle",
@@ -120342,6 +122351,42 @@
       "properties": {}
     },
     {
+      "source": "paper:byod",
+      "target": "method:byod",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:byod",
+      "target": "paper:byod",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:byod",
+      "target": "paper:a2d",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:a2d",
+      "target": "paper:byod",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:byod",
+      "target": "paper:justopd",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:justopd",
+      "target": "paper:byod",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:mona",
       "target": "method:mona",
       "relation": "introduces",
@@ -120750,6 +122795,42 @@
       "properties": {}
     },
     {
+      "source": "paper:stepwise-querying",
+      "target": "method:stepwise-querying",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:stepwise-querying",
+      "target": "paper:stepwise-querying",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:stepwise-querying",
+      "target": "paper:traceforge",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:traceforge",
+      "target": "paper:stepwise-querying",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:stepwise-querying",
+      "target": "paper:opd",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:opd",
+      "target": "paper:stepwise-querying",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:s2d-opd",
       "target": "method:s2d-opd",
       "relation": "introduces",
@@ -120974,6 +123055,30 @@
     {
       "source": "paper:bitnet-b158",
       "target": "paper:sparse-bitnet",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:li2sao",
+      "target": "method:li2sao",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:li2sao",
+      "target": "paper:li2sao",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:li2sao",
+      "target": "paper:sao",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:sao",
+      "target": "paper:li2sao",
       "relation": "cited_by",
       "properties": {}
     },
@@ -122754,6 +124859,42 @@
       "properties": {}
     },
     {
+      "source": "paper:muon-rt",
+      "target": "method:muon-rt",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:muon-rt",
+      "target": "paper:muon-rt",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:muon-rt",
+      "target": "paper:muon2",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:muon2",
+      "target": "paper:muon-rt",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:muon-rt",
+      "target": "paper:opd",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:opd",
+      "target": "paper:muon-rt",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:rewardverse",
       "target": "method:rewardverse",
       "relation": "introduces",
@@ -123950,6 +126091,78 @@
     {
       "source": "paper:bulkboost",
       "target": "paper:spectrally-targeted-muon",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "method:elr",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:elr",
+      "target": "paper:no-free-loop",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "method:uploop",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:uploop",
+      "target": "paper:no-free-loop",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "method:looped-models-done-right",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:looped-models-done-right",
+      "target": "paper:no-free-loop",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "paper:elr",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:elr",
+      "target": "paper:no-free-loop",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "paper:uploop",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:uploop",
+      "target": "paper:no-free-loop",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:no-free-loop",
+      "target": "paper:looped-models-done-right",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:looped-models-done-right",
+      "target": "paper:no-free-loop",
       "relation": "cited_by",
       "properties": {}
     },
@@ -126243,6 +128456,42 @@
       "source": "method:moe-sparsity-hp-scaling",
       "target": "paper:moe-sparsity-hp-scaling",
       "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:mage-vl-cowork",
+      "target": "method:mage-vl-cowork",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:mage-vl-cowork",
+      "target": "paper:mage-vl-cowork",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:mage-vl-cowork",
+      "target": "paper:os-helix",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:os-helix",
+      "target": "paper:mage-vl-cowork",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:mage-vl-cowork",
+      "target": "paper:recreationworld",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:recreationworld",
+      "target": "paper:mage-vl-cowork",
+      "relation": "cited_by",
       "properties": {}
     },
     {
@@ -129822,6 +132071,30 @@
       "properties": {}
     },
     {
+      "source": "paper:tsbpo",
+      "target": "method:tsbpo",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:tsbpo",
+      "target": "paper:tsbpo",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:tsbpo",
+      "target": "paper:canopy",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:canopy",
+      "target": "paper:tsbpo",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:deepseek-v4",
       "target": "method:deepseek-v4",
       "relation": "introduces",
@@ -132006,6 +134279,42 @@
       "properties": {}
     },
     {
+      "source": "paper:dlc",
+      "target": "method:dlc",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:dlc",
+      "target": "paper:dlc",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:dlc",
+      "target": "paper:trace",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:trace",
+      "target": "paper:dlc",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:dlc",
+      "target": "paper:rounding-align-rl",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:rounding-align-rl",
+      "target": "paper:dlc",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:framegrpo",
       "target": "method:framegrpo",
       "relation": "introduces",
@@ -132338,6 +134647,54 @@
     {
       "source": "paper:opd",
       "target": "paper:w2s-opd",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:uploop",
+      "target": "method:uploop",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:uploop",
+      "target": "paper:uploop",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:uploop",
+      "target": "paper:elr",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:elr",
+      "target": "paper:uploop",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:uploop",
+      "target": "paper:smelt",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:smelt",
+      "target": "paper:uploop",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:uploop",
+      "target": "paper:looped-models-done-right",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:looped-models-done-right",
+      "target": "paper:uploop",
       "relation": "cited_by",
       "properties": {}
     },
@@ -134010,6 +136367,54 @@
       "properties": {}
     },
     {
+      "source": "paper:sv-training",
+      "target": "method:sv-training",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:sv-training",
+      "target": "paper:sv-training",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:sv-training",
+      "target": "paper:olmo-3",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:olmo-3",
+      "target": "paper:sv-training",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:sv-training",
+      "target": "paper:minimax-m1",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:minimax-m1",
+      "target": "paper:sv-training",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:sv-training",
+      "target": "paper:opd",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:opd",
+      "target": "paper:sv-training",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:muonio",
       "target": "method:muonio",
       "relation": "introduces",
@@ -134822,6 +137227,42 @@
     {
       "source": "paper:dcvcrt",
       "target": "paper:mlvc",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:fair-cast",
+      "target": "method:fair-cast",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:fair-cast",
+      "target": "paper:fair-cast",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:fair-cast",
+      "target": "paper:rounding-align-rl",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:rounding-align-rl",
+      "target": "paper:fair-cast",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
+      "source": "paper:fair-cast",
+      "target": "paper:weight-update-leverage",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:weight-update-leverage",
+      "target": "paper:fair-cast",
       "relation": "cited_by",
       "properties": {}
     },
@@ -139002,6 +141443,30 @@
       "properties": {}
     },
     {
+      "source": "paper:cros",
+      "target": "method:cros",
+      "relation": "introduces",
+      "properties": {}
+    },
+    {
+      "source": "method:cros",
+      "target": "paper:cros",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:cros",
+      "target": "paper:minimax-m1",
+      "relation": "cites",
+      "properties": {}
+    },
+    {
+      "source": "paper:minimax-m1",
+      "target": "paper:cros",
+      "relation": "cited_by",
+      "properties": {}
+    },
+    {
       "source": "paper:agents-md-ctxbench",
       "target": "method:mcp",
       "relation": "introduces",
@@ -143169,6 +145634,18 @@
       "source": "method:dcvcrt",
       "target": "method:mlvc",
       "relation": "superseded_by",
+      "properties": {}
+    },
+    {
+      "source": "method:a2d",
+      "target": "paper:byod",
+      "relation": "described_in",
+      "properties": {}
+    },
+    {
+      "source": "paper:byod",
+      "target": "method:a2d",
+      "relation": "introduces",
       "properties": {}
     },
     {

@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "scramble-order CoT causality reward (CRoS)"
+    to: "method:cros"
+  - when: "steering-vector advantage-repair on all-wrong GRPO groups (SV-Training)"
+    to: "method:sv-training"
   - when: "sequence confidence-aligned RL (SCARL)"
     to: "method:scarl"
   - when: "hierarchical hint-based reward for math RLVR (H2R)"
@@ -177,6 +181,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:cros
+  - method:sv-training
   - method:scarl
   - method:h2r
   - method:guided-rlvr
@@ -264,7 +270,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - reasoning

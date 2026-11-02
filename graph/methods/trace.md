@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
+    reason: 'TRACE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag'
+    use_instead: method:dlc
+  - when: 'unbiased fp32 to bf16 export of the served copy (Fair Cast)'
+    reason: 'TRACE remains NVFP4 dual-active; Fair Cast is unbiased bf16 export of an fp32 master'
+    use_instead: method:fair-cast
   - when: 'end-to-end MXFP8 RL train-rollout grid matching on Blackwell'
     reason: 'TRACE remains NVFP4 dual-active; this card is MXFP8 matching'
     use_instead: method:mxfp8-rl

@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
+  reason: 'Rounding-Align RL matches where rounding happens; DLC splits discrepancy vs lag after sampling'
+  use_instead: method:dlc
+- when: 'unbiased fp32 to bf16 export of the served copy (Fair Cast)'
+  reason: 'Rounding-Align RL matches rounding location; Fair Cast changes how the master is cast'
+  use_instead: method:fair-cast
 - when: 'the locked first hop on task:fp4-rl-train-rollout-alignment'
   reason: 'TRACE / TRIAGE remain FP4 train-rollout first hops; this card aligns where BF16 rounding happens across inference and train'
   use_instead: method:trace

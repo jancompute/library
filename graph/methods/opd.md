@@ -9,6 +9,15 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)'
+    reason: 'OPD remains matching when teacher logp is available; Stepwise Querying is black-box SFT'
+    use_instead: method:stepwise-querying
+  - when: 'EMA teacher-student displacement replaces Muon momentum (Muon-RT)'
+    reason: 'OPD remains matching; Muon-RT is a Muon-family optimizer for EMA self-distillation'
+    use_instead: method:muon-rt
+  - when: 'steering-vector residual-stream hook in SFT/distill (SV-Training)'
+    reason: 'OPD remains matching; SV-Training injects a steering direction during teacher-forced distill'
+    use_instead: method:sv-training
   - when: 'adaptive teacher prefix splice for long-sequence OPD (ATI-OPD)'
     reason: 'OPD remains matching; ATI-OPD repairs drifted prefixes'
     use_instead: method:ati-opd

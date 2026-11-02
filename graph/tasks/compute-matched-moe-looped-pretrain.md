@@ -14,6 +14,8 @@ out_of_scope:
   - "~7B dense NTP optimizer (Muon2)"
   - "Elastic mixed-depth looped LM training (ELR)"
 redirects:
+  - when: "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)"
+    to: "method:uploop"
   - when: "Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing)"
     to: "method:looped-models-done-right"
   - when: "choosing the frontier MoE architecture template"
@@ -40,13 +42,14 @@ current_sota:
     value: "6.8–18.0% on the fitted sparse-grid frontier (10^20–10^21 FLOPs)"
     notes: "SMELT (2609.01343). Active looped-MoE recipe. Does not replace DeepSeek-V4 / Kimi-K3 / CE-MoE."
 methods:
+  - method:uploop
   - method:latentloop
   - method:elr
   - method:smelt
   - method:ce-moe
   - method:deepseek-v4
   - method:kimi-k3
-last_reviewed: "2026-10-15"
+last_reviewed: '2026-11-02'
 tags:
   - pretraining
   - moe
