@@ -22,6 +22,10 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)"
+    to: "method:li2sao"
+  - when: "discrepancy-lag correction of sampler/trainer mismatch (DLC)"
+    to: "method:dlc"
   - when: "environment-task rollout scheduling under a finite budget (EnvSched)"
     to: "method:envsched"
   - when: "turn-scale advantage plus turn-level IS (MPO), not async stragglers"
@@ -92,6 +96,8 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:li2sao
+  - method:dlc
   - method:envsched
   - method:mpo
   - method:harness-scaling
@@ -128,7 +134,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - agentic

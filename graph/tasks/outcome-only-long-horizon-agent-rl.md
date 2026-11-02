@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO)"
+    to: "method:tsbpo"
   - when: "critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE)"
     to: "method:scope-agent-opsd"
   - when: "capability-aware policy+rubric co-evolution (CoCA)"
@@ -117,6 +119,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:tsbpo
   - method:scope-agent-opsd
   - method:coca
   - method:race-rubric
@@ -165,7 +168,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - agentic

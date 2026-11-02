@@ -15,6 +15,10 @@ out_of_scope:
 - Recurrent CED all-token recurrence (RLT)
 - Standard dense ~7B NTP optimizer (Muon2)
 redirects:
+- when: FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)
+  to: method:uploop
+- when: post-train loops on a finished checkpoint (no-free-loop)
+  to: paper:no-free-loop
 - when: Huginn-style dense fixed-point looped LMs (learned depth prior / terminal
     KV sharing)
   to: method:looped-models-done-right
@@ -35,12 +39,13 @@ current_sota:
   notes: ELR (2610.12582). Method status active. Listed here as first hop; method
     sota_for stays empty. Does not replace Looped Models Done Right or SMELT.
 methods:
+- method:uploop
 - method:shell-elastic
 - method:elr
 - method:looped-models-done-right
 - method:smelt
 - method:recurrent-looped-transformer
-last_reviewed: '2026-10-14'
+last_reviewed: '2026-11-02'
 tags:
 - pretraining
 - looped-lm
@@ -63,3 +68,5 @@ This is **not** Huginn-style fixed-point looping and not SMELT's compute-matched
 - **Primary (this task only)**: **ELR** (`method:elr`, `paper:elr` `arXiv:2610.12582`). Status `active`. Listed here as first hop; method `sota_for` stays empty. No public code.
 - **Not This Task**: `method:looped-models-done-right` remains Huginn-style dense looping; `method:smelt` remains compute-matched MoE looping; `method:recurrent-looped-transformer` remains experimental CED.
 - **Not this task (nested width, not mixed depth)**: `method:shell-elastic` (`arXiv:2610.15124`) on `task:llm-pretraining-optimization`. Does not replace ELR.
+- **Optional FLOP-matched dense upcycling**: `method:uploop` (`arXiv:2610.41720`). 1.3B 22-task avg 22.99→27.52. No public code. Does not replace ELR.
+- **Gotcha (post-train loops)**: `paper:no-free-loop` (`arXiv:2610.42030`). Loops added after pretrain pay only at 0.8B; 4B/9B fail the equal-parameter test. Does not retarget ELR.

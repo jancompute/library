@@ -10,6 +10,12 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)'
+    reason: 'SAO remains async straggler replay; Li2SAO bootstraps a light critic then switches to single-rollout GAE'
+    use_instead: method:li2sao
+  - when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
+    reason: 'SAO remains async stragglers; DLC splits numerical discrepancy from policy lag'
+    use_instead: method:dlc
   - when: 'turn-scale advantage plus turn-level IS (MPO), not async stragglers'
     reason: 'SAO remains async; MPO is multiscale credit'
     use_instead: method:mpo

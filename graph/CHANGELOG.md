@@ -6,6 +6,59 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-02 — weekday SOTA sweep (Li2SAO, DLC, Fair Cast, Muon-RT, Mage-VL-Cowork, BYOD, UpLoop, Stepwise Querying, SV-Training, CRoS, TSBPO; note no-free-loop)
+- Eleven active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-02 Librarian weekday sweep after merged PR 55 (watermark 2610.40655, ~2007 nodes, fa2c06b). Covers Monday 2026-11-02 arXiv cs.LG/cs.CL/cs.AI after 2610.40655 (Fri 10-30 through weekend submissions; first new id 2610.40662) plus HF Daily 2026-10-31 leftovers and 2026-11-01 / 2026-11-02. New high id 2610.42149.
+- SKIP (considered, not ingested): unified-training 2610.40564 (below watermark leftover); AutoHebb; CoFiBreak; speculative-drafter vs CDLM; HiFloat4; TalentRL; HyperRepair; SparseGDN; Reliability-Weighted DPO; R^2Orch / MemSteer; remaining eval/safety/harness-spec/serving/control/medical papers. HF Daily 2026-10-30 already covered in PR 55.
+
+### 2026-11-02 — ingest method:li2sao (active on task:agentic-async-rl; does not supersede method:sao)
+- Added paper:li2sao, method:li2sao, recipe:li2sao (`code_status: released`, jd-cc-coder/Li2SAO).
+- Status active (`sota_for: []`). Group-relative actor-critic bootstrap then single-rollout GAE when SAO's pretrained critic is unavailable.
+
+### 2026-11-02 — ingest method:dlc (active on task:fp4-rl-train-rollout-alignment; does not supersede method:trace)
+- Added paper:dlc, method:dlc, recipe:dlc (`code_status: released`, Skylanding/Training-Inference-Mismatch).
+- Status active (`sota_for: []`). Splits sampler/trainer error into numerical discrepancy vs policy lag; ESS<0.5 resync. Mention on task:agentic-async-rl.
+
+### 2026-11-02 — ingest method:fair-cast (active on task:fp4-rl-train-rollout-alignment; does not supersede method:trace)
+- Added paper:fair-cast, method:fair-cast, recipe:fair-cast (`code_status: released`, andrewgcodes/faircast).
+- Status active (`sota_for: []`). Unbiased fp32-to-bf16 export (stochastic rounding / error feedback) so sub-ulp RL updates are not discarded. Distinct from method:rounding-align-rl and method:dlc.
+
+### 2026-11-02 — ingest method:muon-rt (active on task:llm-pretraining-optimization; does not supersede method:muon2)
+- Added paper:muon-rt, method:muon-rt, recipe:muon-rt (`code_status: none`).
+- Status active (`sota_for: []`). Reuses EMA teacher-student displacement as Muon history for SDFT/SDPO. Mention on task:student-distillation.
+
+### 2026-11-02 — ingest method:mage-vl-cowork (active on task:hybrid-computer-use-agent-rl; does not supersede method:recreationworld)
+- Added paper:mage-vl-cowork, method:mage-vl-cowork, recipe:mage-vl-cowork (`code_status: released`, microsoft/Mage).
+- Status active (`sota_for: []`). 4B five-stage hybrid CUA curriculum; OSWorld-Verified 66.0% is not OSWorld 2.0 ranking. Distinct from method:os-helix.
+
+### 2026-11-02 — ingest method:byod (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d)
+- Added paper:byod, method:byod, recipe:byod (`code_status: released`, RuurdKuiper/BYOD).
+- Status active (`sota_for: []`). LoRA-only AR→masked DLM conversion (4.1–5.8% params; 3.1–4.0h Colab). Distinct from method:justopd.
+
+### 2026-11-02 — ingest method:uploop (active on task:elastic-depth-looped-lm; does not supersede method:elr)
+- Added paper:uploop, method:uploop, recipe:uploop (`code_status: none`).
+- Status active (`sota_for: []`). FLOP-matched dense upcycling into a looped Transformer; 1.3B 22.99→27.52. Mention on task:compute-matched-moe-looped-pretrain.
+
+### 2026-11-02 — ingest method:stepwise-querying (active on task:student-distillation; does not supersede method:opd)
+- Added paper:stepwise-querying, method:stepwise-querying, recipe:stepwise-querying (`code_status: none`).
+- Status active (`sota_for: []`). Black-box teacher step queries then ordinary SFT; 14/16 wins. Sibling of method:traceforge.
+
+### 2026-11-02 — ingest method:sv-training (active on task:instruct-sft-alignment; does not supersede method:olmo-3)
+- Added paper:sv-training, method:sv-training, recipe:sv-training (`code_status: released`, tiejin98/sv_training).
+- Status active (`sota_for: []`). Residual-stream steering hook for SFT/distill (+12% thinking-teacher) and GRPO all-wrong advantage-repair. Mentions on task:student-distillation and task:math-code-rl-dense. NeurIPS 2026.
+
+### 2026-11-02 — ingest method:cros (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:cros, method:cros, recipe:cros (`code_status: none`; project xxiaoyuuuu.github.io/CRoS-Page).
+- Status active (`sota_for: []`). Scramble-order CoT causality reward on a GRPO host; Gemma-3-4B OOD 46.8 vs 43.8.
+
+### 2026-11-02 — ingest method:tsbpo (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy)
+- Added paper:tsbpo, method:tsbpo, recipe:tsbpo (`code_status: none`).
+- Status active (`sota_for: []`). Tree allocator plus sibling/observation-group credit; Qwen2.5-1.5B ALFWorld 97.79/96.64, WebShop 81.07.
+
+### 2026-11-02 — ingest paper:no-free-loop (claim note on method:elr / method:uploop / method:looped-models-done-right)
+- Added paper:no-free-loop (`arXiv:2610.42030`). No new method.
+- Post-train loops pay only at 0.8B; 4B/9B fail the equal-parameter test. Does not retarget ELR / UpLoop / Huginn train-time loops.
+
 ### 2026-10-30 — weekday SOTA sweep (AIR, Soft-MTP, ATI-OPD, TESD, WISD, SCOPE-agent, MTA-OPSD, TACE, SCARL, GGA-PW, data-constrained HP ensemble, MDraft, CoCA, RACE, IDM, A-RSI, MASS, C-MOPD, WebAnything, H2R; notes RLVR no-free-lunch, Muon first MoE layer, weight-update leverage, quantization loss spikes, OPD entropy-shape)
 - Twenty active plug-ins and five paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning).
 - Window: 2026-10-30 Librarian weekday sweep after merged PR 54 (watermark 2610.37658, 1942 nodes, 42f6767). Covers Thursday 2026-10-29 and Friday 2026-10-30 arXiv cs.LG/cs.CL/cs.AI after 2610.37658 (Thu listing now posted; first new id 2610.37712) plus HF Daily 2026-10-29 leftovers and 2026-10-30. New high id 2610.40655.

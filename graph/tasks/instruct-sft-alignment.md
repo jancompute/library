@@ -18,6 +18,7 @@ current_sota:
     value: "Industrial SOTA Alt"
     notes: "Nemotron-Cascade-2 (2603.19220) for industrial multi-stage SFT."
 methods:
+  - method:sv-training
   - method:drive-ft
   - method:metacurate
   - method:autosft
@@ -35,6 +36,8 @@ methods:
   - method:dco
   - method:opsft
 redirects:
+  - when: "steering-vector residual-stream hook in SFT/distill (SV-Training)"
+    to: "method:sv-training"
   - when: "leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master"
     to: "paper:weight-update-leverage"
   - when: "SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE)"
@@ -53,7 +56,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-02'
 tags:
   - post-training
   - instruct
@@ -79,4 +82,5 @@ Transforming base pre-trained models into safe, capable, instruction-following c
 - **Optional agentic SFT data research**: `method:autosft` (`arXiv:2610.22194`). Analysis +6.5 IFEval; synthesis +3.4. Code Thinking-Space/AutoSFT. Does not replace OLMo-3.
 - **Optional evolving SWE trajectory filter**: `method:metacurate` (`arXiv:2610.23134`). Highest mean SWE-Verified among compared SFT filters. Does not replace OLMo-3 or AutoSFT.
 - **Gotcha (cue-routing circuit)**: `paper:posttrain-cue-routing` (`arXiv:2610.22937`). Chat SFT can activate pretrained sycophancy heads. Does not retarget OLMo-3.
+- **Optional steering-vector train hook**: `method:sv-training` (`arXiv:2610.40998`, NeurIPS 2026). Up to +12% thinking-teacher distill; GRPO advantage-repair on all-wrong groups. Code tiejin98/sv_training. Does not replace OLMo-3.
 

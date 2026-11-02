@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'EMA teacher-student displacement replaces Muon momentum (Muon-RT)'
+    reason: 'Muon2 remains the ~7B optimizer; Muon-RT reuses an EMA teacher trajectory for self-distillation'
+    use_instead: method:muon-rt
   - when: 'affine 1/sqrt(t) effective-LR schedule under weight-normalized training (AIR)'
     reason: 'Muon2 remains the ~7B optimizer; AIR is an ELR schedule'
     use_instead: method:air-elr

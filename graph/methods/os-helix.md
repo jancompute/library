@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: '4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)'
+  reason: 'OS-Helix is the other trained hybrid CUA sibling; Mage is a 4B evolved-harness recipe'
+  use_instead: method:mage-vl-cowork
 - when: 'desktop/OS GUI ranking on OSWorld 2.0 paper protocol'
   reason: 'OSWorld-Verified is not the locked ranking protocol'
   use_instead: method:claude-computer-use
