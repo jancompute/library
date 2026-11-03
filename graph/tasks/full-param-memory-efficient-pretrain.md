@@ -10,6 +10,8 @@ out_of_scope:
   - "Native FP4 hardware training from scratch (Quartet-II)"
   - "Quality LoRA on 24GB (vanilla LoRA + rsLoRA + LR sweep)"
 redirects:
+  - when: "in-backward MoE expert updates (Sonar-MoE; not SCALE subspace)"
+    to: "method:sonar-moe"
   - when: "coupled-state replay for MoE adaptation memory (DuplexTune)"
     to: "method:duplextune"
   - when: "Adam second-moment pooling (AdamPM)"
@@ -46,6 +48,7 @@ current_sota:
     value: "Default SOTA for memory-efficient full-parameter training"
     notes: "SCALE (2506.16659, ICML 2026) not GaLore."
 methods:
+  - method:sonar-moe
   - method:duplextune
   - method:adampm
   - method:ori
@@ -59,7 +62,7 @@ methods:
   - method:scale
   - method:galore
   - method:taco
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-03'
 tags:
   - efficiency
   - optimizer
@@ -70,6 +73,8 @@ tags:
 # Full-Parameter Memory-Efficient Pretraining & Fine-Tuning
 
 ## SOTA Recommendation (as of 2026-08-26)
+
+- **Optional in-backward MoE experts**: `method:sonar-moe` (`arXiv:2611.03577`). 19–22% peak mem; bitwise-identical without expert clip. No public code. Does not replace SCALE.
 - **Primary Method**: **SCALE** (`method:scale`, 2506.16659, ICML 2026) — not GaLore.
 - **Optional FT-axis sparse optimizer (not this first hop)**: `method:taco` (`arXiv:2610.02199`). Ternary abs-max column-wise one-sparse updates; 174× optimizer-state vs AdamW8bit on OPT-13B SST-2. Does not replace SCALE or Muon2.
 - **Optional 4-bit AdamW-state quantization (not this first hop)**: `method:zip-sr` (`arXiv:2610.12444`) on `task:llm-pretraining-optimization`. Preconditioner-space SR; up to 70% TorchAO gap cut. Does not replace SCALE, Muon2, or TACO.

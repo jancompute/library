@@ -18,6 +18,7 @@ current_sota:
     value: "Industrial SOTA Alt"
     notes: "Nemotron-Cascade-2 (2603.19220) for industrial multi-stage SFT."
 methods:
+  - method:sftprobe
   - method:sv-training
   - method:drive-ft
   - method:metacurate
@@ -36,6 +37,8 @@ methods:
   - method:dco
   - method:opsft
 redirects:
+  - when: "LoRA-probe SFT data selection (SFTProbe)"
+    to: "method:sftprobe"
   - when: "steering-vector residual-stream hook in SFT/distill (SV-Training)"
     to: "method:sv-training"
   - when: "leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master"
@@ -56,7 +59,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - instruct
@@ -71,6 +74,8 @@ tags:
 Transforming base pre-trained models into safe, capable, instruction-following conversational assistants without degrading core knowledge.
 
 ## SOTA Recommendation (as of 2026-09-11)
+
+- **Optional SFT data probe**: `method:sftprobe` (`arXiv:2611.00554`, NeurIPS 2026). 5k matches 89k OpenThoughts-Math; 7.5k +2.5%. Project bigml-cs-ucla.github.io/SFTProbe-page/. Does not replace OLMo-3.
 - **Primary Open Stack**: **OLMo-3 Dolci** (`method:olmo-3`, 2512.13961).
 - **Industrial Alternative**: **Nemotron-Cascade-2** (`method:nemotron-cascade-2`, 2603.19220).
 - **Optional reasoning-trace shaping**: `method:partial-reasoning-traces` (`arXiv:2609.07103`). Prefer partial/truncated CoT over dumping complete traces. Does not replace OLMo-3 / Cascade.

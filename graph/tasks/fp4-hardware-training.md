@@ -5,6 +5,8 @@ title: "Native FP4 Hardware Training"
 domain: "compression"
 summary: "End-to-end 4-bit floating-point forward and backward pass training on modern GPU accelerators."
 redirects:
+  - when: "MXFP8/NVFP4 Blackwell attention train kernels (FLAMIA; not Quartet-II default)"
+    to: "method:flamia"
   - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
     to: "method:alto-mxfp4"
   - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
@@ -37,6 +39,7 @@ current_sota:
     value: "Co-Default SOTA for microscaling FP4"
     notes: "MXFP4 (2605.09825)."
 methods:
+  - method:flamia
   - method:rescom
   - method:alto-mxfp4
   - method:alto-mxfp4
@@ -51,7 +54,7 @@ methods:
   - method:kbbq
   - method:trace
   - method:triage
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-03'
 tags:
   - compression
   - quantization
@@ -62,6 +65,8 @@ tags:
 # Native FP4 Hardware Training
 
 ## SOTA Recommendation (as of 2026-08-26)
+
+- **Optional Blackwell attention kernels**: `method:flamia` (`arXiv:2611.03344`). 1.10–1.40× B200 / 1.06–1.42× B300. Code yandex-research/flamia-blackwell-attention. Does not replace Quartet-II.
 - **Primary Method**: **Quartet-II NVFP4** (`method:quartet-ii`, 2601.22813) / **MXFP4** (`method:mxfp4-mi355x`, 2605.09825) / **Kimi-K3 QAT**. Unchanged.
 - **Fully low-bit fine-tune of an already-quantized checkpoint**: `method:gradcodes` on `task:full-lowbit-finetune`. Not native FP4 hardware training.
 - **Optional W4A4 noise-law / spectrum-flattening note**: `method:kbbq` (`arXiv:2609.08135`). Active PTQ-style inference niche. Does not replace Quartet-II or MXFP4.

@@ -5,6 +5,8 @@ title: "Privileged-Teacher On-Policy Self-Distillation"
 domain: "post-training"
 summary: "On-policy self-distillation where a same-size teacher is privileged with a gold reference solution and a deterministic outcome verifier, rather than a larger frozen teacher model."
 redirects:
+  - when: "reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing)"
+    to: "method:self-steered-reasoner"
   - when: "teacher-evolution self-distillation (TESD)"
     to: "method:tesd"
   - when: "token-level multi-teacher adaptive OPSD (MTA-OPSD)"
@@ -71,6 +73,7 @@ current_sota:
     value: "VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0"
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
+  - method:self-steered-reasoner
   - method:tesd
   - method:mta-opsd
   - method:mass-opsd
@@ -106,7 +109,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - distillation
@@ -126,6 +129,8 @@ Train a problem-only student on its own rollouts using dense token-level targets
 - **Evaluation Pitfalls**: Do not treat this task as single-teacher student distillation from a frontier model (`task:student-distillation` / `method:opd`) or as OPD+RLVR with an external teacher (`task:distill-reasoner-verifier` / `method:opdvr`).
 
 ## SOTA Recommendation (as of 2026-09-08)
+
+- **Optional reachability-aligned self-distill**: `method:self-steered-reasoner` (`arXiv:2611.00796`). Recovers 74.6% of pass@64=0 problems; +4.9pp AIME25/26+HMMT26. Distinct from `method:ssr`. No public code. Does not replace VISTA.
 - **Primary Method**: **VISTA** (`method:vista`, `paper:vista` `arXiv:2608.28306`) for verifier-informed student-to-teacher adaptation on privileged-teacher OPSD.
 - **Not This Task**: `method:opd` remains the single-teacher student-distillation default; `method:opdvr` remains the OPD+RLVR default; `method:u-opsd` remains the unlabeled/no-GT default.
 - **Adjacent inner-loop (not this method)**: `method:flowbalance` uses privileged hindsight as a stopped trajectory-balance feature, not a teacher update. VISTA stays this task's first hop.

@@ -19,6 +19,14 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "factored ability-difficulty RLVR scheduler (FADE)"
+    to: "method:fade"
+  - when: "group-dependent rewards / Team-GRPO (alpha=+1; not Pass@1 CISPO)"
+    to: "method:team-grpo"
+  - when: "RLVR sharpens existing paths rather than internal error probes"
+    to: "paper:rlvr-sharpens"
+  - when: "RLVR ID derivation collapses to brute-force under OOD"
+    to: "paper:not-all-reasoning-generalizes"
   - when: "scramble-order CoT causality reward (CRoS)"
     to: "method:cros"
   - when: "steering-vector advantage-repair on all-wrong GRPO groups (SV-Training)"
@@ -181,6 +189,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:fade
+  - method:team-grpo
   - method:cros
   - method:sv-training
   - method:scarl
@@ -270,7 +280,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - reasoning
@@ -285,6 +295,11 @@ tags:
 Training dense language models to generate long chains of thought (CoT) and verifiable solutions for competitive math and coding problems.
 
 ## SOTA Recommendation (as of 2026-09-09)
+
+- **Optional factored RLVR scheduler**: `method:fade` (`arXiv:2611.03625`). Ability vs item-difficulty filter. Distinct from ThinkPrior / NGU / AdaRoll-GRPO. No public code. Does not replace CISPO.
+- **Optional group-dependent GRPO**: `method:team-grpo` (`arXiv:2611.02404`). α=+1; GlobalOpinionQA error 0.20→0.08 vs GRPO collapse. Mention on `task:passk-reasoning-coverage`. No public code. Does not replace CISPO.
+- **Gotcha (RLVR sharpens paths, not probes)**: `paper:rlvr-sharpens` (`arXiv:2611.02574`). OLMo-2-1B GSM8K pass@1 58.0→61.3 but coverage 94.5→96.9. Does not retarget CISPO.
+- **Gotcha (not all reasoning generalizes)**: `paper:not-all-reasoning-generalizes` (`arXiv:2611.03627`). ID derivation collapses to brute-force under OOD. Does not retarget CISPO.
 - **Primary Method (Pass@1 labeled RLVR)**: **CISPO** (`method:cispo`, MiniMax-M1 2506.13585 + ScaleRL 2510.13786). Unchanged.
 - **Systems Reference**: DAPO stays as systems paper reference. GRPO stays retired.
 - **Related alternative (Pass@K / coverage / no-backward)**: `method:es-reasoning` (`arXiv:2608.27351`). Do not swap CISPO for ES or revive GRPO when the goal is Pass@1. Tree-rollout coverage sibling: `method:datpo` (`arXiv:2609.08650`) on `task:passk-reasoning-coverage`.

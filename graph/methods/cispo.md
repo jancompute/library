@@ -10,6 +10,18 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'RLVR sharpens existing paths rather than internal error probes'
+    reason: 'Gotcha: this RLVR run reorders paths; does not retarget CISPO'
+    use_instead: paper:rlvr-sharpens
+  - when: 'RLVR ID derivation collapses to brute-force under OOD'
+    reason: 'Gotcha: ID derivation is not OOD strategy transfer; does not retarget CISPO'
+    use_instead: paper:not-all-reasoning-generalizes
+  - when: 'factored ability-difficulty RLVR scheduler (FADE)'
+    reason: 'CISPO remains Pass@1; FADE is a prompt scheduler'
+    use_instead: method:fade
+  - when: 'group-dependent rewards / Team-GRPO (alpha=+1; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1 with independent verifier rewards'
+    use_instead: method:team-grpo
   - when: 'scramble-order CoT causality reward (CRoS)'
     reason: 'CISPO remains Pass@1; CRoS adds a scramble-order causality reward on a GRPO host'
     use_instead: method:cros
@@ -174,6 +186,8 @@ do_not_use_for:
     use_instead: "method:rgpo"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:rlvr-sharpens
+  - paper:not-all-reasoning-generalizes
   - paper:rlvr-no-free-lunch
   - paper:sign-law-entropy-rlvr
   - paper:intervention-certified

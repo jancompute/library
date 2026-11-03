@@ -5,6 +5,16 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "observation-coordinated reverse/forward KL OPD (OC-OPD)"
+    to: "method:oc-opd"
+  - when: "Bernoulli token-prob matching OPD (high-confidence student tokens)"
+    to: "method:bernoulli-opd"
+  - when: "ordinal top-K OPD without probability values (O3PD)"
+    to: "method:order-only-opd"
+  - when: "knowledge-injection OPD under information asymmetry (APD)"
+    to: "method:adaptive-policy-distill"
+  - when: "evidence-paired document OPD against evidence bypass (EP-OPD)"
+    to: "method:ep-opd"
   - when: "black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)"
     to: "method:stepwise-querying"
   - when: "EMA teacher-student displacement replaces Muon momentum (Muon-RT)"
@@ -201,6 +211,11 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:oc-opd
+  - method:bernoulli-opd
+  - method:order-only-opd
+  - method:adaptive-policy-distill
+  - method:ep-opd
   - method:stepwise-querying
   - method:muon-rt
   - method:sv-training
@@ -304,7 +319,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - distillation
@@ -318,6 +333,12 @@ tags:
 Training small local students (1B–8B) from large teacher models (70B–405B) with generalized on-policy divergence matching.
 
 ## SOTA Recommendation (as of 2026-09-09)
+
+- **Optional observation-coordinated OPD**: `method:oc-opd` (`arXiv:2611.01965`). Code RuoranXu/OC-OPD. Does not replace OPD.
+- **Optional Bernoulli token-match OPD**: `method:bernoulli-opd` (`arXiv:2611.02093`). Code duterscmy/Bernoulli-OPD. Does not replace OPD.
+- **Optional ordinal top-K OPD**: `method:order-only-opd` (`arXiv:2611.02112`). Up to +2.9 avg / +5.6 AIME25 vs OPD. No public code. Does not replace OPD.
+- **Optional knowledge-injection OPD**: `method:adaptive-policy-distill` (`arXiv:2611.00852`). +54.6% vs OPD; QASPER 0.558 F1 / BioASQ 0.486 MRR. No public code. Does not replace OPD.
+- **Optional evidence-paired OPD**: `method:ep-opd` (`arXiv:2611.01967`). Recovers 54–66% of OPD's counterfactual-accuracy loss while keeping 80–85% of original-doc gain. Code RuoranXu/EP-OPD. Does not replace OPD.
 - **Single-Teacher Distillation Default**: **OPD** (`method:opd`, `paper:opd` `arXiv:2604.13016`). Unchanged.
 - **Multi-Teacher Student Distillation Default**: **Open-MOPD** (`method:open-mopd`, `paper:open-mopd` `arXiv:2608.19098`) for token-share balancing, gap-aware dynamic budget allocation, and student reward refresh across specialized teacher models.
 - **Related alternative**: Use `method:vista` instead when the teacher is a privileged same-model copy that sees the gold solution (not a larger frozen teacher). OPD remains the student-distillation default.

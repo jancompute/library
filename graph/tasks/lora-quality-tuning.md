@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:proland
   - method:simplex-lora
   - method:lora-init-asymmetric
   - method:normtune
@@ -29,8 +30,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-03'
 redirects:
+  - when: "LoRA Stiefel landing / Muon-style ProLand (not rsLoRA + LR sweep)"
+    to: "method:proland"
   - when: "simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA)"
     to: "method:simplex-lora"
   - when: "task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep)"
@@ -61,6 +64,8 @@ tags:
 # LoRA Quality Tuning on Single GPU
 
 ## SOTA Recommendation (as of 2026-09-01)
+
+- **Optional Stiefel-landing LoRA (not this quality default)**: `method:proland` (`arXiv:2611.00236`). Highest average among compared methods on 11 GLUE/decoder tasks. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - Use **Vanilla LoRA + rsLoRA + LR sweep** (`method:lr-matters-lora`, 2602.04998, 2601.22708) — NOT DoRA. Unchanged.
 - **Recommended upgrade candidate** for RLVR-stable adapters: `method:nora` (`arXiv:2608.31036`). Status active; not a first-hop replacement of the LR-sweep quality default.
 - **Optional anisotropic per-rank LR**: `method:anlr-lora` (`arXiv:2609.05885`). Active beside NoRA. Does not replace the LR sweep.
