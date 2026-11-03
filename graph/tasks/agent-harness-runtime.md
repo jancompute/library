@@ -16,6 +16,8 @@ out_of_scope:
   - "Recursive self-rewrite of a research-agent harness (AIDE2)"
   - "Harness curriculum as a non-stationary bandit over failure-pattern arms (ActiveSaddler)"
 redirects:
+  - when: "Pareto harness quality+cost search (ParetoSaddler; not failure-pattern curriculum)"
+    to: "method:paretosaddler"
   - when: "population co-evolution of executable harnesses with a shared policy (CoHARL)"
     to: "method:coharl"
   - when: "harness skill rewrite to match executor capability (Skill Adaptation)"
@@ -64,7 +66,7 @@ redirects:
     to: "method:activesaddler"
   - when: "recurrent textual harness for agentic continual learning (not the production kernel)"
     to: "method:reharness"
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-03'
 current_sota:
   - method: method:omp2-harness
     as_of: "2026-09-02"
@@ -73,6 +75,7 @@ current_sota:
     value: "2 correct of 78 Pi examples (60 stateless, 17 stateful); journal covering message tree only ⇒ rewind/fork/resume lie"
     notes: "Self-reported blog architecture, not a SWE-bench number. Does not replace mini-SWE-agent, CCA, OpenHands, SAO, FoldGRPO, RLM, MAGIC, CISPO, Muon2, MCP, or ACE."
 methods:
+  - method:paretosaddler
   - method:coharl
   - method:skill-adaptation
   - method:harnessmm
@@ -115,6 +118,8 @@ This is **not** the SWE-bench start/eval loop. Issue → patch / locked mini har
 - **Hazards**: treating this card as a SWE-bench ranking scaffold; stuffing MCP into the permanent tool grammar; copying Pi's three-callback tool API (`renderCall` / `execute` / `renderResult`) or dual authorities.
 
 ## SOTA Landscape
+
+- **Optional Pareto quality+cost harness search**: `method:paretosaddler` (`arXiv:2611.02079`). ClawMark 70.86→81.35% and $1.17→$1.01; GAIA2 56.22→62.89% and $0.78→$0.45. Code announced aka.ms/ParetoSaddler-website. Sibling of ActiveSaddler. Does not replace omp2.
 - **Default (this task)**: **omp² harness** (`method:omp2-harness`, `paper:harness-playbook`). Spec for a production engine still being built; start with journal → session DOM.
 - **Not this task**: mini-SWE-agent (issue → patch / locked eval), CCA (equal-model Pro scaffold), OpenHands/CodeAct (production OSS SWE agent), SAO (train a policy), FoldGRPO (trajectory folding), RLM (dumped long prompt), MCP (agent↔tool protocol), ACE (agent memory), MAGIC / CISPO / Muon2 (training/eval kernels).
 - **Gotcha (evolved-harness SFT)**: `method:harness-onpolicy-correction` (`arXiv:2609.09134`). Does not replace omp2.

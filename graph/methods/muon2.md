@@ -11,6 +11,15 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'Muon scaled-WD gain is mostly a tuning gap'
+    reason: 'Gotcha: ~90% of Muon-SW is a shared-HP gap; does not retarget Muon2'
+    use_instead: paper:muon-sw-tuning-gap
+  - when: 'pretrain data scale reverses Muon vs AdamW after fine-tune'
+    reason: 'Gotcha: large pretrain data can reverse Muon vs AdamW after FT; does not retarget Muon2'
+    use_instead: paper:muon-adamw-ft-gap
+  - when: 'hinted downstream accuracy scaling laws'
+    reason: 'Hinted scaling is a forecast tool, not an optimizer'
+    use_instead: paper:hinted-scaling-laws
   - when: 'EMA teacher-student displacement replaces Muon momentum (Muon-RT)'
     reason: 'Muon2 remains the ~7B optimizer; Muon-RT reuses an EMA teacher trajectory for self-distillation'
     use_instead: method:muon-rt
@@ -100,6 +109,9 @@ do_not_use_for:
     use_instead: "paper:muon-ns-bias"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:muon-sw-tuning-gap
+  - paper:muon-adamw-ft-gap
+  - paper:hinted-scaling-laws
   - paper:muon-first-moe-layer
   - paper:weight-update-leverage
   - paper:quantization-loss-spikes

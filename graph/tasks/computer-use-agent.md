@@ -11,6 +11,10 @@ out_of_scope:
   - "Aggregator 70.6% / Steel 62.6% as method SOTA"
   - "Hybrid GUI+code recreation train/eval (RecreationWorld)"
 redirects:
+  - when: "nested open-world flywheel CUA (CUA-Master; not OSWorld 2.0 ranking)"
+    to: "method:cua-master"
+  - when: "experience flywheel CUA (NorthCUA; not OSWorld 2.0 ranking)"
+    to: "method:northcua"
   - when: "open generalist CUA stack / harness-to-model decision transfer (OpenGCUA)"
     to: "method:opengcua"
   - when: "mocked-app GUI eval+RL platform with real-phone transfer (MAI-Gym; not OSWorld 2.0 ranking)"
@@ -23,7 +27,7 @@ redirects:
     to: "task:hybrid-computer-use-agent-rl"
   - when: "synthesized GUI software environments for CUA training transfer (not OSWorld 2.0 ranking)"
     to: "method:softwaregym"
-last_reviewed: '2026-10-16'
+last_reviewed: '2026-11-03'
 current_sota:
   - method: method:claude-computer-use
     as_of: "2026-06"
@@ -32,6 +36,8 @@ current_sota:
     value: "Opus 4.8 max think + batched tools 20.6% binary / 54.8% partial; GPT-5.5 ~13% binary"
     notes: "Do not promote aggregator Opus 5 70.6% or Steel GPT-5.6 Sol 62.6% partial. Humans ~1.6h. Failures: lost constraints, skip verify."
 methods:
+  - method:cua-master
+  - method:northcua
   - method:opengcua
   - method:mai-gym
   - method:os-helix
@@ -59,6 +65,9 @@ Operate a desktop OS or mobile GUI. Different from a software-engineering agent 
 - **Trained policy (old OSWorld)**: UI-TARS-2 47.5 — not comparable to 2.0 20.6% binary.
 
 ## SOTA Landscape
+
+- **Not this ranking (nested flywheel CUA)**: `method:cua-master` on `task:hybrid-computer-use-agent-rl`. OSWorld 2.0 36.9 is not paper-protocol ranking.
+- **Not this ranking (experience-flywheel CUA)**: `method:northcua` on `task:hybrid-computer-use-agent-rl`.
 - **current_sota (paper protocol)**: Claude computer-use on OSWorld 2.0.
 - **Active trained**: UI-TARS-2 (old protocol).
 - **Active mobile**: MAI-UI.

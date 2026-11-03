@@ -12,6 +12,7 @@ current_sota:
     value: "ES beats GRPO on Pass@16/@32 while still lifting Pass@1 over base; ES then GRPO keeps most of GRPO Pass@1 and the best Hard Pass@32"
     notes: "ES-reasoning (2608.27351). CISPO remains the Pass@1 dense RLVR default on task:math-code-rl-dense. GRPO stays retired."
 methods:
+  - method:team-grpo
   - method:es-reasoning
   - method:cispo
   - method:grpo
@@ -19,10 +20,12 @@ methods:
   - method:datpo
   - method:dart-es
 redirects:
+  - when: "group-dependent coverage rewards / Team-GRPO (not ES-reasoning)"
+    to: "method:team-grpo"
   - when: "pass@1 vs pass@k no-free-lunch under RLVR"
     to: "paper:rlvr-no-free-lunch"
 
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - rl-alignment
@@ -41,6 +44,8 @@ Post-train a dense reasoner on verifiable math/code rewards when repeated-sampli
 - **Evaluation Pitfalls**: FLOP-match uses N=32 ES directions versus GRPO G=8. Do not revive GRPO as the library default. Pass@1-first labeled RLVR stays `method:cispo`.
 
 ## SOTA Recommendation (as of 2026-09-09)
+
+- **Optional group-dependent GRPO (not this Pass@K default)**: `method:team-grpo` (`arXiv:2611.02404`) on `task:math-code-rl-dense`. Does not replace ES-reasoning.
 - **Primary Method (Pass@K / coverage / no-backward)**: **ES-reasoning** (`method:es-reasoning`, `paper:es-reasoning` `arXiv:2608.27351`). Unchanged.
 - **Tree-rollout coverage sibling**: `method:datpo` (`arXiv:2609.08650`) difficulty-adaptive sentence-entropy trees. Active. Does not replace ES-reasoning or CISPO.
 - **Optional difficulty-aware ES plug-in**: `method:dart-es` (`arXiv:2610.06993`) reweight + targeted replay. GSM8K 73.53 vs ES 72.07. Code szs777/DART-ES-Code. Does not replace ES-reasoning or CISPO.

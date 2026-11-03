@@ -12,6 +12,8 @@ out_of_scope:
   - "Recursive summary as the only strategy"
   - "Post-train sparse attention under a fixed budget (SAS)"
 redirects:
+  - when: "trained compaction notes inside a 20K window (MEMENTO)"
+    to: "method:memento"
   - when: "GitHub issue to patch without a dumped corpus"
     to: "task:software-engineering-agent-harness"
   - when: "long tool/web/SWE trajectory with folding"
@@ -20,7 +22,7 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "trained self-call + range-read harness (8K window matching a 1M native model on long docs)"
     to: "method:tacm"
-last_reviewed: "2026-10-05"
+last_reviewed: '2026-11-03'
 current_sota:
   - method: method:rlm
     as_of: "2025-12"
@@ -29,6 +31,7 @@ current_sota:
     value: "OOLONG-Pairs 58.0 vs compaction 0.1 vs Claude Code offload 6.5; BrowseComp+ 1K 91.3 vs compaction 70.5 vs base 0.0 OOM"
     notes: "Depth 1 working setting. Do not cite unofficial BrowseComp+ 47.3. Do not replace mini-SWE-agent."
 methods:
+  - method:memento
   - method:rlm
   - method:coding-agent-file-offload
   - method:lambda-rlm
@@ -51,6 +54,8 @@ The input is a dense dumped string far larger than the model window. Do not comp
 - Complementary filesystem+grep (2603.20432 / RAH citation 71.75 vs RLM 64.38) is a different shape: files on disk, not a 10M prompt.
 
 ## SOTA Landscape
+
+- **Optional trained compaction (not this dumped-prompt default)**: `method:memento` (`arXiv:2611.00244`). Qwen3-8B book QA 36.9%→67.8% at ≤20K over books to 2.5M tokens. No public code. Does not replace RLM.
 - **current_sota**: RLM (`method:rlm`).
 - **Active**: coding-agent file offload.
 - **Optional trained 8K harness (not this dumped-prompt default)**: `method:tacm` (`arXiv:2610.02404`). Qwen3.6-35B-A3B 8K vs GPT-5.4 1M on OOLONG-synth 80K 0.561 vs 0.539. Code brycesandlund/infinite-context. Does not replace RLM.

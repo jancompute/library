@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:proland
   - method:simplex-lora
   - method:lr-matters-lora
   - method:aqlora-q
@@ -39,8 +40,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: "2026-10-28"
+last_reviewed: '2026-11-03'
 redirects:
+  - when: "LoRA Stiefel landing / Muon-style ProLand rather than LoRA quality default"
+    to: "method:proland"
   - when: "simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA)"
     to: "method:simplex-lora"
   - when: "instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA quality"
@@ -60,6 +63,8 @@ tags:
 Adapting multi-billion parameter base models to downstream tasks with minimal trainable parameters on single GPU hardware.
 
 ## SOTA Recommendation (as of 2026-09-01)
+
+- **Optional Stiefel-landing LoRA**: `method:proland` (`arXiv:2611.00236`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **LoRA Quality 24GB**: **Vanilla LoRA + rsLoRA + LR sweep** (`method:lr-matters-lora`, 2602.04998, 2601.22708) — NOT DoRA. Unchanged. `method:nora` (`arXiv:2608.31036`) is a recommended RLVR-stable adapter upgrade, not a completed supersession of that default. `method:anlr-lora` (`arXiv:2609.05885`) is an optional per-rank LR plug-in. `method:iso-lora` (`arXiv:2609.12123`) is an active optimizer-shape / effective-rank note; does not replace the LR sweep. Drift-budget instruct layer-selective freeze is `method:dco` on `task:instruct-sft-alignment`, not a LoRA quality default.
 - **MoE PEFT consolidation**: `method:ace-moe-peft` (`arXiv:2609.06072`, EMNLP 2026) groups expert adapters. Distinct from `method:ace` (agent memory). Does not replace the dense LoRA quality default.
 - **LoRA Must 4-Bit**: **AQLoRA-Q** (`method:aqlora-q`, 2608.23816) or **AutoQRA** (`method:autoqra`, 2602.22268). Fully low-bit checkpoints with no high-precision adapter: `method:gradcodes` on `task:full-lowbit-finetune`.

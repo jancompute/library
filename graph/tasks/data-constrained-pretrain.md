@@ -12,6 +12,8 @@ out_of_scope:
   - "Fully synthetic single-stage pretrain from Wikipedia/Wikibooks seeds (SYNTH)"
   - "Zero-natural-data self-play pretrain (UTM programs)"
 redirects:
+  - when: "late-time FineWeb logit-averaging ensembles (not unique-token epoch pricing)"
+    to: "method:multi-epoch-ensemble"
   - when: "HP-transfer power laws + ensembling under a unique-token budget"
     to: "method:data-constrained-hp-ensemble"
   - when: "open pretrain mix / Dolma-3 recipe rather than unique-token epoch geometry"
@@ -40,6 +42,7 @@ current_sota:
     value: "r=8 beats r=16 with fewer training tokens"
     notes: "Repetition-Count Selection (2610.05126). Rankings reverse with scale. Dual-active with repeated-token-worth. Method status active. Does not replace OLMo-3."
 methods:
+  - method:multi-epoch-ensemble
   - method:data-constrained-hp-ensemble
   - method:scaling-repeated-data
   - method:repeated-token-worth
@@ -47,7 +50,7 @@ methods:
   - method:olmo-3
   - method:moe-data-repetition
   - method:muon2
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-03'
 tags:
   - pretraining
   - data-curriculum
@@ -67,6 +70,8 @@ This is **not** OLMo-3 / Dolma-3, not Muon2, and not the MoE sparsity × repetit
 - **Evaluation Pitfalls**: Consecutive shard replay is not shuffled repeats (up to +0.46 bits/byte). Do not copy a single small-model `r` to a larger model. The two first hops have **no head-to-head**; they fix different residuals (token-value geometry vs scale-dependent `r` shortlists).
 
 ## SOTA Recommendation (as of 2026-10-06)
+
+- **Optional late-time logit ensemble**: `method:multi-epoch-ensemble` (`arXiv:2611.03590`). FineWeb logit averaging under a unique-token budget. No public code. Does not replace Repeated-Token Worth.
 - **Primary (token value / critical epoch, this task only)**: **Repeated-Token Worth** (`method:repeated-token-worth`, `paper:repeated-token-worth` `arXiv:2610.05591`). Status `active`. Dual-active with Repetition-Count Selection.
 - **Primary (r shortlist across scales, this task only)**: **Repetition-Count Selection** (`method:repetition-count-selection`, `paper:repetition-count-selection` `arXiv:2610.05126`). Status `active`. Dual-active with Repeated-Token Worth.
 - **Not This Task**: `method:olmo-3` remains the open mix; `method:muon2` remains the 7B optimizer; `method:moe-data-repetition` remains the MoE sparsity gotcha.

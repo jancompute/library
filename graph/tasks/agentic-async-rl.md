@@ -22,6 +22,8 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "decision-plane RL for executable actions (RLiD), not async stragglers"
+    to: "method:rlid"
   - when: "group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)"
     to: "method:li2sao"
   - when: "discrepancy-lag correction of sampler/trainer mismatch (DLC)"
@@ -96,6 +98,7 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:rlid
   - method:li2sao
   - method:dlc
   - method:envsched
@@ -134,7 +137,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-03'
 tags:
   - post-training
   - agentic
@@ -150,6 +153,8 @@ Training agentic foundation models to interact with multi-turn environments (bas
 This is **policy training**. Building a software-engineering agent loop is `task:software-engineering-agent-harness` (`method:mini-swe-agent`), not this task.
 
 ## SOTA Recommendation (as of 2026-09-08)
+
+- **Not this async default (decision-plane RL)**: `method:rlid` (`arXiv:2611.02455`) on `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO.
 - **Primary Method**: **SAO** (`method:sao`, 2607.07508). Unchanged.
 - **Related pre-RL tool OPKD (not this async-train default)**: `method:pta` (`arXiv:2609.04773`) teacher-commits tool turns before Search-R1 / DeepEyes RL. Lookahead fills idle distill capacity; it is not SAO's straggler replay.
 - **Not This Task**: sparse-outcome coverage / anti-drift on AppWorld-style agents is `task:outcome-only-long-horizon-agent-rl` (`method:canopy` / `method:draco`). Folding is `task:long-horizon-tool-agent`. Live-web search-agent climbing is `task:web-search-agent-rl` (`method:iris`). Production post-train engine is `task:frontier-rl-posttrain-stack` (`method:miles`). Routing-harness RSI post-train is `task:agentic-rsi-routing-posttrain` (`method:neohorse-1`). Terminal-MoE recipe `method:t1-terminal-rl` (`arXiv:2609.11042`) is not SAO. Adaptive math/code sampling until ≥1 correct is `method:ngu` on `task:math-code-rl-dense` (uses async refill; not SAO). Privileged self-OPD then Adaptive Retirement is `method:retireopd` on `task:outcome-only-long-horizon-agent-rl` (not SAO).

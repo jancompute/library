@@ -12,6 +12,10 @@ out_of_scope:
   - "Trained mobile-only GUI policy on AndroidWorld (MAI-UI / UI-TARS-2)"
   - "Coding-agent RL env construction from source code (CodeMidas)"
 redirects:
+  - when: "nested open-world flywheel CUA (CUA-Master; not OSWorld 2.0 ranking)"
+    to: "method:cua-master"
+  - when: "experience flywheel CUA (NorthCUA; not OSWorld 2.0 ranking)"
+    to: "method:northcua"
   - when: "4B five-stage hybrid CUA from evolved harnesses (Mage-VL-Cowork)"
     to: "method:mage-vl-cowork"
   - when: "automated wild-web env reconstruction (WebAnything)"
@@ -40,6 +44,8 @@ current_sota:
     value: "58.1% overall; full programmatic pass 2.8%"
     notes: "RecreationWorld (2609.22000). Active hybrid CUA train/eval. Method status active (not sota). Does not demote Claude computer-use on OSWorld 2.0."
 methods:
+  - method:cua-master
+  - method:northcua
   - method:mage-vl-cowork
   - method:webanything
   - method:openmobile-2
@@ -51,7 +57,7 @@ methods:
   - method:ui-tars-2
   - method:mai-ui
   - method:mini-swe-agent
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-03'
 tags:
   - agents
   - computer-use
@@ -71,6 +77,9 @@ OSWorld 2.0 paper-protocol ranking is a different shelf.
 - **Evaluation Pitfalls**: High overall scores can hide near-zero full programmatic pass. Do not mix RecreationBench with OSWorld 2.0 binary/partial.
 
 ## SOTA Recommendation (as of 2026-09-21)
+
+- **Optional nested flywheel CUA**: `method:cua-master` (`arXiv:2611.03126`). 27B OSWorld Verified 80.2 / OSWorld 2.0 36.9 is not Claude paper-protocol ranking. Code xlyu0106/CUA-Master. Does not replace RecreationWorld or Claude computer-use.
+- **Optional experience-flywheel CUA**: `method:northcua` (`arXiv:2611.02102`). Open-source SOTA under reported settings, not OSWorld 2.0 paper protocol. Code beipo-ai/NorthCUA. Does not replace RecreationWorld or Claude computer-use.
 - **Primary Method (this task only)**: **RecreationWorld** (`method:recreationworld`, `paper:recreationworld` `arXiv:2609.22000`). Status `active`. Listed here as first hop; method `sota_for` stays empty.
 - **Not This Task**: `method:claude-computer-use` remains OSWorld 2.0 paper-protocol ranking; `method:mini-swe-agent` remains issue-to-patch; `method:canopy` remains AppWorld coverage; `method:mai-ui` / `method:ui-tars-2` remain trained GUI-only policies.
 - **Optional synthesized GUI env factory (not this first hop)**: `method:softwaregym` (`arXiv:2610.12611`) 182 synthesized apps; OSWorld Pass@3 41.39%→56.97% after training (transfer, not paper-protocol ranking). No public code. Does not replace RecreationWorld or Claude computer-use.
