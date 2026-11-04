@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "multi-view OPSD of skill memory (MDSkill; not AppWorld coverage)"
+    to: "method:mdskill"
   - when: "subgoal-graph privileged OPSD (SGR-OPSD)"
     to: "method:sgr-opsd"
   - when: "decision-plane RL for executable actions (RLiD)"
@@ -123,6 +125,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:mdskill
   - method:sgr-opsd
   - method:rlid
   - method:tsbpo
@@ -174,7 +177,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 tags:
   - post-training
   - agentic
@@ -199,6 +202,7 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional multi-view skill OPSD (not this coverage default)**: `method:mdskill` (`arXiv:2611.05313`) on `task:agent-memory`. ALFWorld/WebShop +7.1/+8.1. Does not replace CANOPY.
 - **Optional subgoal-graph OPSD**: `method:sgr-opsd` (`arXiv:2611.02414`). ALFWorld Qwen2.5-7B 85.8%, +7.4 vs GRPO. No public code. Does not replace CANOPY.
 - **Optional decision-plane RL**: `method:rlid` (`arXiv:2611.02455`). ALFWorld 99.3% in 12.7 H100-h vs token-level 86.6% in 17.3h. Mention on `task:agentic-async-rl`. No public code. Does not replace CANOPY or SAO.
 - **Primary Method (checker exists)**: **CANOPY** (`method:canopy`, `paper:canopy` `arXiv:2609.01245`).

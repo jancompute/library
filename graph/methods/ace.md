@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'multi-view OPSD of skill memory (MDSkill)'
+    reason: 'ACE remains write-time playbook; MDSkill is multi-view OPSD of skills'
+    use_instead: method:mdskill
   - when: 'memory tax / net value of agent memory vs naive RAG'
     reason: 'ACE remains write-time playbook; this is a net-value gotcha vs raw-history retrieval'
     use_instead: paper:memory-tax

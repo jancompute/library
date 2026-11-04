@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:sama
   - method:proland
   - method:simplex-lora
   - method:lora-init-asymmetric
@@ -30,8 +31,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 redirects:
+  - when: "Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep)"
+    to: "method:sama"
   - when: "LoRA Stiefel landing / Muon-style ProLand (not rsLoRA + LR sweep)"
     to: "method:proland"
   - when: "simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA)"
@@ -65,6 +68,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional Kronecker PEFT (not this quality default)**: `method:sama` (`arXiv:2611.04462`, NeurIPS 2026). Quadratic rank vs LoRA. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional Stiefel-landing LoRA (not this quality default)**: `method:proland` (`arXiv:2611.00236`). Highest average among compared methods on 11 GLUE/decoder tasks. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - Use **Vanilla LoRA + rsLoRA + LR sweep** (`method:lr-matters-lora`, 2602.04998, 2601.22708) — NOT DoRA. Unchanged.
 - **Recommended upgrade candidate** for RLVR-stable adapters: `method:nora` (`arXiv:2608.31036`). Status active; not a first-hop replacement of the LR-sweep quality default.

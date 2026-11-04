@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'nGPT looped 4B with difficulty-aware loop curriculum (Dory)'
+  reason: 'ELR remains mixed-depth elastic recurrence; Dory is an nGPT looped 4B recipe'
+  use_instead: method:dory
+- when: 'train all depths as a candidate set (Best-of-Depth)'
+  reason: 'ELR remains mixed-depth elastic recurrence; Best-of-Depth trains a depth candidate set'
+  use_instead: method:best-of-depth
 - when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
   reason: 'ELR remains mixed-depth elastic recurrence; UpLoop is a FLOP-matched dense upcycling schedule'
   use_instead: method:uploop

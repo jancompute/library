@@ -8,6 +8,9 @@ sota_for:
   - task:agentic-rsi-routing-posttrain
 supersedes: []
 do_not_use_for:
+  - when: "RSI-Craft post-train env gym (RSI-Dojo)"
+    reason: "NeoHorse-1 remains routing-guided OPD; RSI-Dojo is a 281-env post-train gym"
+    use_instead: "method:rsi-dojo"
   - when: "harness scaling / train through a factorized harness space (Harness Scaling)"
     reason: "NeoHorse-1 remains routing-guided OPD; Harness Scaling RL-trains one policy across a factorial harness subset"
     use_instead: "method:harness-scaling"

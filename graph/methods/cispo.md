@@ -10,6 +10,12 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'local continue-vs-conclude length control (LoCo)'
+    reason: 'CISPO remains Pass@1; LoCo is a frozen-prefix length plug-in'
+    use_instead: method:loco
+  - when: 'recoverable RLVR frontier / one-shot restage (ReSI-Math)'
+    reason: 'CISPO remains Pass@1; ReSI-Math restages one-shot RLVR'
+    use_instead: method:resi-math
   - when: 'RLVR sharpens existing paths rather than internal error probes'
     reason: 'Gotcha: this RLVR run reorders paths; does not retarget CISPO'
     use_instead: paper:rlvr-sharpens

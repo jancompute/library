@@ -7,6 +7,9 @@ status: sota
 sota_for:
   - task:fp4-hardware-training
 do_not_use_for:
+  - when: "nGPT looped 4B NVFP4 recipe (Dory)"
+    reason: "Quartet-II remains native FP4 hardware training; Dory is an nGPT looped 4B recipe"
+    use_instead: "method:dory"
   - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
     reason: "Quartet-II / MXFP4 remain native FP4 hardware SOTA; ALTO is a GPT-OSS-20B MXFP4 recipe on MLPerf Small MoE"
     use_instead: "method:alto-mxfp4"

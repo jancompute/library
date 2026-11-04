@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'symmetric residual-corrected FP4 MoE RL (MoeResQ)'
+    reason: 'TRACE / TRIAGE remain NVFP4 dual-active; MoeResQ is residual-corrected simulated HiF4 MoE RL'
+    use_instead: method:moeresq
   - when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
     reason: 'TRACE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag'
     use_instead: method:dlc

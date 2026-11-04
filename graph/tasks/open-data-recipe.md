@@ -26,6 +26,8 @@ methods:
   - method:synth
   - method:self-play-pretraining
 redirects:
+  - when: "domain inductive biases still matter in foundation pretraining mixes"
+    to: "paper:domain-inductive-biases"
   - when: "synthetic rewrite scaling under compute and data constraints"
     to: "paper:synthetic-rewrite-laws"
   - when: "unique-token epoch / repetition geometry under a finite pretrain corpus (not the open mix)"
@@ -40,7 +42,7 @@ redirects:
     to: "method:specialists-learn-faster"
   - when: "text/vision/audio MoE mixing laws rather than the open text mix"
     to: "method:multimodal-data-mixtures"
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-11-04'
 tags:
   - pretraining
   - open-data
@@ -54,6 +56,7 @@ tags:
 Constructing transparent, reproducible, and open multi-trillion token pretraining corpora with optimal domain mixing and staged annealing.
 
 ## SOTA Recommendation (as of 2026-08-26)
+- **Gotcha (domain inductive biases)**: `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position). Does not retarget OLMo-3.
 - **Primary Data Recipe**: **OLMo-3 / Dolma-3** (`method:olmo-3`, 2512.13961).
 - **Dynamic Mixing**: **DeMix** (`method:demix`, 2602.00747), **CausalMix** (`method:causalmix`, 2607.01104), **OP-Mix** (`method:op-mix`, 2605.15220).
 - **Not a 7B substitute**: Consumer-GPU ~2B pretrain with a proxy-guided mix is `method:puro-2b`, not a replacement for Dolma-3.

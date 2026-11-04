@@ -12,6 +12,8 @@ out_of_scope:
   - "Recursive summary as the only strategy"
   - "Post-train sparse attention under a fixed budget (SAS)"
 redirects:
+  - when: "compaction without retraining a native window (You Don't Need Long Context)"
+    to: "paper:you-dont-need-long-context"
   - when: "trained compaction notes inside a 20K window (MEMENTO)"
     to: "method:memento"
   - when: "GitHub issue to patch without a dumped corpus"
@@ -22,7 +24,7 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "trained self-call + range-read harness (8K window matching a 1M native model on long docs)"
     to: "method:tacm"
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 current_sota:
   - method: method:rlm
     as_of: "2025-12"
@@ -55,6 +57,7 @@ The input is a dense dumped string far larger than the model window. Do not comp
 
 ## SOTA Landscape
 
+- **Gotcha (compaction without retrain)**: `paper:you-dont-need-long-context` (`arXiv:2611.05306`). Compaction can replace a long native window for many dumped-document jobs. Does not retarget RLM or MEMENTO.
 - **Optional trained compaction (not this dumped-prompt default)**: `method:memento` (`arXiv:2611.00244`). Qwen3-8B book QA 36.9%→67.8% at ≤20K over books to 2.5M tokens. No public code. Does not replace RLM.
 - **current_sota**: RLM (`method:rlm`).
 - **Active**: coding-agent file offload.

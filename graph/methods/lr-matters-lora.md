@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; SaMA is Kronecker PEFT'
+    use_instead: method:sama
   - when: 'task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; this is a format/LR confound'
     use_instead: paper:lora-task-format

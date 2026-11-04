@@ -8,6 +8,9 @@ sota_for:
   - task:linear-time-sequence-modeling
 supersedes: []
 do_not_use_for:
+  - when: 'near-zero untied embeddings stall gated models (GroupClip / GateFloor)'
+    reason: 'Mamba-2 remains the architecture hop; GroupClip is an embedding-clip stabilizer'
+    use_instead: method:groupclip
   - when: 'GGA mixed-precision + Pure-Write window for GDN recurrent-state quant'
     reason: 'Mamba-2 remains the architecture hop; GGA-PW is GDN state quant'
     use_instead: method:gga-pw

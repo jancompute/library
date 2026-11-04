@@ -5,6 +5,8 @@ title: "Native FP4 Hardware Training"
 domain: "compression"
 summary: "End-to-end 4-bit floating-point forward and backward pass training on modern GPU accelerators."
 redirects:
+  - when: "nGPT looped 4B NVFP4 recipe (Dory; not Quartet-II default)"
+    to: "method:dory"
   - when: "MXFP8/NVFP4 Blackwell attention train kernels (FLAMIA; not Quartet-II default)"
     to: "method:flamia"
   - when: "MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO)"
@@ -39,6 +41,7 @@ current_sota:
     value: "Co-Default SOTA for microscaling FP4"
     notes: "MXFP4 (2605.09825)."
 methods:
+  - method:dory
   - method:flamia
   - method:rescom
   - method:alto-mxfp4
@@ -54,7 +57,7 @@ methods:
   - method:kbbq
   - method:trace
   - method:triage
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 tags:
   - compression
   - quantization
@@ -66,6 +69,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-08-26)
 
+- **Optional nGPT looped 4B NVFP4 recipe (not this hardware default)**: `method:dory` (`arXiv:2611.03998`) on `task:elastic-depth-looped-lm`. 4.5T of 6T tokens in NVFP4. Does not replace Quartet-II.
 - **Optional Blackwell attention kernels**: `method:flamia` (`arXiv:2611.03344`). 1.10–1.40× B200 / 1.06–1.42× B300. Code yandex-research/flamia-blackwell-attention. Does not replace Quartet-II.
 - **Primary Method**: **Quartet-II NVFP4** (`method:quartet-ii`, 2601.22813) / **MXFP4** (`method:mxfp4-mi355x`, 2605.09825) / **Kimi-K3 QAT**. Unchanged.
 - **Fully low-bit fine-tune of an already-quantized checkpoint**: `method:gradcodes` on `task:full-lowbit-finetune`. Not native FP4 hardware training.

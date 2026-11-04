@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'multi-view OPSD of skill memory (MDSkill; not AppWorld coverage)'
+    reason: 'CANOPY remains checker coverage; MDSkill is skill-memory OPSD'
+    use_instead: method:mdskill
   - when: 'tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO)'
     reason: 'CANOPY remains checker coverage; TSBPO is a tree allocator plus sibling/observation-group credit'
     use_instead: method:tsbpo

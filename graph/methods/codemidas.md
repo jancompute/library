@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'tool-centric env synthesis from MCP traces (ToolSpace)'
+    reason: 'CodeMidas remains the source-code env factory; ToolSpace builds tool envs from MCP traces'
+    use_instead: method:toolspace
   - when: 'error-targeted RL for terminal-agent misbehaviors (MiRL)'
     reason: 'CodeMidas remains the source-code env factory; MiRL trains against named terminal errors'
     use_instead: method:mirl

@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'domain inductive biases still matter in foundation pretraining'
+    reason: 'Gotcha: domain biases are not obsolete at foundation scale; does not retarget Muon2'
+    use_instead: paper:domain-inductive-biases
   - when: 'Muon scaled-WD gain is mostly a tuning gap'
     reason: 'Gotcha: ~90% of Muon-SW is a shared-HP gap; does not retarget Muon2'
     use_instead: paper:muon-sw-tuning-gap
@@ -109,6 +112,7 @@ do_not_use_for:
     use_instead: "paper:muon-ns-bias"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:domain-inductive-biases
   - paper:muon-sw-tuning-gap
   - paper:muon-adamw-ft-gap
   - paper:hinted-scaling-laws

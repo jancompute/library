@@ -17,6 +17,8 @@ out_of_scope:
   - "Recursive self-rewrite of a research-agent harness (AIDE2)"
   - "Harness curriculum as a non-stationary bandit over failure-pattern arms (ActiveSaddler)"
 redirects:
+  - when: "RSI-Craft post-train env gym (RSI-Dojo; not routing-guided OPD)"
+    to: "method:rsi-dojo"
   - when: "harness scaling / train through a factorized harness space (Harness Scaling)"
     to: "method:harness-scaling"
   - when: "alternating harness+policy optimization (Self-HPO), not routing-guided OPD"
@@ -51,6 +53,7 @@ current_sota:
     value: "4B 58.94→64.87; 9B 65.60→69.04"
     notes: "NeoHorse-1 (2609.08183). First hop for routing-harness RSI post-train only. Does not replace mini-SWE-agent, SAO, CANOPY, Iris, CISPO, or OPD."
 methods:
+  - method:rsi-dojo
   - method:harness-scaling
   - method:self-hpo
   - method:neohorse-1
@@ -65,7 +68,7 @@ methods:
   - method:harness-zero
   - method:aide2
   - method:activesaddler
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-11-04'
 tags:
   - post-training
   - agentic
@@ -84,6 +87,7 @@ Recursive self-improvement needs a concrete loop: observe capability demand from
 - **Evaluation Pitfalls**: Do not mix this with SWE-bench harness choice. Routing-guided OPD is a curriculum on OPD, not a replacement of `method:opd`.
 
 ## SOTA Recommendation (as of 2026-09-09)
+- **Optional RSI-Craft env gym (not this first hop)**: `method:rsi-dojo` (`arXiv:2611.03698`). 281 post-train envs; SFT Qwen3.5-9B / Qwen3.6-35B-A3B +8.74 / +16.87 PostTrainBench. No public code. Does not replace NeoHorse-1.
 - **Primary Method**: **NeoHorse-1** (`method:neohorse-1`, `paper:neohorse-1` `arXiv:2609.08183`). Code: TokenRhythm/NeoHorse. Weights: hf.co/collections/TokenRhythm/neohorse-1.
 - **Not This Task**: `method:mini-swe-agent` remains the SWE harness; `method:sao` remains async; `method:canopy` remains AppWorld; `method:iris` remains search-agent climbing; `method:cispo` remains Pass@1; `method:opd` remains text distill.
 - **Gotcha (evolved-harness full-traj SFT)**: `method:harness-onpolicy-correction` (`arXiv:2609.09134`). Does not replace NeoHorse-1.

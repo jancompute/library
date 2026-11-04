@@ -15,6 +15,8 @@ out_of_scope:
   - "Category-aware SWE expert RL on already-executable tasks (Category-Aware SWE Experts)"
   - "Mechanism-first stateful tool envs from solved math dynamics (VHD-Play)"
 redirects:
+  - when: "tool-centric env synthesis from MCP traces (ToolSpace; not the source-code env factory)"
+    to: "method:toolspace"
   - when: "history-guided SWE trajectory collection (SWE-Trail; not the env factory)"
     to: "method:swe-trail"
   - when: "controllable synthetic tool-use env scaling (SynthAPI)"
@@ -57,6 +59,7 @@ current_sota:
     value: "DeepSWE 10.0→21.7; ProgramBench AS 4.5→21.5; TB v2.1 +8.5pp (63.7→72.2)"
     notes: "CodeMidas (2609.22068). Active env factory. Method status active (not sota). Does not replace CANOPY / SAO / Miles / mini-SWE-agent."
 methods:
+  - method:toolspace
   - method:swe-trail
   - method:synthapi
   - method:mirl
@@ -75,7 +78,7 @@ methods:
   - method:miles
   - method:category-aware-swe-experts
   - method:vhd-play
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 tags:
   - post-training
   - agentic
@@ -97,6 +100,7 @@ This is **not** the SWE loop, not AppWorld coverage, and not an async trainer.
 
 ## SOTA Recommendation (as of 2026-09-21)
 
+- **Optional MCP-trace tool envs (not this source-code factory)**: `method:toolspace` (`arXiv:2611.05036`). Qwen3.6-35B-A3B 23.0→41.0 (43.2 RL); GLM-5.2 44.6→56.6. Code dongguanting/ToolSpace. Does not replace CodeMidas.
 - **Optional history-guided trajectory collection**: `method:swe-trail` (`arXiv:2611.02074`). 124B +2.33 / +1.60 pp vs independent sampling on SWE-bench Multilingual / Pro. No public code. Does not replace CodeMidas.
 - **Primary Method (this task only)**: **CodeMidas** (`method:codemidas`, `paper:codemidas` `arXiv:2609.22068`). Status `active`. Listed here as first hop; method `sota_for` stays empty.
 - **Not This Task**: `method:canopy` remains checker-protocol outcome-only RL; `method:sao` remains async stragglers; `method:mini-swe-agent` remains the issue-to-patch loop; `method:miles` remains the frontier post-train engine; `method:cispo` remains Pass@1.
