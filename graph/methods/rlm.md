@@ -8,6 +8,9 @@ sota_for:
   - task:long-context-prompt-offload
 supersedes: []
 do_not_use_for:
+  - when: "compaction without retraining a native window (You Don't Need Long Context)"
+    reason: "Gotcha: compaction can replace a long native window for many dumped-document jobs; does not retarget RLM"
+    use_instead: "paper:you-dont-need-long-context"
   - when: "GitHub-issue-to-patch / SWE harness"
     reason: "RLM is dumped-prompt REPL offload, not a bash coding loop"
     use_instead: "method:mini-swe-agent"
@@ -34,6 +37,7 @@ assumptions:
   - "No 405B-style claims. Do not cite unofficial BrowseComp+ 47.3; paper Table 1 is 91.3."
 last_reviewed: "2026-10-05"
 papers:
+  - paper:you-dont-need-long-context
   - paper:rlm
 recipes:
   - recipe:rlm-repl

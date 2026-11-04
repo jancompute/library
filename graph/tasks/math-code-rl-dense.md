@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "local continue-vs-conclude length control (LoCo; not Pass@1 CISPO)"
+    to: "method:loco"
+  - when: "recoverable RLVR frontier / one-shot restage (ReSI-Math; not Pass@1 CISPO)"
+    to: "method:resi-math"
   - when: "factored ability-difficulty RLVR scheduler (FADE)"
     to: "method:fade"
   - when: "group-dependent rewards / Team-GRPO (alpha=+1; not Pass@1 CISPO)"
@@ -189,6 +193,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:loco
+  - method:resi-math
   - method:fade
   - method:team-grpo
   - method:cros
@@ -280,7 +286,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 tags:
   - post-training
   - reasoning
@@ -296,6 +302,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional continue-vs-conclude length control**: `method:loco` (`arXiv:2611.04814`). Math length −41.7% to −45.4%; code −23.4% to −36.3%. Code MuyaoYuan/LoCo. Sibling of When2Think / LSD. Does not replace CISPO.
+- **Optional recoverable RLVR restage**: `method:resi-math` (`arXiv:2611.04787`). Qwen3-VL-8B MATH500+WE-MATH 78.71→80.16 after 3 one-shot stages. Code CNU-Bot-Group/ReSI-Math. Does not replace CISPO.
 - **Optional factored RLVR scheduler**: `method:fade` (`arXiv:2611.03625`). Ability vs item-difficulty filter. Distinct from ThinkPrior / NGU / AdaRoll-GRPO. No public code. Does not replace CISPO.
 - **Optional group-dependent GRPO**: `method:team-grpo` (`arXiv:2611.02404`). α=+1; GlobalOpinionQA error 0.20→0.08 vs GRPO collapse. Mention on `task:passk-reasoning-coverage`. No public code. Does not replace CISPO.
 - **Gotcha (RLVR sharpens paths, not probes)**: `paper:rlvr-sharpens` (`arXiv:2611.02574`). OLMo-2-1B GSM8K pass@1 58.0→61.3 but coverage 94.5→96.9. Does not retarget CISPO.

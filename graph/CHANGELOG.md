@@ -6,6 +6,65 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-04 — weekday SOTA sweep (MoeResQ, GroupClip, LoCo, FuRA-S, ToolSpace, RSI-Dojo, SaMA, Dory, Best-of-Depth, MDSkill, Meta2, ReSI-Math; notes You Don't Need Long Context, domain inductive biases)
+- Twelve active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-04 Librarian weekday sweep after merged PR 57 (watermark 2611.03648, ~2106 nodes, 474d52b). Covers Wednesday 2026-11-04 arXiv cs.LG/cs.CL/cs.AI after 2611.03648 (126 unique ids, range 2611.03650–2611.05345) plus HF Daily 2026-11-03 (already covered) and 2026-11-04. New high id 2611.05345.
+- SKIP (considered, not ingested): MLI / LoopKV / LoopVQ / ATLAS (inference-only); TransferForge (time-series); DreamX 2611.05377 (video, HF Daily high above listing watermark); CUSD merge; Recursa (no-weight); CANDO (robot residual RL); Route Anything (serving); finance specialization collapse; remaining eval/safety/control. Compaction-without-retrain ingested as paper:you-dont-need-long-context rather than a method.
+
+### 2026-11-04 — ingest method:moeresq (active on task:fp4-rl-train-rollout-alignment; does not supersede method:trace / method:triage)
+- Added paper:moeresq, method:moeresq, recipe:moeresq (`code_status: none`).
+- Status active (`sota_for: []`). Symmetric residual-corrected FP4 MoE RL. Simulated HiF4; routers BF16.
+
+### 2026-11-04 — ingest method:groupclip (active on task:linear-time-sequence-modeling; does not supersede method:mamba-2)
+- Added paper:groupclip, method:groupclip, recipe:groupclip (`code_status: none`).
+- Status active (`sota_for: []`). Decoupled embedding clip for gated models. GateFloor lives on this card.
+
+### 2026-11-04 — ingest method:loco (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:loco, method:loco, recipe:loco (`code_status: released`, MuyaoYuan/LoCo).
+- Status active (`sota_for: []`). Local continue-vs-conclude length control. Sibling of method:when2think / method:lsd.
+
+### 2026-11-04 — ingest method:fura-s (active on task:4bit-peft-quantization; does not supersede method:aqlora-q)
+- Added paper:fura-s, method:fura-s, recipe:fura-s (`code_status: none`).
+- Status active (`sota_for: []`). Forward-only block-spectral INT4 specialists. Mention on task:full-lowbit-finetune.
+
+### 2026-11-04 — ingest method:toolspace (active on task:coding-agent-rl-environment-construction; does not supersede method:codemidas)
+- Added paper:toolspace, method:toolspace, recipe:toolspace (`code_status: released`, dongguanting/ToolSpace).
+- Status active (`sota_for: []`). Tool-centric env synthesis from MCP traces.
+
+### 2026-11-04 — ingest method:rsi-dojo (active on task:agentic-rsi-routing-posttrain; does not supersede method:neohorse-1)
+- Added paper:rsi-dojo, method:rsi-dojo, recipe:rsi-dojo (`code_status: none`).
+- Status active (`sota_for: []`). RSI-Craft 281-env post-train gym.
+
+### 2026-11-04 — ingest method:sama (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:sama, method:sama, recipe:sama (`code_status: none`).
+- Status active (`sota_for: []`). Kronecker PEFT, NeurIPS 2026. Mention on task:parameter-efficient-fine-tuning.
+
+### 2026-11-04 — ingest method:dory (active on task:elastic-depth-looped-lm; does not supersede method:elr)
+- Added paper:dory, method:dory, recipe:dory (`code_status: none`; weights on Hugging Face).
+- Status active (`sota_for: []`). nGPT looped 4B, 6T tokens, difficulty-aware loop curriculum. Mention on task:fp4-hardware-training.
+
+### 2026-11-04 — ingest method:best-of-depth (active on task:elastic-depth-looped-lm; does not supersede method:elr)
+- Added paper:best-of-depth, method:best-of-depth, recipe:best-of-depth (`code_status: none`).
+- Status active (`sota_for: []`). Train all depths as a candidate set.
+
+### 2026-11-04 — ingest method:mdskill (active on task:agent-memory; does not supersede method:ace)
+- Added paper:mdskill, method:mdskill, recipe:mdskill (`code_status: announced`).
+- Status active (`sota_for: []`). Multi-view OPSD of skill memory. Mention on task:outcome-only-long-horizon-agent-rl.
+
+### 2026-11-04 — ingest method:meta2 (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:meta2, method:meta2, recipe:meta2 (`code_status: none`).
+- Status active (`sota_for: []`). Online KEEP/EVOLVE meta-skill for harness RSI.
+
+### 2026-11-04 — ingest method:resi-math (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:resi-math, method:resi-math, recipe:resi-math (`code_status: released`, CNU-Bot-Group/ReSI-Math).
+- Status active (`sota_for: []`). Recoverable RLVR frontier / one-shot restage.
+
+### 2026-11-04 — ingest paper:you-dont-need-long-context (claim note on task:long-context-prompt-offload; does not retarget method:rlm)
+- Added paper:you-dont-need-long-context (`code_status: none`). Linked from method:rlm / method:memento.
+
+### 2026-11-04 — ingest paper:domain-inductive-biases (claim note on task:llm-pretraining-optimization / task:open-data-recipe; does not retarget method:muon2 / method:olmo-3)
+- Added paper:domain-inductive-biases (`code_status: none`). NeurIPS 2026 position. Linked from method:muon2 / method:olmo-3.
+
 ### 2026-11-03 — weekday SOTA sweep (ProLand, MEMENTO, Self-Steered Reasoner, APD, OC-OPD, Bernoulli OPD, Order-Only OPD, SWE-Trail, ParetoSaddler, SGR-OPSD, RLiD, FADE, FLAMIA, Sonar-MoE, CUA-Master, NorthCUA, SFTProbe, EP-OPD, Team-GRPO, Multi-Epoch Ensemble; notes Muon-SW tuning gap, RLVR sharpens, Muon-AdamW FT gap, not-all-reasoning-generalizes, hinted scaling laws)
 - Twenty active plug-ins and five paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-03 Librarian weekday sweep after merged PR 56 (watermark 2610.42149, 2041 nodes, 756c212). Covers Tuesday 2026-11-03 arXiv cs.LG/cs.CL/cs.AI after 2610.42149 (first new ids are 2611.*) plus Monday 2026-11-02 leftovers past the watermark (none) and HF Daily 2026-11-02 / 2026-11-03. New high id 2611.03648.

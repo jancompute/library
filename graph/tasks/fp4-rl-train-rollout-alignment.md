@@ -12,6 +12,8 @@ out_of_scope:
   - "Frontier RL post-train engine (Miles)"
   - "W4A4 PTQ noise law (KBBQ)"
 redirects:
+  - when: "symmetric residual-corrected FP4 MoE RL (MoeResQ; not TRACE/TRIAGE default)"
+    to: "method:moeresq"
   - when: "discrepancy-lag correction of sampler/trainer mismatch (DLC)"
     to: "method:dlc"
   - when: "unbiased fp32 to bf16 export of the served copy (Fair Cast)"
@@ -48,6 +50,7 @@ current_sota:
     value: "up to 2.3×"
     notes: "TRIAGE (2610.07043). Dual-active with TRACE. Method status active. No head-to-head vs TRACE."
 methods:
+  - method:moeresq
   - method:dlc
   - method:fair-cast
   - method:mxfp8-rl
@@ -61,7 +64,7 @@ methods:
   - method:mxfp4-mi355x
   - method:sapo
   - method:cispo
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-04'
 tags:
   - post-training
   - quantization
@@ -83,6 +86,7 @@ This is **not** native FP4 hardware training from scratch.
 - **Evaluation Pitfalls**: TRACE and TRIAGE have **no head-to-head**. TRACE caches rollout mantissa/scale into QAT; TRIAGE rebalances amplifying negative-advantage/negative-gap updates. Do not retarget Quartet-II.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Optional residual-corrected FP4 MoE RL (not this first hop)**: `method:moeresq` (`arXiv:2611.04376`). Qwen3-30B-A3B GRPO AMC23 84.45 vs BF16 85.10 vs HiF4 65.23. Simulated HiF4; routers BF16. No public code. Does not replace TRACE / TRIAGE.
 - **Primary (rollout-guided QAT, this task only)**: **TRACE** (`method:trace`, `paper:trace` `arXiv:2610.07767`). Status `active`. Dual-active with TRIAGE.
 - **Primary (direction-aware NVFP4 mismatch, this task only)**: **TRIAGE** (`method:triage`, `paper:triage` `arXiv:2610.07043`). Status `active`. Dual-active with TRACE.
 - **Not This Task**: `method:quartet-ii` remains native FP4 hardware training; `method:cispo` / `method:sapo` remain the RL losses.

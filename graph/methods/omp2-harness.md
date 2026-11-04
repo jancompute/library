@@ -8,6 +8,9 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: 'online KEEP/EVOLVE meta-skill for harness RSI (Meta2)'
+    reason: 'omp2 remains the production kernel; Meta2 is an online KEEP/EVOLVE meta-skill'
+    use_instead: method:meta2
   - when: 'harness skill rewrite to match executor capability (Skill Adaptation)'
     reason: 'omp2 remains the production kernel; skill adaptation rewrites skills to the executor'
     use_instead: method:skill-adaptation

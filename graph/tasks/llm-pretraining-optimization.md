@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "domain inductive biases still matter in foundation pretraining"
+    to: "paper:domain-inductive-biases"
   - when: "Muon scaled-WD gain is mostly a tuning gap"
     to: "paper:muon-sw-tuning-gap"
   - when: "pretrain data scale reverses Muon vs AdamW after fine-tune"
@@ -153,7 +155,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-04'
 tags:
   - pretraining
   - optimizer
@@ -167,6 +169,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Gotcha (domain inductive biases)**: `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position). Domain biases are not obsolete at foundation scale. Does not retarget Muon2.
 - **Gotcha (Muon-SW tuning gap)**: `paper:muon-sw-tuning-gap` (`arXiv:2611.02529`). ~90% of Muon-SW gain is a shared-HP gap (0.035→0.0026 BPB). Code ethxin0011/weight_decay_ladder. Does not retarget Muon2.
 - **Gotcha (Muon-AdamW FT reversal)**: `paper:muon-adamw-ft-gap` (`arXiv:2611.03633`). At large pretrain data, AdamW beats Muon after FT. Does not retarget Muon2.
 - **Optional hinted scaling laws**: `paper:hinted-scaling-laws` (`arXiv:2611.02270`). Median GSM8K/AIME/HLE error 21pp→4.3. Does not retarget Muon2.

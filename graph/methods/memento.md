@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: "compaction without retraining a native window (You Don't Need Long Context)"
+  reason: 'Gotcha: compaction can replace a long native window; does not retarget MEMENTO'
+  use_instead: paper:you-dont-need-long-context
 - when: 'the locked first hop on task:long-context-prompt-offload'
   reason: 'RLM remains dumped-corpus offload; MEMENTO is trained compaction inside a 20K window'
   use_instead: method:rlm
@@ -14,6 +17,7 @@ assumptions:
 - 'Qwen3-8B book-level QA, books to 2.5M tokens, context cap 20K. No public code as of 2026-11-03.'
 last_reviewed: '2026-11-03'
 papers:
+- paper:you-dont-need-long-context
 - paper:memento
 recipes:
 - recipe:memento

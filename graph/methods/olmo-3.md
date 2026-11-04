@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: 'domain inductive biases still matter in foundation pretraining mixes'
+    reason: 'Gotcha: domain biases are not obsolete at foundation scale; does not retarget OLMo-3'
+    use_instead: paper:domain-inductive-biases
   - when: 'steering-vector residual-stream hook in SFT/distill (SV-Training)'
     reason: 'OLMo-3 remains the open instruct stack; SV-Training is a residual-stream hook'
     use_instead: method:sv-training
@@ -46,6 +49,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:domain-inductive-biases
   - paper:weight-update-leverage
   - paper:intervention-certified
   - paper:synthetic-rewrite-laws

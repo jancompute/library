@@ -12,6 +12,7 @@ current_sota:
     value: "8x vs standard attention"
     notes: "State Space Duality (SSD) connects structured state spaces with matrix multiplication tensor cores."
 methods:
+  - method:groupclip
   - method:gga-pw
   - method:pace
   - method:kronlstm
@@ -21,6 +22,8 @@ methods:
   - method:gated-deltanet-2
   - method:sas
 redirects:
+  - when: "near-zero untied embeddings stall gated models (GroupClip / GateFloor; not Mamba-2 default)"
+    to: "method:groupclip"
   - when: "GGA mixed-precision + Pure-Write window for GDN recurrent-state quant"
     to: "method:gga-pw"
   - when: "periodic 4-bit recurrent-state quantization (PACE)"
@@ -31,7 +34,7 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM)"
     to: "method:replayssm"
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-04'
 tags:
   - pretraining
   - architecture
@@ -50,5 +53,6 @@ Standard multi-head attention scales quadratically \(O(N^2)\) with sequence leng
 ## SOTA Landscape
 While original linear attention models suffered from expressive capacity deficits compared to full attention, modern structured state-space models and linear attention variants (specifically Mamba-2 / SSD) close the performance gap while running dramatically faster on GPU matrix engines.
 
+- **Optional embedding-clip stabilizer (not this architecture default)**: `method:groupclip` (`arXiv:2611.04449`). Untied gated models stall; GroupClip decouples embedding clip. GateFloor lives on this card. No public code. Does not replace Mamba-2.
 - **Primary Method**: **Mamba-2** (`method:mamba-2`). Unchanged.
 - **Optional hybrid SSM decode buffer (not this architecture default)**: `method:replayssm` (`arXiv:2610.13778`) checkpoint + recent-input buffer. vLLM Mamba-2 / Gated DeltaNet 1.20–1.47× decode at batch 256; ~1.8× vs vLLM spec decoding on 120B-class. Code Johnny-Liou/ReplaySSM. Relevant for RL rollout throughput. Does not replace Mamba-2.

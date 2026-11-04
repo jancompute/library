@@ -5,6 +5,8 @@ title: "4-Bit Quantized PEFT & Adaptation"
 domain: "efficiency"
 summary: "Fine-tuning quantized foundation models in 4-bit memory constraints with high throughput."
 redirects:
+  - when: "forward-only block-spectral phone specialists (FuRA-S; not AQLoRA-Q default)"
+    to: "method:fura-s"
   - when: "NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic)"
     to: "method:pact-nvfp4-lora"
 current_sota:
@@ -21,13 +23,14 @@ current_sota:
     value: "Co-Default SOTA"
     notes: "AutoQRA (2602.22268) automated bit allocation."
 methods:
+  - method:fura-s
   - method:pact-nvfp4-lora
   - method:aqlora-q
   - method:autoqra
   - method:qlora
   - method:beft
   - method:gradcodes
-last_reviewed: '2026-10-20'
+last_reviewed: '2026-11-04'
 tags:
   - efficiency
   - peft
@@ -38,6 +41,7 @@ tags:
 # 4-Bit Quantized PEFT & Adaptation
 
 ## SOTA Recommendation (as of 2026-09-01)
+- **Optional forward-only phone specialists (not this 4-bit PEFT default)**: `method:fura-s` (`arXiv:2611.04797`). 1–5 MB INT4 specialists without weight edits; phone-use 6–23%→89–100%. No public code. Does not replace AQLoRA-Q.
 - **Primary Method**: **AQLoRA-Q** (`method:aqlora-q`, 2608.23816) or **AutoQRA** (`method:autoqra`, 2602.22268). Unchanged.
 - **Fully low-bit checkpoint (no mixed adapter)**: `method:gradcodes` on `task:full-lowbit-finetune`. That does not replace this 4-bit PEFT default.
 - **Optional NVFP4 consumer-GPU LoRA**: `method:pact-nvfp4-lora` (`arXiv:2610.25048`). Distinct from `method:pact`. 16 GB RTX 5080 GEMMs ~6-7x BF16. Does not replace AQLoRA-Q.

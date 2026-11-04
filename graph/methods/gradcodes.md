@@ -8,6 +8,9 @@ sota_for:
   - task:full-lowbit-finetune
 supersedes: []
 do_not_use_for:
+  - when: "forward-only block-spectral phone specialists (FuRA-S)"
+    reason: "GradCodeS remains deployed low-bit FT; FuRA-S is forward-only INT4 specialists"
+    use_instead: "method:fura-s"
   - when: "message-passing post-training quantization that does not commit a block before neighbors (MPQ)"
     reason: "GradCodeS remains deployed low-bit FT; MPQ is PTQ that delays codeword commit via message passing"
     use_instead: "method:mpq"
