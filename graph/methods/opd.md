@@ -117,6 +117,12 @@ do_not_use_for:
   - when: "where the teacher's advantage lives along student trajectories (token-flip diagnostic)"
     reason: "Gotcha on OPD corrections; does not retarget matching"
     use_instead: "paper:opd-teacher-advantage"
+  - when: "(M)OPD IND consolidation vs OOD forgetting after RL"
+    reason: "Gotcha: in-distribution (M)OPD can mask OOD drops below base; does not retarget OPD"
+    use_instead: "paper:opd-ood-consolidation"
+  - when: "branch-parallel OPD for speculative drafters (SpecOPD; not text matching)"
+    reason: "OPD remains student matching; SpecOPD trains SD drafters"
+    use_instead: "method:specopd"
   - when: "OPD restricted to problems the student fails"
     reason: "Fail-set OPD degrades accuracy while KL drops; keep a non-failure mix"
     use_instead: "paper:opd-failure-problems"
@@ -185,6 +191,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:opd-ood-consolidation
+  - paper:specopd
   - paper:opd-entropy-shape
   - paper:reverse-kl-limits
   - paper:hier-agent-distill

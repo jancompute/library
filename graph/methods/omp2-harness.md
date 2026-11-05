@@ -8,6 +8,9 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: 'MCTS full-harness search (HarnessFlow; not the production kernel)'
+    reason: 'omp2 remains the production kernel; HarnessFlow is MCTS full-harness search'
+    use_instead: method:harnessflow
   - when: 'online KEEP/EVOLVE meta-skill for harness RSI (Meta2)'
     reason: 'omp2 remains the production kernel; Meta2 is an online KEEP/EVOLVE meta-skill'
     use_instead: method:meta2

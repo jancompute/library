@@ -9,6 +9,9 @@ sota_for:
 supersedes:
   - method:deepseek-v3
 do_not_use_for:
+  - when: "inference deactivation must match train-time weight rule"
+    reason: "Gotcha on expert-deactivation PPL; does not retarget DeepSeek-V4"
+    use_instead: "paper:moe-expert-deactivation-weight-rule"
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
     reason: "NESTOR is nested sparsity; DeepSeek-V4 / Kimi-K3 remain the MoE template"
     use_instead: "method:nestor"
@@ -19,6 +22,7 @@ do_not_use_for:
     reason: "DeepSeek-V4 remains the MoE pretrain template; SPARE allocates a prune budget from routing entropy"
     use_instead: "method:spare-moe"
 papers:
+  - paper:moe-expert-deactivation-weight-rule
   - paper:deepseek-v4
 recipes:
   - recipe:deepseek-v4

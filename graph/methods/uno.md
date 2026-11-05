@@ -11,6 +11,9 @@ do_not_use_for:
   - when: 'KL-recovery MTP gradient / Soft-MTP (not serving)'
     reason: 'Uno remains serving; Soft-MTP is an MTP pretrain CE residual fix'
     use_instead: method:soft-mtp
+  - when: 'branch-parallel OPD for speculative drafters (SpecOPD; not serving)'
+    reason: 'Uno remains serving; SpecOPD trains SD drafters with branch-parallel OPD'
+    use_instead: method:specopd
   - when: 'multi-draft OPD for parallel diffusion drafters (MDraft)'
     reason: 'Uno remains serving; MDraft is drafter OPD under prefix mismatch'
     use_instead: method:mdraft

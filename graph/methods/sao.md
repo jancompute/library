@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'multi-turn RL mainly error recovery / long-horizon, not per-step quality'
+    reason: 'Gotcha on what multi-turn RL buys; does not retarget SAO'
+    use_instead: paper:multi-turn-rl-budget
   - when: 'group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO)'
     reason: 'SAO remains async straggler replay; Li2SAO bootstraps a light critic then switches to single-rollout GAE'
     use_instead: method:li2sao
@@ -84,6 +87,7 @@ do_not_use_for:
     use_instead: "method:ftw"
 last_reviewed: '2026-10-27'
 papers:
+  - paper:multi-turn-rl-budget
   - paper:muon-lh-rl
   - paper:sao
   - paper:probe-the-harness

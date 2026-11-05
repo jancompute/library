@@ -43,6 +43,8 @@ redirects:
     to: "paper:rlvr-no-free-lunch"
   - when: "steering-token exploration for RLVR (Guided-RLVR)"
     to: "method:guided-rlvr"
+  - when: "conformal adaptive GRPO group size (C-GRPO; not Pass@1 CISPO)"
+    to: "method:c-grpo"
   - when: "offline BAMDP GRPO rollout allocation (AdaRoll-GRPO)"
     to: "method:adaroll-grpo"
   - when: "policy-compatible joint decoding when all rollouts fail (PICO; not Pass@1 default)"
@@ -193,6 +195,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:c-grpo
   - method:loco
   - method:resi-math
   - method:fade
@@ -286,7 +289,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-05'
 tags:
   - post-training
   - reasoning
@@ -331,6 +334,7 @@ Training dense language models to generate long chains of thought (CoT) and veri
 - **Olympiad NL proofs / IMO TTC (not this Pass@1 task)**: `method:nemotron-imo-gold` on `task:olympiad-math-posttrain`. Does not replace CISPO.
 - **Optional partial-trace SFT shaping**: `method:partial-reasoning-traces` (`arXiv:2609.07103`). Does not replace CISPO or OLMo-3.
 - **Optional sparse local off-policy intervention**: `method:mintrl` (`arXiv:2609.12419`). Judge patches short suffixes inside otherwise on-policy RLVR. Active plug-in. Does not replace CISPO / SAPO / SAO. Long-horizon agentic eval is future work in that paper.
+- **Optional conformal adaptive group size**: `method:c-grpo` (`arXiv:2611.05591`, NeurIPS 2026). APS / first-success conformal stop; 49–70% fewer training rollouts vs G=32 at matched pass@1; Llama-3.1-8B GSM8K up to 82% savings. Code AryaFayyazi/CGRPO, `pip install trl-cgrpo`. Sibling of NGU / ThinkPrior / AdaRoll-GRPO. Distinct from THUDM/CaRR citation-aware C-GRPO. Does not replace CISPO.
 - **Optional async adaptive sampler**: `method:ngu` (`arXiv:2609.13443`) keeps sampling a prompt until ≥1 correct (Matthew Effect / signal-efficiency fix). Does not replace CISPO / SAPO / GRPO loss. Distinct from ThinkPrior (cold-start prompt rank), DIEM/GMTS (example/token reweight), and DataFlex-RL (data-policy accuracy null).
 - **Optional hybrid Think/NoThink length control**: `method:when2think` (`arXiv:2609.19671`) IDAC from offline reference accuracy/token stats. AIME24 Pass@3 +10.0% with tokens −27.9%. Does not replace CISPO.
 - **Optional critic-free PMD candidate (not this Pass@1 default)**: `method:bpo` (`arXiv:2609.15987`) Bellman telescoping of Policy Mirror Descent; complementary-token mismatch weight instead of an IS ratio. Peak AIME24–26 Avg@32 50.5% vs CISPO 47.4% on Qwen3-30B-A3B-Base + DAPO-Math-17k. No public code. Does not replace CISPO.

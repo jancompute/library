@@ -8,6 +8,9 @@ sota_for:
   - task:rl-video-mllm
 supersedes: []
 do_not_use_for:
+  - when: "turn-level GRPO remaining-return + turn-mean loss for streaming video (TurnWise)"
+    reason: "OraRL remains annotation-as-rollout; TurnWise is streaming wait/respond credit"
+    use_instead: "method:turnwise"
   - when: "multi-frame video GRPO / complementary frame sets (FrameGRPO)"
     reason: "OraRL remains video annotation-as-rollout; FrameGRPO is multi-frame GRPO credit"
     use_instead: "method:framegrpo"
