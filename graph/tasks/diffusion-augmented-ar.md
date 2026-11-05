@@ -15,6 +15,8 @@ out_of_scope:
 redirects:
   - when: "KL-recovery MTP gradient / Soft-MTP (not serving)"
     to: "method:soft-mtp"
+  - when: "branch-parallel OPD for speculative drafters (SpecOPD; not serving)"
+    to: "method:specopd"
   - when: "multi-draft OPD for parallel diffusion drafters (MDraft)"
     to: "method:mdraft"
   - when: "speculative diffusion is not lossless AR speculative decoding"
@@ -47,6 +49,7 @@ current_sota:
     value: "SWE-Verified 68.4 vs DiffusionGemma 18.7; system 5255 tok/s vs 1136 / 1197; Uno Qwen 1.6× vs base AR at max batch"
     notes: "Uno (2609.04010). Does not replace DiffusionOPSD/Self-OPD, Muon2, or CISPO."
 methods:
+  - method:specopd
   - method:soft-mtp
   - method:mdraft
   - method:dstill
@@ -54,7 +57,7 @@ methods:
   - method:echo-mtp
   - method:uno
   - method:online-draft-cotrain
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-05'
 tags:
   - efficiency
   - inference
@@ -74,5 +77,6 @@ AR next-token prediction is sequential. Speculative decoding needs a separate dr
 
 ## SOTA Recommendation (as of 2026-09-08)
 - **Primary Method**: **Uno** (`method:uno`, `paper:uno` `arXiv:2609.04010`) Diffusion Distillation + $\Psi$-Spec. Code: ifm-ai/uno.
+- **Optional branch-parallel drafter OPD**: `method:specopd` (`arXiv:2611.02846`). +41.45% mean AL; 16.09× supervised-token throughput vs sequential OPD; 3.56× vs AR. Distinct from MDraft. No SpecOPD repo. Does not replace Uno.
 - **Not This Task**: `method:diffusion-opsd` / `method:self-opd` remain image/flow post-train; `method:canvasanneal` is discrete-dLM curriculum RL on that image/flow task, not this AR serving hop; `method:muon2` remains the 7B optimizer; `method:cispo` remains Pass@1 RLVR.
 - **Optional backbone MTP self-recursion**: `method:echo-mtp` (`arXiv:2610.24766`). ECHO-1.5(3) matches ECHO-3 at half MTP overhead. Does not replace Uno.

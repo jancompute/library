@@ -10,6 +10,9 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'conformal adaptive GRPO group size (C-GRPO; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; C-GRPO is a conformal group-size plug-in on GRPO'
+    use_instead: method:c-grpo
   - when: 'local continue-vs-conclude length control (LoCo)'
     reason: 'CISPO remains Pass@1; LoCo is a frozen-prefix length plug-in'
     use_instead: method:loco

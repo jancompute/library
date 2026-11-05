@@ -98,6 +98,12 @@ do_not_use_for:
   - when: "structured planning/subtask credit + local-context distillation for long-horizon agents"
     reason: "CANOPY remains coverage / anti-drift; SCAD is structured planning/execution credit plus local distill"
     use_instead: "method:scad"
+  - when: "pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL)"
+    reason: "CANOPY remains checker-exists coverage; RcRL is pairwise rubric curriculum without a verifier"
+    use_instead: "method:rcrl"
+  - when: "multi-turn RL mainly error recovery / long-horizon, not per-step quality"
+    reason: "Gotcha on what multi-turn RL buys; does not retarget CANOPY"
+    use_instead: "paper:multi-turn-rl-budget"
   - when: "learning rubric rewards for rubric-based RL (vacuous credit)"
     reason: "CANOPY needs a programmatic checker; MetaRubric learns the rubric judge"
     use_instead: "method:metarubric"
@@ -110,6 +116,8 @@ assumptions:
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
 last_reviewed: '2026-10-30'
 papers:
+  - paper:multi-turn-rl-budget
+  - paper:rcrl
   - paper:credit-helps-hurts
   - paper:agentic-self-distill-reality
   - paper:actionopd

@@ -27,6 +27,7 @@ task:agent-communication -> method:mcp (2602.11988, 2026-07)
   when wanting a multi-agent crew as the communication layer -> task:multi-agent-orchestration
 task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when online KEEP/EVOLVE meta-skill for harness RSI (Meta2; not the production kernel) -> method:meta2
+  when MCTS full-harness search (HarnessFlow; not the production kernel) -> method:harnessflow
   when Pareto harness quality+cost search (ParetoSaddler; not failure-pattern curriculum) -> method:paretosaddler
   when population co-evolution of executable harnesses with a shared policy (CoHARL) -> method:coharl
   when harness skill rewrite to match executor capability (Skill Adaptation) -> method:skill-adaptation
@@ -206,6 +207,7 @@ task:4bit-peft-quantization -> method:aqlora-q (2608.23816, 2026-08-26) + method
   when NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic) -> method:pact-nvfp4-lora
 task:diffusion-augmented-ar -> method:uno (2610.31819, 2026-09-08)
   when KL-recovery MTP gradient / Soft-MTP (not serving) -> method:soft-mtp
+  when branch-parallel OPD for speculative drafters (SpecOPD; not serving) -> method:specopd
   when multi-draft OPD for parallel diffusion drafters (MDraft) -> method:mdraft
   when speculative diffusion is not lossless AR speculative decoding -> paper:speculative-diffusion-tradeoffs
   when target regeneration shrinks draft-training objective gains -> paper:target-regeneration
@@ -296,7 +298,8 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2610.20256, 2026-08-26)
+task:agentic-async-rl -> method:sao (2611.06483, 2026-08-26)
+  when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
   when decision-plane RL for executable actions (RLiD), not async stragglers -> method:rlid
   when group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO) -> method:li2sao
   when discrepancy-lag correction of sampler/trainer mismatch (DLC) -> method:dlc
@@ -432,6 +435,7 @@ task:math-code-rl-dense -> method:cispo (2611.02574, 2026-08-26)
   when hierarchical hint-based reward for math RLVR (H2R) -> method:h2r
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
   when steering-token exploration for RLVR (Guided-RLVR) -> method:guided-rlvr
+  when conformal adaptive GRPO group size (C-GRPO; not Pass@1 CISPO) -> method:c-grpo
   when offline BAMDP GRPO rollout allocation (AdaRoll-GRPO) -> method:adaroll-grpo
   when policy-compatible joint decoding when all rollouts fail (PICO; not Pass@1 default) -> method:pico
   when policy-intrinsic exploration then self-distill (SEPO) -> method:sepo
@@ -552,12 +556,13 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2610.35497, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.06483, 2026-09-04)
   when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) -> method:mdskill
   when subgoal-graph privileged OPSD (SGR-OPSD) -> method:sgr-opsd
   when decision-plane RL for executable actions (RLiD) -> method:rlid
   when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) -> method:tsbpo
   when critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE) -> method:scope-agent-opsd
+  when pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL) -> method:rcrl
   when capability-aware policy+rubric co-evolution (CoCA) -> method:coca
   when reward-adaptive co-evolution of policy and rubric (RACE) -> method:race-rubric
   when continuation-sharing action-value calibration (ConCal) -> method:concal
@@ -604,6 +609,7 @@ task:outcome-only-long-horizon-agent-rl -> method:canopy (2610.35497, 2026-09-04
   when action-level OPD without teacher token probabilities -> method:actionopd
   when single-rollout token credit via causal vs hindsight JSD (HP-RLVR) -> method:hp-rlvr
   when self-distillation methods vs GRPO on agent benches (no consistent win) -> paper:agentic-self-distill-reality
+  when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
 task:passk-reasoning-coverage -> method:es-reasoning (2610.39295, 2026-08-31)
   when group-dependent coverage rewards / Team-GRPO (not ES-reasoning) -> method:team-grpo
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
@@ -640,7 +646,9 @@ task:privileged-teacher-opsd -> method:vista (2610.18613, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.02574, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2610.39020, 2026-08-26) + method:open-mopd (2610.13521, 2026-08-28)
+task:student-distillation -> method:opd (2611.05609, 2026-08-26) + method:open-mopd (2611.05609, 2026-08-28)
+  when branch-parallel OPD for speculative drafters (SpecOPD; not text matching) -> method:specopd
+  when (M)OPD IND consolidation vs OOD forgetting after RL -> paper:opd-ood-consolidation
   when observation-coordinated reverse/forward KL OPD (OC-OPD) -> method:oc-opd
   when Bernoulli token-prob matching OPD (high-confidence student tokens) -> method:bernoulli-opd
   when ordinal top-K OPD without probability values (O3PD) -> method:order-only-opd
@@ -898,7 +906,8 @@ task:pretrain-dense-7b -> method:muon2 (2611.03756, 2026-08-26)
   when zero-natural-data self-play pretraining (UTM programs, no natural text) -> task:zero-natural-data-self-play-pretrain
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when one-step prefix-augmented OPD for continued pretrain (PA1-OPD) -> method:pa1-opd
-task:pretrain-moe-frontier -> method:deepseek-v4 (2606.19348, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+  when inference deactivation must match train-time weight rule -> paper:moe-expert-deactivation-weight-rule
   when Muon raises first MoE layer routing-bias span (not the architecture template) -> paper:muon-first-moe-layer
   when Muon MoE routed-expert loss-spike attenuation (EnergyCal; not the architecture template) -> method:energycal
   when nested sparsity for scalable pretraining and continual learning (NESTOR) -> method:nestor
@@ -990,6 +999,7 @@ task:learned-video-compression -> method:dcvc-uf (2606.04410, 2026-08-26) + meth
 task:neural-video-deploy -> method:mlvc (2606.28027, 2026-08-26)
 task:neural-video-gpu -> method:dcvc-uf (2606.04410, 2026-08-26)
 task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
+  when turn-level GRPO remaining-return + turn-mean loss for streaming video (TurnWise) -> method:turnwise
   when multi-frame video GRPO / complementary frame sets (FrameGRPO) -> method:framegrpo
   when general image/multimodal reasoning RL prompt curriculum (not video OraRL) -> task:mllm-rl-prompt-curriculum
   when image region-proposal RL (not video annotation-as-rollout) -> task:mllm-finegrained-perception-rl
@@ -1700,6 +1710,22 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 591. **Domain inductive biases** (claim note, no new method): `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position) on `task:llm-pretraining-optimization` / `task:open-data-recipe`. Domain biases are not obsolete at foundation scale. Does **not** retarget Muon2 or OLMo-3.
 
+592. **C-GRPO**: **C-GRPO** (`method:c-grpo`, `arXiv:2611.05591`, NeurIPS 2026) on `task:math-code-rl-dense`. Active plug-in. Conformal adaptive GRPO group size; 49–70% fewer train rollouts at matched pass@1; Llama-3.1-8B GSM8K up to 82% savings. Code AryaFayyazi/CGRPO. Sibling of NGU / ThinkPrior / AdaRoll-GRPO. Distinct from THUDM/CaRR citation-aware C-GRPO. Does **not** replace CISPO.
+
+593. **RcRL**: **RcRL** (`method:rcrl`, `arXiv:2611.06244`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Pairwise + rubric-criteria curriculum for non-verifiable domains; Qwen3-4B human win 70.5%; HealthBench +14.60% / +25.38% vs RaR. No public code. Sibling of DRACO / MetaRubric / CoCA / RACE. Does **not** replace CANOPY or DRACO.
+
+594. **HarnessFlow**: **HarnessFlow** (`method:harnessflow`, `arXiv:2611.06254`) on `task:agent-harness-runtime`. Active plug-in. MCTS full-harness search, 15 refinements; 69.48% mean, +10.89 vanilla / +3.95 Meta-Harness; 41.4% of Codex cost. No dedicated GitHub. Sibling of ParetoSaddler / ActiveSaddler. Does **not** replace omp2.
+
+595. **SpecOPD**: **SpecOPD** (`method:specopd`, `arXiv:2611.02846`) on `task:diffusion-augmented-ar`. Active plug-in. Branch-parallel OPD for speculative drafters; +41.45% mean AL, 16.09× supervised-token throughput vs sequential OPD, 3.56× vs AR. Mention on `task:student-distillation`. Distinct from MDraft. No SpecOPD repo. Does **not** replace Uno or OPD.
+
+596. **TurnWise**: **TurnWise** (`method:turnwise`, `arXiv:2611.06728`) on `task:rl-video-mllm`. Active plug-in. Turn-level GRPO remaining-return + turn-mean loss for streaming video; Qwen2.5-VL-3B 43.56 / 21.59 / 49.43; Qwen3-VL-4B 42.44 / 11.15 / 58.96. Code announced. Sibling of OraRL / FrameGRPO / MPO. Does **not** replace OraRL.
+
+597. **(M)OPD OOD consolidation** (claim note, no new method): `paper:opd-ood-consolidation` (`arXiv:2611.05609`) on `task:student-distillation`. IND 96.04–102.73% of teachers; OOD 2.45–16.25% below base; compositional OOD 18.19–24.34% below best teachers. Complements self-distillation-ood / opd-failure-problems / opd-skill-not-knowledge. Does **not** retarget OPD or Open-MOPD.
+
+598. **Multi-turn RL budget** (claim note, no new method): `paper:multi-turn-rl-budget` (`arXiv:2611.06483`) on `task:outcome-only-long-horizon-agent-rl`. Multi-turn RL mainly error recovery / long-horizon, not per-step quality; gains need large T. Mention on `task:agentic-async-rl`. BudgetMix is not a library method. Complements agentic-self-distill-reality / credit-helps-hurts. Does **not** retarget CANOPY or SAO.
+
+599. **MoE expert-deactivation weight rule** (claim note, no new method): `paper:moe-expert-deactivation-weight-rule` (`arXiv:2611.05804`) on `task:pretrain-moe-frontier`. Inference deactivation must match the train-time weight rule; matched PPL 1.4–73× intact vs mismatch 14–28,740×. Does **not** retarget DeepSeek-V4 / Kimi-K3.
+
 
 ---
 
@@ -2293,6 +2319,14 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `resi-math` (2611.04787) is an active recoverable-RLVR restage plug-in. It does not supersede `cispo`.
 - `paper:you-dont-need-long-context` (2611.05306) is a compaction-without-retrain gotcha. It does not retarget `rlm`.
 - `paper:domain-inductive-biases` (2611.03756) is a domain-bias position note. It does not retarget `muon2` or `olmo-3`.
+- `c-grpo` (2611.05591, NeurIPS 2026) is an active conformal adaptive group-size plug-in. Distinct from THUDM/CaRR citation-aware C-GRPO. It does not supersede `cispo`.
+- `rcrl` (2611.06244) is an active pairwise rubric-curriculum plug-in. It does not supersede `canopy` or `draco`.
+- `harnessflow` (2611.06254) is an active MCTS full-harness-search plug-in. It does not supersede `omp2-harness`.
+- `specopd` (2611.02846) is an active branch-parallel speculative-drafter OPD plug-in. Distinct from `mdraft`. It does not supersede `uno` or `opd`.
+- `turnwise` (2611.06728) is an active streaming-video turn-credit plug-in. It does not supersede `orarl`.
+- `paper:opd-ood-consolidation` (2611.05609) is an (M)OPD OOD-forgetting gotcha. It does not retarget `opd` or `open-mopd`.
+- `paper:multi-turn-rl-budget` (2611.06483) is a multi-turn agent-RL budget gotcha. It does not retarget `canopy` or `sao`.
+- `paper:moe-expert-deactivation-weight-rule` (2611.05804) is an expert-deactivation weight-rule gotcha. It does not retarget `deepseek-v4` or `kimi-k3`.
 
 
 ---

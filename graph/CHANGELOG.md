@@ -6,6 +6,40 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-05 — weekday SOTA sweep (C-GRPO, RcRL, HarnessFlow, SpecOPD, TurnWise; notes (M)OPD OOD consolidation, multi-turn RL budget, MoE expert-deactivation weight rule)
+- Five active plug-ins and three paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-05 Librarian weekday sweep after merged PR 58 (watermark 2611.05345, 2144 nodes / 8666 edges, df12c61). Covers Thursday 2026-11-05 arXiv cs.LG/cs.CL/cs.AI after 2611.05345 (listing high 2611.06911) plus HF Daily 2026-11-04 (already covered) and 2026-11-05. SpecOPD 2611.02846 is an HF Daily leftover below the watermark. New high id 2611.06911.
+- SKIP (considered, not ingested): Split-KV (systems CP analog of FlashMask-3); OGC-DPO (weak numbers, OLMo-3 locked); LACS; Route to Remember; EvoGuard; Prism; VA-TDM; Why Pay for Long Reasoning; LoopVQ; Route Anything; Recursa; DreamX; From Pixels to Actions 2611.06918 (robotics VLA, HF Daily high above listing); remaining eval/safety/control/robotics/EEG/QML/federated. BudgetMix is discussed in paper:multi-turn-rl-budget and is not a library method.
+
+### 2026-11-05 — ingest method:c-grpo (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:c-grpo, method:c-grpo, recipe:c-grpo (`code_status: released`, AryaFayyazi/CGRPO; `pip install trl-cgrpo`).
+- Status active (`sota_for: []`). Conformal adaptive GRPO group size. NeurIPS 2026. Distinct from THUDM/CaRR citation-aware C-GRPO. Sibling of method:ngu / method:thinkprior / method:adaroll-grpo.
+
+### 2026-11-05 — ingest method:rcrl (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:draco)
+- Added paper:rcrl, method:rcrl, recipe:rcrl (`code_status: none`).
+- Status active (`sota_for: []`). Pairwise + rubric-criteria curriculum for non-verifiable domains. Sibling of method:metarubric / method:coca / method:race-rubric.
+
+### 2026-11-05 — ingest method:harnessflow (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:harnessflow, method:harnessflow, recipe:harnessflow (`code_status: none`).
+- Status active (`sota_for: []`). MCTS full-harness search. Sibling of method:paretosaddler / method:activesaddler.
+
+### 2026-11-05 — ingest method:specopd (active on task:diffusion-augmented-ar; does not supersede method:uno / method:opd)
+- Added paper:specopd, method:specopd, recipe:specopd (`code_status: none`). Mention on task:student-distillation.
+- Status active (`sota_for: []`). Branch-parallel OPD for speculative drafters. Distinct from method:mdraft.
+
+### 2026-11-05 — ingest method:turnwise (active on task:rl-video-mllm; does not supersede method:orarl)
+- Added paper:turnwise, method:turnwise, recipe:turnwise (`code_status: announced`).
+- Status active (`sota_for: []`). Turn-level GRPO remaining-return + turn-mean loss for streaming video. Sibling of method:framegrpo / method:mpo.
+
+### 2026-11-05 — ingest paper:opd-ood-consolidation (claim note on task:student-distillation; does not retarget method:opd / method:open-mopd)
+- Added paper:opd-ood-consolidation (`code_status: none`). Linked from method:opd / method:open-mopd.
+
+### 2026-11-05 — ingest paper:multi-turn-rl-budget (claim note on task:outcome-only-long-horizon-agent-rl; does not retarget method:canopy / method:sao)
+- Added paper:multi-turn-rl-budget (`code_status: none`). Mention on task:agentic-async-rl. Linked from method:canopy / method:sao.
+
+### 2026-11-05 — ingest paper:moe-expert-deactivation-weight-rule (claim note on task:pretrain-moe-frontier; does not retarget method:deepseek-v4 / method:kimi-k3)
+- Added paper:moe-expert-deactivation-weight-rule (`code_status: none`). Linked from method:deepseek-v4.
+
 ### 2026-11-04 — weekday SOTA sweep (MoeResQ, GroupClip, LoCo, FuRA-S, ToolSpace, RSI-Dojo, SaMA, Dory, Best-of-Depth, MDSkill, Meta2, ReSI-Math; notes You Don't Need Long Context, domain inductive biases)
 - Twelve active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-04 Librarian weekday sweep after merged PR 57 (watermark 2611.03648, ~2106 nodes, 474d52b). Covers Wednesday 2026-11-04 arXiv cs.LG/cs.CL/cs.AI after 2611.03648 (126 unique ids, range 2611.03650–2611.05345) plus HF Daily 2026-11-03 (already covered) and 2026-11-04. New high id 2611.05345.

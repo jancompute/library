@@ -44,11 +44,15 @@ do_not_use_for:
   - when: "lexicographic priority multi-objective OPD from reward-specialist teachers"
     reason: "Open-MOPD remains token-share / gap-aware budget; LMOPD is lexicographic priority among specialists"
     use_instead: "method:lmopd"
+  - when: "(M)OPD IND consolidation vs OOD forgetting after RL"
+    reason: "Gotcha: in-distribution MOPD can mask OOD drops below base; does not retarget Open-MOPD"
+    use_instead: "paper:opd-ood-consolidation"
   - when: "representation-level (hidden-state) multi-teacher OPD"
     reason: "Open-MOPD remains token-share / gap-aware budget; Latent-MOPD matches specialist hidden states"
     use_instead: "method:latent-mopd"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:opd-ood-consolidation
   - paper:road-mopd
   - paper:delta-mopd
   - paper:open-mopd

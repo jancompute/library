@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL)'
+    reason: 'DRACO remains AppWorld outcome-blind rubric credit; RcRL is pairwise criterion curriculum'
+    use_instead: method:rcrl
   - when: 'capability-aware policy+rubric co-evolution (CoCA)'
     reason: 'DRACO remains outcome-blind rubric credit; CoCA diagnoses criterion difficulty'
     use_instead: method:coca
