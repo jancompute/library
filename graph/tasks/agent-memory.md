@@ -11,6 +11,8 @@ out_of_scope:
   - "Dumped 10M-token prompt"
   - "System-One control plane for conversational memory ops (Jev-Mem)"
 redirects:
+  - when: "evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook)"
+    to: "method:evomemstate"
   - when: "multi-view OPSD of skill memory (MDSkill; not write-time playbook)"
     to: "method:mdskill"
   - when: "memory tax / net value of agent memory vs naive RAG"
@@ -31,7 +33,7 @@ redirects:
     to: "method:jitmem"
   - when: "recurrent textual harness that backward-revises retrieved reflections (not write-time playbook)"
     to: "method:reharness"
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-06'
 current_sota:
   - method: method:ace
     as_of: "2025-10"
@@ -40,6 +42,7 @@ current_sota:
     value: "ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%"
     notes: "Incremental bullets. Without feedback ACE/DC can degrade. Dynamic Cheatsheet collapse 18282 tok @66.7 → 122 tok @57.1."
 methods:
+  - method:evomemstate
   - method:mdskill
   - method:uni-mem
   - method:reharness
@@ -65,6 +68,7 @@ Agents need memory that accumulates strategies without collapsing under rewrite.
 - DMR for MemGPT. Sleep-time compute as a persona-agent complement.
 
 ## SOTA Landscape
+- **Active (relational + RL reasoning-state, not this playbook default)**: `method:evomemstate` (`arXiv:2611.03743`). MemSyco Qwen3-8B $57.6\%$ ($+12.2$); Acc@complete LoCoMo-Refined / MemSyco $70.8\%$ / $68.5\%$. Code XMUDeepLIT/EvoMemState. Does not replace ACE.
 - **Active (multi-view skill OPSD, not this playbook default)**: `method:mdskill` (`arXiv:2611.05313`). ALFWorld/WebShop up to +7.1/+8.1. Code announced anonymous.4open.science/r/MDSKILL-CF53. Does not replace ACE.
 - **current_sota**: ACE (`method:ace`).
 - **Active**: MemGPT for long-lived persona agents.

@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage)"
+    to: "method:harness-s"
   - when: "multi-view OPSD of skill memory (MDSkill; not AppWorld coverage)"
     to: "method:mdskill"
   - when: "subgoal-graph privileged OPSD (SGR-OPSD)"
@@ -129,6 +131,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:harness-s
   - method:rcrl
   - method:mdskill
   - method:sgr-opsd
@@ -182,7 +185,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-05'
+last_reviewed: '2026-11-06'
 tags:
   - post-training
   - agentic
@@ -212,6 +215,7 @@ Two siblings share this task and are not substitutes:
 - **Optional decision-plane RL**: `method:rlid` (`arXiv:2611.02455`). ALFWorld 99.3% in 12.7 H100-h vs token-level 86.6% in 17.3h. Mention on `task:agentic-async-rl`. No public code. Does not replace CANOPY or SAO.
 - **Primary Method (checker exists)**: **CANOPY** (`method:canopy`, `paper:canopy` `arXiv:2609.01245`).
 - **Outcome-blind / no checker**: **DRACO** (`method:draco`, `paper:draco` `arXiv:2609.04094`). Active, does not replace CANOPY when a verifier exists.
+- **Optional sibling-harness rescue (not this coverage default)**: `method:harness-s` (`arXiv:2611.04277`) on `task:agent-harness-runtime`. Frozen sibling pool; all-fail GRPO rescue; AppWorld 4B Avg@3 $56.87$ vs GRPO $48.98$. Does not replace CANOPY.
 - **Optional pairwise rubric curriculum (not this coverage default)**: `method:rcrl` (`arXiv:2611.06244`). Pairwise preferences plus a criterion curriculum for non-verifiable domains. Qwen3-4B 70.5% human win; HealthBench +14.60% / +25.38% vs RaR. No public code. Sibling of DRACO / MetaRubric / CoCA / RACE. Does not replace CANOPY or DRACO.
 - **Gotcha (multi-turn RL budget)**: `paper:multi-turn-rl-budget` (`arXiv:2611.06483`). Gains need large T; step quality is not uniformly better. BudgetMix is not a library method. Does not retarget CANOPY.
 - **Not This Task**: `method:sao` remains async-straggler RL; `method:foldgrpo` remains trajectory folding; `method:cispo` remains dense Pass@1; `method:mini-swe-agent` remains the harness; `method:omp2-harness` remains the production engine; `method:iris` remains live-web search-agent training; `method:miles` remains the frontier post-train stack; `method:neohorse-1` remains routing-harness RSI.

@@ -16,6 +16,8 @@ out_of_scope:
   - "Recursive self-rewrite of a research-agent harness (AIDE2)"
   - "Harness curriculum as a non-stationary bandit over failure-pattern arms (ActiveSaddler)"
 redirects:
+  - when: "sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel)"
+    to: "method:harness-s"
   - when: "online KEEP/EVOLVE meta-skill for harness RSI (Meta2; not the production kernel)"
     to: "method:meta2"
   - when: "MCTS full-harness search (HarnessFlow; not the production kernel)"
@@ -70,7 +72,7 @@ redirects:
     to: "method:activesaddler"
   - when: "recurrent textual harness for agentic continual learning (not the production kernel)"
     to: "method:reharness"
-last_reviewed: '2026-11-05'
+last_reviewed: '2026-11-06'
 current_sota:
   - method: method:omp2-harness
     as_of: "2026-09-02"
@@ -79,6 +81,7 @@ current_sota:
     value: "2 correct of 78 Pi examples (60 stateless, 17 stateful); journal covering message tree only ⇒ rewind/fork/resume lie"
     notes: "Self-reported blog architecture, not a SWE-bench number. Does not replace mini-SWE-agent, CCA, OpenHands, SAO, FoldGRPO, RLM, MAGIC, CISPO, Muon2, MCP, or ACE."
 methods:
+  - method:harness-s
   - method:harnessflow
   - method:meta2
   - method:paretosaddler
@@ -126,6 +129,7 @@ This is **not** the SWE-bench start/eval loop. Issue → patch / locked mini har
 ## SOTA Landscape
 
 - **Optional online KEEP/EVOLVE meta-skill (not this kernel)**: `method:meta2` (`arXiv:2611.05139`). TB2.1 81.00% / DeepSWE 1.1 44.44% GPT-5.6-Terra. No public code. Does not replace omp2.
+- **Optional sibling-harness rescue (not this kernel)**: `method:harness-s` (`arXiv:2611.04277`). Frozen sibling pool during policy GRPO; rescue all-fail groups; transfer under $H_0$. Qwen3.5-4B AppWorld Pass@3 / Avg@3 $67.56\pm1.87$ / $56.87\pm1.47$ vs GRPO $60.31$ / $48.98$. Code DeepExperience/Harness-S. Distinct from HarnessFlow / CoHARL / GRAFT / Harness-Zero. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace omp2.
 - **Optional MCTS full-harness search**: `method:harnessflow` (`arXiv:2611.06254`). 15 refinements; 69.48% mean (+10.89 vanilla / +3.95 Meta-Harness); 41.4% of Codex cost. No dedicated GitHub. Sibling of ParetoSaddler / ActiveSaddler. Does not replace omp2.
 - **Optional Pareto quality+cost harness search**: `method:paretosaddler` (`arXiv:2611.02079`). ClawMark 70.86→81.35% and $1.17→$1.01; GAIA2 56.22→62.89% and $0.78→$0.45. Code announced aka.ms/ParetoSaddler-website. Sibling of ActiveSaddler. Does not replace omp2.
 - **Default (this task)**: **omp² harness** (`method:omp2-harness`, `paper:harness-playbook`). Spec for a production engine still being built; start with journal → session DOM.

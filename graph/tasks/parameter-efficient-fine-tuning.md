@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:stage-lora
   - method:sama
   - method:proland
   - method:simplex-lora
@@ -41,8 +42,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-06'
 redirects:
+  - when: "stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default)"
+    to: "method:stage-lora"
   - when: "Kronecker PEFT with quadratic rank (SaMA; not LoRA quality default)"
     to: "method:sama"
   - when: "LoRA Stiefel landing / Muon-style ProLand rather than LoRA quality default"
@@ -67,6 +70,7 @@ Adapting multi-billion parameter base models to downstream tasks with minimal tr
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional SFT/RL spectral LoRA**: `method:stage-lora` (`arXiv:2611.08414`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **Optional Kronecker PEFT**: `method:sama` (`arXiv:2611.04462`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **Optional Stiefel-landing LoRA**: `method:proland` (`arXiv:2611.00236`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **LoRA Quality 24GB**: **Vanilla LoRA + rsLoRA + LR sweep** (`method:lr-matters-lora`, 2602.04998, 2601.22708) — NOT DoRA. Unchanged. `method:nora` (`arXiv:2608.31036`) is a recommended RLVR-stable adapter upgrade, not a completed supersession of that default. `method:anlr-lora` (`arXiv:2609.05885`) is an optional per-rank LR plug-in. `method:iso-lora` (`arXiv:2609.12123`) is an active optimizer-shape / effective-rank note; does not replace the LR sweep. Drift-budget instruct layer-selective freeze is `method:dco` on `task:instruct-sft-alignment`, not a LoRA quality default.

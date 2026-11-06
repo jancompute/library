@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage)'
+    reason: 'CANOPY remains checker coverage; Harness-S re-rolls the same policy under frozen sibling harnesses'
+    use_instead: method:harness-s
   - when: 'multi-view OPSD of skill memory (MDSkill; not AppWorld coverage)'
     reason: 'CANOPY remains checker coverage; MDSkill is skill-memory OPSD'
     use_instead: method:mdskill

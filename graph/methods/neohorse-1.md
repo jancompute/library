@@ -8,6 +8,9 @@ sota_for:
   - task:agentic-rsi-routing-posttrain
 supersedes: []
 do_not_use_for:
+  - when: "criteria exposure / verifier leakage in embodied RSI"
+    reason: "Gotcha: reading the verifier overfits criteria; does not retarget routing-guided OPD"
+    use_instead: "paper:criteria-exposure"
   - when: "RSI-Craft post-train env gym (RSI-Dojo)"
     reason: "NeoHorse-1 remains routing-guided OPD; RSI-Dojo is a 281-env post-train gym"
     use_instead: "method:rsi-dojo"
@@ -50,6 +53,7 @@ assumptions:
   - "RSI here is one evaluation–selection–update prototype, not an automated research loop."
 last_reviewed: "2026-09-23"
 papers:
+  - paper:criteria-exposure
   - paper:neohorse-1
 recipes:
   - recipe:neohorse-1
