@@ -17,6 +17,8 @@ out_of_scope:
   - "Recursive self-rewrite of a research-agent harness (AIDE2)"
   - "Harness curriculum as a non-stationary bandit over failure-pattern arms (ActiveSaddler)"
 redirects:
+  - when: "criteria exposure / verifier leakage in embodied RSI"
+    to: "paper:criteria-exposure"
   - when: "RSI-Craft post-train env gym (RSI-Dojo; not routing-guided OPD)"
     to: "method:rsi-dojo"
   - when: "harness scaling / train through a factorized harness space (Harness Scaling)"
@@ -68,7 +70,7 @@ methods:
   - method:harness-zero
   - method:aide2
   - method:activesaddler
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-06'
 tags:
   - post-training
   - agentic
@@ -87,6 +89,7 @@ Recursive self-improvement needs a concrete loop: observe capability demand from
 - **Evaluation Pitfalls**: Do not mix this with SWE-bench harness choice. Routing-guided OPD is a curriculum on OPD, not a replacement of `method:opd`.
 
 ## SOTA Recommendation (as of 2026-09-09)
+- **Gotcha (criteria exposure)**: `paper:criteria-exposure` (`arXiv:2611.08318`). Reading the verifier scores $51.6\%$ vs $27.8\%$ under original criteria and $45.0\%$ vs $47.2\%$ under instruction-faithful criteria. Skills transfer poorly. Does not retarget NeoHorse-1.
 - **Optional RSI-Craft env gym (not this first hop)**: `method:rsi-dojo` (`arXiv:2611.03698`). 281 post-train envs; SFT Qwen3.5-9B / Qwen3.6-35B-A3B +8.74 / +16.87 PostTrainBench. No public code. Does not replace NeoHorse-1.
 - **Primary Method**: **NeoHorse-1** (`method:neohorse-1`, `paper:neohorse-1` `arXiv:2609.08183`). Code: TokenRhythm/NeoHorse. Weights: hf.co/collections/TokenRhythm/neohorse-1.
 - **Not This Task**: `method:mini-swe-agent` remains the SWE harness; `method:sao` remains async; `method:canopy` remains AppWorld; `method:iris` remains search-agent climbing; `method:cispo` remains Pass@1; `method:opd` remains text distill.

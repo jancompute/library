@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'prefix-20% overlap-gated α-divergence OPD (O2PD)'
+    reason: 'OPD remains full-token reverse-KL matching; O2PD gates FKL/RKL on a prefix'
+    use_instead: method:o2pd
+  - when: 'strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins)'
+    reason: 'Gotcha: external-teacher reverse-KL OPD loses to GRPO per FLOP; does not retarget matching'
+    use_instead: paper:opd-grpo-flops
   - when: 'black-box step queries then SFT when the teacher hides CoT (Stepwise Querying)'
     reason: 'OPD remains matching when teacher logp is available; Stepwise Querying is black-box SFT'
     use_instead: method:stepwise-querying
@@ -191,6 +197,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:opd-grpo-flops
+  - paper:o2pd
   - paper:opd-ood-consolidation
   - paper:specopd
   - paper:opd-entropy-shape

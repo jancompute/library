@@ -8,6 +8,9 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: 'sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel)'
+    reason: 'omp2 remains the production kernel; Harness-S freezes a sibling pool during policy GRPO'
+    use_instead: method:harness-s
   - when: 'MCTS full-harness search (HarnessFlow; not the production kernel)'
     reason: 'omp2 remains the production kernel; HarnessFlow is MCTS full-harness search'
     use_instead: method:harnessflow

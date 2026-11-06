@@ -6,6 +6,33 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-06 — weekday SOTA sweep (Harness-S, O2PD, EvoMemState, Stage-LoRA; notes OPD vs GRPO FLOPs, criteria exposure)
+- Four active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-06 Librarian weekday sweep after merged PR 59 (watermark 2611.06911, ~2162 nodes / 8761 edges, 952a48b). Covers Friday 2026-11-06 arXiv cs.LG/cs.CL/cs.AI after 2611.06911 plus HF Daily 2026-11-05 leftovers (already in PR 59) and 2026-11-06 leftovers below the listing watermark (Harness-S 2611.04277, EvoMemState 2611.03743). New high id 2611.08453 (ingest) / 2611.08483 (considered).
+- SKIP (considered, not ingested): BestRand 2611.00883 (eval compression); Muir 2611.08376 (no code, architecture); SAE Interprets MoE 2611.08089 (analysis); PLatour/PACT 2611.06976 (serving); SLA (embodied CPT); DreamFree 2611.04527 (robotics); GraphMuon 2611.08379 (GNN-only); StepBack 2611.08403 (test-time decode); SwarmEvolve 2611.08483 (program search); LAQ 2611.08341 (embedding quant); AutoCompress 2611.08290 (serving prune); Terminal-Bench 2611.08417 (eval infra); safe RL 2611.08273; RM-VLM 2611.08308.
+
+### 2026-11-06 — ingest method:harness-s (active on task:agent-harness-runtime; does not supersede method:omp2-harness)
+- Added paper:harness-s, method:harness-s, recipe:harness-s (`code_status: released`, DeepExperience/Harness-S). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Sibling-harness rescue of all-fail GRPO groups. Distinct from method:harnessflow / method:coharl / method:graft / method:harness-zero.
+
+### 2026-11-06 — ingest method:o2pd (active on task:student-distillation; does not supersede method:opd)
+- Added paper:o2pd, method:o2pd, recipe:o2pd (`code_status: none`).
+- Status active (`sota_for: []`). Prefix-20% overlap-gated α-divergence OPD.
+
+### 2026-11-06 — ingest method:evomemstate (active on task:agent-memory; does not supersede method:ace)
+- Added paper:evomemstate, method:evomemstate, recipe:evomemstate (`code_status: released`, XMUDeepLIT/EvoMemState).
+- Status active (`sota_for: []`). Ontology relational states plus RL reasoning-state policy.
+
+### 2026-11-06 — ingest method:stage-lora (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:stage-lora, method:stage-lora, recipe:stage-lora (`code_status: none`). Mention on task:parameter-efficient-fine-tuning.
+- Status active (`sota_for: []`). Stage-specific LoRA spectral updates for SFT vs GRPO.
+
+### 2026-11-06 — ingest paper:opd-grpo-flops (claim note on task:student-distillation; does not retarget method:opd / method:open-mopd)
+- Added paper:opd-grpo-flops (`code_status: none`). Linked from method:opd / method:open-mopd.
+
+### 2026-11-06 — ingest paper:criteria-exposure (claim note on task:agentic-rsi-routing-posttrain; does not retarget method:neohorse-1)
+- Added paper:criteria-exposure (`code_status: none`). Linked from method:neohorse-1.
+
 ### 2026-11-05 — weekday SOTA sweep (C-GRPO, RcRL, HarnessFlow, SpecOPD, TurnWise; notes (M)OPD OOD consolidation, multi-turn RL budget, MoE expert-deactivation weight rule)
 - Five active plug-ins and three paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-05 Librarian weekday sweep after merged PR 58 (watermark 2611.05345, 2144 nodes / 8666 edges, df12c61). Covers Thursday 2026-11-05 arXiv cs.LG/cs.CL/cs.AI after 2611.05345 (listing high 2611.06911) plus HF Daily 2026-11-04 (already covered) and 2026-11-05. SpecOPD 2611.02846 is an HF Daily leftover below the watermark. New high id 2611.06911.

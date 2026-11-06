@@ -22,6 +22,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:agent-harness-runtime — Agent Harness Runtime
 - **Scope**: Architecture of a production coding-agent harness that must survive multiplexed local workspaces, remote drivers, spectators, and untrusted autonomous factory jobs (the four envelope tests in the Stencil Harness Playbook).
 - **SOTA**: `method:omp2-harness` `2610.27889` (as_of 2026-09-02) — Pi official extension examples (Appendix A) + four envelope tests: 2 correct of 78 Pi examples (60 stateless, 17 stateful); journal covering message tree only ⇒ rewind/fork/resume lie
+  - do not use when sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel) → `method:harness-s`
   - do not use when MCTS full-harness search (HarnessFlow; not the production kernel) → `method:harnessflow`
   - do not use when online KEEP/EVOLVE meta-skill for harness RSI (Meta2) → `method:meta2`
   - do not use when harness skill rewrite to match executor capability (Skill Adaptation) → `method:skill-adaptation`
@@ -44,6 +45,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) → `method:aide2`
   - do not use when harness curriculum as a non-stationary bandit over failure-pattern arms → `method:activesaddler`
 - **Redirects**:
+  - when sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel) → `method:harness-s`
   - when online KEEP/EVOLVE meta-skill for harness RSI (Meta2; not the production kernel) → `method:meta2`
   - when MCTS full-harness search (HarnessFlow; not the production kernel) → `method:harnessflow`
   - when Pareto harness quality+cost search (ParetoSaddler; not failure-pattern curriculum) → `method:paretosaddler`
@@ -75,7 +77,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:agent-memory — Agent Memory
 - **Scope**: How an agent stores and updates strategies across tasks. Not dumped-prompt RLM and not a SWE loop.
-- **SOTA**: `method:ace` `2610.33029` (as_of 2025-10) — AppWorld, DeepSeek-V3.1: ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%
+- **SOTA**: `method:ace` `2611.03743` (as_of 2025-10) — AppWorld, DeepSeek-V3.1: ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%
+  - do not use when evolving ontology relational memory + RL reasoning-state (EvoMemState) → `method:evomemstate`
   - do not use when multi-view OPSD of skill memory (MDSkill) → `method:mdskill`
   - do not use when memory tax / net value of agent memory vs naive RAG → `paper:memory-tax`
   - do not use when lessons that carry chance from noisy outcomes into the next decision → `paper:luck-carrying-lessons`
@@ -87,6 +90,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when System-One control plane for memory ops (typing, routing, budget, traversal) → `method:jev-mem`
   - do not use when read-time curation of raw trajectories (not write-time playbook) → `method:jitmem`
 - **Redirects**:
+  - when evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook) → `method:evomemstate`
   - when multi-view OPSD of skill memory (MDSkill; not write-time playbook) → `method:mdskill`
   - when memory tax / net value of agent memory vs naive RAG → `paper:memory-tax`
   - when lessons that carry chance from noisy outcomes into the next decision → `paper:luck-carrying-lessons`
@@ -502,6 +506,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:lora-quality-tuning — LoRA Quality Tuning on Single GPU
 - **SOTA**: `method:lr-matters-lora` `2610.33813` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Matches/exceeds DoRA
+  - do not use when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) → `method:stage-lora`
   - do not use when Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep) → `method:sama`
   - do not use when task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep) → `paper:lora-task-format`
   - do not use when LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep) → `method:lora-init-asymmetric`
@@ -513,6 +518,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when dynamic tangent LoRA branch via residual-gradient SVD → `method:dt-lora`
   - do not use when stacking independently trained LoRA adapters / sequential skill add without an inference router → `method:read-lora`
 - **Redirects**:
+  - when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) → `method:stage-lora`
   - when Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep) → `method:sama`
   - when LoRA Stiefel landing / Muon-style ProLand (not rsLoRA + LR sweep) → `method:proland`
   - when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) → `method:simplex-lora`
@@ -542,6 +548,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:parameter-efficient-fine-tuning — Parameter-Efficient Fine-Tuning (PEFT) & Low-Rank Adaptation
 - **SOTA**: `method:lr-matters-lora` `2610.33813` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Vanilla LoRA + rsLoRA + LR sweep SOTA (NOT DoRA)
+  - do not use when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) → `method:stage-lora`
   - do not use when Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep) → `method:sama`
   - do not use when task format / LR confound in LoRA vs full FT (not rsLoRA + LR sweep) → `paper:lora-task-format`
   - do not use when LoRA initialization for robust asymmetric learning rates (not rsLoRA + LR sweep) → `method:lora-init-asymmetric`
@@ -556,6 +563,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when forward-only block-spectral phone specialists (FuRA-S) → `method:fura-s`
   - do not use when NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic) → `method:pact-nvfp4-lora`
 - **Redirects**:
+  - when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default) → `method:stage-lora`
   - when Kronecker PEFT with quadratic rank (SaMA; not LoRA quality default) → `method:sama`
   - when LoRA Stiefel landing / Muon-style ProLand rather than LoRA quality default → `method:proland`
   - when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) → `method:simplex-lora`
@@ -704,7 +712,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:agentic-rsi-routing-posttrain — Agentic RSI Routing-Harness Post-Training
 - **Scope**: Agentic post-training that converts routing-harness records (predicted demand, selected tier, interaction) into SFT curriculum and routing-guided OPD, then reallocates the next mix from capability feedback.
-- **SOTA**: `method:neohorse-1` `2609.08183` (as_of 2026-09-09) — 10-bench macro (agentic / coding / IF) vs Qwen3.5 same size: 4B 58.94→64.87; 9B 65.60→69.04
+- **SOTA**: `method:neohorse-1` `2611.08318` (as_of 2026-09-09) — 10-bench macro (agentic / coding / IF) vs Qwen3.5 same size: 4B 58.94→64.87; 9B 65.60→69.04
+  - do not use when criteria exposure / verifier leakage in embodied RSI → `paper:criteria-exposure`
   - do not use when RSI-Craft post-train env gym (RSI-Dojo) → `method:rsi-dojo`
   - do not use when harness scaling / train through a factorized harness space (Harness Scaling) → `method:harness-scaling`
   - do not use when build a SWE / issue-to-patch harness rather than post-train from routing traces → `method:mini-swe-agent`
@@ -718,6 +727,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) → `method:aide2`
   - do not use when harness curriculum as a non-stationary bandit over failure-pattern arms → `method:activesaddler`
 - **Redirects**:
+  - when criteria exposure / verifier leakage in embodied RSI → `paper:criteria-exposure`
   - when RSI-Craft post-train env gym (RSI-Dojo; not routing-guided OPD) → `method:rsi-dojo`
   - when harness scaling / train through a factorized harness space (Harness Scaling) → `method:harness-scaling`
   - when alternating harness+policy optimization (Self-HPO), not routing-guided OPD → `method:self-hpo`
@@ -1187,6 +1197,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
 - **SOTA**: `method:canopy` `2611.06483` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+  - do not use when sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage) → `method:harness-s`
   - do not use when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) → `method:mdskill`
   - do not use when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) → `method:tsbpo`
   - do not use when critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD) → `method:scope-agent-opsd`
@@ -1222,6 +1233,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage) → `method:harness-s`
   - when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) → `method:mdskill`
   - when subgoal-graph privileged OPSD (SGR-OPSD) → `method:sgr-opsd`
   - when decision-plane RL for executable actions (RLiD) → `method:rlid`
@@ -1411,7 +1423,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior → `paper:thinking-leakage`
 
 ### task:student-distillation — Small Local Student Distillation from Strong Teacher
-- **SOTA**: `method:opd` `2611.05609` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+- **SOTA**: `method:opd` `2611.08453` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+  - do not use when prefix-20% overlap-gated α-divergence OPD (O2PD) → `method:o2pd`
+  - do not use when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) → `paper:opd-grpo-flops`
   - do not use when black-box step queries then SFT when the teacher hides CoT (Stepwise Querying) → `method:stepwise-querying`
   - do not use when EMA teacher-student displacement replaces Muon momentum (Muon-RT) → `method:muon-rt`
   - do not use when steering-vector residual-stream hook in SFT/distill (SV-Training) → `method:sv-training`
@@ -1472,7 +1486,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when multi-turn agent OPD at pivotal early mistakes (prevent reverse-KL + recover forward-KL) → `method:pivotopd`
   - do not use when act-first / reason-later multi-turn OPD (inverse dynamics + async full-response distill) → `method:actfirst-opd`
   - do not use when rubric-privileged OPD warm start before rubric-based RL → `method:rp-opd`
-- **SOTA**: `method:open-mopd` `2611.05609` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+- **SOTA**: `method:open-mopd` `2611.08453` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+  - do not use when strong-to-weak OPD vs GRPO FLOPs / specialist then MOPD consolidation → `paper:opd-grpo-flops`
   - do not use when calibrated multi-teacher OPD for dynamic MoE (C-MOPD) → `method:c-mopd`
   - do not use when rollout-free multi-task consolidation from domain-RL history (DoubleFree) → `method:doublefree`
   - do not use when capability-aware multi-teacher OPD (CA-MOPD) → `method:ca-mopd`
@@ -1488,6 +1503,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when (M)OPD IND consolidation vs OOD forgetting after RL → `paper:opd-ood-consolidation`
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
 - **Redirects**:
+  - when prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL) → `method:o2pd`
+  - when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) → `paper:opd-grpo-flops`
   - when branch-parallel OPD for speculative drafters (SpecOPD; not text matching) → `method:specopd`
   - when (M)OPD IND consolidation vs OOD forgetting after RL → `paper:opd-ood-consolidation`
   - when observation-coordinated reverse/forward KL OPD (OC-OPD) → `method:oc-opd`

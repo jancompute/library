@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:stage-lora
   - method:sama
   - method:proland
   - method:simplex-lora
@@ -31,8 +32,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-06'
 redirects:
+  - when: "stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep)"
+    to: "method:stage-lora"
   - when: "Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep)"
     to: "method:sama"
   - when: "LoRA Stiefel landing / Muon-style ProLand (not rsLoRA + LR sweep)"
@@ -68,6 +71,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional SFT/RL spectral LoRA (not this quality default)**: `method:stage-lora` (`arXiv:2611.08414`). SFT flattens full $B$ with SGD-style $\mathcal{M}$; RL flattens only the orthogonal-to-subspace Adam component. GSM8K Llama-3.2-1B/3B SFT $22.82$ / $45.72$ vs Adam $22.24$ / $42.99$; RL $10.00$ / $47.66$ vs $7.61$ / $42.36$. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional Kronecker PEFT (not this quality default)**: `method:sama` (`arXiv:2611.04462`, NeurIPS 2026). Quadratic rank vs LoRA. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional Stiefel-landing LoRA (not this quality default)**: `method:proland` (`arXiv:2611.00236`). Highest average among compared methods on 11 GLUE/decoder tasks. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - Use **Vanilla LoRA + rsLoRA + LR sweep** (`method:lr-matters-lora`, 2602.04998, 2601.22708) — NOT DoRA. Unchanged.

@@ -26,6 +26,7 @@ task:agent-communication -> method:mcp (2602.11988, 2026-07)
   when building the SWE loop rather than the tool protocol -> task:software-engineering-agent-harness
   when wanting a multi-agent crew as the communication layer -> task:multi-agent-orchestration
 task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
+  when sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel) -> method:harness-s
   when online KEEP/EVOLVE meta-skill for harness RSI (Meta2; not the production kernel) -> method:meta2
   when MCTS full-harness search (HarnessFlow; not the production kernel) -> method:harnessflow
   when Pareto harness quality+cost search (ParetoSaddler; not failure-pattern curriculum) -> method:paretosaddler
@@ -53,7 +54,8 @@ task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) -> method:aide2
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
   when recurrent textual harness for agentic continual learning (not the production kernel) -> method:reharness
-task:agent-memory -> method:ace (2610.33029, 2025-10)
+task:agent-memory -> method:ace (2611.03743, 2025-10)
+  when evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook) -> method:evomemstate
   when multi-view OPSD of skill memory (MDSkill; not write-time playbook) -> method:mdskill
   when memory tax / net value of agent memory vs naive RAG -> paper:memory-tax
   when lessons that carry chance from noisy outcomes into the next decision -> paper:luck-carrying-lessons
@@ -246,6 +248,7 @@ task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-2
   when structure-aware Muon on Monarch-factored weights (not SCALE subspace) -> method:monarch-muon
   when subspace Muon with residual correction (PMRC / SMRC) -> method:pmrc
 task:lora-quality-tuning -> method:lr-matters-lora (2610.33813, 2026-08-26)
+  when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) -> method:stage-lora
   when Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep) -> method:sama
   when LoRA Stiefel landing / Muon-style ProLand (not rsLoRA + LR sweep) -> method:proland
   when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) -> method:simplex-lora
@@ -264,6 +267,7 @@ task:lora-skill-composition -> method:read-lora (2609.31600, 2026-09-28)
   when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA composition -> task:instruct-sft-alignment
   when deployed checkpoint must stay NF4/INT4/MXFP4 with no high-precision adapter -> task:full-lowbit-finetune
 task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2610.33813, 2026-08-26) + method:aqlora-q (2608.23816, 2026-08-26)
+  when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default) -> method:stage-lora
   when Kronecker PEFT with quadratic rank (SaMA; not LoRA quality default) -> method:sama
   when LoRA Stiefel landing / Muon-style ProLand rather than LoRA quality default -> method:proland
   when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) -> method:simplex-lora
@@ -334,7 +338,8 @@ task:agentic-async-rl -> method:sao (2611.06483, 2026-08-26)
   when replace IS weight ρ by ρ^α to hit a target ESS (TETPO) -> method:tetpo
   when INT4 KV-cache async RLVR rollouts with INT8 sink/recent protection -> method:kv4-rl
   when async single-rollout SWE recipe (Muon + token-avg loss + truncated IS) -> method:muon-lh-rl
-task:agentic-rsi-routing-posttrain -> method:neohorse-1 (2609.08183, 2026-09-09)
+task:agentic-rsi-routing-posttrain -> method:neohorse-1 (2611.08318, 2026-09-09)
+  when criteria exposure / verifier leakage in embodied RSI -> paper:criteria-exposure
   when RSI-Craft post-train env gym (RSI-Dojo; not routing-guided OPD) -> method:rsi-dojo
   when harness scaling / train through a factorized harness space (Harness Scaling) -> method:harness-scaling
   when alternating harness+policy optimization (Self-HPO), not routing-guided OPD -> method:self-hpo
@@ -557,6 +562,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.06483, 2026-09-04)
+  when sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage) -> method:harness-s
   when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) -> method:mdskill
   when subgoal-graph privileged OPSD (SGR-OPSD) -> method:sgr-opsd
   when decision-plane RL for executable actions (RLiD) -> method:rlid
@@ -646,7 +652,9 @@ task:privileged-teacher-opsd -> method:vista (2610.18613, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.02574, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.05609, 2026-08-26) + method:open-mopd (2611.05609, 2026-08-28)
+task:student-distillation -> method:opd (2611.08453, 2026-08-26) + method:open-mopd (2611.08453, 2026-08-28)
+  when prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL) -> method:o2pd
+  when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) -> paper:opd-grpo-flops
   when branch-parallel OPD for speculative drafters (SpecOPD; not text matching) -> method:specopd
   when (M)OPD IND consolidation vs OOD forgetting after RL -> paper:opd-ood-consolidation
   when observation-coordinated reverse/forward KL OPD (OC-OPD) -> method:oc-opd
@@ -1726,6 +1734,18 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 599. **MoE expert-deactivation weight rule** (claim note, no new method): `paper:moe-expert-deactivation-weight-rule` (`arXiv:2611.05804`) on `task:pretrain-moe-frontier`. Inference deactivation must match the train-time weight rule; matched PPL 1.4–73× intact vs mismatch 14–28,740×. Does **not** retarget DeepSeek-V4 / Kimi-K3.
 
+600. **Harness-S**: **Harness-S** (`method:harness-s`, `arXiv:2611.04277`) on `task:agent-harness-runtime`. Active plug-in. Sibling-harness rescue of all-fail GRPO groups; Qwen3.5-4B AppWorld Pass@3 / Avg@3 $67.56\pm1.87$ / $56.87\pm1.47$ vs GRPO $60.31$ / $48.98$. Code DeepExperience/Harness-S. Mention on `task:outcome-only-long-horizon-agent-rl`. Distinct from HarnessFlow / CoHARL / GRAFT / Harness-Zero. Does **not** replace omp2.
+
+601. **O2PD**: **O2PD** (`method:o2pd`, `arXiv:2611.07731`) on `task:student-distillation`. Active plug-in. Prefix-20% overlap-gated $\alpha$-divergence; seven-suite Avg vs OPD $+1.89$ / $+4.81$ / $+5.29$. No public code. Does **not** replace OPD.
+
+602. **EvoMemState**: **EvoMemState** (`method:evomemstate`, `arXiv:2611.03743`) on `task:agent-memory`. Active plug-in. Relational + RL reasoning-state; MemSyco Qwen3-8B $57.6\%$ ($+12.2$); Acc@complete $70.8\%$ / $68.5\%$. Code XMUDeepLIT/EvoMemState. Does **not** replace ACE.
+
+603. **Stage-LoRA**: **Stage-LoRA** (`method:stage-lora`, `arXiv:2611.08414`) on `task:lora-quality-tuning`. Active plug-in. SFT $\mathcal{M}(\mathrm{SGD})$ / RL $\mathcal{M}_\perp(\mathrm{Adam})$. GSM8K Llama-3.2-1B/3B SFT $22.82$ / $45.72$ vs Adam $22.24$ / $42.99$; RL $10.00$ / $47.66$ vs $7.61$ / $42.36$. Mention on `task:parameter-efficient-fine-tuning`. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
+
+604. **OPD vs GRPO FLOPs** (claim note, no new method): `paper:opd-grpo-flops` (`arXiv:2611.08453`) on `task:student-distillation`. External-teacher reverse-KL OPD loses to GRPO per FLOP; self-GRPO teacher $50\times$ fewer distill FLOPs on math; 2-domain MOPD $42.0\%$ fewer total FLOPs vs joint GRPO. Complements opd-then-rlvr / rethink-mopd / opd-ood-consolidation. Does **not** retarget OPD or Open-MOPD.
+
+605. **Criteria Exposure** (claim note, no new method): `paper:criteria-exposure` (`arXiv:2611.08318`) on `task:agentic-rsi-routing-posttrain`. Reading the verifier $51.6\%$ vs $27.8\%$ under original criteria, $45.0\%$ vs $47.2\%$ under instruction-faithful criteria. Does **not** retarget NeoHorse-1.
+
 
 ---
 
@@ -2327,6 +2347,12 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `paper:opd-ood-consolidation` (2611.05609) is an (M)OPD OOD-forgetting gotcha. It does not retarget `opd` or `open-mopd`.
 - `paper:multi-turn-rl-budget` (2611.06483) is a multi-turn agent-RL budget gotcha. It does not retarget `canopy` or `sao`.
 - `paper:moe-expert-deactivation-weight-rule` (2611.05804) is an expert-deactivation weight-rule gotcha. It does not retarget `deepseek-v4` or `kimi-k3`.
+- `harness-s` (2611.04277) is an active sibling-harness GRPO-rescue plug-in. Distinct from `harnessflow` / `coharl` / `graft` / `harness-zero`. It does not supersede `omp2-harness`.
+- `o2pd` (2611.07731) is an active prefix overlap-gated OPD plug-in. It does not supersede `opd`.
+- `evomemstate` (2611.03743) is an active relational + RL reasoning-state memory plug-in. It does not supersede `ace`.
+- `stage-lora` (2611.08414) is an active SFT/RL spectral LoRA plug-in. It does not supersede `lr-matters-lora`.
+- `paper:opd-grpo-flops` (2611.08453) is an OPD vs GRPO FLOPs gotcha. It does not retarget `opd` or `open-mopd`.
+- `paper:criteria-exposure` (2611.08318) is an embodied RSI verifier-leakage gotcha. It does not retarget `neohorse-1`.
 
 
 ---

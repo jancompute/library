@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "sibling-harness rescue of all-fail GRPO groups (Harness-S)"
+    reason: "GRAFT exchanges peer-model traces; Harness-S re-rolls the same policy under sibling harnesses"
+    use_instead: "method:harness-s"
   - when: "choosing the dense math/code Pass@1 RLVR default"
     reason: "GRAFT salvages all-fail groups with peer trajectories; CISPO remains Pass@1"
     use_instead: "method:cispo"

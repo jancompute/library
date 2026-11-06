@@ -8,6 +8,9 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'strong-to-weak OPD vs GRPO FLOPs / specialist then MOPD consolidation'
+    reason: 'Gotcha: multi-teacher OPD consolidates specialists cheaper than joint GRPO; does not retarget the 83.4% bake-off'
+    use_instead: paper:opd-grpo-flops
   - when: 'calibrated multi-teacher OPD for dynamic MoE (C-MOPD)'
     reason: 'Open-MOPD remains the library 83.4% bake-off; C-MOPD is Turing dynamic-MoE calibration'
     use_instead: method:c-mopd
@@ -52,6 +55,7 @@ do_not_use_for:
     use_instead: "method:latent-mopd"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:opd-grpo-flops
   - paper:opd-ood-consolidation
   - paper:road-mopd
   - paper:delta-mopd

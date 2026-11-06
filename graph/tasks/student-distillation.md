@@ -5,6 +5,10 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL)"
+    to: "method:o2pd"
+  - when: "strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins)"
+    to: "paper:opd-grpo-flops"
   - when: "branch-parallel OPD for speculative drafters (SpecOPD; not text matching)"
     to: "method:specopd"
   - when: "(M)OPD IND consolidation vs OOD forgetting after RL"
@@ -215,6 +219,7 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:o2pd
   - method:specopd
   - method:oc-opd
   - method:bernoulli-opd
@@ -324,7 +329,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-05'
+last_reviewed: '2026-11-06'
 tags:
   - post-training
   - distillation
@@ -408,6 +413,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 - **Related AR→dLLM OPD (not this AR-student default)**: `method:justopd` (`arXiv:2610.17397`) on `task:diffusion-lm-ar-delta-recycle`. Does not replace OPD or A2D.
 - **Gotcha (fail-set OPD)**: `paper:opd-failure-problems` (`arXiv:2610.18011`). Five OPD mechanisms degrade on student-failure problems (8/8, p=0.0078) while KL keeps dropping; same pipeline +4.6pp on a non-failure mix. Do not concentrate OPD on all-fail prompts. Does not retarget OPD.
+- **Optional prefix overlap-gated OPD**: `method:o2pd` (`arXiv:2611.07731`). Prefix-20% plus overlap-gated $\alpha$-divergence. Seven-suite Avg vs OPD $+1.89$ / $+4.81$ / $+5.29$ (1.7B←4B-NTRL $50.58$ vs $45.29$). No public code. Does not replace OPD.
+- **Gotcha (OPD vs GRPO FLOPs)**: `paper:opd-grpo-flops` (`arXiv:2611.08453`). External-teacher reverse-KL OPD loses to GRPO per training FLOP and inflates length; self-GRPO teacher recovers checkpoint math with $50\times$ fewer distill FLOPs; 2-domain MOPD consolidation $42.0\%$ fewer total FLOPs vs joint GRPO. Complements opd-then-rlvr / rethink-mopd / opd-ood-consolidation. Does not retarget OPD or Open-MOPD.
 - **Gotcha ((M)OPD OOD consolidation)**: `paper:opd-ood-consolidation` (`arXiv:2611.05609`). IND 96.04–102.73% of teachers; extrapolative OOD 2.45–16.25% below base; compositional OOD 18.19–24.34% below best teachers. Complements self-distillation-ood / opd-failure-problems / opd-skill-not-knowledge. Does not retarget OPD or Open-MOPD.
 - **Related branch-parallel SD drafter OPD (not this matching default)**: `method:specopd` (`arXiv:2611.02846`) on `task:diffusion-augmented-ar`. Does not replace OPD.
 - **Optional prefix-augmented pretrain OPD**: `method:pa1-opd` (`arXiv:2610.19601`). Stage2 Top10 surprisal adds 48.85% to KD Macro CE gain vs NTP. No public code. Does not replace OPD or Muon2.

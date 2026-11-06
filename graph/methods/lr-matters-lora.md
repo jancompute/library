@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; Stage-LoRA is a spectral update plug-in'
+    use_instead: method:stage-lora
   - when: 'Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; SaMA is Kronecker PEFT'
     use_instead: method:sama
