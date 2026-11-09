@@ -7,6 +7,10 @@ summary: "Distilling reasoning and conversational capabilities from multi-hundre
 redirects:
   - when: "prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL)"
     to: "method:o2pd"
+  - when: "parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD)"
+    to: "method:p2-mopd"
+  - when: "failure profiling + branching-point reachability SFT (FPRT; not OPD matching)"
+    to: "method:fprt"
   - when: "strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins)"
     to: "paper:opd-grpo-flops"
   - when: "branch-parallel OPD for speculative drafters (SpecOPD; not text matching)"
@@ -219,6 +223,8 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:p2-mopd
+  - method:fprt
   - method:o2pd
   - method:specopd
   - method:oc-opd
@@ -329,7 +335,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-06'
+last_reviewed: '2026-11-09'
 tags:
   - post-training
   - distillation
@@ -344,6 +350,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional parameter-prior MOPD**: `method:p2-mopd` (`arXiv:2611.03953`). Experts as trainable mixing coefficients plus student weights. 1.7B avg recovery $94.7\%$ vs MOPD $80.9\%$. GitHub README-only. Paper Open-MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
+- **Optional failure-profile SFT (not matching)**: `method:fprt` (`arXiv:2611.09042`). Stubborn/inconsistent/sporadic profiling plus branching-point reachability. Llama-3.1-8B / DeepSeek-Math-7B five-bench avg $79.7$ / $80.6$ vs LEMMA $+2.4$ / $+1.8$. Code visresearch/FPRT. Distinct from projected-distillation. Does not replace OPD.
 - **Optional observation-coordinated OPD**: `method:oc-opd` (`arXiv:2611.01965`). Code RuoranXu/OC-OPD. Does not replace OPD.
 - **Optional Bernoulli token-match OPD**: `method:bernoulli-opd` (`arXiv:2611.02093`). Code duterscmy/Bernoulli-OPD. Does not replace OPD.
 - **Optional ordinal top-K OPD**: `method:order-only-opd` (`arXiv:2611.02112`). Up to +2.9 avg / +5.6 AIME25 vs OPD. No public code. Does not replace OPD.

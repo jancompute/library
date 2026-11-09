@@ -6,6 +6,39 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-09 — weekday SOTA sweep (LambdaMix, RuACT, SIFR, P2-MOPD, TOPSD, FPRT, RPEG)
+- Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-09 Librarian weekday sweep after merged PR 60 (watermark 2611.08453, fd9380d). Covers Friday 2026-11-06 evening through Monday 2026-11-09 arXiv cs.LG/cs.CL/cs.AI after 2611.08453 (128 unique ids, range 2611.08490–2611.09882) plus HF Daily 2026-11-07 / 2026-11-08 leftovers and 2026-11-09. P2-MOPD 2611.03953 and TOPSD 2611.08179 are HF Daily leftovers below the listing watermark. New high id 2611.09634 (ingest) / 2611.09882 (considered).
+- SKIP (considered, not ingested): QMAC 2611.08495 (SFT selection, no code until acceptance); WAAC 2611.08865 (inference trajectory compression, not a train kernel); OPO 2611.08936 (MuJoCo/Atari PPO); Mars 2611.09090 (anonymous multilingual search, Iris remains); HiRes 2610.41711 (old leftover residual sibling of MSAR); Velocity Matching 2611.00448 (ODE/PDE); BestRand / Muir / SwarmEvolve / AutoCompress leftovers already skipped Friday.
+
+### 2026-11-09 — ingest method:lambdamix (active on task:multi-reward-rlvr; does not supersede method:corrgrpo / method:dara)
+- Added paper:lambdamix, method:lambdamix, recipe:lambdamix (`code_status: released`, ckarouzos/lambdamix). Mention on task:parameter-efficient-fine-tuning.
+- Status active (`sota_for: []`). Preference-conditioned per-objective LoRA GRPO.
+
+### 2026-11-09 — ingest method:ruact (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:draco)
+- Added paper:ruact, method:ruact, recipe:ruact (`code_status: released`, ZJU-REAL/RuACT).
+- Status active (`sota_for: []`). Inactive rubric recovery (Teacher / Critic). Sibling of method:draco / method:metarubric / method:coca / method:race-rubric / method:rcrl.
+
+### 2026-11-09 — ingest method:sifr (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:self-opd)
+- Added paper:sifr, method:sifr, recipe:sifr (`code_status: none`).
+- Status active (`sota_for: []`). Signed advantages plus Lagrange velocity-drift budget for flow RL.
+
+### 2026-11-09 — ingest method:p2-mopd (active on task:student-distillation; does not supersede method:open-mopd)
+- Added paper:p2-mopd, method:p2-mopd, recipe:p2-mopd (`code_status: announced`, SinuoWang/P2-MOPD README-only).
+- Status active (`sota_for: []`). Parameter-prior MOPD. Paper Open-MOPD is not the library 83.4% bake-off.
+
+### 2026-11-09 — ingest method:topsd (active on task:privileged-teacher-opsd; does not supersede method:vista)
+- Added paper:topsd, method:topsd, recipe:topsd (`code_status: none`). Mention on task:multilingual-l2-reasoning-sft.
+- Status active (`sota_for: []`). Teachable prefixes plus recoverability verification against Teacher Drift.
+
+### 2026-11-09 — ingest method:fprt (active on task:student-distillation; does not supersede method:opd)
+- Added paper:fprt, method:fprt, recipe:fprt (`code_status: released`, visresearch/FPRT).
+- Status active (`sota_for: []`). Failure profiling plus branching-point reachability SFT. Distinct from method:projected-distillation.
+
+### 2026-11-09 — ingest method:rpeg (active on task:frontier-rl-posttrain-stack; does not supersede method:miles)
+- Added paper:rpeg, method:rpeg, recipe:rpeg (`code_status: none`).
+- Status active (`sota_for: []`). Graph IR plus runtime for RLM PPO/GRPO pipelines.
+
 ### 2026-11-06 — weekday SOTA sweep (Harness-S, O2PD, EvoMemState, Stage-LoRA; notes OPD vs GRPO FLOPs, criteria exposure)
 - Four active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-06 Librarian weekday sweep after merged PR 59 (watermark 2611.06911, ~2162 nodes / 8761 edges, 952a48b). Covers Friday 2026-11-06 arXiv cs.LG/cs.CL/cs.AI after 2611.06911 plus HF Daily 2026-11-05 leftovers (already in PR 59) and 2026-11-06 leftovers below the listing watermark (Harness-S 2611.04277, EvoMemState 2611.03743). New high id 2611.08453 (ingest) / 2611.08483 (considered).

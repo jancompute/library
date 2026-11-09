@@ -10,14 +10,18 @@ do_not_use_for:
 - when: 'same-tokenizer single-teacher matching distillation when some student rollouts succeed'
   reason: 'OPD remains matching on student rollouts; projected distillation edits failed attempts into near-on-policy correct targets'
   use_instead: method:opd
+- when: 'failure profiling + branching-point reachability SFT (FPRT; not near-on-policy edit)'
+  reason: 'Projected distillation edits failed on-policy traces; FPRT builds an SFT corpus from failure modes plus reachability'
+  use_instead: method:fprt
 - when: 'outcome-only long-horizon coverage with a checker'
   reason: 'CANOPY remains coverage; this is near-on-policy correction of failed student traces'
   use_instead: method:canopy
 assumptions:
 - 'Hard problems where all on-policy attempts fail. Paper: Qwen3-8B and OLMo-2-7B, five domains.'
 - 'No public code as of 2026-10-21.'
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-11-09'
 papers:
+- paper:fprt
 - paper:projected-distillation
 recipes:
 - recipe:projected-distillation

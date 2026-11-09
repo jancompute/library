@@ -71,8 +71,12 @@ do_not_use_for:
   - when: "privileged-context content (demo vs feedback vs rephrase) as OPSD drift, not a trainer"
     reason: "VISTA remains the trainer; Privileged Context as Drift is an evidence card"
     use_instead: "method:privileged-context-drift"
-last_reviewed: '2026-10-30'
+  - when: "teachable prefixes + recoverability verification against Teacher Drift (TOPSD)"
+    reason: "VISTA remains gold-solution privileged OPSD; TOPSD gates prefixes when the teacher follows student errors"
+    use_instead: "method:topsd"
+last_reviewed: '2026-11-09'
 papers:
+  - paper:topsd
   - paper:self-distillation-ood
   - paper:pr-opd
   - paper:vrsd

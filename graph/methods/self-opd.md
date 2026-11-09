@@ -11,7 +11,11 @@ do_not_use_for:
   - when: "flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k)"
     reason: "Self-OPD remains teacher-free flow matching; MEND is proximal velocity matching on a flow RL host"
     use_instead: "method:mend"
+  - when: "signed advantages + Lagrange velocity-drift budget for flow RL (SIFR)"
+    reason: "Self-OPD remains teacher-free flow matching; SIFR is signed-advantage flow RL"
+    use_instead: "method:sifr"
 papers:
+  - paper:sifr
   - paper:mend
   - paper:self-opd
 recipes:
@@ -24,7 +28,7 @@ claims:
     date: "2026-08-28"
     verified: true
     notes: "Stochastic SDE branching vs deterministic self-reference baseline; all-branch pull-push velocity loss with reward-level multi-objective fusion."
-last_reviewed: "2026-10-06"
+last_reviewed: '2026-11-09'
 tags:
   - diffusion
   - flow-matching

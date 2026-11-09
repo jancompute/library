@@ -61,6 +61,8 @@ redirects:
     to: "method:s3r"
   - when: "unified EventLog lifecycle for tool-using LLM agents (train/eval/distill/audit)"
     to: "method:agenttune"
+  - when: "graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine)"
+    to: "method:rpeg"
 current_sota:
   - method: method:miles
     as_of: "2026-09-09"
@@ -69,6 +71,7 @@ current_sota:
     value: "263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)"
     notes: "Miles v0.1 (2609.08368). Process/system SOTA for the frontier post-train engine. Does not replace Poolside factory, SAO, CISPO, Muon2, or mini-SWE-agent. Reward rise is a single-run observation."
 methods:
+  - method:rpeg
   - method:ngramrl
   - method:flashnext-rl
   - method:s3r
@@ -91,7 +94,7 @@ methods:
   - method:lsd
   - method:carm
   - method:nemo-dcr
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-11-09'
 tags:
   - systems
   - training-systems
@@ -111,6 +114,7 @@ Frontier post-training is a systems problem: multi-turn tool rollouts on trillio
 
 ## SOTA Recommendation (as of 2026-09-09)
 - **Primary Method**: **Miles v0.1** (`method:miles`, `paper:miles` `arXiv:2609.08368`). slime-descended; SGLang rollouts; Megatron or FSDP trainer. Code: radixark/miles.
+- **Optional pipeline IR / planner (not this engine default)**: `method:rpeg` (`arXiv:2611.09207`). Graph IR plus runtime for PPO/GRPO; up to $2\times$ vs ReaL, $2.477\times$ step latency vs verl (median $1.488\times$) on up to 256 GH200. No public code. Does not replace Miles.
 - **Not This Task**: `method:poolside-model-factory` remains the factory process; `method:sao` remains async stragglers; `method:cispo` remains Pass@1; `method:muon2` remains the 7B optimizer; `method:mini-swe-agent` remains the SWE harness.
 - **Optional long-context speculative draft path**: `method:online-draft-cotrain` (`arXiv:2609.07108`, NeMo RL). Niche systems. Does not replace Miles or Uno.
 - **Optional 122B terminal-MoE recipe on slime (not this stack default)**: `method:t1-terminal-rl` (`arXiv:2609.11042`). Does not replace Miles.

@@ -12,6 +12,12 @@ do_not_use_for:
   - when: 'prefix-20% overlap-gated α-divergence OPD (O2PD)'
     reason: 'OPD remains full-token reverse-KL matching; O2PD gates FKL/RKL on a prefix'
     use_instead: method:o2pd
+  - when: 'failure profiling + branching-point reachability SFT (FPRT; not OPD matching)'
+    reason: 'OPD remains matching; FPRT constructs an SFT corpus from profiled failures'
+    use_instead: method:fprt
+  - when: 'parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD)'
+    reason: 'OPD remains single-teacher matching; P2-MOPD is multi-teacher parameter priors'
+    use_instead: method:p2-mopd
   - when: 'strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins)'
     reason: 'Gotcha: external-teacher reverse-KL OPD loses to GRPO per FLOP; does not retarget matching'
     use_instead: paper:opd-grpo-flops
@@ -197,6 +203,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-10-30'
 papers:
+  - paper:fprt
+  - paper:p2-mopd
   - paper:opd-grpo-flops
   - paper:o2pd
   - paper:opd-ood-consolidation

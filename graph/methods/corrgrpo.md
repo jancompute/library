@@ -31,12 +31,16 @@ do_not_use_for:
   - when: "lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL)"
     reason: "CorrGRPO Pearson-normalizes GRPO rewards; LMOPD is priority-ordered teacher OPD"
     use_instead: "method:lmopd"
+  - when: "preference-conditioned per-objective LoRA GRPO (LambdaMix; not Pearson aggregation)"
+    reason: "CorrGRPO remains scalarized multi-reward aggregation; LambdaMix trains a preference-conditioned adapter family"
+    use_instead: "method:lambdamix"
 assumptions:
   - "Several sequence-level reward components on a GRPO-family host. Paper: Qwen2.5-Coder 0.5B–7B coding; also tool calling and agent security. GDPO is a paper baseline, not a library method."
   - "Zero-variance reward rows/columns of the correlation matrix are zeroed, including the diagonal."
   - "Official code HKUST-KnowComp/CorrGRPO released as of 2026-10-01."
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-09'
 papers:
+  - paper:lambdamix
   - paper:corrgrpo
 recipes:
   - recipe:corrgrpo

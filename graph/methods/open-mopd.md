@@ -53,8 +53,12 @@ do_not_use_for:
   - when: "representation-level (hidden-state) multi-teacher OPD"
     reason: "Open-MOPD remains token-share / gap-aware budget; Latent-MOPD matches specialist hidden states"
     use_instead: "method:latent-mopd"
-last_reviewed: '2026-10-30'
+  - when: "parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD)"
+    reason: "Open-MOPD remains token-share / gap-aware budget; P2-MOPD jointly trains mixing coefficients and student weights"
+    use_instead: "method:p2-mopd"
+last_reviewed: '2026-11-09'
 papers:
+  - paper:p2-mopd
   - paper:opd-grpo-flops
   - paper:opd-ood-consolidation
   - paper:road-mopd
