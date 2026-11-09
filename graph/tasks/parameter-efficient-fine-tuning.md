@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:lambdamix
   - method:stage-lora
   - method:sama
   - method:proland
@@ -42,7 +43,7 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: '2026-11-06'
+last_reviewed: '2026-11-09'
 redirects:
   - when: "stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default)"
     to: "method:stage-lora"
@@ -56,6 +57,8 @@ redirects:
     to: "task:instruct-sft-alignment"
   - when: "stacking independently trained LoRA adapters / sequential skill add without an inference router"
     to: "task:lora-skill-composition"
+  - when: "preference-conditioned jointly trained per-objective LoRA GRPO (LambdaMix; not LoRA quality default)"
+    to: "method:lambdamix"
 tags:
   - efficiency
   - peft
@@ -70,6 +73,7 @@ Adapting multi-billion parameter base models to downstream tasks with minimal tr
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional preference-conditioned LoRA GRPO**: `method:lambdamix` (`arXiv:2611.09634`) on `task:multi-reward-rlvr`. Does not replace the LR-sweep quality default.
 - **Optional SFT/RL spectral LoRA**: `method:stage-lora` (`arXiv:2611.08414`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **Optional Kronecker PEFT**: `method:sama` (`arXiv:2611.04462`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **Optional Stiefel-landing LoRA**: `method:proland` (`arXiv:2611.00236`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.

@@ -29,6 +29,8 @@ redirects:
     to: "method:scope-agent-opsd"
   - when: "pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL)"
     to: "method:rcrl"
+  - when: "inactive rubric recovery (Teacher for unreachable, Critic for saturated; RuACT)"
+    to: "method:ruact"
   - when: "capability-aware policy+rubric co-evolution (CoCA)"
     to: "method:coca"
   - when: "reward-adaptive co-evolution of policy and rubric (RACE)"
@@ -132,6 +134,7 @@ current_sota:
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
   - method:harness-s
+  - method:ruact
   - method:rcrl
   - method:mdskill
   - method:sgr-opsd
@@ -185,7 +188,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-06'
+last_reviewed: '2026-11-09'
 tags:
   - post-training
   - agentic
@@ -217,6 +220,7 @@ Two siblings share this task and are not substitutes:
 - **Outcome-blind / no checker**: **DRACO** (`method:draco`, `paper:draco` `arXiv:2609.04094`). Active, does not replace CANOPY when a verifier exists.
 - **Optional sibling-harness rescue (not this coverage default)**: `method:harness-s` (`arXiv:2611.04277`) on `task:agent-harness-runtime`. Frozen sibling pool; all-fail GRPO rescue; AppWorld 4B Avg@3 $56.87$ vs GRPO $48.98$. Does not replace CANOPY.
 - **Optional pairwise rubric curriculum (not this coverage default)**: `method:rcrl` (`arXiv:2611.06244`). Pairwise preferences plus a criterion curriculum for non-verifiable domains. Qwen3-4B 70.5% human win; HealthBench +14.60% / +25.38% vs RaR. No public code. Sibling of DRACO / MetaRubric / CoCA / RACE. Does not replace CANOPY or DRACO.
+- **Optional inactive-rubric recovery (not this coverage default)**: `method:ruact` (`arXiv:2611.09597`). Teacher OPSD for unreachable criteria, Critic child-rubrics for saturated. ResearchQA $64.82\to 69.44$ vs GRPO. Code ZJU-REAL/RuACT. Sibling of DRACO / MetaRubric / CoCA / RACE / RcRL. Does not replace CANOPY or DRACO.
 - **Gotcha (multi-turn RL budget)**: `paper:multi-turn-rl-budget` (`arXiv:2611.06483`). Gains need large T; step quality is not uniformly better. BudgetMix is not a library method. Does not retarget CANOPY.
 - **Not This Task**: `method:sao` remains async-straggler RL; `method:foldgrpo` remains trajectory folding; `method:cispo` remains dense Pass@1; `method:mini-swe-agent` remains the harness; `method:omp2-harness` remains the production engine; `method:iris` remains live-web search-agent training; `method:miles` remains the frontier post-train stack; `method:neohorse-1` remains routing-harness RSI.
 - **Optional 122B terminal-MoE recipe (not this first hop)**: `method:t1-terminal-rl` (`arXiv:2609.11042`) on slime. Terminal-Bench 2.1 43.8%→64.0%. Does not replace CANOPY, SAO, or Miles.

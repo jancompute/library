@@ -19,6 +19,8 @@ redirects:
     to: "task:math-code-rl-dense"
   - when: "olympiad-style natural-language proofs / IMO TTC"
     to: "task:olympiad-math-posttrain"
+  - when: "teachable prefixes + recoverability verification against Teacher Drift (TOPSD; not L2 SFT)"
+    to: "method:topsd"
 current_sota:
   - method: method:tiny-aya-l2-thinker
     as_of: "2026-09-14"
@@ -27,10 +29,11 @@ current_sota:
     value: ">93%"
     notes: "Tiny Aya L2-Thinker / Multilingual Bridges (2609.10445). Mix MR+NR+English reasoning backbone. Not a Pass@1 or Dolci replacement."
 methods:
+  - method:topsd
   - method:tiny-aya-l2-thinker
   - method:olmo-3
   - method:cispo
-last_reviewed: "2026-09-14"
+last_reviewed: '2026-11-09'
 tags:
   - post-training
   - multilingual
@@ -50,4 +53,5 @@ English-centric reasoners translate the problem internally and write English CoT
 
 ## SOTA Recommendation (as of 2026-09-14)
 - **Primary Method (this task only)**: **Tiny Aya L2-Thinker** (`method:tiny-aya-l2-thinker`, `paper:multilingual-bridges` `arXiv:2609.10445`).
+- **Optional multilingual math OPSD (not this L2 SFT default)**: `method:topsd` (`arXiv:2611.08179`) on `task:privileged-teacher-opsd`. PolyMath High Avg@3 on Qwen3. Does not replace Tiny Aya L2-Thinker.
 - **Not This Task**: `method:olmo-3` remains open instruct / Dolma-3; `method:cispo` remains Pass@1; `method:nemotron-imo-gold` remains olympiad TTC.

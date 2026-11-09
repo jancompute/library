@@ -38,6 +38,8 @@ redirects:
     to: "method:lmopd"
   - when: "protocol-level rubric grouping so criteria cannot compensate (not Pearson/density aggregation)"
     to: "method:prorubric"
+  - when: "preference-conditioned per-objective LoRA GRPO (LambdaMix; not Pearson/density aggregation)"
+    to: "method:lambdamix"
 current_sota:
   - method: method:corrgrpo
     as_of: "2026-10-02"
@@ -52,6 +54,7 @@ current_sota:
     value: "up to 26% fewer steps (tool format) / 65% fewer steps (math length); competitive final score"
     notes: "DARA (2610.00574). Inverse-sqrt density on advantage energy. Dual-active with CorrGRPO. GDPO is prior art, not a library node. Does not replace CISPO."
 methods:
+  - method:lambdamix
   - method:tace
   - method:setgrpo
   - method:concur
@@ -66,7 +69,7 @@ methods:
   - method:dr-grpo
   - method:carm
   - method:lmopd
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-09'
 tags:
   - post-training
   - rl-alignment
@@ -95,3 +98,4 @@ This is **not** single-reward CISPO, not SAPO, and not CARM's off-policy sequenc
 - **Not this task (protocol-level rubric structure)**: `method:prorubric` (`arXiv:2609.38847`) on `task:outcome-only-long-horizon-agent-rl`. Additive sums let criteria compensate. Does not replace CorrGRPO / DARA.
 
 - **Optional reward-specific token credit**: `method:mrtpo` (`arXiv:2610.21439`). Leave-one-out verifier replay. Qwen2.5-Coder-7B SQL avg 73.15 vs GDPO 71.55. Code zhaihaotian/MRTPO. Does not replace CorrGRPO / DARA.
+- **Optional preference-conditioned LoRA family (not this aggregation default)**: `method:lambdamix` (`arXiv:2611.09634`). One LoRA per objective; preference vector mixes adapters and weights separately normalized rewards. Qwen3.5-9B PKU-SafeRLHF HV $0.8735$ vs prompt $0.7760$; GSM8K-IF HV $0.8099$ vs GRPO $0.6947$. Code ckarouzos/lambdamix. Does not replace CorrGRPO / DARA.

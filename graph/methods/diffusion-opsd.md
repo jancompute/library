@@ -20,7 +20,11 @@ do_not_use_for:
   - when: "flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k)"
     reason: "DiffusionOPSD remains image-policy OPSD; MEND is flow RL by proximal velocity matching"
     use_instead: "method:mend"
+  - when: "signed advantages + Lagrange velocity-drift budget for flow RL (SIFR)"
+    reason: "DiffusionOPSD remains image-policy OPSD; SIFR is signed-advantage flow RL"
+    use_instead: "method:sifr"
 papers:
+  - paper:sifr
   - paper:mend
   - paper:diffusion-opsd
 recipes:
@@ -33,7 +37,7 @@ claims:
     date: "2026-08-27"
     verified: true
     notes: "Translates image-level reward gradients into bounded positive/negative clean-output targets for intermediate denoising queries."
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-09'
 tags:
   - diffusion
   - post-training

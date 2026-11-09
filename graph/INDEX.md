@@ -389,13 +389,15 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Text-to-image / flow reward alignment (DiffusionOPSD / Self-OPD); Continuous diffusion language model pretrain (SemiCat); Discrete dLLM AR-delta recycle (A2D); Video reward models / RGPO (RewardVerse)
 
 ### task:posttrain-diffusion — Diffusion Post-Training and Reward Alignment
-- **SOTA**: `method:diffusion-opsd` `2610.05954` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
+- **SOTA**: `method:diffusion-opsd` `2611.09175` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
   - do not use when intrinsic distribution matching / EMA moment constraint on DMD (IDM) → `method:idm`
   - do not use when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) → `method:doobpo`
   - do not use when distributional regularization for diffusion/flow reward FT (DFR) → `method:dfr`
   - do not use when flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k) → `method:mend`
-- **SOTA**: `method:self-opd` `2610.05954` (as_of 2026-08-28) — Flow Matching Visual Alignment (Single & Mixed Reward Benchmarks): Outperforms Flow-GRPO, Flow-OPD, and DiffusionNFT without external task-specific teachers
+  - do not use when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
+- **SOTA**: `method:self-opd` `2611.09175` (as_of 2026-08-28) — Flow Matching Visual Alignment (Single & Mixed Reward Benchmarks): Outperforms Flow-GRPO, Flow-OPD, and DiffusionNFT without external task-specific teachers
   - do not use when flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k) → `method:mend`
+  - do not use when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
 - **Redirects**:
   - when intrinsic distribution matching / EMA moment constraint on DMD (IDM) → `method:idm`
   - when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) → `method:doobpo`
@@ -411,6 +413,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when pixel-space DiT / flow-matching image pretrain (Representation Guidance) → `task:pixel-diffusion-pretrain`
   - when continuous diffusion language model pretrain (not image/flow alignment) → `task:continuous-diffusion-lm-pretrain`
   - when dLLM RL that forks from high-entropy intermediate states (ForkGRPO) → `method:forkgrpo`
+  - when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
 
 ## efficiency
 
@@ -569,6 +572,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) → `method:simplex-lora`
   - when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA quality → `task:instruct-sft-alignment`
   - when stacking independently trained LoRA adapters / sequential skill add without an inference router → `task:lora-skill-composition`
+  - when preference-conditioned jointly trained per-objective LoRA GRPO (LambdaMix; not LoRA quality default) → `method:lambdamix`
 
 ### task:posttrain-attention-sparsification — Post-Training Attention Sparsification
 - **Scope**: Post-train (or mid-train) gated / Top-K sparse attention on a frozen or lightly updated dense LM under a fixed attention budget. Context ranking aligned to LM loss.
@@ -1136,7 +1140,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:multi-reward-rlvr — Multi-Reward RLVR Aggregation
 - **Scope**: Multi-objective GRPO-family advantage aggregation (sum-then-normalize vs reward-wise then density-correct). First hop is CorrGRPO (correlation scale) + DARA (active-group density). Not single-reward Pass@1, not a CISPO replacement.
-- **SOTA**: `method:corrgrpo` `2609.36820` (as_of 2026-10-02) — Qwen2.5-Coder-7B-Instruct coding Avg Pass@1 (LeetCodeDataset / HumanEval / MBPP / LCB v6): 51.49 vs GRPO 47.28 / GDPO 48.88 / base 47.64
+- **SOTA**: `method:corrgrpo` `2611.09634` (as_of 2026-10-02) — Qwen2.5-Coder-7B-Instruct coding Avg Pass@1 (LeetCodeDataset / HumanEval / MBPP / LCB v6): 51.49 vs GRPO 47.28 / GDPO 48.88 / base 47.64
   - do not use when two-stage OT baseline + budget-neutral token credit (TACE) → `method:tace`
   - do not use when priority-preserving primary/auxiliary advantage fusion (PAPO) → `method:papo`
   - do not use when group Pareto-dominance reuse of conflict-filtered rollouts (GPDPO) → `method:gpdpo`
@@ -1145,7 +1149,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when MoE/VL RLVR loss rather than multi-reward aggregation → `method:sapo`
   - do not use when cancellation-aware off-policy response mask → `method:carm`
   - do not use when lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL) → `method:lmopd`
-- **SOTA**: `method:dara` `2610.00574` (as_of 2026-10-02) — Tool calling format compliance / math length compliance vs GDPO: up to 26% fewer steps (tool format) / 65% fewer steps (math length); competitive final score
+  - do not use when preference-conditioned per-objective LoRA GRPO (LambdaMix; not Pearson aggregation) → `method:lambdamix`
+- **SOTA**: `method:dara` `2611.09634` (as_of 2026-10-02) — Tool calling format compliance / math length compliance vs GDPO: up to 26% fewer steps (tool format) / 65% fewer steps (math length); competitive final score
   - do not use when priority-preserving primary/auxiliary advantage fusion (PAPO) → `method:papo`
   - do not use when group Pareto-dominance reuse of conflict-filtered rollouts (GPDPO) → `method:gpdpo`
   - do not use when single-turn dense math/code Pass@1 RLVR (one verifier reward) → `method:cispo`
@@ -1153,6 +1158,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when MoE/VL RLVR loss rather than multi-reward aggregation → `method:sapo`
   - do not use when cancellation-aware off-policy response mask → `method:carm`
   - do not use when lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL) → `method:lmopd`
+  - do not use when preference-conditioned per-objective LoRA GRPO (LambdaMix; not density aggregation) → `method:lambdamix`
 - **Redirects**:
   - when two-stage OT baseline + budget-neutral token credit (TACE) → `method:tace`
   - when grader-noise coefficient-set calibration on rubric GRPO (SetGRPO) → `method:setgrpo`
@@ -1167,6 +1173,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when outcome-only long-horizon interactive agent RL → `task:outcome-only-long-horizon-agent-rl`
   - when lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL) → `method:lmopd`
   - when protocol-level rubric grouping so criteria cannot compensate (not Pearson/density aggregation) → `method:prorubric`
+  - when preference-conditioned per-objective LoRA GRPO (LambdaMix; not Pearson/density aggregation) → `method:lambdamix`
 - **Out of scope**: Single-turn dense math/code Pass@1 with one verifier reward (CISPO); MoE/VL RLVR loss rather than multi-reward aggregation (SAPO); MoE train–infer engine mismatch IS (CIS-RL); Cancellation-aware off-policy sequence masking (CARM); Outcome-only long-horizon agent RL (CANOPY)
 
 ### task:multilingual-l2-reasoning-sft — Multilingual L2 Reasoning SFT
@@ -1180,6 +1187,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when general chat / instruct SFT without L2 language fidelity → `task:instruct-sft-alignment`
   - when single-turn math/code Pass@1 RLVR → `task:math-code-rl-dense`
   - when olympiad-style natural-language proofs / IMO TTC → `task:olympiad-math-posttrain`
+  - when teachable prefixes + recoverability verification against Teacher Drift (TOPSD; not L2 SFT) → `method:topsd`
 - **Out of scope**: Open pretrain mix / Dolma-3; General chat / instruct SFT without an in-language CoT requirement; Single-turn math/code Pass@1 RLVR; Olympiad NL proof TTC
 
 ### task:olympiad-math-posttrain — Olympiad Proof Post-Training and Test-Time Compute
@@ -1196,7 +1204,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
-- **SOTA**: `method:canopy` `2611.06483` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+- **SOTA**: `method:canopy` `2611.09597` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
   - do not use when sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage) → `method:harness-s`
   - do not use when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) → `method:mdskill`
   - do not use when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) → `method:tsbpo`
@@ -1229,6 +1237,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when branchy RLVR token cost; hindsight-divergence prefix reuse → `method:hdl`
   - do not use when structured planning/subtask credit + local-context distillation for long-horizon agents → `method:scad`
   - do not use when pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL) → `method:rcrl`
+  - do not use when inactive rubric recovery (Teacher for unreachable, Critic for saturated; RuACT) → `method:ruact`
   - do not use when multi-turn RL mainly error recovery / long-horizon, not per-step quality → `paper:multi-turn-rl-budget`
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
@@ -1240,6 +1249,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) → `method:tsbpo`
   - when critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE) → `method:scope-agent-opsd`
   - when pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL) → `method:rcrl`
+  - when inactive rubric recovery (Teacher for unreachable, Critic for saturated; RuACT) → `method:ruact`
   - when capability-aware policy+rubric co-evolution (CoCA) → `method:coca`
   - when reward-adaptive co-evolution of policy and rubric (RACE) → `method:race-rubric`
   - when continuation-sharing action-value calibration (ConCal) → `method:concal`
@@ -1298,7 +1308,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when pass@1 vs pass@k no-free-lunch under RLVR → `paper:rlvr-no-free-lunch`
 
 ### task:privileged-teacher-opsd — Privileged-Teacher On-Policy Self-Distillation
-- **SOTA**: `method:vista` `2610.18613` (as_of 2026-08-31) — AIME24 / AIME25 / HMMT25 Avg@12 (Qwen3-1.7B/4B/8B instruct): VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0
+- **SOTA**: `method:vista` `2611.08179` (as_of 2026-08-31) — AIME24 / AIME25 / HMMT25 Avg@12 (Qwen3-1.7B/4B/8B instruct): VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0
   - do not use when teacher-evolution self-distillation (TESD) → `method:tesd`
   - do not use when token-level multi-teacher adaptive OPSD (MTA-OPSD) → `method:mta-opsd`
   - do not use when multi-mask selective self-distillation (MASS) → `method:mass-opsd`
@@ -1320,8 +1330,10 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when adaptive iterative error-to-repair guidance for OPSD → `method:air-opd`
   - do not use when root-cause diagnosis of the student's own failed reasoning then differentiated prefix/error distillation → `method:rc-opd`
   - do not use when privileged-context content (demo vs feedback vs rephrase) as OPSD drift, not a trainer → `method:privileged-context-drift`
+  - do not use when teachable prefixes + recoverability verification against Teacher Drift (TOPSD) → `method:topsd`
 - **Redirects**:
   - when reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing) → `method:self-steered-reasoner`
+  - when teachable prefixes + recoverability verification against Teacher Drift (TOPSD) → `method:topsd`
   - when teacher-evolution self-distillation (TESD) → `method:tesd`
   - when token-level multi-teacher adaptive OPSD (MTA-OPSD) → `method:mta-opsd`
   - when multi-mask selective self-distillation (MASS) → `method:mass-opsd`
@@ -1423,8 +1435,10 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior → `paper:thinking-leakage`
 
 ### task:student-distillation — Small Local Student Distillation from Strong Teacher
-- **SOTA**: `method:opd` `2611.08453` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+- **SOTA**: `method:opd` `2611.09042` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
   - do not use when prefix-20% overlap-gated α-divergence OPD (O2PD) → `method:o2pd`
+  - do not use when failure profiling + branching-point reachability SFT (FPRT; not OPD matching) → `method:fprt`
+  - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
   - do not use when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) → `paper:opd-grpo-flops`
   - do not use when black-box step queries then SFT when the teacher hides CoT (Stepwise Querying) → `method:stepwise-querying`
   - do not use when EMA teacher-student displacement replaces Muon momentum (Muon-RT) → `method:muon-rt`
@@ -1486,7 +1500,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when multi-turn agent OPD at pivotal early mistakes (prevent reverse-KL + recover forward-KL) → `method:pivotopd`
   - do not use when act-first / reason-later multi-turn OPD (inverse dynamics + async full-response distill) → `method:actfirst-opd`
   - do not use when rubric-privileged OPD warm start before rubric-based RL → `method:rp-opd`
-- **SOTA**: `method:open-mopd` `2611.08453` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+- **SOTA**: `method:open-mopd` `2611.03953` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
   - do not use when strong-to-weak OPD vs GRPO FLOPs / specialist then MOPD consolidation → `paper:opd-grpo-flops`
   - do not use when calibrated multi-teacher OPD for dynamic MoE (C-MOPD) → `method:c-mopd`
   - do not use when rollout-free multi-task consolidation from domain-RL history (DoubleFree) → `method:doublefree`
@@ -1502,8 +1516,11 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when lexicographic priority multi-objective OPD from reward-specialist teachers → `method:lmopd`
   - do not use when (M)OPD IND consolidation vs OOD forgetting after RL → `paper:opd-ood-consolidation`
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
+  - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
   - when prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL) → `method:o2pd`
+  - when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
+  - when failure profiling + branching-point reachability SFT (FPRT; not OPD matching) → `method:fprt`
   - when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) → `paper:opd-grpo-flops`
   - when branch-parallel OPD for speculative drafters (SpecOPD; not text matching) → `method:specopd`
   - when (M)OPD IND consolidation vs OOD forgetting after RL → `paper:opd-ood-consolidation`
@@ -2098,7 +2115,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:frontier-rl-posttrain-stack — Frontier RL Post-Training Stack
 - **Scope**: Choosing and operating a production post-training stack (rollout engine, trainer backend, weight sync, LoRA RL / OPD / SFT / async agentic RL) at frontier MoE scale.
-- **SOTA**: `method:miles` `2610.05935` (as_of 2026-09-09) — GLM-5.2 744B-A40B async agentic RL on Terminal-bench-2, 64x GB300: 263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)
+- **SOTA**: `method:miles` `2611.09207` (as_of 2026-09-09) — GLM-5.2 744B-A40B async agentic RL on Terminal-bench-2, 64x GB300: 263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)
   - do not use when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) → `method:ngramrl`
   - do not use when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) → `method:flashnext-rl`
   - do not use when scaled omni-modal RL playbook with router freeze and groupwise agentic grading → `method:mimo-v26`
@@ -2118,6 +2135,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when MoE RLVR train–infer engine mismatch (calibrated IS on log-odds displacement) → `method:cis-rl`
   - do not use when length-scaling tax under RLVR; route solved prompts to EMA OPD → `method:lsd`
   - do not use when cancellation-aware off-policy response mask (absolute token log-ratios) → `method:carm`
+  - do not use when graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine) → `method:rpeg`
 - **Redirects**:
   - when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) → `method:ngramrl`
   - when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) → `method:flashnext-rl`
@@ -2140,6 +2158,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when cancellation-aware off-policy response mask (absolute token log-ratios) → `method:carm`
   - when fast RL rollouts via self-sparse speculative decoding (same-policy sparse draft, dense verify) → `method:s3r`
   - when unified EventLog lifecycle for tool-using LLM agents (train/eval/distill/audit) → `method:agenttune`
+  - when graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine) → `method:rpeg`
 - **Out of scope**: Industrial factory process / experiments-as-code / lineage (Poolside); Async straggler algorithm (SAO); Dense math/code Pass@1 loss (CISPO); ~7B dense pretrain optimizer (Muon2); SWE issue-to-patch harness (mini-SWE-agent); AppWorld outcome-only coverage (CANOPY); Full-pipeline FP8 clip calibration (Calibrated Clipping); Multi-stage agent continual learning (ACLArena); Category-aware SWE expert RL (Category-Aware SWE Experts); Open 8-stage serial post-train recipe / stage order on slime (Rufus-Air); MoE train–infer mismatch IS correction (CIS-RL); Cancellation-aware off-policy sequence masking (CARM)
 
 ### task:industrial-model-building — Industrial Model Building (Model Factory Process)

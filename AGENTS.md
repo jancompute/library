@@ -189,7 +189,7 @@ task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 202
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
   when recycle an AR post-training weight delta onto a converted dLLM -> task:diffusion-lm-ar-delta-recycle
-task:posttrain-diffusion -> method:diffusion-opsd (2610.05954, 2026-08-27) + method:self-opd (2610.05954, 2026-08-28)
+task:posttrain-diffusion -> method:diffusion-opsd (2611.09175, 2026-08-27) + method:self-opd (2611.09175, 2026-08-28)
   when intrinsic distribution matching / EMA moment constraint on DMD (IDM) -> method:idm
   when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) -> method:doobpo
   when distributional regularization for diffusion/flow reward FT (DFR) -> method:dfr
@@ -204,6 +204,7 @@ task:posttrain-diffusion -> method:diffusion-opsd (2610.05954, 2026-08-27) + met
   when pixel-space DiT / flow-matching image pretrain (Representation Guidance) -> task:pixel-diffusion-pretrain
   when continuous diffusion language model pretrain (not image/flow alignment) -> task:continuous-diffusion-lm-pretrain
   when dLLM RL that forks from high-entropy intermediate states (ForkGRPO) -> method:forkgrpo
+  when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) -> method:sifr
 task:4bit-peft-quantization -> method:aqlora-q (2608.23816, 2026-08-26) + method:autoqra (2602.22268, 2026-08-26)
   when forward-only block-spectral phone specialists (FuRA-S; not AQLoRA-Q default) -> method:fura-s
   when NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic) -> method:pact-nvfp4-lora
@@ -273,6 +274,7 @@ task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2610.33813, 2026
   when simplex-projected LoRA rank allocation after a short warm-up (SimplexLoRA) -> method:simplex-lora
   when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA quality -> task:instruct-sft-alignment
   when stacking independently trained LoRA adapters / sequential skill add without an inference router -> task:lora-skill-composition
+  when preference-conditioned jointly trained per-objective LoRA GRPO (LambdaMix; not LoRA quality default) -> method:lambdamix
 task:posttrain-attention-sparsification -> method:sas (2609.13141, 2026-09-14)
   when interleaved scatter/gather static sparse attention (INTRA) -> method:intra
   when sparse attention with a one-token tail proxy (OpenAttention) -> method:openattention
@@ -538,7 +540,7 @@ task:mllm-rl-prompt-curriculum -> method:eps-prompt-scaffolding (2609.15051, 202
   when MoE/VL RLVR loss rather than prompt curriculum -> task:math-code-rl-moe
   when outcome-only long-horizon agent RL (coverage / anti-drift or rubric credit) -> task:outcome-only-long-horizon-agent-rl
   when region-level RL / fine-grained MLLM perception (not prompt scaffolding) -> task:mllm-finegrained-perception-rl
-task:multi-reward-rlvr -> method:corrgrpo (2609.36820, 2026-10-02) + method:dara (2610.00574, 2026-10-02)
+task:multi-reward-rlvr -> method:corrgrpo (2611.09634, 2026-10-02) + method:dara (2611.09634, 2026-10-02)
   when two-stage OT baseline + budget-neutral token credit (TACE) -> method:tace
   when grader-noise coefficient-set calibration on rubric GRPO (SetGRPO) -> method:setgrpo
   when gated-auxiliary projection so auxiliaries cannot reverse the primary (CONCUR) -> method:concur
@@ -552,16 +554,18 @@ task:multi-reward-rlvr -> method:corrgrpo (2609.36820, 2026-10-02) + method:dara
   when outcome-only long-horizon interactive agent RL -> task:outcome-only-long-horizon-agent-rl
   when lexicographic priority multi-objective OPD from reward-specialist teachers (not scalarized multi-reward RL) -> method:lmopd
   when protocol-level rubric grouping so criteria cannot compensate (not Pearson/density aggregation) -> method:prorubric
+  when preference-conditioned per-objective LoRA GRPO (LambdaMix; not Pearson/density aggregation) -> method:lambdamix
 task:multilingual-l2-reasoning-sft -> method:tiny-aya-l2-thinker (2609.10445, 2026-09-14)
   when open pretrain mix / Dolma-3 recipe -> task:open-data-recipe
   when general chat / instruct SFT without L2 language fidelity -> task:instruct-sft-alignment
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when olympiad-style natural-language proofs / IMO TTC -> task:olympiad-math-posttrain
+  when teachable prefixes + recoverability verification against Teacher Drift (TOPSD; not L2 SFT) -> method:topsd
 task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11)
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.06483, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.09597, 2026-09-04)
   when sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage) -> method:harness-s
   when multi-view OPSD of skill memory (MDSkill; not AppWorld coverage) -> method:mdskill
   when subgoal-graph privileged OPSD (SGR-OPSD) -> method:sgr-opsd
@@ -569,6 +573,7 @@ task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.06483, 2026-09-04
   when tree Root/Branch allocator plus sibling/observation-group advantages (TSBPO) -> method:tsbpo
   when critical-step OPSD for agents (SCOPE; not Fisher SCOPE-OPSD, not T2I SCOPE) -> method:scope-agent-opsd
   when pairwise + rubric-criteria curriculum for non-verifiable domains (RcRL) -> method:rcrl
+  when inactive rubric recovery (Teacher for unreachable, Critic for saturated; RuACT) -> method:ruact
   when capability-aware policy+rubric co-evolution (CoCA) -> method:coca
   when reward-adaptive co-evolution of policy and rubric (RACE) -> method:race-rubric
   when continuation-sharing action-value calibration (ConCal) -> method:concal
@@ -619,8 +624,9 @@ task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.06483, 2026-09-04
 task:passk-reasoning-coverage -> method:es-reasoning (2610.39295, 2026-08-31)
   when group-dependent coverage rewards / Team-GRPO (not ES-reasoning) -> method:team-grpo
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
-task:privileged-teacher-opsd -> method:vista (2610.18613, 2026-08-31)
+task:privileged-teacher-opsd -> method:vista (2611.08179, 2026-08-31)
   when reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing) -> method:self-steered-reasoner
+  when teachable prefixes + recoverability verification against Teacher Drift (TOPSD) -> method:topsd
   when teacher-evolution self-distillation (TESD) -> method:tesd
   when token-level multi-teacher adaptive OPSD (MTA-OPSD) -> method:mta-opsd
   when multi-mask selective self-distillation (MASS) -> method:mass-opsd
@@ -652,8 +658,10 @@ task:privileged-teacher-opsd -> method:vista (2610.18613, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.02574, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.08453, 2026-08-26) + method:open-mopd (2611.08453, 2026-08-28)
+task:student-distillation -> method:opd (2611.09042, 2026-08-26) + method:open-mopd (2611.03953, 2026-08-28)
   when prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL) -> method:o2pd
+  when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) -> method:p2-mopd
+  when failure profiling + branching-point reachability SFT (FPRT; not OPD matching) -> method:fprt
   when strong-to-weak OPD vs GRPO FLOPs (external teacher loses; self-GRPO + MOPD wins) -> paper:opd-grpo-flops
   when branch-parallel OPD for speculative drafters (SpecOPD; not text matching) -> method:specopd
   when (M)OPD IND consolidation vs OOD forgetting after RL -> paper:opd-ood-consolidation
@@ -967,7 +975,7 @@ task:operator-physics-informed -> method:pi-cvit (2606.06164, 2026-08-28)
 task:operator-weather -> method:fourcastnet-3 (2507.12144, 2026-08-28)
 task:snn-sequence-modeling -> method:longspike (2606.12895, 2026-08-26)
 task:spiking-neural-networks-training -> method:longspike (2606.12895, 2026-08-26) + method:a2sg (2606.11236, 2026-08-26)
-task:frontier-rl-posttrain-stack -> method:miles (2610.05935, 2026-09-09)
+task:frontier-rl-posttrain-stack -> method:miles (2611.09207, 2026-09-09)
   when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) -> method:ngramrl
   when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) -> method:flashnext-rl
   when scaled omni-modal RL playbook with router freeze and groupwise agentic grading (MiMo-V2.6) -> method:mimo-v26
@@ -989,6 +997,7 @@ task:frontier-rl-posttrain-stack -> method:miles (2610.05935, 2026-09-09)
   when cancellation-aware off-policy response mask (absolute token log-ratios) -> method:carm
   when fast RL rollouts via self-sparse speculative decoding (same-policy sparse draft, dense verify) -> method:s3r
   when unified EventLog lifecycle for tool-using LLM agents (train/eval/distill/audit) -> method:agenttune
+  when graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine) -> method:rpeg
 task:industrial-model-building -> method:poolside-model-factory (2605.27605, 2026-08)
   when full-stack frontier RL post-train engine (SGLang rollouts, Megatron/FSDP, LoRA RL / OPD / async agentic RL), not factory lineage -> task:frontier-rl-posttrain-stack
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
@@ -1746,6 +1755,20 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 605. **Criteria Exposure** (claim note, no new method): `paper:criteria-exposure` (`arXiv:2611.08318`) on `task:agentic-rsi-routing-posttrain`. Reading the verifier $51.6\%$ vs $27.8\%$ under original criteria, $45.0\%$ vs $47.2\%$ under instruction-faithful criteria. Does **not** retarget NeoHorse-1.
 
+606. **LambdaMix**: **LambdaMix** (`method:lambdamix`, `arXiv:2611.09634`) on `task:multi-reward-rlvr`. Active plug-in. Per-objective LoRA GRPO mixed by a preference vector. Qwen3.5-9B PKU-SafeRLHF HV $0.8735$ vs prompt $0.7760$; GSM8K-IF HV $0.8099$ vs GRPO $0.6947$. Code ckarouzos/lambdamix. Mention on `task:parameter-efficient-fine-tuning`. Does **not** replace CorrGRPO / DARA.
+
+607. **RuACT**: **RuACT** (`method:ruact`, `arXiv:2611.09597`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Teacher OPSD for unreachable rubrics, Critic child-rubrics for saturated. ResearchQA $64.82\to 69.44$ vs GRPO. Code ZJU-REAL/RuACT. Sibling of DRACO / MetaRubric / CoCA / RACE / RcRL. Does **not** replace CANOPY or DRACO.
+
+608. **SIFR**: **SIFR** (`method:sifr`, `arXiv:2611.09175`) on `task:posttrain-diffusion`. Active plug-in. Signed advantages plus Lagrange velocity-drift budget. SD3.5-M / FLUX.2 Klein / Cosmos 3 Super T2I 64B; 12 backbone–reward pairs. No public code. Does **not** replace DiffusionOPSD / Self-OPD.
+
+609. **P2-MOPD**: **P2-MOPD** (`method:p2-mopd`, `arXiv:2611.03953`) on `task:student-distillation`. Active plug-in. Parameter-prior MOPD; 1.7B avg recovery $94.7\%$ vs MOPD $80.9\%$. GitHub README-only (`code_status: announced`). Paper Open-MOPD is not the library $83.4\%$ bake-off. Does **not** replace Open-MOPD.
+
+610. **TOPSD**: **TOPSD** (`method:topsd`, `arXiv:2611.08179`) on `task:privileged-teacher-opsd`. Active plug-in. Teachable prefixes plus recoverability verification against Teacher Drift. Qwen3-1.7B/4B/8B PolyMath High Avg@3 $11.60$ / $17.79$ / $25.12$. No public code. Mention on `task:multilingual-l2-reasoning-sft`. Does **not** replace VISTA.
+
+611. **FPRT**: **FPRT** (`method:fprt`, `arXiv:2611.09042`, NeurIPS 2026) on `task:student-distillation`. Active plug-in. Failure profiling plus branching-point reachability SFT. Llama-3.1-8B / DeepSeek-Math-7B five-bench avg $79.7$ / $80.6$ vs LEMMA $+2.4$ / $+1.8$. Code visresearch/FPRT. Distinct from projected-distillation. Does **not** replace OPD.
+
+612. **RPEG**: **RPEG** (`method:rpeg`, `arXiv:2611.09207`) on `task:frontier-rl-posttrain-stack`. Active plug-in. Graph IR plus runtime for RLM PPO/GRPO. Up to $2\times$ vs ReaL; $2.477\times$ step latency vs verl (median $1.488\times$) on up to 256 GH200. No public code. Does **not** replace Miles.
+
 
 ---
 
@@ -2353,6 +2376,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `stage-lora` (2611.08414) is an active SFT/RL spectral LoRA plug-in. It does not supersede `lr-matters-lora`.
 - `paper:opd-grpo-flops` (2611.08453) is an OPD vs GRPO FLOPs gotcha. It does not retarget `opd` or `open-mopd`.
 - `paper:criteria-exposure` (2611.08318) is an embodied RSI verifier-leakage gotcha. It does not retarget `neohorse-1`.
+- `lambdamix` (2611.09634) is an active preference-conditioned LoRA GRPO plug-in. It does not supersede `corrgrpo` or `dara`.
+- `ruact` (2611.09597) is an active inactive-rubric recovery plug-in. It does not supersede `canopy` or `draco`.
+- `sifr` (2611.09175) is an active signed flow-RL plug-in. It does not supersede `diffusion-opsd` or `self-opd`.
+- `p2-mopd` (2611.03953) is an active parameter-prior MOPD plug-in. It does not supersede `open-mopd`.
+- `topsd` (2611.08179) is an active teachable-prefix privileged-OPSD plug-in. It does not supersede `vista`.
+- `fprt` (2611.09042) is an active failure-profile SFT plug-in. Distinct from `projected-distillation`. It does not supersede `opd`.
+- `rpeg` (2611.09207) is an active RLM pipeline-IR plug-in. It does not supersede `miles`.
 
 
 ---

@@ -65,12 +65,16 @@ do_not_use_for:
   - when: "cancellation-aware off-policy response mask (absolute token log-ratios)"
     reason: "Miles is the engine; CARM is a sequence-level off-policy mask"
     use_instead: "method:carm"
+  - when: "graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine)"
+    reason: "Miles remains the production stack; RPEG is a pipeline IR plus planner"
+    use_instead: "method:rpeg"
 assumptions:
   - "Frontier MoE post-train with a split rollout/train fleet. Paper case study: GLM-5.2 744B-A40B on 64 GB300 (32/32), Megatron trainer, optimizer-state streaming to disk."
   - "SGLang rollouts; Megatron or FSDP trainer. LoRA RL is Megatron-only in v0.1."
   - "Does not replace the train-kernel defaults run inside the stack (CISPO, OPD, Muon2)."
 last_reviewed: "2026-10-09"
 papers:
+  - paper:rpeg
   - paper:thundersyncrl
   - paper:miles
 recipes:
