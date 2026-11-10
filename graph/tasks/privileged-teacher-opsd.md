@@ -5,6 +5,8 @@ title: "Privileged-Teacher On-Policy Self-Distillation"
 domain: "post-training"
 summary: "On-policy self-distillation where a same-size teacher is privileged with a gold reference solution and a deterministic outcome verifier, rather than a larger frozen teacher model."
 redirects:
+  - when: "environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA)"
+    to: "method:ecos"
   - when: "reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing)"
     to: "method:self-steered-reasoner"
   - when: "teachable prefixes + recoverability verification against Teacher Drift (TOPSD)"
@@ -75,6 +77,7 @@ current_sota:
     value: "VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0"
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
+  - method:ecos
   - method:topsd
   - method:self-steered-reasoner
   - method:tesd
@@ -112,7 +115,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-10'
 tags:
   - post-training
   - distillation
@@ -133,6 +136,7 @@ Train a problem-only student on its own rollouts using dense token-level targets
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Related environment-calibrated agent OPSD (not this first hop)**: `method:ecos` (`arXiv:2611.12232`) on `task:outcome-only-long-horizon-agent-rl`. Command-only teacher; full-response teacher collapses. Does not replace VISTA.
 - **Optional teachable-prefix OPSD (not this first hop)**: `method:topsd` (`arXiv:2611.08179`). Teachable prefixes plus recoverability verification against Teacher Drift. Qwen3-1.7B/4B/8B PolyMath High Avg@3 $11.60$ / $17.79$ / $25.12$. No public code. Mention on `task:multilingual-l2-reasoning-sft`. Does not replace VISTA.
 - **Optional reachability-aligned self-distill**: `method:self-steered-reasoner` (`arXiv:2611.00796`). Recovers 74.6% of pass@64=0 problems; +4.9pp AIME25/26+HMMT26. Distinct from `method:ssr`. No public code. Does not replace VISTA.
 - **Primary Method**: **VISTA** (`method:vista`, `paper:vista` `arXiv:2608.28306`) for verifier-informed student-to-teacher adaptation on privileged-teacher OPSD.

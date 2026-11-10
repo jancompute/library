@@ -8,6 +8,9 @@ sota_for:
   - task:web-search-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: "controllable tool-call efficiency / anchored reference budget (CARE-PO)"
+    reason: "Iris remains SFT-RL climbing; CARE-PO is a call-count anchor on a GRPO host"
+    use_instead: "method:care-po"
   - when: "FALCA deep-search agent RL (propose-falsify hierarchical credit)"
     reason: "Iris remains SFT-RL climbing; FALCA is Searcher-Falsifier RL"
     use_instead: "method:falca"
@@ -38,6 +41,7 @@ assumptions:
   - "Default reported decode uses discard-all CM (DeepSeek-V3.2). Publish no-CM numbers too. Single ReAct, no sub-agents, no test-time verification."
 last_reviewed: '2026-10-21'
 papers:
+  - paper:care-po
   - paper:iris
   - paper:gca
 recipes:

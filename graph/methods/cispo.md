@@ -10,6 +10,9 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'adaptive entropy-sparing length control (AES; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; AES is a GRPO-host entropy-sparing length plug-in'
+    use_instead: method:aes
   - when: 'conformal adaptive GRPO group size (C-GRPO; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; C-GRPO is a conformal group-size plug-in on GRPO'
     use_instead: method:c-grpo
@@ -193,8 +196,9 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-10'
 papers:
+  - paper:aes
   - paper:rlvr-sharpens
   - paper:not-all-reasoning-generalizes
   - paper:rlvr-no-free-lunch

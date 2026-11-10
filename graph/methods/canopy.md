@@ -8,6 +8,15 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'environment-calibrated command-only OPSD (ECOS; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; ECOS is command-only privileged OPSD'
+    use_instead: method:ecos
+  - when: 'controllable tool-call efficiency / anchored reference budget (CARE-PO)'
+    reason: 'CANOPY remains checker coverage; CARE-PO is a tool-budget efficiency plug-in'
+    use_instead: method:care-po
+  - when: 'mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD; not coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; Agentic-OPD is checkpoint-mined distill'
+    use_instead: method:agentic-opd
   - when: 'sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage)'
     reason: 'CANOPY remains checker coverage; Harness-S re-rolls the same policy under frozen sibling harnesses'
     use_instead: method:harness-s
@@ -120,8 +129,11 @@ assumptions:
   - "A held-out unit-test / patch verifier exists. Sparse fully-correct reward, not pass-fraction."
   - "Paper: Qwen3-14B on AppWorld train split (90 tasks), veRL, n=32, 50 turns / 32k train, 100 turns / 61k test, KL β=1e-4, lr 3e-6, 90 steps, hardest tier kept."
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-10'
 papers:
+  - paper:ecos
+  - paper:care-po
+  - paper:agentic-opd
   - paper:ruact
   - paper:multi-turn-rl-budget
   - paper:rcrl

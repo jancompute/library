@@ -15,6 +15,12 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "environment-calibrated command-only OPSD (ECOS; not CANOPY coverage)"
+    to: "method:ecos"
+  - when: "controllable tool-call efficiency / anchored reference budget (CARE-PO)"
+    to: "method:care-po"
+  - when: "mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD; not coverage)"
+    to: "method:agentic-opd"
   - when: "sibling-harness rescue of all-fail GRPO groups (Harness-S; not CANOPY coverage)"
     to: "method:harness-s"
   - when: "multi-view OPSD of skill memory (MDSkill; not AppWorld coverage)"
@@ -133,6 +139,9 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:ecos
+  - method:care-po
+  - method:agentic-opd
   - method:harness-s
   - method:ruact
   - method:rcrl
@@ -188,7 +197,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-10'
 tags:
   - post-training
   - agentic
@@ -213,6 +222,9 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional environment-calibrated OPSD (not this coverage default)**: `method:ecos` (`arXiv:2611.12232`). Command-only teacher plus one-token env-calibration suffix. 3B/7B ALFWorld seen $90.5/93.3$, WebShop $75.5/80.5$; unseen ALFWorld $+11.0/+7.6$ vs GRPO; 3B WebShop command-only $75.0$ vs full-response $52.3$. Mention on `task:privileged-teacher-opsd`. No public code. Does not replace CANOPY or VISTA.
+- **Optional tool-budget efficiency (not this coverage default)**: `method:care-po` (`arXiv:2611.12125`). Fixed per-task reference budget. 5 of 6 GAIA points improve success and calls; sixth matches success at $58.6\%$ fewer calls. 27B efficiency-reward collapses to zero calls. Mention on `task:web-search-agent-rl`. No public code. Does not replace CANOPY or Iris.
+- **Related discarded-checkpoint OPD (not this coverage default)**: `method:agentic-opd` (`arXiv:2611.12799`) on `task:student-distillation`. HCN+LAD over GRPO checkpoints. Does not replace CANOPY.
 - **Optional multi-view skill OPSD (not this coverage default)**: `method:mdskill` (`arXiv:2611.05313`) on `task:agent-memory`. ALFWorld/WebShop +7.1/+8.1. Does not replace CANOPY.
 - **Optional subgoal-graph OPSD**: `method:sgr-opsd` (`arXiv:2611.02414`). ALFWorld Qwen2.5-7B 85.8%, +7.4 vs GRPO. No public code. Does not replace CANOPY.
 - **Optional decision-plane RL**: `method:rlid` (`arXiv:2611.02455`). ALFWorld 99.3% in 12.7 H100-h vs token-level 86.6% in 17.3h. Mention on `task:agentic-async-rl`. No public code. Does not replace CANOPY or SAO.

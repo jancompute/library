@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: 'few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)'
+    reason: 'DiffusionOPSD remains on-policy self-distill; FewStepRL ports hosts onto average-velocity few-step models'
+    use_instead: method:fewsteprl
   - when: 'intrinsic distribution matching / EMA moment constraint on DMD (IDM)'
     reason: 'DiffusionOPSD remains reward OPSD; IDM is few-step DMD plus EMA moments'
     use_instead: method:idm
@@ -24,6 +27,7 @@ do_not_use_for:
     reason: "DiffusionOPSD remains image-policy OPSD; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:fewsteprl
   - paper:sifr
   - paper:mend
   - paper:diffusion-opsd
