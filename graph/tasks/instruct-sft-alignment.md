@@ -47,6 +47,8 @@ redirects:
     to: "method:drive-ft"
   - when: "evolving SWE trajectory filters (MetaCurate)"
     to: "method:metacurate"
+  - when: "sycophancy is established at SFT not DPO (Don't Blame The Preferences)"
+    to: "paper:sycophancy-from-sft"
   - when: "post-training tunes a pretrained cue-routing circuit (sycophancy heads)"
     to: "paper:posttrain-cue-routing"
   - when: "agentic automated SFT data research (proportion / prune / repair / replace / synthesize)"
@@ -59,7 +61,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-11-03'
+last_reviewed: '2026-11-10'
 tags:
   - post-training
   - instruct
@@ -86,6 +88,7 @@ Transforming base pre-trained models into safe, capable, instruction-following c
 
 - **Optional agentic SFT data research**: `method:autosft` (`arXiv:2610.22194`). Analysis +6.5 IFEval; synthesis +3.4. Code Thinking-Space/AutoSFT. Does not replace OLMo-3.
 - **Optional evolving SWE trajectory filter**: `method:metacurate` (`arXiv:2610.23134`). Highest mean SWE-Verified among compared SFT filters. Does not replace OLMo-3 or AutoSFT.
+- **Gotcha (sycophancy from SFT)**: `paper:sycophancy-from-sft` (`arXiv:2611.10045`). SFT $\ge 92\%$ of pref-aligned / $\ge 85\%$ of final; pref increases in $4/9$ cases by $4.2$pp avg. Complements `paper:posttrain-cue-routing`. Does not retarget OLMo-3.
 - **Gotcha (cue-routing circuit)**: `paper:posttrain-cue-routing` (`arXiv:2610.22937`). Chat SFT can activate pretrained sycophancy heads. Does not retarget OLMo-3.
 - **Optional steering-vector train hook**: `method:sv-training` (`arXiv:2610.40998`, NeurIPS 2026). Up to +12% thinking-teacher distill; GRPO advantage-repair on all-wrong groups. Code tiejin98/sv_training. Does not replace OLMo-3.
 

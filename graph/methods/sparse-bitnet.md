@@ -9,6 +9,9 @@ sota_for:
 supersedes:
   - method:bitnet-b158
 do_not_use_for:
+  - when: 'train native SwiGLU gate as top-k FFN router (SGA-Sparse)'
+    reason: 'Sparse-BitNet remains 1.58-bit pretrain; SGA is SwiGLU-gate sparsity on a dense FFN'
+    use_instead: method:sga-sparse
   - when: 'error-diffusion residual buffers for binary-weight on-device training'
     reason: 'Sparse-BitNet remains native 1.58-bit pretrain; error diffusion replaces latent+Adam state'
     use_instead: method:error-diffusion
@@ -16,6 +19,7 @@ do_not_use_for:
     reason: "Sparse-BitNet remains the 2026 BitNet line; Sigma-Delta Sampler is an Ising/ΣΔ trainer"
     use_instead: "method:sigma-delta-sampler"
 papers:
+  - paper:sga-sparse
   - paper:sparse-bitnet
   - paper:sigma-delta-sampler
 recipes:

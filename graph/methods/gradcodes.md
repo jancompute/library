@@ -8,6 +8,9 @@ sota_for:
   - task:full-lowbit-finetune
 supersedes: []
 do_not_use_for:
+  - when: "train native SwiGLU gate as top-k FFN router (SGA-Sparse)"
+    reason: "GradCodeS remains code-space FT; SGA is native SwiGLU-gate sparsity then QAT"
+    use_instead: "method:sga-sparse"
   - when: "forward-only block-spectral phone specialists (FuRA-S)"
     reason: "GradCodeS remains deployed low-bit FT; FuRA-S is forward-only INT4 specialists"
     use_instead: "method:fura-s"
@@ -36,8 +39,9 @@ assumptions:
   - "Targeted linear layers stay in NF4, INT4, or MXFP4 at every accepted checkpoint; embeddings and lm_head may stay unquantized (paper setting)."
   - "One backward pass per search step plus M forward evaluations of deployable candidates."
   - "Paper scale is Qwen3-0.6B and Llama-3.2-1B/3B-Instruct, three seeds."
-last_reviewed: '2026-10-21'
+last_reviewed: '2026-11-10'
 papers:
+  - paper:sga-sparse
   - paper:gradcodes
 recipes:
   - recipe:gradcodes

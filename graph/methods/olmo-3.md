@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: "sycophancy is established at SFT not DPO (Don't Blame The Preferences)"
+    reason: 'Gotcha: sycophancy is already in the SFT checkpoint; does not retarget OLMo-3'
+    use_instead: paper:sycophancy-from-sft
   - when: 'domain inductive biases still matter in foundation pretraining mixes'
     reason: 'Gotcha: domain biases are not obsolete at foundation scale; does not retarget OLMo-3'
     use_instead: paper:domain-inductive-biases
@@ -49,6 +52,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:sycophancy-from-sft
   - paper:domain-inductive-biases
   - paper:weight-update-leverage
   - paper:intervention-certified
@@ -68,7 +72,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Dolma-3 multi-trillion token open mix + Dolci curated SFT and verifiable reward alignment."
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-10'
 tags:
   - pretraining
   - open-data

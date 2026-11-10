@@ -5,6 +5,14 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "observation-aligned MOPD for VL agents (Reframe)"
+    to: "method:reframe"
+  - when: "DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD)"
+    to: "method:rds-mopd"
+  - when: "mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD)"
+    to: "method:agentic-opd"
+  - when: "OPD train-inference mismatch / FP8 first-last BF16"
+    to: "paper:opd-train-infer-mismatch"
   - when: "prefix-20% overlap-gated α-divergence OPD (O2PD; not default reverse-KL)"
     to: "method:o2pd"
   - when: "parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD)"
@@ -223,6 +231,9 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:reframe
+  - method:rds-mopd
+  - method:agentic-opd
   - method:p2-mopd
   - method:fprt
   - method:o2pd
@@ -335,7 +346,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-10'
 tags:
   - post-training
   - distillation
@@ -350,6 +361,10 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional observation-aligned VL MOPD**: `method:reframe` (`arXiv:2611.12886`). GD-GRPO + OG-MOPD. Qwen3.5-9B image $63.46\to 69.48$ / video $49.75\to 53.10$ vs Mix-RL $66.75/51.41$ and MOPD $68.19/52.32$. Code EliYuan30/Reframe. Paper MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
+- **Optional DRO domain-mixture MOPD**: `method:rds-mopd` (`arXiv:2611.12012`). SmolLM3-3B BO Avg. Rank $1.50$ / recovery $118.1\%$ vs Open-MOPD $2.67$ / $105.6$. No public code. Paper Open-MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
+- **Optional discarded-checkpoint OPD**: `method:agentic-opd` (`arXiv:2611.12799`). HCN+LAD over GRPO checkpoints. DeepSearch mean vs GRPO $+2.8/+7.4/+2.6$ on Qwen2.5-3B/7B / Qwen3-4B. Mention on `task:outcome-only-long-horizon-agent-rl`. No public code. Does not replace OPD, Open-MOPD, or CANOPY.
+- **Gotcha (OPD train–infer mismatch)**: `paper:opd-train-infer-mismatch` (`arXiv:2611.11450`). OPD tolerates mismatch that breaks RL; FP8 first/last BF16 + async $1.62\times$ vs sync BF16. All-layer FP8 fails. Code benyucong/train-inference-mismatch-opd. Does not retarget OPD.
 - **Optional parameter-prior MOPD**: `method:p2-mopd` (`arXiv:2611.03953`). Experts as trainable mixing coefficients plus student weights. 1.7B avg recovery $94.7\%$ vs MOPD $80.9\%$. GitHub README-only. Paper Open-MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
 - **Optional failure-profile SFT (not matching)**: `method:fprt` (`arXiv:2611.09042`). Stubborn/inconsistent/sporadic profiling plus branching-point reachability. Llama-3.1-8B / DeepSeek-Math-7B five-bench avg $79.7$ / $80.6$ vs LEMMA $+2.4$ / $+1.8$. Code visresearch/FPRT. Distinct from projected-distillation. Does not replace OPD.
 - **Optional observation-coordinated OPD**: `method:oc-opd` (`arXiv:2611.01965`). Code RuoranXu/OC-OPD. Does not replace OPD.

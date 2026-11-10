@@ -9,6 +9,18 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'observation-aligned MOPD for VL agents (Reframe)'
+    reason: 'OPD remains matching; Reframe is multimodal teacher mix on a GD-GRPO host'
+    use_instead: method:reframe
+  - when: 'DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD)'
+    reason: 'OPD remains matching; RDS-MOPD schedules domain shares across teachers'
+    use_instead: method:rds-mopd
+  - when: 'mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD)'
+    reason: 'OPD remains reverse-KL matching; Agentic-OPD mines discarded GRPO checkpoints'
+    use_instead: method:agentic-opd
+  - when: 'OPD train-inference mismatch / FP8 first-last BF16'
+    reason: 'Gotcha: OPD tolerates mismatch that breaks RL; all-layer FP8 still fails; does not retarget matching'
+    use_instead: paper:opd-train-infer-mismatch
   - when: 'prefix-20% overlap-gated α-divergence OPD (O2PD)'
     reason: 'OPD remains full-token reverse-KL matching; O2PD gates FKL/RKL on a prefix'
     use_instead: method:o2pd
@@ -201,8 +213,12 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-10'
 papers:
+  - paper:opd-train-infer-mismatch
+  - paper:reframe
+  - paper:rds-mopd
+  - paper:agentic-opd
   - paper:fprt
   - paper:p2-mopd
   - paper:opd-grpo-flops

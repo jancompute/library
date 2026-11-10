@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: "few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)"
+    reason: "Self-OPD remains teacher-free flow matching; FewStepRL ports hosts onto average-velocity few-step models"
+    use_instead: "method:fewsteprl"
   - when: "flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k)"
     reason: "Self-OPD remains teacher-free flow matching; MEND is proximal velocity matching on a flow RL host"
     use_instead: "method:mend"
@@ -15,6 +18,7 @@ do_not_use_for:
     reason: "Self-OPD remains teacher-free flow matching; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:fewsteprl
   - paper:sifr
   - paper:mend
   - paper:self-opd

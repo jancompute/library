@@ -10,10 +10,14 @@ do_not_use_for:
 - when: 'the locked first hop on task:math-code-rl-dense'
   reason: 'CISPO remains Pass@1; LoCo is a continue-vs-conclude length plug-in'
   use_instead: method:cispo
+- when: 'adaptive entropy-sparing length control (AES; not Pass@1 CISPO)'
+  reason: 'LoCo is token-level continue/conclude; AES sparsifies entropy on correct rollouts'
+  use_instead: method:aes
 assumptions:
 - 'Frozen-prefix local DPO on a GRPO/CISPO host. Sibling of When2Think / LSD. Code released as of 2026-11-04.'
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-10'
 papers:
+- paper:aes
 - paper:loco
 recipes:
 - recipe:loco

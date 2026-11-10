@@ -16,6 +16,9 @@ do_not_use_for:
 - when: 'token-level ExpertAlign routing over unlabeled multi-teacher pools'
   reason: 'MOPD-Router routes the pool per token; P2-MOPD mixes expert parameters'
   use_instead: method:mopd-router
+- when: 'DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD)'
+  reason: 'P2-MOPD mixes expert parameters; RDS-MOPD reallocates prompt shares under DRO'
+  use_instead: method:rds-mopd
 assumptions:
 - 'Labeled domain experts plus a student under live OPD. Paper: 1.7B / 4B, four domains. GitHub SinuoWang/P2-MOPD is README-only as of 2026-11-09 (code_status: announced). Paper Open-MOPD is not the library 83.4% bake-off. arXiv 2611.03953 is an HF Daily leftover below listing watermark 2611.08453.'
 last_reviewed: '2026-11-09'

@@ -8,6 +8,15 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'observation-aligned MOPD for VL agents (Reframe)'
+    reason: 'Open-MOPD remains text token-share / gap-aware budget; Reframe mixes teachers at the shared observation'
+    use_instead: method:reframe
+  - when: 'DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD)'
+    reason: 'Open-MOPD remains token-share / gap-aware budget; RDS-MOPD is DRO mixture under noisy KL'
+    use_instead: method:rds-mopd
+  - when: 'mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD)'
+    reason: 'Open-MOPD remains labeled-teacher mix; Agentic-OPD mines discarded GRPO checkpoints'
+    use_instead: method:agentic-opd
   - when: 'strong-to-weak OPD vs GRPO FLOPs / specialist then MOPD consolidation'
     reason: 'Gotcha: multi-teacher OPD consolidates specialists cheaper than joint GRPO; does not retarget the 83.4% bake-off'
     use_instead: paper:opd-grpo-flops
@@ -56,8 +65,11 @@ do_not_use_for:
   - when: "parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD)"
     reason: "Open-MOPD remains token-share / gap-aware budget; P2-MOPD jointly trains mixing coefficients and student weights"
     use_instead: "method:p2-mopd"
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-10'
 papers:
+  - paper:reframe
+  - paper:rds-mopd
+  - paper:agentic-opd
   - paper:p2-mopd
   - paper:opd-grpo-flops
   - paper:opd-ood-consolidation

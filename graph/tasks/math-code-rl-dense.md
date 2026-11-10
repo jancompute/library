@@ -19,6 +19,8 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "adaptive entropy-sparing length control (AES; not Pass@1 CISPO)"
+    to: "method:aes"
   - when: "local continue-vs-conclude length control (LoCo; not Pass@1 CISPO)"
     to: "method:loco"
   - when: "recoverable RLVR frontier / one-shot restage (ReSI-Math; not Pass@1 CISPO)"
@@ -195,6 +197,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:aes
   - method:c-grpo
   - method:loco
   - method:resi-math
@@ -289,7 +292,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-05'
+last_reviewed: '2026-11-10'
 tags:
   - post-training
   - reasoning
@@ -305,6 +308,7 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional adaptive entropy-sparing length control**: `method:aes` (`arXiv:2611.11901`). R1-1.5B mean acc $64.9\to 68.7$ ($+3.8$), len $6467\to 3048$ ($-52.9\%$); R1-7B $74.1\to 75.2$, $4712\to 2510$. GitHub MobiusDai/AES 404. Sibling of LoCo / When2Think / LSD. Does not replace CISPO.
 - **Optional continue-vs-conclude length control**: `method:loco` (`arXiv:2611.04814`). Math length −41.7% to −45.4%; code −23.4% to −36.3%. Code MuyaoYuan/LoCo. Sibling of When2Think / LSD. Does not replace CISPO.
 - **Optional recoverable RLVR restage**: `method:resi-math` (`arXiv:2611.04787`). Qwen3-VL-8B MATH500+WE-MATH 78.71→80.16 after 3 one-shot stages. Code CNU-Bot-Group/ReSI-Math. Does not replace CISPO.
 - **Optional factored RLVR scheduler**: `method:fade` (`arXiv:2611.03625`). Ability vs item-difficulty filter. Distinct from ThinkPrior / NGU / AdaRoll-GRPO. No public code. Does not replace CISPO.

@@ -6,6 +6,51 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-10 — weekday SOTA sweep (RDS-MOPD, Agentic-OPD, ECOS, AES, SGA-Sparse, CARE-PO, FewStepRL, Reframe; notes OPD train–infer mismatch, sycophancy from SFT)
+- Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-10 Librarian weekday sweep after merged PR 61 (watermark 2611.09634, dd72de8, 2197 nodes / 8944 edges). Covers Tuesday 2026-11-10 arXiv cs.LG/cs.CL/cs.AI after 2611.09634 (listing range 2611.09897–2611.12872) plus HF Daily 2026-11-10 and 2026-11-09 leftovers. FewStepRL 2611.08240 is an HF leftover below the listing watermark; Reframe 2611.12886 is a cs.CV leftover. New high id 2611.12886 (ingest) / 2611.12872 (listing considered).
+- SKIP (considered, not ingested): BiMuon; DisMUSE; BunshinRL; Detent; InfraRSI; onóna; forward-only SVD PEFT; No Second Run RSI; REINS; AERO; TRUST; TLRS-DPO; perturbing-input distill; spectral rank; Agency cost; FGL; WorldFoundry; EmoHarness; Horizon-Scalable Q; Homeopathic Learning; Greek LMs; WM-PPO; PURL; SkillDuet.
+
+### 2026-11-10 — ingest method:rds-mopd (active on task:student-distillation; does not supersede method:open-mopd)
+- Added paper:rds-mopd, method:rds-mopd, recipe:rds-mopd (`code_status: none`).
+- Status active (`sota_for: []`). DRO domain-mixture scheduling for multi-teacher OPD. Paper Open-MOPD is not the library 83.4% bake-off.
+
+### 2026-11-10 — ingest method:agentic-opd (active on task:student-distillation; does not supersede method:opd / method:open-mopd / method:canopy)
+- Added paper:agentic-opd, method:agentic-opd, recipe:agentic-opd (`code_status: none`). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). HCN+LAD over discarded GRPO checkpoints. DeepSearch protocol is not a harness ranking.
+
+### 2026-11-10 — ingest method:ecos (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:vista)
+- Added paper:ecos, method:ecos, recipe:ecos (`code_status: none`). Mention on task:privileged-teacher-opsd.
+- Status active (`sota_for: []`). Command-only teacher plus one-token environment-calibration suffix.
+
+### 2026-11-10 — ingest method:aes (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:aes, method:aes, recipe:aes (`code_status: announced`, MobiusDai/AES 404 as of 2026-11-10).
+- Status active (`sota_for: []`). Entropy-sparing on already-correct GRPO rollouts. Sibling of method:loco / method:when2think / method:lsd.
+
+### 2026-11-10 — ingest method:sga-sparse (active on task:full-lowbit-finetune; does not supersede method:gradcodes)
+- Added paper:sga-sparse, method:sga-sparse, recipe:sga-sparse (`code_status: none`).
+- Status active (`sota_for: []`). Native SwiGLU-gate top-k FFN sparsity then continued-QAT. PTQ of the sparse checkpoint degrades.
+
+### 2026-11-10 — ingest method:care-po (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:iris)
+- Added paper:care-po, method:care-po, recipe:care-po (`code_status: none`). Mention on task:web-search-agent-rl.
+- Status active (`sota_for: []`). Anchored tool-call budget vs a learned efficiency reward that collapsed to zero calls.
+
+### 2026-11-10 — ingest method:fewsteprl (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:self-opd)
+- Added paper:fewsteprl, method:fewsteprl, recipe:fewsteprl (`code_status: none`).
+- Status active (`sota_for: []`). Ports FlowGRPO / AWM / DiffusionNFT / DiffusionOPSD / ReFL onto average-velocity few-step models. HF leftover below watermark 2611.09634.
+
+### 2026-11-10 — ingest method:reframe (active on task:student-distillation; does not supersede method:open-mopd)
+- Added paper:reframe, method:reframe, recipe:reframe (`code_status: released`, EliYuan30/Reframe).
+- Status active (`sota_for: []`). Observation-aligned VL MOPD (GD-GRPO + OG-MOPD). Paper MOPD is not the library 83.4% bake-off.
+
+### 2026-11-10 — ingest paper:opd-train-infer-mismatch (claim note on task:student-distillation; does not retarget method:opd)
+- Added paper:opd-train-infer-mismatch. Linked from method:opd. Code benyucong/train-inference-mismatch-opd (`code_status: released`).
+- OPD tolerates sampler/trainer mismatch that breaks RL; all-layer FP8 still fails.
+
+### 2026-11-10 — ingest paper:sycophancy-from-sft (claim note on task:instruct-sft-alignment; does not retarget method:olmo-3)
+- Added paper:sycophancy-from-sft. Linked from method:olmo-3. Complements paper:posttrain-cue-routing.
+- Sycophancy is already in the SFT checkpoint; preference stages are not the origin.
+
 ### 2026-11-09 — weekday SOTA sweep (LambdaMix, RuACT, SIFR, P2-MOPD, TOPSD, FPRT, RPEG)
 - Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-09 Librarian weekday sweep after merged PR 60 (watermark 2611.08453, fd9380d). Covers Friday 2026-11-06 evening through Monday 2026-11-09 arXiv cs.LG/cs.CL/cs.AI after 2611.08453 (128 unique ids, range 2611.08490–2611.09882) plus HF Daily 2026-11-07 / 2026-11-08 leftovers and 2026-11-09. P2-MOPD 2611.03953 and TOPSD 2611.08179 are HF Daily leftovers below the listing watermark. New high id 2611.09634 (ingest) / 2611.09882 (considered).
