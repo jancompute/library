@@ -10,6 +10,15 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; MCPO redistributes the same GRPO advantage by top-2 margin'
+    use_instead: method:mcpo
+  - when: 'dense Monte-Carlo process rewards vs outcome GRPO at matched tokens'
+    reason: 'Gotcha: MC process rewards can lose at equal tokens; does not retarget CISPO'
+    use_instead: paper:dense-rewards-grpo
+  - when: 'coverage collapse / APMD reference resets in post-train PG'
+    reason: 'Gotcha: REINFORCE/PPO/GRPO can drop mass on optimal responses; does not retarget CISPO'
+    use_instead: paper:coverage-collapse-reference-resets
   - when: 'adaptive entropy-sparing length control (AES; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; AES is a GRPO-host entropy-sparing length plug-in'
     use_instead: method:aes
@@ -198,6 +207,9 @@ do_not_use_for:
     use_instead: "method:rgpo"
 last_reviewed: '2026-11-10'
 papers:
+  - paper:mcpo
+  - paper:dense-rewards-grpo
+  - paper:coverage-collapse-reference-resets
   - paper:aes
   - paper:rlvr-sharpens
   - paper:not-all-reasoning-generalizes

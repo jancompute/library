@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:deletion-tuning
   - method:lambdamix
   - method:stage-lora
   - method:sama
@@ -43,8 +44,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-11'
 redirects:
+  - when: "gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default)"
+    to: "method:deletion-tuning"
   - when: "stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default)"
     to: "method:stage-lora"
   - when: "Kronecker PEFT with quadratic rank (SaMA; not LoRA quality default)"
@@ -73,6 +76,7 @@ Adapting multi-billion parameter base models to downstream tasks with minimal tr
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional gate-projection deletion (not this quality default)**: `method:deletion-tuning` (`arXiv:2611.10866`) on `task:lora-quality-tuning`. Binary mask, writes no new values. Does not replace the LR-sweep quality default.
 - **Optional preference-conditioned LoRA GRPO**: `method:lambdamix` (`arXiv:2611.09634`) on `task:multi-reward-rlvr`. Does not replace the LR-sweep quality default.
 - **Optional SFT/RL spectral LoRA**: `method:stage-lora` (`arXiv:2611.08414`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.
 - **Optional Kronecker PEFT**: `method:sama` (`arXiv:2611.04462`) on `task:lora-quality-tuning`. Does not replace the LR-sweep quality default.

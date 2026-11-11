@@ -6,6 +6,51 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-11 — weekday SOTA sweep (BOPD, LCS-OPD, MCPO, OPMD-CPT, SteerDistill, Deletion Tuning, CAMP-II, BF16-SR; notes dense-rewards-grpo, coverage-collapse-reference-resets)
+- Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-11 Librarian weekday sweep after merged PR 62 (watermark 2611.12886, 5b5d597, 2223 nodes / 9066 edges). Covers Wednesday 2026-11-11 arXiv cs.LG/cs.CL/cs.AI after 2611.12886 (listing range ~2611.12899–2611.14519) plus leftover 2026-11-10 and HF Daily 2026-11-10 / 2026-11-11. Deletion Tuning 2611.10866 is an HF leftover below the listing watermark. New high id 2611.14467 (ingest) / 2611.14519 (listing considered).
+- SKIP (considered, not ingested): Tree-Ising; MACaQ; Byzantine Muon; federated LoRA; Teaching the Harness; Overlapping Block Denoising; EVAThink; Domain-Routed Delta (already method:delta-mopd).
+
+### 2026-11-11 — ingest method:bopd (active on task:privileged-teacher-opsd; does not supersede method:vista / method:opd)
+- Added paper:bopd, method:bopd, recipe:bopd (`code_status: released`, YueWu0301/BOPD). Mention on task:student-distillation.
+- Status active (`sota_for: []`). Stage I privileged OPSD then Stage II reference-free OPD from a fresh init. Qwen3-4B Avg@12 18.06→23.98 vs continued OPSD 19.63.
+
+### 2026-11-11 — ingest method:lcs-opd (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:opd)
+- Added paper:lcs-opd, method:lcs-opd, recipe:lcs-opd (`code_status: none`). Mention on task:student-distillation.
+- Status active (`sota_for: []`). Failure-only OPD; longest common executed-action subsequence. Distilling successes hurts.
+
+### 2026-11-11 — ingest method:mcpo (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:mcpo, method:mcpo, recipe:mcpo (`code_status: none`).
+- Status active (`sota_for: []`). Redistributes GRPO A_i by old-policy top-2 margin. MiniCPM5-2B +6.55 / Qwen3-4B +4.75. Pair with paper:dense-rewards-grpo: MCPO adds no extra tokens.
+
+### 2026-11-11 — ingest method:opmd-cpt (active on task:student-distillation; does not supersede method:opd / method:opmd)
+- Added paper:opmd-cpt, method:opmd-cpt, recipe:opmd-cpt (`code_status: announced`, ShuidiH20/OPMD 404 as of 2026-11-11). Mention on task:pretrain-dense-7b.
+- Status active (`sota_for: []`). Reverse-KL mid-training / CPT. Distinct from method:opmd (2610.14022). Qwen3-1.7B MATH-500 pass@16 76.6→82.8 vs NTP collapse 18.2.
+
+### 2026-11-11 — ingest method:steerdistill (active on task:full-lowbit-finetune; does not supersede method:gradcodes)
+- Added paper:steerdistill, method:steerdistill, recipe:steerdistill (`code_status: released`, air-embodied-brain/SteerDistill).
+- Status active (`sota_for: []`). Closed-loop BF16 teacher steering then QAT distill. W4A16 within 1 of BF16; τ² vs QeRL +1.84 pp at 67% fewer GPU-h.
+
+### 2026-11-11 — ingest method:deletion-tuning (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:deletion-tuning, method:deletion-tuning, recipe:deletion-tuning (`code_status: released`, agentic-learning-ai-lab/deleting-weights). Mentions on task:parameter-efficient-fine-tuning / task:agent-continual-learning.
+- Status active (`sota_for: []`). Gate-projection binary mask, writes no new values. Llama-3-8B GSM8K 83.55 vs FFT 83.24 at 8.4 MB. HF leftover below watermark 2611.12886.
+
+### 2026-11-11 — ingest method:camp-ii (active on task:agent-memory; does not supersede method:ace / method:aclarena)
+- Added paper:camp-ii, method:camp-ii, recipe:camp-ii (`code_status: none`). Mentions on task:agent-continual-learning / task:student-distillation.
+- Status active (`sota_for: []`). Ordinary Bash files as memory plus fully asynchronous OPD. CAMG-II 64.6 vs CAMP-I 54.2. CAMP-I is not a library node.
+
+### 2026-11-11 — ingest method:bf16-sr (active on task:fp4-rl-train-rollout-alignment; does not supersede method:fair-cast / method:trace / method:triage / method:muon2)
+- Added paper:bf16-sr, method:bf16-sr, recipe:bf16-sr (`code_status: none`). Mentions on task:frontier-rl-posttrain-stack / task:llm-pretraining-optimization.
+- Status active (`sota_for: []`). Stochastic rounding on the FP32-shadow→BF16 write matches FP16 RLVR speed. Sibling of Fair Cast / Rounding-Align RL / DLC.
+
+### 2026-11-11 — ingest paper:dense-rewards-grpo (claim note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:dense-rewards-grpo. Linked from method:cispo and method:mcpo. Code vicky157/grpo-validation (`code_status: released`).
+- 1,668 runs: Monte-Carlo process rewards lose 14.3 pp at equal tokens vs outcome GRPO.
+
+### 2026-11-11 — ingest paper:coverage-collapse-reference-resets (claim note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:coverage-collapse-reference-resets. Linked from method:cispo. No public code. APMD is not a library method.
+- REINFORCE/PPO/GRPO can drop mass on optimal responses; reference resets restore coverage-preserving convergence.
+
 ### 2026-11-10 — weekday SOTA sweep (RDS-MOPD, Agentic-OPD, ECOS, AES, SGA-Sparse, CARE-PO, FewStepRL, Reframe; notes OPD train–infer mismatch, sycophancy from SFT)
 - Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-10 Librarian weekday sweep after merged PR 61 (watermark 2611.09634, dd72de8, 2197 nodes / 8944 edges). Covers Tuesday 2026-11-10 arXiv cs.LG/cs.CL/cs.AI after 2611.09634 (listing range 2611.09897–2611.12872) plus HF Daily 2026-11-10 and 2026-11-09 leftovers. FewStepRL 2611.08240 is an HF leftover below the listing watermark; Reframe 2611.12886 is a cs.CV leftover. New high id 2611.12886 (ingest) / 2611.12872 (listing considered).

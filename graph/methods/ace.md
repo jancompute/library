@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'file-based coding-agent memory via async OPD (CAMP-II)'
+    reason: 'ACE remains write-time playbook; CAMP-II trains file-as-memory via asynchronous OPD'
+    use_instead: method:camp-ii
   - when: 'evolving ontology relational memory + RL reasoning-state (EvoMemState)'
     reason: 'ACE remains write-time playbook; EvoMemState is relational plus RL reasoning-state memory'
     use_instead: method:evomemstate
@@ -45,6 +48,7 @@ assumptions:
   - "Generator / Reflector / Curator. Incremental bullets, not rewrite. Needs execution feedback."
 last_reviewed: "2026-10-29"
 papers:
+  - paper:camp-ii
   - paper:evomemstate
   - paper:luck-carrying-lessons
   - paper:memory-tax

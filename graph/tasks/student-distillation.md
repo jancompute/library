@@ -5,6 +5,14 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "on-policy mid-training distillation (OPMD-CPT; not post-train mechanism OPMD)"
+    to: "method:opmd-cpt"
+  - when: "bootstrapped OPSD then OPD (BOPD; not matching default)"
+    to: "method:bopd"
+  - when: "failure-only LCS action-sequence OPD (LCS-OPD; not matching default)"
+    to: "method:lcs-opd"
+  - when: "file-based coding-agent memory via async OPD (CAMP-II; not matching default)"
+    to: "method:camp-ii"
   - when: "observation-aligned MOPD for VL agents (Reframe)"
     to: "method:reframe"
   - when: "DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD)"
@@ -231,6 +239,10 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:opmd-cpt
+  - method:bopd
+  - method:lcs-opd
+  - method:camp-ii
   - method:reframe
   - method:rds-mopd
   - method:agentic-opd
@@ -346,7 +358,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-11'
 tags:
   - post-training
   - distillation
@@ -361,6 +373,10 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional mid-training reverse-KL CPT**: `method:opmd-cpt` (`arXiv:2611.13855`). Distinct from `method:opmd`. Qwen3-1.7B MATH-500 pass@16 $76.6\to 82.8$ vs NTP collapse $18.2$. GitHub ShuidiH20/OPMD 404. Does not replace OPD.
+- **Related bootstrapped privileged OPSD (not this matching default)**: `method:bopd` (`arXiv:2611.13680`) on `task:privileged-teacher-opsd`. Stage I OPSD then Stage II OPD from a fresh init. Code YueWu0301/BOPD. Does not replace OPD.
+- **Related failure-only LCS OPD (not this matching default)**: `method:lcs-opd` (`arXiv:2611.13135`) on `task:outcome-only-long-horizon-agent-rl`. Longest common action subsequence. No public code. Does not replace OPD.
+- **Related file-memory OPD (not this matching default)**: `method:camp-ii` (`arXiv:2611.14009`) on `task:agent-memory`. Ordinary Bash files plus async OPD. No public code. Does not replace OPD.
 - **Optional observation-aligned VL MOPD**: `method:reframe` (`arXiv:2611.12886`). GD-GRPO + OG-MOPD. Qwen3.5-9B image $63.46\to 69.48$ / video $49.75\to 53.10$ vs Mix-RL $66.75/51.41$ and MOPD $68.19/52.32$. Code EliYuan30/Reframe. Paper MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
 - **Optional DRO domain-mixture MOPD**: `method:rds-mopd` (`arXiv:2611.12012`). SmolLM3-3B BO Avg. Rank $1.50$ / recovery $118.1\%$ vs Open-MOPD $2.67$ / $105.6$. No public code. Paper Open-MOPD is not the library $83.4\%$ bake-off. Does not replace Open-MOPD.
 - **Optional discarded-checkpoint OPD**: `method:agentic-opd` (`arXiv:2611.12799`). HCN+LAD over GRPO checkpoints. DeepSearch mean vs GRPO $+2.8/+7.4/+2.6$ on Qwen2.5-3B/7B / Qwen3-4B. Mention on `task:outcome-only-long-horizon-agent-rl`. No public code. Does not replace OPD, Open-MOPD, or CANOPY.

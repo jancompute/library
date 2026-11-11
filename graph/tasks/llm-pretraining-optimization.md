@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the 7B optimizer)"
+    to: "method:bf16-sr"
   - when: "domain inductive biases still matter in foundation pretraining"
     to: "paper:domain-inductive-biases"
   - when: "Muon scaled-WD gain is mostly a tuning gap"
@@ -111,6 +113,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:bf16-sr
   - method:muon-rt
   - method:air-elr
   - method:muongs
@@ -155,7 +158,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-11'
 tags:
   - pretraining
   - optimizer
@@ -169,6 +172,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Related BF16 stochastic rounding (not this 7B optimizer)**: `method:bf16-sr` (`arXiv:2611.13545`) on `task:fp4-rl-train-rollout-alignment`. Pretrain BF16 already matches FP32; the gap is RLVR at low LR. Distinct from `paper:weight-update-leverage`. Does not replace Muon2.
 - **Gotcha (domain inductive biases)**: `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position). Domain biases are not obsolete at foundation scale. Does not retarget Muon2.
 - **Gotcha (Muon-SW tuning gap)**: `paper:muon-sw-tuning-gap` (`arXiv:2611.02529`). ~90% of Muon-SW gain is a shared-HP gap (0.035→0.0026 BPB). Code ethxin0011/weight_decay_ladder. Does not retarget Muon2.
 - **Gotcha (Muon-AdamW FT reversal)**: `paper:muon-adamw-ft-gap` (`arXiv:2611.03633`). At large pretrain data, AdamW beats Muon after FT. Does not retarget Muon2.

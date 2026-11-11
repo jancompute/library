@@ -19,6 +19,12 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO)"
+    to: "method:mcpo"
+  - when: "dense Monte-Carlo process rewards vs outcome GRPO at matched tokens"
+    to: "paper:dense-rewards-grpo"
+  - when: "coverage collapse / APMD reference resets in post-train PG"
+    to: "paper:coverage-collapse-reference-resets"
   - when: "adaptive entropy-sparing length control (AES; not Pass@1 CISPO)"
     to: "method:aes"
   - when: "local continue-vs-conclude length control (LoCo; not Pass@1 CISPO)"
@@ -197,6 +203,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:mcpo
   - method:aes
   - method:c-grpo
   - method:loco
@@ -292,7 +299,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-11'
 tags:
   - post-training
   - reasoning
@@ -308,6 +315,9 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional GRPO margin-credit reweight**: `method:mcpo` (`arXiv:2611.14015`). Old-policy top-2 margin; MiniCPM5-2B $+6.55$ / Qwen3-4B $+4.75$ vs GRPO. No extra tokens. Pair with `paper:dense-rewards-grpo`. No public code. Does not replace CISPO.
+- **Gotcha (dense process rewards vs tokens)**: `paper:dense-rewards-grpo` (`arXiv:2611.13560`). $1{,}668$ runs; MC process rewards $-14.3$ pp at equal tokens. Code vicky157/grpo-validation. Does not retarget CISPO or MCPO.
+- **Gotcha (coverage collapse / reference resets)**: `paper:coverage-collapse-reference-resets` (`arXiv:2611.14467`). REINFORCE/PPO/GRPO can drop mass on optimal responses; APMD resets the KL reference. Complements `paper:rlvr-no-free-lunch`. Does not retarget CISPO. APMD is not a library method.
 - **Optional adaptive entropy-sparing length control**: `method:aes` (`arXiv:2611.11901`). R1-1.5B mean acc $64.9\to 68.7$ ($+3.8$), len $6467\to 3048$ ($-52.9\%$); R1-7B $74.1\to 75.2$, $4712\to 2510$. GitHub MobiusDai/AES 404. Sibling of LoCo / When2Think / LSD. Does not replace CISPO.
 - **Optional continue-vs-conclude length control**: `method:loco` (`arXiv:2611.04814`). Math length −41.7% to −45.4%; code −23.4% to −36.3%. Code MuyaoYuan/LoCo. Sibling of When2Think / LSD. Does not replace CISPO.
 - **Optional recoverable RLVR restage**: `method:resi-math` (`arXiv:2611.04787`). Qwen3-VL-8B MATH500+WE-MATH 78.71→80.16 after 3 one-shot stages. Code CNU-Bot-Group/ReSI-Math. Does not replace CISPO.

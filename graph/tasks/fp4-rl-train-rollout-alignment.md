@@ -12,6 +12,8 @@ out_of_scope:
   - "Frontier RL post-train engine (Miles)"
   - "W4A4 PTQ noise law (KBBQ)"
 redirects:
+  - when: "stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not TRACE/TRIAGE default)"
+    to: "method:bf16-sr"
   - when: "symmetric residual-corrected FP4 MoE RL (MoeResQ; not TRACE/TRIAGE default)"
     to: "method:moeresq"
   - when: "discrepancy-lag correction of sampler/trainer mismatch (DLC)"
@@ -50,6 +52,7 @@ current_sota:
     value: "up to 2.3×"
     notes: "TRIAGE (2610.07043). Dual-active with TRACE. Method status active. No head-to-head vs TRACE."
 methods:
+  - method:bf16-sr
   - method:moeresq
   - method:dlc
   - method:fair-cast
@@ -64,7 +67,7 @@ methods:
   - method:mxfp4-mi355x
   - method:sapo
   - method:cispo
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-11'
 tags:
   - post-training
   - quantization
@@ -86,6 +89,7 @@ This is **not** native FP4 hardware training from scratch.
 - **Evaluation Pitfalls**: TRACE and TRIAGE have **no head-to-head**. TRACE caches rollout mantissa/scale into QAT; TRIAGE rebalances amplifying negative-advantage/negative-gap updates. Do not retarget Quartet-II.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Optional BF16 stochastic rounding (not this first hop)**: `method:bf16-sr` (`arXiv:2611.13545`). FP32-shadow→BF16 SR matches FP16 RLVR speed; raising LR also matches speed but increases KL. Distinct from Fair Cast. No public code. Does not replace TRACE / TRIAGE.
 - **Optional residual-corrected FP4 MoE RL (not this first hop)**: `method:moeresq` (`arXiv:2611.04376`). Qwen3-30B-A3B GRPO AMC23 84.45 vs BF16 85.10 vs HiF4 65.23. Simulated HiF4; routers BF16. No public code. Does not replace TRACE / TRIAGE.
 - **Primary (rollout-guided QAT, this task only)**: **TRACE** (`method:trace`, `paper:trace` `arXiv:2610.07767`). Status `active`. Dual-active with TRIAGE.
 - **Primary (direction-aware NVFP4 mismatch, this task only)**: **TRIAGE** (`method:triage`, `paper:triage` `arXiv:2610.07043`). Status `active`. Dual-active with TRACE.
