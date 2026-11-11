@@ -8,6 +8,9 @@ sota_for:
   - task:full-lowbit-finetune
 supersedes: []
 do_not_use_for:
+  - when: "closed-loop teacher steering for quantized agents (SteerDistill)"
+    reason: "GradCodeS remains code-space FT; SteerDistill is W4A16 agent QAT via closed-loop teacher steering"
+    use_instead: "method:steerdistill"
   - when: "train native SwiGLU gate as top-k FFN router (SGA-Sparse)"
     reason: "GradCodeS remains code-space FT; SGA is native SwiGLU-gate sparsity then QAT"
     use_instead: "method:sga-sparse"
@@ -41,6 +44,7 @@ assumptions:
   - "Paper scale is Qwen3-0.6B and Llama-3.2-1B/3B-Instruct, three seeds."
 last_reviewed: '2026-11-10'
 papers:
+  - paper:steerdistill
   - paper:sga-sparse
   - paper:gradcodes
 recipes:

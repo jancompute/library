@@ -11,6 +11,8 @@ out_of_scope:
   - "24GB quality LoRA in BF16/FP16 (vanilla LoRA + rsLoRA + LR sweep)"
   - "Post-training ternarization of an existing SOTA LLM (ScaleQ-1.58)"
 redirects:
+  - when: "closed-loop teacher steering for quantized agents (SteerDistill; not GradCodeS default)"
+    to: "method:steerdistill"
   - when: "train native SwiGLU gate as top-k FFN router (SGA-Sparse)"
     to: "method:sga-sparse"
   - when: "forward-only block-spectral phone specialists (FuRA-S; mixed adapter OK)"
@@ -29,7 +31,7 @@ redirects:
     to: "task:fp4-hardware-training"
   - when: "quality LoRA on 24GB without a fully quantized checkpoint constraint"
     to: "task:lora-quality-tuning"
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-11'
 current_sota:
   - method: method:gradcodes
     as_of: "2026-09-01"
@@ -38,6 +40,7 @@ current_sota:
     value: "GradCodeS Full 41.63 vs PV-Tuning 36.92 vs QLoRA-4Merge 24.79 vs Base-4 25.85"
     notes: "GradCodeS (2608.30908). Does not replace AQLoRA-Q as 4-bit PEFT default or Quartet-II as NVFP4 hardware training."
 methods:
+  - method:steerdistill
   - method:sga-sparse
   - method:fura-s
   - method:mpq
@@ -68,6 +71,7 @@ Fine-tune targeted transformer weights that must remain in a chosen low-bit data
 - **Evaluation Pitfalls**: Do not compare against QLoRA-16A or other mixed-precision adapters as if they were fully 4-bit. Do not treat this as native FP4 pretraining.
 
 ## SOTA Recommendation (as of 2026-09-01)
+- **Optional closed-loop agent QAT (not this deployed-checkpoint hop)**: `method:steerdistill` (`arXiv:2611.13410`). W4A16 within $1$ of BF16; $\tau^2$ vs QeRL $+1.84$ pp at $67\%$ fewer GPU-h. Code air-embodied-brain/SteerDistill. Does not replace GradCodeS.
 - **Optional SwiGLU-gate sparse FFN (not this deployed-checkpoint hop)**: `method:sga-sparse` (`arXiv:2611.11223`). $75$–$85\%$ FFN sparsity, $0.2$–$2.7$pp of dense; PTQ degrades so continued-QAT/joint-QAT; $2.5$-bit-eq matches dense $3$-bit QAT. No public code. Does not replace GradCodeS.
 - **Optional forward-only phone specialists (not this deployed-checkpoint hop)**: `method:fura-s` (`arXiv:2611.04797`) on `task:4bit-peft-quantization`. Does not replace GradCodeS.
 - **Primary Method**: **GradCodeS** (`method:gradcodes`, `paper:gradcodes` `arXiv:2608.30908`) for code-space surrogate gradients plus guided discrete search.

@@ -9,6 +9,15 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'bootstrapped OPSD then OPD (BOPD; not matching default)'
+    reason: 'OPD remains matching; BOPD retires a privileged OPSD teacher then distills a fresh init'
+    use_instead: method:bopd
+  - when: 'failure-only LCS action-sequence OPD (LCS-OPD; not matching default)'
+    reason: 'OPD remains matching; LCS-OPD selects a same-task success by longest common action subsequence'
+    use_instead: method:lcs-opd
+  - when: 'on-policy mid-training distillation (OPMD-CPT; not post-train matching)'
+    reason: 'OPD remains post-train matching; OPMD-CPT is reverse-KL continual pretrain'
+    use_instead: method:opmd-cpt
   - when: 'observation-aligned MOPD for VL agents (Reframe)'
     reason: 'OPD remains matching; Reframe is multimodal teacher mix on a GD-GRPO host'
     use_instead: method:reframe
@@ -215,6 +224,9 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-11-10'
 papers:
+  - paper:bopd
+  - paper:lcs-opd
+  - paper:opmd-cpt
   - paper:opd-train-infer-mismatch
   - paper:reframe
   - paper:rds-mopd

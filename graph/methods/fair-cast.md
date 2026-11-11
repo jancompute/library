@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not export rounding)'
+  reason: 'Fair Cast is export-time unbiased cast; BF16+SR is train-time SR of the FP32 shadow used for RL rollouts'
+  use_instead: method:bf16-sr
 - when: 'the locked first hop on task:fp4-rl-train-rollout-alignment'
   reason: 'TRACE / TRIAGE remain FP4 train-rollout first hops; Fair Cast is unbiased bf16 export of an fp32 master'
   use_instead: method:trace
@@ -17,6 +20,7 @@ assumptions:
 - 'Split fp32-master / bf16-served RL. Official code andrewgcodes/faircast.'
 last_reviewed: '2026-11-02'
 papers:
+- paper:bf16-sr
 - paper:fair-cast
 recipes:
 - recipe:fair-cast

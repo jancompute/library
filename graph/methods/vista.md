@@ -8,6 +8,9 @@ sota_for:
   - task:privileged-teacher-opsd
 supersedes: []
 do_not_use_for:
+  - when: 'bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA)'
+    reason: 'VISTA remains gold-solution OPSD; BOPD retires the privileged teacher after Stage I'
+    use_instead: method:bopd
   - when: 'environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA)'
     reason: 'VISTA remains text-math gold-solution OPSD; ECOS is agent command-only teacher'
     use_instead: method:ecos
@@ -79,6 +82,7 @@ do_not_use_for:
     use_instead: "method:topsd"
 last_reviewed: '2026-11-10'
 papers:
+  - paper:bopd
   - paper:ecos
   - paper:topsd
   - paper:self-distillation-ood

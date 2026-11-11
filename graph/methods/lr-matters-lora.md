@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; Deletion Tuning zeros a gate-projection mask'
+    use_instead: method:deletion-tuning
   - when: 'stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; Stage-LoRA is a spectral update plug-in'
     use_instead: method:stage-lora
@@ -45,6 +48,7 @@ do_not_use_for:
     reason: "Quality default is a single-adapter recipe; READ owns multi-skill composition"
     use_instead: "method:read-lora"
 papers:
+  - paper:deletion-tuning
   - paper:lora-task-format
   - paper:lr-matters-lora
   - paper:lora-unified-study

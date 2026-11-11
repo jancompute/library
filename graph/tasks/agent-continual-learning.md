@@ -13,6 +13,10 @@ out_of_scope:
   - "GitHub issue → patch SWE harness (mini-SWE-agent)"
   - "Single-teacher text distillation default (OPD) or multi-teacher distill default (Open-MOPD) without a continual-learning curriculum"
 redirects:
+  - when: "gate-projection binary-mask deletion (Deletion Tuning; not LoRA experts)"
+    to: "method:deletion-tuning"
+  - when: "file-based coding-agent memory via async OPD (CAMP-II; not LoRA experts)"
+    to: "method:camp-ii"
   - when: "nested sparsity for scalable pretraining and continual learning (NESTOR)"
     to: "method:nestor"
   - when: "off-policy merging / donor-checkpoint grafting instead of OPSD for continual learning"
@@ -41,6 +45,8 @@ current_sota:
     value: "MLE AIME26 21.04, NQ 49.7, Retail 32.9, IF-Eval 85.0 vs Seq-Final 10.21 / 33.5 / 29.6 / 84.8"
     notes: "ACLArena (2609.23989). Active first hop. Method status active (not sota). Does not replace CISPO / SAO / CANOPY / Miles / mini-SWE-agent."
 methods:
+  - method:deletion-tuning
+  - method:camp-ii
   - method:nestor
   - method:specialists-learn-faster
   - method:synthself
@@ -54,7 +60,7 @@ methods:
   - method:mini-swe-agent
   - method:opd
   - method:open-mopd
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-11-11'
 tags:
   - post-training
   - agentic
@@ -74,6 +80,8 @@ This is **not** Pass@1 math, not async stragglers, not AppWorld TGC, not the fro
 - **Evaluation Pitfalls**: Do not treat Seq-Final as the method. Do not retarget CISPO, CANOPY, SAO, Miles, or mini-SWE-agent. Do not treat MMOPD numbers as an Open-MOPD supersession.
 
 ## SOTA Recommendation (as of 2026-09-23)
+- **Related gate-projection deletion (not this first hop)**: `method:deletion-tuning` (`arXiv:2611.10866`) on `task:lora-quality-tuning`. Prior-task drop $0$ vs FFT/LoRA up to $5.4$. Code agentic-learning-ai-lab/deleting-weights. Does not replace ACLArena.
+- **Related file-memory OPD (not this first hop)**: `method:camp-ii` (`arXiv:2611.14009`) on `task:agent-memory`. File-as-memory via async OPD, not LoRA experts. Does not replace ACLArena.
 - **Primary Method (this task only)**: **ACLArena** (`method:aclarena`, `paper:aclarena` `arXiv:2609.23989`). Status `active`. Listed here as first hop; method `sota_for` stays empty. Offline replay of high-quality trajectories plus routed LoRA experts specialized via RL.
 - **Not This Task**: `method:cispo` remains Pass@1; `method:sao` remains async; `method:canopy` remains AppWorld coverage; `method:miles` remains the engine; `method:mini-swe-agent` remains issue-to-patch; `method:opd` / `method:open-mopd` remain text distill defaults.
 - **Optional small-model synthetic SDFT (not this first hop)**: `method:synthself` (`arXiv:2610.13113`) same-family aligner rewrite + rejection sampling then off-policy train. Beats 6 compared methods at 3 small scales. No public code. Does not replace ACLArena or OPD.
