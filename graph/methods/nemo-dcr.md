@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship)"
+    reason: "NeMo-DCR ships changed full-weight coordinates; HiLo compresses LoRA-factor gradients"
+    use_instead: "method:hilo-lora-sync"
   - when: "choosing the production frontier RL post-train engine"
     reason: "NeMo-DCR is a weight-sync plug-in; Miles remains the engine"
     use_instead: "method:miles"

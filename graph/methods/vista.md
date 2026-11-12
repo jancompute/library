@@ -8,6 +8,9 @@ sota_for:
   - task:privileged-teacher-opsd
 supersedes: []
 do_not_use_for:
+  - when: 'code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA)'
+    reason: 'VISTA remains gold-solution text OPSD; PhysOPSD is video with compiled physics as privilege'
+    use_instead: method:physopsd
   - when: 'bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA)'
     reason: 'VISTA remains gold-solution OPSD; BOPD retires the privileged teacher after Stage I'
     use_instead: method:bopd

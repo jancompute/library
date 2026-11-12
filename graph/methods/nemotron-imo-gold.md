@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "textbook-study RL / BookNavigator (not IMO TTC default / not RLM)"
+    reason: "Nemotron IMO Gold remains olympiad TTC; BookNavigator is textbook-study RL"
+    use_instead: "method:booknavigator"
   - when: "single-turn dense math/code Pass@1 RLVR"
     reason: "This is an olympiad-proof specialist + NL TTC pipeline; CISPO remains Pass@1"
     use_instead: "method:cispo"

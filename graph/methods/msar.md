@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft)
+  reason: MSAR is residual topology; DepthGraft reconstructs deep KV from shallow-middle pairs
+  use_instead: method:depthgraft
 - when: choosing the ~7B dense pretrain optimizer
   reason: MSAR is a residual topology; Muon2 remains the optimizer default and composes
     with it

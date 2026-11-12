@@ -55,6 +55,7 @@ task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
   when recurrent textual harness for agentic continual learning (not the production kernel) -> method:reharness
 task:agent-memory -> method:ace (2611.14009, 2025-10)
+  when evidence-linked memory / WikiTrace (not write-time playbook) -> method:wikitrace
   when file-based coding-agent memory via async OPD (CAMP-II; not write-time playbook) -> method:camp-ii
   when evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook) -> method:evomemstate
   when multi-view OPSD of skill memory (MDSkill; not write-time playbook) -> method:mdskill
@@ -97,6 +98,7 @@ task:hybrid-computer-use-agent-rl -> method:recreationworld (2609.22000, 2026-09
   when data/env construction for coding-agent RL from source code -> task:coding-agent-rl-environment-construction
   when synthesized GUI software environments for computer-use agent training (not OSWorld 2.0 ranking) -> method:softwaregym
 task:long-context-prompt-offload -> method:rlm (2611.05306, 2025-12)
+  when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) -> method:booknavigator
   when compaction without retraining a native window (You Don't Need Long Context) -> paper:you-dont-need-long-context
   when trained compaction notes inside a 20K window (MEMENTO) -> method:memento
   when GitHub issue to patch without a dumped corpus -> task:software-engineering-agent-harness
@@ -190,7 +192,8 @@ task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 202
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
   when recycle an AR post-training weight delta onto a converted dLLM -> task:diffusion-lm-ar-delta-recycle
-task:posttrain-diffusion -> method:diffusion-opsd (2611.08240, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
+task:posttrain-diffusion -> method:diffusion-opsd (2611.12411, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
+  when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) -> method:physopsd
   when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) -> method:fewsteprl
   when intrinsic distribution matching / EMA moment constraint on DMD (IDM) -> method:idm
   when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) -> method:doobpo
@@ -439,7 +442,9 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2610.07842, 2026-08-28)
   when majority-vote unsupervised RLVR collapse from cross-task coupling -> paper:unsupervised-rlvr-collapse
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
-task:math-code-rl-dense -> method:cispo (2611.14015, 2026-08-26)
+task:math-code-rl-dense -> method:cispo (2611.14515, 2026-08-26)
+  when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) -> method:autoscaffold
+  when verifiable RL misalignment / reward-context shortcuts (not Pass@1 CISPO) -> paper:verifiable-rl-misalignment
   when margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO) -> method:mcpo
   when dense Monte-Carlo process rewards vs outcome GRPO at matched tokens -> paper:dense-rewards-grpo
   when coverage collapse / APMD reference resets in post-train PG -> paper:coverage-collapse-reference-resets
@@ -576,10 +581,13 @@ task:multilingual-l2-reasoning-sft -> method:tiny-aya-l2-thinker (2609.10445, 20
   when olympiad-style natural-language proofs / IMO TTC -> task:olympiad-math-posttrain
   when teachable prefixes + recoverability verification against Teacher Drift (TOPSD; not L2 SFT) -> method:topsd
 task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11)
+  when textbook-study RL / BookNavigator (not IMO TTC default / not RLM) -> method:booknavigator
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.12232, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.14515, 2026-09-04)
+  when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) -> method:autoscaffold
+  when verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage) -> paper:verifiable-rl-misalignment
   when failure-only LCS action-sequence OPD (LCS-OPD; not CANOPY coverage) -> method:lcs-opd
   when environment-calibrated command-only OPSD (ECOS; not CANOPY coverage) -> method:ecos
   when controllable tool-call efficiency / anchored reference budget (CARE-PO) -> method:care-po
@@ -643,6 +651,7 @@ task:passk-reasoning-coverage -> method:es-reasoning (2610.39295, 2026-08-31)
   when group-dependent coverage rewards / Team-GRPO (not ES-reasoning) -> method:team-grpo
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
 task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
+  when code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA) -> method:physopsd
   when bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA) -> method:bopd
   when environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA) -> method:ecos
   when reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing) -> method:self-steered-reasoner
@@ -676,7 +685,7 @@ task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
   when hidden-state privileged OPSD after GRPO (PR-OPD / invisible advantage) -> method:pr-opd
   when system-prompt verbal regularization of a privileged teacher (VRSD) -> method:vrsd
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
-task:reasoning-rl-alignment -> method:cispo (2611.14015, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
+task:reasoning-rl-alignment -> method:cispo (2611.14515, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2611.13680, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
   when on-policy mid-training distillation (OPMD-CPT; not post-train mechanism OPMD) -> method:opmd-cpt
@@ -821,6 +830,7 @@ task:tool-agent-segment-credit -> method:slca-grpo (2609.29050, 2026-09-25)
   when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) -> method:adastep
   when hindsight-guided tree exploration and turn-level credit (not tool vs summary split) -> method:treehca
 task:web-search-agent-rl -> method:iris (2611.12125, 2026-09-08)
+  when AI-designed RLVR scaffolds / AutoScaffold (not Iris SFT-RL climbing) -> method:autoscaffold
   when controllable tool-call efficiency / anchored reference budget (CARE-PO) -> method:care-po
   when FALCA deep-search agent RL (propose-falsify hierarchical credit) -> method:falca
   when evidence-guided step credit for deep-search agents (EG-GRPO) -> method:eg-grpo
@@ -928,6 +938,7 @@ task:llm-pretraining-optimization -> method:muon2 (2611.03756, 2026-08-26)
   when zero-natural-data self-play pretraining (UTM programs, no natural text) -> task:zero-natural-data-self-play-pretrain
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when multi-stream attention residuals vs vanilla / mHC / AttnRes (MSAR) -> method:msar
+  when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2 / not V4.1-Flash serving) -> method:depthgraft
   when weight decay causally controls massive-activation magnitude / attention sinks -> paper:massive-activation-lifecycle
   when randomized momentum transport rates for Muon / sign updates (theory) -> paper:randomized-momentum-transport
   when structure-aware Muon on Monarch-factored weights (not dense Muon2) -> method:monarch-muon
@@ -944,6 +955,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
 task:pretrain-dense-7b -> method:muon2 (2611.03756, 2026-08-26)
+  when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
   when nested sparsity for scalable pretraining and continual learning (NESTOR) -> method:nestor
@@ -1007,6 +1019,7 @@ task:operator-weather -> method:fourcastnet-3 (2507.12144, 2026-08-28)
 task:snn-sequence-modeling -> method:longspike (2606.12895, 2026-08-26)
 task:spiking-neural-networks-training -> method:longspike (2606.12895, 2026-08-26) + method:a2sg (2606.11236, 2026-08-26)
 task:frontier-rl-posttrain-stack -> method:miles (2611.09207, 2026-09-09)
+  when LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship) -> method:hilo-lora-sync
   when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the production engine) -> method:bf16-sr
   when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) -> method:ngramrl
   when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) -> method:flashnext-rl
@@ -1035,6 +1048,7 @@ task:industrial-model-building -> method:poolside-model-factory (2605.27605, 202
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when choosing the ~7B dense pretrain optimizer -> task:llm-pretraining-optimization
 task:input-heavy-agentic-moe-serving -> method:deepseek-v41-flash (2609.19969, 2026-09-10)
+  when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not V4.1-Flash serving) -> method:depthgraft
   when periodic 4-bit recurrent-state quantization (PACE) -> method:pace
   when choosing the frontier MoE pretrain architecture template -> task:pretrain-moe-frontier
   when GitHub issue to patch / SWE harness rather than serving architecture -> task:software-engineering-agent-harness
@@ -1841,6 +1855,20 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 632. **Coverage collapse / reference resets** (claim note, no new method): `paper:coverage-collapse-reference-resets` (`arXiv:2611.14467`) on `task:math-code-rl-dense` / `method:cispo`. REINFORCE/PPO/GRPO can drop mass on optimal responses even as reward rises; APMD resets the KL reference. Complements `paper:rlvr-no-free-lunch`. APMD is not a library method. Does **not** retarget CISPO.
 
+633. **AutoScaffold**: **AutoScaffold** (`method:autoscaffold`, `arXiv:2611.14515`) on `task:math-code-rl-dense`. Active plug-in. Frozen teacher writes class/instance scaffolds from the training log; scaffold-free eval. ALFWorld $+7.2$ vs GiGPO; search QA $+4.0$ EM; math $\le +2.0$; KernelBench $+3.0$ / $+5.0$ faster-than-PyTorch. Mentions on `task:outcome-only-long-horizon-agent-rl` / `task:web-search-agent-rl`. No public code. Does **not** replace CISPO, CANOPY, or Iris.
+
+634. **HiLo (LoRA Sync)**: **HiLo** (`method:hilo-lora-sync`, `arXiv:2611.13306`) on `task:frontier-rl-posttrain-stack`. Active plug-in. Compressed LoRA-factor gradients plus local optimizer replay. KK OPD Qwen3-1.7B pass@4 $81.6$ vs full sync $83.2$ at $1.6\%$ payload; up to $2.2\times$ E2E. Distinct from `method:hilo-rd`. No public code. Does **not** replace Miles or NeMo-DCR.
+
+635. **WikiTrace**: **WikiTrace** (`method:wikitrace`, `arXiv:2611.14320`) on `task:agent-memory`. Active plug-in. Evidence-linked insight → compilation → raw trajectory. $90.2$ vs No Memory $79.5$; Regression $6.5\%\to 4.5\%$. Code yukyeongleee/wikitrace. Complements `paper:luck-carrying-lessons` / `paper:memory-tax`. Does **not** replace ACE.
+
+636. **PhysOPSD**: **PhysOPSD** (`method:physopsd`, `arXiv:2611.12411`) on `task:posttrain-diffusion`. Active plug-in. Executable physics code as privileged teacher context. UniVideo 13B / OmniWeaving 8.3B VideoPhy-2 $+4.2$ / $+4.1$ at 3K samples vs SFT 80K / RL 21K. Code aigc3d/PhysOPSD. Mention on `task:privileged-teacher-opsd`. Does **not** replace DiffusionOPSD, Self-OPD, or VISTA.
+
+637. **DepthGraft**: **DepthGraft** (`method:depthgraft`, `arXiv:2611.03142`) on `task:llm-pretraining-optimization`. Active plug-in. Hierarchical KV reconstruction as a pretrain regularizer. 16B MoE MMLU-Pro $+7.0\%$ / CMMLU $+6.6\%$ / C3 $+6.4\%$; KV $\sim -1/3$. Sibling of MSAR. Code jianke0604/DepthGraft. Mentions on `task:pretrain-dense-7b` / `task:input-heavy-agentic-moe-serving`. Does **not** replace Muon2, MSAR, or V4.1-Flash.
+
+638. **BookNavigator**: **BookNavigator** (`method:booknavigator`, `arXiv:2610.39671`) on `task:olympiad-math-posttrain`. Active plug-in. Textbook-study RL with page/section actions. Intern-S2-Preview-35B proof accuracy $51.5\%\to 79.5\%$. Mention on `task:long-context-prompt-offload`. No public code. HF Daily 2026-11-12 leftover. Does **not** replace Nemotron IMO Gold or RLM.
+
+639. **Verifiable RL misalignment** (claim note, no new method): `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`) on `task:outcome-only-long-horizon-agent-rl` / `task:math-code-rl-dense` / `method:canopy` / `method:cispo`. Minority conflict exposure → $97.9\%$ certified profitable violations. Complements `paper:simhack` / `paper:reward-misspecification-cot`. Does **not** retarget CANOPY or CISPO.
+
 
 ---
 
@@ -2475,6 +2503,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `bf16-sr` (2611.13545) is an active BF16 stochastic-rounding plug-in for RLVR. Distinct from `fair-cast`. It does not supersede `fair-cast`, `trace`, `triage`, or `muon2`.
 - `paper:dense-rewards-grpo` (2611.13560) is a matched-compute dense-reward gotcha. It does not retarget `cispo`.
 - `paper:coverage-collapse-reference-resets` (2611.14467) is a coverage-collapse / reference-reset gotcha. APMD is not a library method. It does not retarget `cispo`.
+- `autoscaffold` (2611.14515) is an active frozen-teacher RLVR-scaffold plug-in. It does not supersede `cispo`, `canopy`, or `iris`.
+- `hilo-lora-sync` (2611.13306) is an active LoRA gradient-replay sync plug-in. Distinct from `hilo-rd`. It does not supersede `miles` or `nemo-dcr`.
+- `wikitrace` (2611.14320) is an active evidence-linked agent-memory plug-in. It does not supersede `ace`.
+- `physopsd` (2611.12411) is an active code-as-privilege video OPSD plug-in. It does not supersede `diffusion-opsd`, `self-opd`, or `vista`.
+- `depthgraft` (2611.03142) is an active hierarchical KV-reconstruction pretrain plug-in. Sibling of `msar`. It does not supersede `muon2` or `deepseek-v41-flash`.
+- `booknavigator` (2610.39671) is an active textbook-study RL plug-in. It does not supersede `nemotron-imo-gold` or `rlm`.
+- `paper:verifiable-rl-misalignment` (2611.12865) is a verifiable-reward shortcut gotcha. It does not retarget `canopy` or `cispo`.
 
 
 ---

@@ -15,6 +15,10 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage)"
+    to: "method:autoscaffold"
+  - when: "verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage)"
+    to: "paper:verifiable-rl-misalignment"
   - when: "failure-only LCS action-sequence OPD (LCS-OPD; not CANOPY coverage)"
     to: "method:lcs-opd"
   - when: "environment-calibrated command-only OPSD (ECOS; not CANOPY coverage)"
@@ -141,6 +145,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:autoscaffold
   - method:lcs-opd
   - method:ecos
   - method:care-po
@@ -200,7 +205,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - post-training
   - agentic
@@ -225,6 +230,8 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Related AI-designed RLVR scaffolds (not this coverage default)**: `method:autoscaffold` (`arXiv:2611.14515`) on `task:math-code-rl-dense`. Frozen-teacher class/instance scaffolds on GiGPO/GRPO. ALFWorld $+7.2$ vs GiGPO. Does not replace CANOPY.
+- **Gotcha (verifiable RL shortcuts)**: `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`). A programmatic checker can certify a context-illegal shortcut. Does not retarget CANOPY.
 - **Optional failure-only LCS OPD (not this coverage default)**: `method:lcs-opd` (`arXiv:2611.13135`). Longest common executed-action subsequence. ALFWorld Unseen Qwen2.5-3B $78.4\to 85.8$ / 7B $83.6\to 94.0$. Distilling successes hurts. No public code. Does not replace CANOPY or OPD.
 - **Optional environment-calibrated OPSD (not this coverage default)**: `method:ecos` (`arXiv:2611.12232`). Command-only teacher plus one-token env-calibration suffix. 3B/7B ALFWorld seen $90.5/93.3$, WebShop $75.5/80.5$; unseen ALFWorld $+11.0/+7.6$ vs GRPO; 3B WebShop command-only $75.0$ vs full-response $52.3$. Mention on `task:privileged-teacher-opsd`. No public code. Does not replace CANOPY or VISTA.
 - **Optional tool-budget efficiency (not this coverage default)**: `method:care-po` (`arXiv:2611.12125`). Fixed per-task reference budget. 5 of 6 GAIA points improve success and calls; sixth matches success at $58.6\%$ fewer calls. 27B efficiency-reward collapses to zero calls. Mention on `task:web-search-agent-rl`. No public code. Does not replace CANOPY or Iris.
