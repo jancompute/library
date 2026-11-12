@@ -10,6 +10,12 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale)'
+    reason: 'CISPO remains Pass@1; AutoScaffold is a frozen-teacher prompt-scaffold overlay'
+    use_instead: method:autoscaffold
+  - when: 'verifiable RL misalignment / reward-context shortcuts'
+    reason: 'Gotcha: a checker can certify a context-illegal shortcut; does not retarget CISPO'
+    use_instead: paper:verifiable-rl-misalignment
   - when: 'margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; MCPO redistributes the same GRPO advantage by top-2 margin'
     use_instead: method:mcpo
@@ -205,8 +211,10 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-12'
 papers:
+  - paper:autoscaffold
+  - paper:verifiable-rl-misalignment
   - paper:mcpo
   - paper:dense-rewards-grpo
   - paper:coverage-collapse-reference-resets

@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer)"
+    to: "method:depthgraft"
   - when: "on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer)"
     to: "method:opmd-cpt"
   - when: "KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer"
@@ -31,6 +33,7 @@ redirects:
   - when: "one-step prefix-augmented OPD for continued pretrain (PA1-OPD)"
     to: "method:pa1-opd"
 methods:
+  - method:depthgraft
   - method:opmd-cpt
   - method:soft-mtp
   - method:nestor
@@ -57,7 +60,7 @@ methods:
   - method:synth
   - method:self-play-pretraining
   - method:muonio
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - pretraining
   - dense-lm
@@ -70,6 +73,7 @@ tags:
 Training a ~7B dense language model from scratch requires optimizing billions of parameters over trillions of tokens with maximal compute and wall-clock efficiency.
 
 ## SOTA Recommendation (as of 2026-09-08)
+- **Related hierarchical KV reconstruction (not this 7B optimizer)**: `method:depthgraft` (`arXiv:2611.03142`) on `task:llm-pretraining-optimization`. Pretrain regularizer, not Muon2. Does not replace Muon2.
 - **Related mid-training reverse-KL CPT (not this 7B optimizer)**: `method:opmd-cpt` (`arXiv:2611.13855`) on `task:student-distillation`. Distinct from `method:opmd`. Qwen NTP on MegaMath collapses; OPMD-CPT does not. Does not replace Muon2.
 - **Primary Optimizer**: **Muon2** (`method:muon2`, 2604.09967) + **KL-SOAP** (`method:soap-muon-scale`, 2607.20548) if GPU memory allows. Default I/O layers stay AdamW; optional `method:muonio` (`arXiv:2610.02705`) for embedding \(1\to 2\) / LM-head \(2\to\infty\). Unchanged hidden-layer default.
 - **Data Recipe**: **OLMo-3 / Dolma-3** (`paper:olmo-3`, 2512.13961).

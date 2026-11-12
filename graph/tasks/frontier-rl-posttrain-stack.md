@@ -19,6 +19,8 @@ out_of_scope:
   - "MoE train–infer mismatch IS correction (CIS-RL)"
   - "Cancellation-aware off-policy sequence masking (CARM)"
 redirects:
+  - when: "LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship)"
+    to: "method:hilo-lora-sync"
   - when: "stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the production engine)"
     to: "method:bf16-sr"
   - when: "rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL)"
@@ -73,6 +75,7 @@ current_sota:
     value: "263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)"
     notes: "Miles v0.1 (2609.08368). Process/system SOTA for the frontier post-train engine. Does not replace Poolside factory, SAO, CISPO, Muon2, or mini-SWE-agent. Reward rise is a single-run observation."
 methods:
+  - method:hilo-lora-sync
   - method:bf16-sr
   - method:rpeg
   - method:ngramrl
@@ -97,7 +100,7 @@ methods:
   - method:lsd
   - method:carm
   - method:nemo-dcr
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - systems
   - training-systems
@@ -116,6 +119,7 @@ Frontier post-training is a systems problem: multi-turn tool rollouts on trillio
 - **Evaluation Pitfalls**: Do not treat a single-run reward curve as a bake-off against SAO or CISPO. Do not retarget Poolside factory current_sota.
 
 ## SOTA Recommendation (as of 2026-09-09)
+- **Optional LoRA gradient-replay sync (not this engine default)**: `method:hilo-lora-sync` (`arXiv:2611.13306`). Compressed LoRA-factor gradients plus local optimizer replay. KK OPD Qwen3-1.7B pass@4 $81.6$ vs full sync $83.2$ at $1.6\%$ payload; up to $2.2\times$ E2E. Distinct from `method:hilo-rd` / `method:nemo-dcr`. No public code. Does not replace Miles.
 - **Related BF16 stochastic rounding (not this engine default)**: `method:bf16-sr` (`arXiv:2611.13545`) on `task:fp4-rl-train-rollout-alignment`. RLVR weight sticking under round-to-nearest BF16. Distinct from Fair Cast. Does not replace Miles.
 - **Primary Method**: **Miles v0.1** (`method:miles`, `paper:miles` `arXiv:2609.08368`). slime-descended; SGLang rollouts; Megatron or FSDP trainer. Code: radixark/miles.
 - **Optional pipeline IR / planner (not this engine default)**: `method:rpeg` (`arXiv:2611.09207`). Graph IR plus runtime for PPO/GRPO; up to $2\times$ vs ReaL, $2.477\times$ step latency vs verl (median $1.488\times$) on up to 256 GH200. No public code. Does not replace Miles.

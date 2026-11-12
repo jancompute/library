@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2)'
+    reason: 'Muon2 remains the ~7B optimizer; DepthGraft is a KV-sharing architecture regularizer'
+    use_instead: method:depthgraft
   - when: 'domain inductive biases still matter in foundation pretraining'
     reason: 'Gotcha: domain biases are not obsolete at foundation scale; does not retarget Muon2'
     use_instead: paper:domain-inductive-biases

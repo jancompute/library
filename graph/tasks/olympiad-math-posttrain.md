@@ -11,6 +11,8 @@ out_of_scope:
   - "Nemotron 3 Ultra pretrain architecture choice"
   - "Formal Lean / prover-in-the-loop systems"
 redirects:
+  - when: "textbook-study RL / BookNavigator (not IMO TTC default / not RLM)"
+    to: "method:booknavigator"
   - when: "single-turn math/code Pass@1 RLVR"
     to: "task:math-code-rl-dense"
   - when: "general chat / instruct SFT"
@@ -25,11 +27,12 @@ current_sota:
     value: "30 (gold threshold)"
     notes: "Nemotron IMO Gold (2609.10712). NL TTC, no prover. Does not replace CISPO as Pass@1."
 methods:
+  - method:booknavigator
   - method:nemotron-imo-gold
   - method:nemotron-3-ultra
   - method:cispo
   - method:olmo-3
-last_reviewed: "2026-09-11"
+last_reviewed: '2026-11-12'
 tags:
   - post-training
   - math
@@ -48,5 +51,6 @@ Train and serve natural-language olympiad proofs: specialist SFT/RL checkpoints 
 - **Evaluation Pitfalls**: Do not mix 30/42 TTC with CISPO Pass@1. Do not treat Ultra architecture papers as this recipe.
 
 ## SOTA Recommendation (as of 2026-09-11)
+- **Optional textbook-study RL (not this TTC default)**: `method:booknavigator` (`arXiv:2610.39671`). BookNavigator page/section interface plus fine-grained study rewards. Intern-S2-Preview-35B proof accuracy $51.5\%\to 79.5\%$. Mention on `task:long-context-prompt-offload`. No public code. HF Daily 2026-11-12 leftover. Does not replace Nemotron IMO Gold or RLM.
 - **Primary Method (this task only)**: **Nemotron IMO Gold** (`method:nemotron-imo-gold`, `paper:nemotron-imo-gold` `arXiv:2609.10712`). Status on the method node is `active` (recipe/specialist, not a Pass@1 kernel).
 - **Not This Task**: `method:cispo` remains Pass@1; `method:olmo-3` remains instruct SFT; `method:nemotron-3-ultra` remains the base architecture.

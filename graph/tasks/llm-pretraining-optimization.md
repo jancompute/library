@@ -100,6 +100,8 @@ redirects:
     to: "method:muonio"
   - when: "multi-stream attention residuals vs vanilla / mHC / AttnRes (MSAR)"
     to: "method:msar"
+  - when: "hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2 / not V4.1-Flash serving)"
+    to: "method:depthgraft"
   - when: "weight decay causally controls massive-activation magnitude / attention sinks"
     to: "paper:massive-activation-lifecycle"
   - when: "randomized momentum transport rates for Muon / sign updates (theory)"
@@ -113,6 +115,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:depthgraft
   - method:bf16-sr
   - method:muon-rt
   - method:air-elr
@@ -158,7 +161,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - pretraining
   - optimizer
@@ -172,6 +175,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Optional hierarchical KV reconstruction (not this optimizer default)**: `method:depthgraft` (`arXiv:2611.03142`). Deep KV reconstructed from stride-aligned shallow–middle pairs. 16B MoE MMLU-Pro $+7.0\%$ / CMMLU $+6.6\%$ / C3 $+6.4\%$; KV $\sim -1/3$. Sibling of MSAR. Code jianke0604/DepthGraft. Mentions on `task:pretrain-dense-7b` / `task:input-heavy-agentic-moe-serving`. Does not replace Muon2, MSAR, or V4.1-Flash.
 - **Related BF16 stochastic rounding (not this 7B optimizer)**: `method:bf16-sr` (`arXiv:2611.13545`) on `task:fp4-rl-train-rollout-alignment`. Pretrain BF16 already matches FP32; the gap is RLVR at low LR. Distinct from `paper:weight-update-leverage`. Does not replace Muon2.
 - **Gotcha (domain inductive biases)**: `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position). Domain biases are not obsolete at foundation scale. Does not retarget Muon2.
 - **Gotcha (Muon-SW tuning gap)**: `paper:muon-sw-tuning-gap` (`arXiv:2611.02529`). ~90% of Muon-SW gain is a shared-HP gap (0.035→0.0026 BPB). Code ethxin0011/weight_decay_ladder. Does not retarget Muon2.

@@ -78,6 +78,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:agent-memory — Agent Memory
 - **Scope**: How an agent stores and updates strategies across tasks. Not dumped-prompt RLM and not a SWE loop.
 - **SOTA**: `method:ace` `2611.14009` (as_of 2025-10) — AppWorld, DeepSeek-V3.1: ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%
+  - do not use when evidence-linked memory / WikiTrace (not write-time playbook) → `method:wikitrace`
   - do not use when file-based coding-agent memory via async OPD (CAMP-II) → `method:camp-ii`
   - do not use when evolving ontology relational memory + RL reasoning-state (EvoMemState) → `method:evomemstate`
   - do not use when multi-view OPSD of skill memory (MDSkill) → `method:mdskill`
@@ -91,6 +92,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when System-One control plane for memory ops (typing, routing, budget, traversal) → `method:jev-mem`
   - do not use when read-time curation of raw trajectories (not write-time playbook) → `method:jitmem`
 - **Redirects**:
+  - when evidence-linked memory / WikiTrace (not write-time playbook) → `method:wikitrace`
   - when file-based coding-agent memory via async OPD (CAMP-II; not write-time playbook) → `method:camp-ii`
   - when evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook) → `method:evomemstate`
   - when multi-view OPSD of skill memory (MDSkill; not write-time playbook) → `method:mdskill`
@@ -173,6 +175,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:long-context-prompt-offload — Long-Context Prompt Offload
 - **Scope**: Dumped corpus ≫ context window. RLM REPL offload. Not a SWE harness and not trajectory folding.
 - **SOTA**: `method:rlm` `2611.05306` (as_of 2025-12) — GPT-5 Table 1 OOLONG-Pairs / BrowseComp+ 1K (depth=1): OOLONG-Pairs 58.0 vs compaction 0.1 vs Claude Code offload 6.5; BrowseComp+ 1K 91.3 vs compaction 70.5 vs base 0.0 OOM
+  - do not use when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) → `method:booknavigator`
   - do not use when compaction without retraining a native window (You Don't Need Long Context) → `paper:you-dont-need-long-context`
   - do not use when GitHub-issue-to-patch / SWE harness → `method:mini-swe-agent`
   - do not use when long tool/web/SWE trajectory with folding → `method:foldgrpo`
@@ -182,6 +185,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when corpus already on a filesystem you can grep → `method:coding-agent-file-offload`
   - do not use when trained self-call + range-read harness (8K window matching a 1M native model on long docs) → `method:tacm`
 - **Redirects**:
+  - when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) → `method:booknavigator`
   - when compaction without retraining a native window (You Don't Need Long Context) → `paper:you-dont-need-long-context`
   - when trained compaction notes inside a 20K window (MEMENTO) → `method:memento`
   - when GitHub issue to patch without a dumped corpus → `task:software-engineering-agent-harness`
@@ -392,7 +396,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Text-to-image / flow reward alignment (DiffusionOPSD / Self-OPD); Continuous diffusion language model pretrain (SemiCat); Discrete dLLM AR-delta recycle (A2D); Video reward models / RGPO (RewardVerse)
 
 ### task:posttrain-diffusion — Diffusion Post-Training and Reward Alignment
-- **SOTA**: `method:diffusion-opsd` `2611.08240` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
+- **SOTA**: `method:diffusion-opsd` `2611.12411` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
+  - do not use when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) → `method:physopsd`
   - do not use when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) → `method:fewsteprl`
   - do not use when intrinsic distribution matching / EMA moment constraint on DMD (IDM) → `method:idm`
   - do not use when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) → `method:doobpo`
@@ -404,6 +409,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k) → `method:mend`
   - do not use when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
 - **Redirects**:
+  - when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) → `method:physopsd`
   - when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) → `method:fewsteprl`
   - when intrinsic distribution matching / EMA moment constraint on DMD (IDM) → `method:idm`
   - when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) → `method:doobpo`
@@ -945,7 +951,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:math-code-rl-dense — Mathematical and Code RL Reasoning (Dense Policies)
 - **Scope**: Single-turn (or short-CoT) dense math/code RLVR with a programmatic verifier. Pass@1 default is CISPO.
-- **SOTA**: `method:cispo` `2611.14015` (as_of 2026-08-26) — MATH-500 / AIME 2024 / LiveCodeBench: Default SOTA for Dense RL
+- **SOTA**: `method:cispo` `2611.14515` (as_of 2026-08-26) — MATH-500 / AIME 2024 / LiveCodeBench: Default SOTA for Dense RL
+  - do not use when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) → `method:autoscaffold`
+  - do not use when verifiable RL misalignment / reward-context shortcuts → `paper:verifiable-rl-misalignment`
   - do not use when margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO) → `method:mcpo`
   - do not use when dense Monte-Carlo process rewards vs outcome GRPO at matched tokens → `paper:dense-rewards-grpo`
   - do not use when coverage collapse / APMD reference resets in post-train PG → `paper:coverage-collapse-reference-resets`
@@ -1012,6 +1020,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when on-policy parameter update direction SFT (OPSFT), not Pass@1 RLVR → `method:opsft`
   - do not use when adaptive ground-truth rationale scaffolding for sparse-reward RLVR → `method:rgpo`
 - **Redirects**:
+  - when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) → `method:autoscaffold`
+  - when verifiable RL misalignment / reward-context shortcuts (not Pass@1 CISPO) → `paper:verifiable-rl-misalignment`
   - when margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO) → `method:mcpo`
   - when dense Monte-Carlo process rewards vs outcome GRPO at matched tokens → `paper:dense-rewards-grpo`
   - when coverage collapse / APMD reference resets in post-train PG → `paper:coverage-collapse-reference-resets`
@@ -1221,10 +1231,12 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:olympiad-math-posttrain — Olympiad Proof Post-Training and Test-Time Compute
 - **Scope**: Hard olympiad / IMO-style natural-language proof post-train plus TTC (SFT+RL specialists, NL verify/refine, no formal prover required).
 - **SOTA**: `method:nemotron-imo-gold` `2609.10712` (as_of 2026-09-11) — IMO 2026 official contest: 30 (gold threshold)
+  - do not use when textbook-study RL / BookNavigator (not IMO TTC default / not RLM) → `method:booknavigator`
   - do not use when single-turn dense math/code Pass@1 RLVR → `method:cispo`
   - do not use when choosing the Nemotron 3 Ultra pretrain architecture → `method:nemotron-3-ultra`
   - do not use when general chat / instruct SFT → `method:olmo-3`
 - **Redirects**:
+  - when textbook-study RL / BookNavigator (not IMO TTC default / not RLM) → `method:booknavigator`
   - when single-turn math/code Pass@1 RLVR → `task:math-code-rl-dense`
   - when general chat / instruct SFT → `task:instruct-sft-alignment`
   - when choosing the Nemotron 3 Ultra / frontier MoE architecture → `task:pretrain-moe-frontier`
@@ -1232,7 +1244,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
-- **SOTA**: `method:canopy` `2611.12232` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+- **SOTA**: `method:canopy` `2611.14515` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+  - do not use when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) → `method:autoscaffold`
+  - do not use when verifiable RL misalignment / reward-context shortcuts → `paper:verifiable-rl-misalignment`
   - do not use when environment-calibrated command-only OPSD (ECOS; not CANOPY coverage) → `method:ecos`
   - do not use when controllable tool-call efficiency / anchored reference budget (CARE-PO) → `method:care-po`
   - do not use when mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD; not coverage) → `method:agentic-opd`
@@ -1273,6 +1287,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) → `method:autoscaffold`
+  - when verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage) → `paper:verifiable-rl-misalignment`
   - when failure-only LCS action-sequence OPD (LCS-OPD; not CANOPY coverage) → `method:lcs-opd`
   - when environment-calibrated command-only OPSD (ECOS; not CANOPY coverage) → `method:ecos`
   - when controllable tool-call efficiency / anchored reference budget (CARE-PO) → `method:care-po`
@@ -1344,6 +1360,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:privileged-teacher-opsd — Privileged-Teacher On-Policy Self-Distillation
 - **SOTA**: `method:vista` `2611.13680` (as_of 2026-08-31) — AIME24 / AIME25 / HMMT25 Avg@12 (Qwen3-1.7B/4B/8B instruct): VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0
+  - do not use when code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA) → `method:physopsd`
   - do not use when bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA) → `method:bopd`
   - do not use when environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA) → `method:ecos`
   - do not use when teacher-evolution self-distillation (TESD) → `method:tesd`
@@ -1369,6 +1386,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when privileged-context content (demo vs feedback vs rephrase) as OPSD drift, not a trainer → `method:privileged-context-drift`
   - do not use when teachable prefixes + recoverability verification against Teacher Drift (TOPSD) → `method:topsd`
 - **Redirects**:
+  - when code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA) → `method:physopsd`
   - when bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA) → `method:bopd`
   - when environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA) → `method:ecos`
   - when reachability-aligned privileged self-distill (Self-Steered Reasoner; not successive scale racing) → `method:self-steered-reasoner`
@@ -1404,7 +1422,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when self-distillation OOD: SDPO/OPSD gains largely do not transfer → `paper:self-distillation-ood`
 
 ### task:reasoning-rl-alignment — Reinforcement Learning & Reasoning Post-Training
-- **SOTA**: `method:cispo` `2611.14015` (as_of 2026-08-26) — AIME 2024 / MATH-500: SOTA for Dense Long-CoT
+- **SOTA**: `method:cispo` `2611.14515` (as_of 2026-08-26) — AIME 2024 / MATH-500: SOTA for Dense Long-CoT
+  - do not use when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) → `method:autoscaffold`
+  - do not use when verifiable RL misalignment / reward-context shortcuts → `paper:verifiable-rl-misalignment`
   - do not use when margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO) → `method:mcpo`
   - do not use when dense Monte-Carlo process rewards vs outcome GRPO at matched tokens → `paper:dense-rewards-grpo`
   - do not use when coverage collapse / APMD reference resets in post-train PG → `paper:coverage-collapse-reference-resets`
@@ -1767,6 +1787,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when the problem is folding a long tool trajectory into a small active context → `method:foldgrpo`
   - do not use when single-turn math/code Pass@1 RLVR → `method:cispo`
 - **Redirects**:
+  - when AI-designed RLVR scaffolds / AutoScaffold (not Iris SFT-RL climbing) → `method:autoscaffold`
   - when controllable tool-call efficiency / anchored reference budget (CARE-PO) → `method:care-po`
   - when FALCA deep-search agent RL (propose-falsify hierarchical credit) → `method:falca`
   - when evidence-guided step credit for deep-search agents (EG-GRPO) → `method:eg-grpo`
@@ -1900,6 +1921,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:llm-pretraining-optimization — Large Language Model Pretraining Optimization
 - **SOTA**: `method:muon2` `2611.03756` (as_of 2026-08-26) — Moonlight 7B Pretraining / FineWeb: ~2x token efficiency vs AdamW
+  - do not use when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2) → `method:depthgraft`
   - do not use when domain inductive biases still matter in foundation pretraining → `paper:domain-inductive-biases`
   - do not use when Muon scaled-WD gain is mostly a tuning gap → `paper:muon-sw-tuning-gap`
   - do not use when pretrain data scale reverses Muon vs AdamW after fine-tune → `paper:muon-adamw-ft-gap`
@@ -1978,6 +2000,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when zero-natural-data self-play pretraining (UTM programs, no natural text) → `task:zero-natural-data-self-play-pretrain`
   - when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW → `method:muonio`
   - when multi-stream attention residuals vs vanilla / mHC / AttnRes (MSAR) → `method:msar`
+  - when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2 / not V4.1-Flash serving) → `method:depthgraft`
   - when weight decay causally controls massive-activation magnitude / attention sinks → `paper:massive-activation-lifecycle`
   - when randomized momentum transport rates for Muon / sign updates (theory) → `paper:randomized-momentum-transport`
   - when structure-aware Muon on Monarch-factored weights (not dense Muon2) → `method:monarch-muon`
@@ -2012,6 +2035,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:pretrain-dense-7b — Pretrain Dense ~7B Language Model from Scratch
 - **SOTA**: `method:muon2` `2611.03756` (as_of 2026-08-26) — Moonlight Scaling Laws / FineWeb Token Mix: ~2x token efficiency vs AdamW
+  - do not use when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2) → `method:depthgraft`
   - do not use when domain inductive biases still matter in foundation pretraining → `paper:domain-inductive-biases`
   - do not use when Muon scaled-WD gain is mostly a tuning gap → `paper:muon-sw-tuning-gap`
   - do not use when pretrain data scale reverses Muon vs AdamW after fine-tune → `paper:muon-adamw-ft-gap`
@@ -2046,6 +2070,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) → `method:depthgraft`
   - when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) → `method:opmd-cpt`
   - when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer → `method:soft-mtp`
   - when nested sparsity for scalable pretraining and continual learning (NESTOR) → `method:nestor`
@@ -2182,6 +2207,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:frontier-rl-posttrain-stack — Frontier RL Post-Training Stack
 - **Scope**: Choosing and operating a production post-training stack (rollout engine, trainer backend, weight sync, LoRA RL / OPD / SFT / async agentic RL) at frontier MoE scale.
 - **SOTA**: `method:miles` `2611.09207` (as_of 2026-09-09) — GLM-5.2 744B-A40B async agentic RL on Terminal-bench-2, 64x GB300: 263s median (first 30 steps); KL mean 0.0369; reward 0.438→0.556 (single run)
+  - do not use when LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship) → `method:hilo-lora-sync`
   - do not use when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) → `method:ngramrl`
   - do not use when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) → `method:flashnext-rl`
   - do not use when scaled omni-modal RL playbook with router freeze and groupwise agentic grading → `method:mimo-v26`
@@ -2203,6 +2229,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when cancellation-aware off-policy response mask (absolute token log-ratios) → `method:carm`
   - do not use when graph IR + runtime for RLM PPO/GRPO pipelines (RPEG; not the production engine) → `method:rpeg`
 - **Redirects**:
+  - when LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship) → `method:hilo-lora-sync`
   - when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the production engine) → `method:bf16-sr`
   - when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) → `method:ngramrl`
   - when Qwen3.8-Flash-Next long-horizon agentic RL systems (FlashNext-RL) → `method:flashnext-rl`
@@ -2240,6 +2267,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 ### task:input-heavy-agentic-moe-serving — Input-Heavy Agentic MoE Serving
 - **Scope**: KV-footprint / CED serving for input-heavy agentic MoE (encoder memory, decoder global KV from final encoder states, CSA2, SWA bounded replay). First hop is DeepSeek-V4.1-Flash.
 - **SOTA**: `method:deepseek-v41-flash` `2609.19969` (as_of 2026-09-10) — DeepSeek-V4.1-Flash instruct, max reasoning effort; Terminal-Bench 2.1 / DeepSWE v1.1 / global KV bytes: TB2.1 90.6; DeepSWE 74.2; global KV 890 B/token (~1/4 of V4-Flash); persistent KV ~1/8 of V4-Flash
+  - do not use when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not V4.1-Flash serving) → `method:depthgraft`
   - do not use when periodic 4-bit recurrent-state quantization (PACE) → `method:pace`
   - do not use when choosing the frontier MoE pretrain architecture template → `method:deepseek-v4`
   - do not use when GitHub issue to patch / SWE harness → `method:mini-swe-agent`
@@ -2248,6 +2276,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when recurrent all-token CED LM with exact RL replay semantics (experimental) → `method:recurrent-looped-transformer`
   - do not use when Pass@1 labeled math/code RLVR algorithm → `method:cispo`
 - **Redirects**:
+  - when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not V4.1-Flash serving) → `method:depthgraft`
   - when periodic 4-bit recurrent-state quantization (PACE) → `method:pace`
   - when choosing the frontier MoE pretrain architecture template → `task:pretrain-moe-frontier`
   - when GitHub issue to patch / SWE harness rather than serving architecture → `task:software-engineering-agent-harness`

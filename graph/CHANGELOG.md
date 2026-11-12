@@ -6,6 +6,39 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-12 — weekday SOTA sweep (AutoScaffold, HiLo LoRA Sync, WikiTrace, PhysOPSD, DepthGraft, BookNavigator; note verifiable-rl-misalignment)
+- Six active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-12 Librarian weekday sweep after merged PR 63 (watermark 2611.14467, 52dd665, 2249 nodes / 9184 edges). Thursday 15:00 UTC is before the 20:00 ET mailing, so `/new` still shows Wednesday 11 Nov 2026. Covers leftover Wednesday IDs after 2611.14467 through listing considered 2611.14519, plus HF Daily 2026-11-11 leftovers (HiLo 2611.13306, WikiTrace 2611.14320) and HF Daily 2026-11-12 leftovers (PhysOPSD 2611.12411, DepthGraft 2611.03142, BookNavigator 2610.39671). AutoScaffold 2611.14515 is the high ingest id. Distinct slug `hilo-lora-sync` from `method:hilo-rd` (2610.36901).
+- SKIP (considered, not ingested): GTAGym 2611.13028 (incremental CUA env vs RecreationWorld/SoftwareGym/MAI-Gym); TOME-Math 2610.40394 (SFT corpus, no code); Tree-Ising; MACaQ; Byzantine Muon; federated LoRA (already skipped 11-11; HiLo is not that paper); Teaching the Harness; Overlapping Block Denoising; EVAThink; Domain-Routed Delta; GraphMuon; ReTrace; SparseRead; Evolving Infra; Frequency-Aware Remasking; ADIndex; Precision on Demand; Bits or permutations; IVG; medical segmentation 2611.14519; Wiener sausage 2611.14500; clone homomorphisms 2611.14490; Pterodactyl 2611.14480; HF 11-12 inference/eval leftovers (Ensemble Routing, Platonic Alignment, Mixed Signals EEG, CogBattery, WMIP, FAME-QP, CARTBench, PolyRoute).
+
+### 2026-11-12 — ingest method:autoscaffold (active on task:math-code-rl-dense; does not supersede method:cispo / method:canopy / method:iris)
+- Added paper:autoscaffold, method:autoscaffold, recipe:autoscaffold (`code_status: none`). Mentions on task:outcome-only-long-horizon-agent-rl / task:web-search-agent-rl.
+- Status active (`sota_for: []`). Frozen teacher writes class/instance scaffolds from the training log; scaffold-free eval. ALFWorld +7.2 vs GiGPO. Listing high ingest 2611.14515.
+
+### 2026-11-12 — ingest method:hilo-lora-sync (active on task:frontier-rl-posttrain-stack; does not supersede method:miles / method:nemo-dcr)
+- Added paper:hilo-lora-sync, method:hilo-lora-sync, recipe:hilo-lora-sync (`code_status: none`). Distinct from method:hilo-rd.
+- Status active (`sota_for: []`). Compressed LoRA-factor gradients plus local optimizer replay. KK OPD Qwen3-1.7B pass@4 81.6 vs full sync 83.2 at 1.6% payload.
+
+### 2026-11-12 — ingest method:wikitrace (active on task:agent-memory; does not supersede method:ace)
+- Added paper:wikitrace, method:wikitrace, recipe:wikitrace (`code_status: released`, yukyeongleee/wikitrace).
+- Status active (`sota_for: []`). Evidence-linked insight → compilation → raw trajectory. 90.2 vs No Memory 79.5; Regression 6.5%→4.5%. Complements paper:luck-carrying-lessons / paper:memory-tax.
+
+### 2026-11-12 — ingest method:physopsd (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:self-opd / method:vista)
+- Added paper:physopsd, method:physopsd, recipe:physopsd (`code_status: released`, aigc3d/PhysOPSD). Mention on task:privileged-teacher-opsd.
+- Status active (`sota_for: []`). Executable physics code as privileged teacher context. UniVideo 13B / OmniWeaving 8.3B VideoPhy-2 +4.2 / +4.1 at 3K samples. HF leftover below watermark.
+
+### 2026-11-12 — ingest method:depthgraft (active on task:llm-pretraining-optimization; does not supersede method:muon2 / method:msar / method:deepseek-v41-flash)
+- Added paper:depthgraft, method:depthgraft, recipe:depthgraft (`code_status: released`, jianke0604/DepthGraft). Mentions on task:pretrain-dense-7b / task:input-heavy-agentic-moe-serving.
+- Status active (`sota_for: []`). Hierarchical KV reconstruction as a pretrain regularizer. 16B MoE MMLU-Pro +7.0% / CMMLU +6.6% / C3 +6.4%. Sibling of MSAR. HF leftover below watermark.
+
+### 2026-11-12 — ingest method:booknavigator (active on task:olympiad-math-posttrain; does not supersede method:nemotron-imo-gold / method:rlm)
+- Added paper:booknavigator, method:booknavigator, recipe:booknavigator (`code_status: none`). Mention on task:long-context-prompt-offload.
+- Status active (`sota_for: []`). Textbook-study RL with BookNavigator page/section actions. Intern-S2-Preview-35B proof accuracy 51.5%→79.5%. HF Daily 2026-11-12 leftover.
+
+### 2026-11-12 — ingest paper:verifiable-rl-misalignment (claim note on task:outcome-only-long-horizon-agent-rl / task:math-code-rl-dense; does not retarget method:canopy / method:cispo)
+- Added paper:verifiable-rl-misalignment. Linked from method:canopy and method:cispo. No public code.
+- Minority conflict exposure on Qwen3.5-4B GRPO yields 97.9% certified profitable violations. Complements paper:simhack / paper:reward-misspecification-cot.
+
 ### 2026-11-11 — weekday SOTA sweep (BOPD, LCS-OPD, MCPO, OPMD-CPT, SteerDistill, Deletion Tuning, CAMP-II, BF16-SR; notes dense-rewards-grpo, coverage-collapse-reference-resets)
 - Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-11 Librarian weekday sweep after merged PR 62 (watermark 2611.12886, 5b5d597, 2223 nodes / 9066 edges). Covers Wednesday 2026-11-11 arXiv cs.LG/cs.CL/cs.AI after 2611.12886 (listing range ~2611.12899–2611.14519) plus leftover 2026-11-10 and HF Daily 2026-11-10 / 2026-11-11. Deletion Tuning 2611.10866 is an HF leftover below the listing watermark. New high id 2611.14467 (ingest) / 2611.14519 (listing considered).

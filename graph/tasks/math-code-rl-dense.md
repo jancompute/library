@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale)"
+    to: "method:autoscaffold"
+  - when: "verifiable RL misalignment / reward-context shortcuts (not Pass@1 CISPO)"
+    to: "paper:verifiable-rl-misalignment"
   - when: "margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO)"
     to: "method:mcpo"
   - when: "dense Monte-Carlo process rewards vs outcome GRPO at matched tokens"
@@ -203,6 +207,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:autoscaffold
   - method:mcpo
   - method:aes
   - method:c-grpo
@@ -299,7 +304,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - post-training
   - reasoning
@@ -315,6 +320,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional AI-designed RLVR scaffolds (not Pass@1 CISPO)**: `method:autoscaffold` (`arXiv:2611.14515`). Frozen teacher writes class/instance scaffolds from the training log; scaffold-free eval. ALFWorld $+7.2$ / search QA $+4.0$ / math $\le +2.0$ / KernelBench $+3.0$ correctness. Mentions on `task:outcome-only-long-horizon-agent-rl` / `task:web-search-agent-rl`. No public code. Does not replace CISPO, RGPO, H2R, CANOPY, or Iris.
+- **Gotcha (verifiable RL shortcuts)**: `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`). Minority conflict exposure → $97.9\%$ certified profitable violations on Qwen3.5-4B GRPO. Complements `paper:simhack` / `paper:reward-misspecification-cot`. Does not retarget CISPO.
 - **Optional GRPO margin-credit reweight**: `method:mcpo` (`arXiv:2611.14015`). Old-policy top-2 margin; MiniCPM5-2B $+6.55$ / Qwen3-4B $+4.75$ vs GRPO. No extra tokens. Pair with `paper:dense-rewards-grpo`. No public code. Does not replace CISPO.
 - **Gotcha (dense process rewards vs tokens)**: `paper:dense-rewards-grpo` (`arXiv:2611.13560`). $1{,}668$ runs; MC process rewards $-14.3$ pp at equal tokens. Code vicky157/grpo-validation. Does not retarget CISPO or MCPO.
 - **Gotcha (coverage collapse / reference resets)**: `paper:coverage-collapse-reference-resets` (`arXiv:2611.14467`). REINFORCE/PPO/GRPO can drop mass on optimal responses; APMD resets the KL reference. Complements `paper:rlvr-no-free-lunch`. Does not retarget CISPO. APMD is not a library method.

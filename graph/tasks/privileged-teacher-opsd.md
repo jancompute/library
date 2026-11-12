@@ -5,6 +5,8 @@ title: "Privileged-Teacher On-Policy Self-Distillation"
 domain: "post-training"
 summary: "On-policy self-distillation where a same-size teacher is privileged with a gold reference solution and a deterministic outcome verifier, rather than a larger frozen teacher model."
 redirects:
+  - when: "code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA)"
+    to: "method:physopsd"
   - when: "bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA)"
     to: "method:bopd"
   - when: "environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA)"
@@ -79,6 +81,7 @@ current_sota:
     value: "VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0"
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
+  - method:physopsd
   - method:bopd
   - method:ecos
   - method:topsd
@@ -118,7 +121,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-12'
 tags:
   - post-training
   - distillation
@@ -139,6 +142,7 @@ Train a problem-only student on its own rollouts using dense token-level targets
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Related code-as-privilege video OPSD (not this gold-solution default)**: `method:physopsd` (`arXiv:2611.12411`) on `task:posttrain-diffusion`. Executable physics code as privilege; not a gold text solution. Does not replace VISTA.
 - **Optional bootstrapped OPSD→OPD (not this first hop)**: `method:bopd` (`arXiv:2611.13680`). Stage I privileged OPSD then Stage II reference-free OPD from a fresh init. Qwen3-4B Avg@12 $18.06\to 23.98$ vs continued OPSD $19.63$. Code YueWu0301/BOPD. Mention on `task:student-distillation`. Does not replace VISTA.
 - **Related environment-calibrated agent OPSD (not this first hop)**: `method:ecos` (`arXiv:2611.12232`) on `task:outcome-only-long-horizon-agent-rl`. Command-only teacher; full-response teacher collapses. Does not replace VISTA.
 - **Optional teachable-prefix OPSD (not this first hop)**: `method:topsd` (`arXiv:2611.08179`). Teachable prefixes plus recoverability verification against Teacher Drift. Qwen3-1.7B/4B/8B PolyMath High Avg@3 $11.60$ / $17.79$ / $25.12$. No public code. Mention on `task:multilingual-l2-reasoning-sft`. Does not replace VISTA.

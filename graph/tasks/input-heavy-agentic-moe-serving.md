@@ -13,6 +13,8 @@ out_of_scope:
   - "Recurrent all-token CED LM pretrain (RLT; experimental)"
   - "Compute-matched looped MoE pretrain (SMELT)"
 redirects:
+  - when: "hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not V4.1-Flash serving)"
+    to: "method:depthgraft"
   - when: "periodic 4-bit recurrent-state quantization (PACE)"
     to: "method:pace"
   - when: "choosing the frontier MoE pretrain architecture template"
@@ -37,6 +39,7 @@ current_sota:
     value: "TB2.1 90.6; DeepSWE 74.2; global KV 890 B/token (~1/4 of V4-Flash); persistent KV ~1/8 of V4-Flash"
     notes: "DeepSeek-V4.1-Flash CED (HF tech report, 2026-09-10). Vendor-reported. Does not replace DeepSeek-V4 / Kimi-K3 as the MoE pretrain co-default."
 methods:
+  - method:depthgraft
   - method:pace
   - method:replayssm
   - method:deepseek-v41-flash
@@ -45,7 +48,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:mhc
   - method:mini-swe-agent
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-11-12'
 tags:
   - systems
   - serving
@@ -65,6 +68,7 @@ Serve a frontier multimodal MoE when prompts are long and agentic (tools, images
 - **Evaluation Pitfalls**: Do not replace DeepSeek-V4 / Kimi-K3 as the *pretrain* architecture default. Do not treat Flash serving numbers as RLT measurements. Do not retarget mini-SWE-agent, Miles, or Uno.
 
 ## SOTA Recommendation (as of 2026-09-12)
+- **Related pretrain KV-sharing regularizer (not this serving default)**: `method:depthgraft` (`arXiv:2611.03142`) on `task:llm-pretraining-optimization`. Train-time reconstruction, not CED serving. Does not replace DeepSeek-V4.1-Flash.
 - **Primary Method (this task only)**: **DeepSeek-V4.1-Flash** (`method:deepseek-v41-flash`, `paper:deepseek-v41-flash`). CED 20+20, CSA2, SWA Bounded Replay, Single-Pass mHC, Engram, DSpark. Weights: `deepseek-ai/DeepSeek-V4.1-Flash`.
 - **Not This Task**: `method:deepseek-v4` / `method:kimi-k3` remain MoE pretrain co-defaults; `method:mini-swe-agent` remains the SWE harness; `method:miles` remains the post-train engine; `method:uno` remains diffusion-augmented AR serving; `method:recurrent-looped-transformer` is the experimental all-token-recurrence sibling.
 - **Optional hybrid SSM decode buffer (not this CED serving default)**: `method:replayssm` (`arXiv:2610.13778`) on `task:linear-time-sequence-modeling`. Does not replace DeepSeek-V4.1-Flash.

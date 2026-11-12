@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'evidence-linked memory / WikiTrace (not write-time playbook)'
+    reason: 'ACE remains write-time playbook; WikiTrace links lessons to source trajectories and descends at read time'
+    use_instead: method:wikitrace
   - when: 'file-based coding-agent memory via async OPD (CAMP-II)'
     reason: 'ACE remains write-time playbook; CAMP-II trains file-as-memory via asynchronous OPD'
     use_instead: method:camp-ii

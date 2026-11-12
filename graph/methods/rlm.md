@@ -8,6 +8,9 @@ sota_for:
   - task:long-context-prompt-offload
 supersedes: []
 do_not_use_for:
+  - when: "textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload)"
+    reason: "RLM is dumped-prompt REPL offload; BookNavigator is an RL study interface over a textbook"
+    use_instead: "method:booknavigator"
   - when: "compaction without retraining a native window (You Don't Need Long Context)"
     reason: "Gotcha: compaction can replace a long native window for many dumped-document jobs; does not retarget RLM"
     use_instead: "paper:you-dont-need-long-context"

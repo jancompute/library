@@ -8,6 +8,9 @@ sota_for:
   - task:input-heavy-agentic-moe-serving
 supersedes: []
 do_not_use_for:
+  - when: "hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not V4.1-Flash serving)"
+    reason: "V4.1-Flash is CED serving; DepthGraft is a train-time KV reconstruction regularizer"
+    use_instead: "method:depthgraft"
   - when: "periodic 4-bit recurrent-state quantization (PACE)"
     reason: "V4.1-Flash is CED KV serving; PACE quantizes linear-attention recurrent state"
     use_instead: "method:pace"

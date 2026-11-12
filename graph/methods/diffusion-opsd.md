@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: 'code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default)'
+    reason: 'DiffusionOPSD remains T2I reward OPSD; PhysOPSD is video with compiled physics as privilege'
+    use_instead: method:physopsd
   - when: 'few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)'
     reason: 'DiffusionOPSD remains on-policy self-distill; FewStepRL ports hosts onto average-velocity few-step models'
     use_instead: method:fewsteprl
@@ -27,6 +30,7 @@ do_not_use_for:
     reason: "DiffusionOPSD remains image-policy OPSD; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:physopsd
   - paper:fewsteprl
   - paper:sifr
   - paper:mend

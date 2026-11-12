@@ -8,6 +8,9 @@ sota_for:
   - task:frontier-rl-posttrain-stack
 supersedes: []
 do_not_use_for:
+  - when: "LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship)"
+    reason: "Miles remains the production engine; HiLo compresses LoRA-factor gradients and replays the optimizer"
+    use_instead: "method:hilo-lora-sync"
   - when: "rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL)"
     reason: "Miles remains the production engine; NgramRL is a model-free n-gram drafter for structured RL rollouts"
     use_instead: "method:ngramrl"
