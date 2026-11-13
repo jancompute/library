@@ -54,7 +54,9 @@ task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) -> method:aide2
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
   when recurrent textual harness for agentic continual learning (not the production kernel) -> method:reharness
-task:agent-memory -> method:ace (2611.14009, 2025-10)
+task:agent-memory -> method:ace (2611.12872, 2025-10)
+  when multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook) -> method:hive-mem
+  when history cleaning after a wrong write / completed-action rewrite (not write-time playbook) -> paper:history-cleaning-hurts
   when evidence-linked memory / WikiTrace (not write-time playbook) -> method:wikitrace
   when file-based coding-agent memory via async OPD (CAMP-II; not write-time playbook) -> method:camp-ii
   when evolving ontology relational memory + RL reasoning-state (EvoMemState; not write-time playbook) -> method:evomemstate
@@ -111,7 +113,8 @@ task:long-horizon-tool-agent -> method:foldgrpo (2510.11967, 2025-10)
   when outcome-only long-horizon agent RL (signal starvation / drift or outcome-blind rubrics) -> task:outcome-only-long-horizon-agent-rl
   when train a live-web multi-hop search agent (SFT-RL climbing), not folding -> task:web-search-agent-rl
   when structural credit split for tool-call vs natural-language-summary tokens (not folding) -> task:tool-agent-segment-credit
-task:multi-agent-orchestration -> method:single-agent-plus-tools (2606.04455, 2026-06)
+task:multi-agent-orchestration -> method:single-agent-plus-tools (2611.16206, 2026-06)
+  when multi-agent communication as token-level OPSD credit (OPSD4MAS), not the MAS default -> method:opsd4mas
   when market-based post-training of decentralized agent swarms (MPT) -> method:market-posttrain
   when Leader-Searcher-Answerer hierarchical OPD (MultiAgent-OPD), not the MAS default -> method:multiagent-opd
   when GitHub issue to patch -> task:software-engineering-agent-harness
@@ -142,7 +145,8 @@ task:directed-sssp-nonneg -> method:bmssp (2504.17033, 2026-08)
 task:1bit-extreme-quantization -> method:sparse-bitnet (2611.11223, 2026-08-26)
   when error-diffusion residual buffers for binary-weight on-device training -> method:error-diffusion
   when Ising / Sigma-Delta sampling for binary-ternary on-edge training -> method:sigma-delta-sampler
-task:fp4-hardware-training -> method:quartet-ii (2610.28947, 2026-08-26) + method:mxfp4-mi355x (2605.09825, 2026-08-26)
+task:fp4-hardware-training -> method:quartet-ii (2611.16426, 2026-08-26) + method:mxfp4-mi355x (2605.09825, 2026-08-26)
+  when Hessian-aware hierarchical FP4 scale-code search (SoScale; not native FP4 training) -> method:soscale
   when nGPT looped 4B NVFP4 recipe (Dory; not Quartet-II default) -> method:dory
   when MXFP8/NVFP4 Blackwell attention train kernels (FLAMIA; not Quartet-II default) -> method:flamia
   when MXFP4 MoE LLM train recipe that closes the gap to BF16 (ALTO) -> method:alto-mxfp4
@@ -240,6 +244,7 @@ task:full-lowbit-finetune -> method:gradcodes (2611.13410, 2026-09-01)
   when native FP4 forward/backward hardware training from scratch -> task:fp4-hardware-training
   when quality LoRA on 24GB without a fully quantized checkpoint constraint -> task:lora-quality-tuning
 task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-26)
+  when Factored One-sided Adam-Moment SOAP (FOAM; not SCALE subspace) -> method:foam
   when in-backward MoE expert updates (Sonar-MoE; not SCALE subspace) -> method:sonar-moe
   when coupled-state replay for MoE adaptation memory (DuplexTune) -> method:duplextune
   when Adam second-moment pooling (AdamPM) -> method:adampm
@@ -315,7 +320,8 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2611.06483, 2026-08-26)
+task:agentic-async-rl -> method:sao (2611.16304, 2026-08-26)
+  when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) -> method:statealign
   when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
   when decision-plane RL for executable actions (RLiD), not async stragglers -> method:rlid
   when group-relative actor-critic bootstrap then single-rollout GAE (Li2SAO) -> method:li2sao
@@ -442,7 +448,9 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2610.07842, 2026-08-28)
   when majority-vote unsupervised RLVR collapse from cross-task coupling -> paper:unsupervised-rlvr-collapse
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
-task:math-code-rl-dense -> method:cispo (2611.14515, 2026-08-26)
+task:math-code-rl-dense -> method:cispo (2611.15404, 2026-08-26)
+  when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) -> method:lgpo
+  when trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO) -> paper:trait-hitchhiking
   when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) -> method:autoscaffold
   when verifiable RL misalignment / reward-context shortcuts (not Pass@1 CISPO) -> paper:verifiable-rl-misalignment
   when margin-credit token reweight of GRPO advantages (MCPO; not Pass@1 CISPO) -> method:mcpo
@@ -585,7 +593,8 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.14515, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.16304, 2026-09-04)
+  when state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage) -> method:statealign
   when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) -> method:autoscaffold
   when verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage) -> paper:verifiable-rl-misalignment
   when failure-only LCS action-sequence OPD (LCS-OPD; not CANOPY coverage) -> method:lcs-opd
@@ -685,9 +694,11 @@ task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
   when hidden-state privileged OPSD after GRPO (PR-OPD / invisible advantage) -> method:pr-opd
   when system-prompt verbal regularization of a privileged teacher (VRSD) -> method:vrsd
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
-task:reasoning-rl-alignment -> method:cispo (2611.14515, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
+task:reasoning-rl-alignment -> method:cispo (2611.15404, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.13680, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+task:student-distillation -> method:opd (2611.14850, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when forward-KL from teacher's highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD) -> method:sparse-teacher-support
+  when multi-agent communication as token-level OPSD credit (OPSD4MAS; not matching default) -> method:opsd4mas
   when on-policy mid-training distillation (OPMD-CPT; not post-train mechanism OPMD) -> method:opmd-cpt
   when bootstrapped OPSD then OPD (BOPD; not matching default) -> method:bopd
   when failure-only LCS action-sequence OPD (LCS-OPD; not matching default) -> method:lcs-opd
@@ -893,7 +904,9 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when Kronecker delta rule linear attention (KronLSTM; not an LSTM) -> method:kronlstm
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
-task:llm-pretraining-optimization -> method:muon2 (2611.03756, 2026-08-26)
+task:llm-pretraining-optimization -> method:muon2 (2611.16905, 2026-08-26)
+  when Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default) -> method:foam
+  when Hyper-Connection simplification without residual mixing (SimpleHC; not mHC default) -> method:simplehc
   when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the 7B optimizer) -> method:bf16-sr
   when domain inductive biases still matter in foundation pretraining -> paper:domain-inductive-biases
   when Muon scaled-WD gain is mostly a tuning gap -> paper:muon-sw-tuning-gap
@@ -954,7 +967,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when zero-natural-data self-play pretraining (generator proposes UTM programs) -> task:zero-natural-data-self-play-pretrain
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
-task:pretrain-dense-7b -> method:muon2 (2611.03756, 2026-08-26)
+task:pretrain-dense-7b -> method:muon2 (2611.16905, 2026-08-26)
   when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
@@ -966,6 +979,7 @@ task:pretrain-dense-7b -> method:muon2 (2611.03756, 2026-08-26)
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when one-step prefix-augmented OPD for continued pretrain (PA1-OPD) -> method:pa1-opd
 task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+  when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) -> method:simplehc
   when inference deactivation must match train-time weight rule -> paper:moe-expert-deactivation-weight-rule
   when Muon raises first MoE layer routing-bias span (not the architecture template) -> paper:muon-first-moe-layer
   when Muon MoE routed-expert loss-spike attenuation (EnergyCal; not the architecture template) -> method:energycal
@@ -1869,6 +1883,26 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 639. **Verifiable RL misalignment** (claim note, no new method): `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`) on `task:outcome-only-long-horizon-agent-rl` / `task:math-code-rl-dense` / `method:canopy` / `method:cispo`. Minority conflict exposure → $97.9\%$ certified profitable violations. Complements `paper:simhack` / `paper:reward-misspecification-cot`. Does **not** retarget CANOPY or CISPO.
 
+640. **FOAM**: **FOAM** (`method:foam`, `arXiv:2611.16905`) on `task:llm-pretraining-optimization`. Active plug-in. Input-only SOAP plus factored Adam-moment. Matches Muon/SOAP val loss 124M–760M; $t_A$ within 7% of AdamW; 51% of SOAP wall-clock to SOAP quality; ~50% SOAP optimizer state; peak mem +7.4% vs AdamW (SOAP +12.9%). GitHub naver-ai/foam README-only. Mention on `task:full-param-memory-efficient-pretrain`. Distinct from Clean. HF leftover. Does **not** replace Muon2 or KL-SOAP.
+
+641. **SimpleHC**: **SimpleHC** (`method:simplehc`, `arXiv:2611.05984`) on `task:llm-pretraining-optimization`. Active plug-in. Hyper-Connection without residual mixing / shared memory access. Matches mHC 15B/30B MoE (loss 1.561, avg 63.1 vs mHC 62.9); extra train time 2.4% vs vanilla at C=6144 (mHC ~7.0%); backward storage −31%. GitHub aHapBean/SimpleHC announced. Mention on `task:pretrain-moe-frontier`. HF leftover. Does **not** replace mHC or DeepSeek-V4.
+
+642. **LGPO**: **LGPO** (`method:lgpo`, `arXiv:2611.15404`) on `task:math-code-rl-dense`. Active plug-in. Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1. No public code. Does **not** replace CISPO.
+
+643. **Sparse Teacher Support**: **Sparse Teacher Support** (`method:sparse-teacher-support`, `arXiv:2611.14850`) on `task:student-distillation`. Active plug-in. Forward-KL from the teacher's highest-prob vocab fraction. Qwen3 4B→1.7B 0.01% vocab ($k=15$ of 151936) no MMLU-Pro drop; 38% step-time; 24% peak mem. Distinct from `method:sparse-opd-supervision`. No public code. Does **not** replace OPD.
+
+644. **OPSD4MAS**: **OPSD4MAS** (`method:opsd4mas`, `arXiv:2611.16206`) on `task:student-distillation`. Active plug-in. Communication as token-level OPSD credit plus LOO filter, annealed with GRPO. MATH pass@4 up to +20.00 vs GRPO; mean pass@1 +8.87 vs GRPO / +6.14 vs DAPO. Code Camel-Prince/OPSD4MAS. Mention on `task:multi-agent-orchestration`. Does **not** replace OPD or single-agent-plus-tools.
+
+645. **StateAlign**: **StateAlign** (`method:statealign`, `arXiv:2611.16304`) on `task:agentic-async-rl`. Active plug-in. State-contrast RL for multi-turn tool hallucination. Qwen3-8B BFCL v4 45.5%→55.2%; no-tool hallucination 62.2%→56.1% vs outcome-only. Code ZhexiLu/StateAlign. Mention on `task:outcome-only-long-horizon-agent-rl`. Does **not** replace SAO or CANOPY.
+
+646. **SoScale**: **SoScale** (`method:soscale`, `arXiv:2611.16426`) on `task:fp4-hardware-training`. Active plug-in. Hessian-aware hierarchical FP4 scale-code search plus GPTQ recovery. Qwen3-14B W4A4 retains 97.17%/99.20%/99.40% of BF16 avg under MXFP4/NVFP4/HiF4. Distinct from DualQuant / ResCom. No public code. Does **not** replace Quartet-II.
+
+647. **HiVe-Mem**: **HiVe-Mem** (`method:hive-mem`, `arXiv:2611.12872`) on `task:agent-memory`. Active plug-in. Horizontal expansion plus vertical evidence composition plus trainable selector. ~90% token cut (0.658M vs 7.812M); Qwen3-VL-4B F1/LJ 32.32/57.96. Code ViktorAxelsen/HiVe-Mem. Distinct from `method:hive-synth`. Tuesday leftover. Does **not** replace ACE.
+
+648. **Trait hitchhiking** (claim note, no new method): `paper:trait-hitchhiking` (`arXiv:2611.14683`) on `task:math-code-rl-dense` / `method:cispo`. Price equation for non-targeted traits under GRPO. Complements `paper:verifiable-rl-misalignment`. Does **not** retarget CISPO.
+
+649. **History cleaning hurts** (claim note, no new method): `paper:history-cleaning-hurts` (`arXiv:2611.14654`) on `task:agent-memory` / `method:ace`. After a wrong write, a truthful note raises recovery 51%→66%; a completed-action rewrite of the same value drops 50%→44%. Complements `paper:memory-tax` / `paper:luck-carrying-lessons`. Does **not** retarget ACE.
+
 
 ---
 
@@ -2510,6 +2544,16 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `depthgraft` (2611.03142) is an active hierarchical KV-reconstruction pretrain plug-in. Sibling of `msar`. It does not supersede `muon2` or `deepseek-v41-flash`.
 - `booknavigator` (2610.39671) is an active textbook-study RL plug-in. It does not supersede `nemotron-imo-gold` or `rlm`.
 - `paper:verifiable-rl-misalignment` (2611.12865) is a verifiable-reward shortcut gotcha. It does not retarget `canopy` or `cispo`.
+- `foam` (2611.16905) is an active input-only SOAP plug-in. Distinct from `clean`. It does not supersede `muon2` or `soap-muon-scale`.
+- `simplehc` (2611.05984) is an active Hyper-Connection simplification plug-in. It does not supersede `mhc` or `deepseek-v4`.
+- `lgpo` (2611.15404) is an active likelihood-gated on-policy RLVR plug-in. It does not supersede `cispo`.
+- `sparse-teacher-support` (2611.14850) is an active forward-KL vocab-support plug-in. Distinct from `sparse-opd-supervision`. It does not supersede `opd`.
+- `opsd4mas` (2611.16206) is an active communication-as-credit OPSD plug-in. Distinct from `multiagent-opd`. It does not supersede `opd` or `single-agent-plus-tools`.
+- `statealign` (2611.16304) is an active state-contrast tool-RL plug-in. It does not supersede `sao` or `canopy`.
+- `soscale` (2611.16426) is an active Hessian-aware FP4 scale-search plug-in. Distinct from DualQuant / ResCom. It does not supersede `quartet-ii`.
+- `hive-mem` (2611.12872) is an active multimodal expansion-plus-composition memory plug-in. Distinct from `hive-synth`. It does not supersede `ace`.
+- `paper:trait-hitchhiking` (2611.14683) is a GRPO non-targeted-trait gotcha. It does not retarget `cispo`.
+- `paper:history-cleaning-hurts` (2611.14654) is a history-repair gotcha after a wrong write. It does not retarget `ace`.
 
 
 ---

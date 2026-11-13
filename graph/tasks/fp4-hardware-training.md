@@ -5,6 +5,8 @@ title: "Native FP4 Hardware Training"
 domain: "compression"
 summary: "End-to-end 4-bit floating-point forward and backward pass training on modern GPU accelerators."
 redirects:
+  - when: "Hessian-aware hierarchical FP4 scale-code search (SoScale; not native FP4 training)"
+    to: "method:soscale"
   - when: "nGPT looped 4B NVFP4 recipe (Dory; not Quartet-II default)"
     to: "method:dory"
   - when: "MXFP8/NVFP4 Blackwell attention train kernels (FLAMIA; not Quartet-II default)"
@@ -41,6 +43,7 @@ current_sota:
     value: "Co-Default SOTA for microscaling FP4"
     notes: "MXFP4 (2605.09825)."
 methods:
+  - method:soscale
   - method:dory
   - method:flamia
   - method:rescom
@@ -57,7 +60,7 @@ methods:
   - method:kbbq
   - method:trace
   - method:triage
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-13'
 tags:
   - compression
   - quantization
@@ -69,6 +72,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-08-26)
 
+- **Optional Hessian-aware FP4 scale search (not this training default)**: `method:soscale` (`arXiv:2611.16426`). Qwen3-14B W4A4 retains 97.17%/99.20%/99.40% of BF16 avg under MXFP4/NVFP4/HiF4. Distinct from DualQuant / ResCom. No public code. Does not replace Quartet-II.
 - **Optional nGPT looped 4B NVFP4 recipe (not this hardware default)**: `method:dory` (`arXiv:2611.03998`) on `task:elastic-depth-looped-lm`. 4.5T of 6T tokens in NVFP4. Does not replace Quartet-II.
 - **Optional Blackwell attention kernels**: `method:flamia` (`arXiv:2611.03344`). 1.10–1.40× B200 / 1.06–1.42× B300. Code yandex-research/flamia-blackwell-attention. Does not replace Quartet-II.
 - **Primary Method**: **Quartet-II NVFP4** (`method:quartet-ii`, 2601.22813) / **MXFP4** (`method:mxfp4-mi355x`, 2605.09825) / **Kimi-K3 QAT**. Unchanged.

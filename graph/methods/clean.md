@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "Factored One-sided Adam-Moment SOAP (FOAM; not Nyström SOAP)"
+    reason: "Clean sketches the SOAP preconditioner; FOAM is input-only SOAP plus factored Adam moment"
+    use_instead: "method:foam"
   - when: "choosing the ~7B dense pretrain optimizer"
     reason: "Clean sketches SOAP memory; Muon2 remains the 7B default and KL-SOAP remains the high-memory second-order hop"
     use_instead: "method:muon2"
@@ -20,7 +23,7 @@ assumptions:
   - "You want SOAP-style curvature without quadratic optimizer-state memory. Paper: LLaMA-1.3B memory numbers; 13B on one 80GB GPU."
   - Q-Clean is the low-precision state variant, not a different algorithm family.
   - "No public code as of 2026-10-06 (`code_status: none`)."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-13"
 papers:
   - paper:clean
 recipes:

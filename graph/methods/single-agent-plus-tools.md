@@ -8,6 +8,9 @@ sota_for:
   - task:multi-agent-orchestration
 supersedes: []
 do_not_use_for:
+  - when: "multi-agent communication as token-level OPSD credit (OPSD4MAS)"
+    reason: "MAS remains the exception; OPSD4MAS is communication-as-credit self-distill on student-distillation"
+    use_instead: "method:opsd4mas"
   - when: "market-based post-training of decentralized agent swarms (MPT)"
     reason: "single-agent-plus-tools remains the orchestration default; MPT jointly learns action and bidding"
     use_instead: "method:market-posttrain"
@@ -31,8 +34,9 @@ do_not_use_for:
     use_instead: "method:sao"
 assumptions:
   - "Default: do not use multi-agent. Point at mini-SWE-agent / CCA. AIME is the MAS exception."
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-11-13'
 papers:
+  - paper:opsd4mas
   - paper:mac-meta-agent
   - paper:illusion-mas
   - paper:mas-hybrid-gao

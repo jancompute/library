@@ -10,6 +10,12 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; LGPO drops old-policy likelihoods and gates on current logp'
+    use_instead: method:lgpo
+  - when: 'trait hitchhiking / non-targeted trait drift under GRPO'
+    reason: 'Gotcha: unrewarded traits hitchhike with GRPO selection; does not retarget CISPO'
+    use_instead: paper:trait-hitchhiking
   - when: 'AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale)'
     reason: 'CISPO remains Pass@1; AutoScaffold is a frozen-teacher prompt-scaffold overlay'
     use_instead: method:autoscaffold
@@ -211,8 +217,10 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-13'
 papers:
+  - paper:lgpo
+  - paper:trait-hitchhiking
   - paper:autoscaffold
   - paper:verifiable-rl-misalignment
   - paper:mcpo

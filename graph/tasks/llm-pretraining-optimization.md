@@ -12,6 +12,10 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default)"
+    to: "method:foam"
+  - when: "Hyper-Connection simplification without residual mixing (SimpleHC; not mHC default)"
+    to: "method:simplehc"
   - when: "stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the 7B optimizer)"
     to: "method:bf16-sr"
   - when: "domain inductive biases still matter in foundation pretraining"
@@ -115,6 +119,8 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:foam
+  - method:simplehc
   - method:depthgraft
   - method:bf16-sr
   - method:muon-rt
@@ -161,7 +167,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-13'
 tags:
   - pretraining
   - optimizer
@@ -175,6 +181,8 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Optional input-only SOAP (not this optimizer default)**: `method:foam` (`arXiv:2611.16905`). Matches Muon/SOAP val loss 124M–760M at ~50% SOAP optimizer state; $t_A$ within 7% of AdamW; 51% of SOAP wall-clock to SOAP quality; peak mem +7.4% vs AdamW (SOAP +12.9%). GitHub naver-ai/foam README-only. Distinct from Clean. Mention on `task:full-param-memory-efficient-pretrain`. Does not replace Muon2 or KL-SOAP.
+- **Optional Hyper-Connection simplification (not this optimizer default)**: `method:simplehc` (`arXiv:2611.05984`). Matches mHC 15B/30B MoE (loss 1.561, avg 63.1 vs mHC 62.9); extra train time 2.4% vs vanilla at C=6144 (mHC ~7.0%); backward storage −31%. GitHub aHapBean/SimpleHC announced. Mention on `task:pretrain-moe-frontier`. Does not replace mHC or DeepSeek-V4.
 - **Optional hierarchical KV reconstruction (not this optimizer default)**: `method:depthgraft` (`arXiv:2611.03142`). Deep KV reconstructed from stride-aligned shallow–middle pairs. 16B MoE MMLU-Pro $+7.0\%$ / CMMLU $+6.6\%$ / C3 $+6.4\%$; KV $\sim -1/3$. Sibling of MSAR. Code jianke0604/DepthGraft. Mentions on `task:pretrain-dense-7b` / `task:input-heavy-agentic-moe-serving`. Does not replace Muon2, MSAR, or V4.1-Flash.
 - **Related BF16 stochastic rounding (not this 7B optimizer)**: `method:bf16-sr` (`arXiv:2611.13545`) on `task:fp4-rl-train-rollout-alignment`. Pretrain BF16 already matches FP32; the gap is RLVR at low LR. Distinct from `paper:weight-update-leverage`. Does not replace Muon2.
 - **Gotcha (domain inductive biases)**: `paper:domain-inductive-biases` (`arXiv:2611.03756`, NeurIPS 2026 position). Domain biases are not obsolete at foundation scale. Does not retarget Muon2.

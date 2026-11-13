@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO)"
+    to: "method:lgpo"
+  - when: "trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO)"
+    to: "paper:trait-hitchhiking"
   - when: "AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale)"
     to: "method:autoscaffold"
   - when: "verifiable RL misalignment / reward-context shortcuts (not Pass@1 CISPO)"
@@ -207,6 +211,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:lgpo
   - method:autoscaffold
   - method:mcpo
   - method:aes
@@ -304,7 +309,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-13'
 tags:
   - post-training
   - reasoning
@@ -320,6 +325,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional likelihood-gated on-policy RLVR (not Pass@1 CISPO)**: `method:lgpo` (`arXiv:2611.15404`). Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1. No public code. Does not replace CISPO.
+- **Gotcha (trait hitchhiking)**: `paper:trait-hitchhiking` (`arXiv:2611.14683`). Price equation for non-targeted traits under GRPO. Complements `paper:verifiable-rl-misalignment`. Does not retarget CISPO.
 - **Optional AI-designed RLVR scaffolds (not Pass@1 CISPO)**: `method:autoscaffold` (`arXiv:2611.14515`). Frozen teacher writes class/instance scaffolds from the training log; scaffold-free eval. ALFWorld $+7.2$ / search QA $+4.0$ / math $\le +2.0$ / KernelBench $+3.0$ correctness. Mentions on `task:outcome-only-long-horizon-agent-rl` / `task:web-search-agent-rl`. No public code. Does not replace CISPO, RGPO, H2R, CANOPY, or Iris.
 - **Gotcha (verifiable RL shortcuts)**: `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`). Minority conflict exposure → $97.9\%$ certified profitable violations on Qwen3.5-4B GRPO. Complements `paper:simhack` / `paper:reward-misspecification-cot`. Does not retarget CISPO.
 - **Optional GRPO margin-credit reweight**: `method:mcpo` (`arXiv:2611.14015`). Old-policy top-2 margin; MiniCPM5-2B $+6.55$ / Qwen3-4B $+4.75$ vs GRPO. No extra tokens. Pair with `paper:dense-rewards-grpo`. No public code. Does not replace CISPO.

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: Hessian-aware hierarchical FP4 scale-code search (SoScale)
+  reason: DualQuant is calibration-free dual-scale PTQ; SoScale is Hessian-aware scale-code search plus GPTQ recovery
+  use_instead: method:soscale
 - when: native FP4 forward/backward hardware training from scratch
   reason: DualQuant is calibration-free W+A PTQ; Quartet-II remains NVFP4 training
   use_instead: method:quartet-ii
@@ -20,7 +23,7 @@ assumptions:
 - W4A4 / MX / NVFP4 inference PTQ on Llama and Qwen. Paper includes a packed W4A4 path on RTX 4090 for
   Llama-3.1-8B.
 - No official GitHub as of 2026-10-12.
-last_reviewed: '2026-10-12'
+last_reviewed: '2026-11-13'
 papers:
 - paper:dualquant
 recipes:

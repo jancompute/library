@@ -13,6 +13,8 @@ out_of_scope:
   - "NVL72 fused dispatch megakernel (Mixture-of-Kittens)"
   - "Olympiad specialist post-train (Nemotron IMO Gold)"
 redirects:
+  - when: "Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default)"
+    to: "method:simplehc"
   - when: "inference deactivation must match train-time weight rule"
     to: "paper:moe-expert-deactivation-weight-rule"
   - when: "Muon raises first MoE layer routing-bias span (not the architecture template)"
@@ -59,6 +61,7 @@ current_sota:
     value: "Frontier Co-Default SOTA"
     notes: "Kimi-K3 (2607.24653) architecture co-default with DeepSeek-V4."
 methods:
+  - method:simplehc
   - method:energycal
   - method:nestor
   - method:gs-moe
@@ -85,7 +88,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:drmoet
   - method:maskerade
-last_reviewed: '2026-11-05'
+last_reviewed: '2026-11-13'
 tags:
   - pretraining
   - moe
@@ -98,6 +101,7 @@ tags:
 Training sparse Mixture-of-Experts models enables scaling parameter capacity into hundreds of billions of parameters while keeping active FLOPs per token bounded.
 
 ## SOTA Recommendation (as of 2026-09-01)
+- **Optional Hyper-Connection simplification (not this architecture default)**: `method:simplehc` (`arXiv:2611.05984`) on `task:llm-pretraining-optimization`. Matches mHC 15B/30B MoE with 2.4% extra train time vs vanilla. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Architecture**: **DeepSeek-V4** (`method:deepseek-v4`, 2606.19348) + **Kimi-K3** (`method:kimi-k3`, 2607.24653). Unchanged.
 - **Optimizer**: **MuonClip** (`paper:muonclip-kimi-k2`) / **Muon2** (`method:muon2`).
 - **NVL72 Systems Megakernel**: **Mixture-of-Kittens** (`method:mixture-of-kittens`, `task:train-moe-nvl72`).

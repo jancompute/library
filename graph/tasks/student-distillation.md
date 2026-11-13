@@ -5,6 +5,10 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "forward-KL from teacher's highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD)"
+    to: "method:sparse-teacher-support"
+  - when: "multi-agent communication as token-level OPSD credit (OPSD4MAS; not matching default)"
+    to: "method:opsd4mas"
   - when: "on-policy mid-training distillation (OPMD-CPT; not post-train mechanism OPMD)"
     to: "method:opmd-cpt"
   - when: "bootstrapped OPSD then OPD (BOPD; not matching default)"
@@ -239,6 +243,8 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:sparse-teacher-support
+  - method:opsd4mas
   - method:opmd-cpt
   - method:bopd
   - method:lcs-opd
@@ -358,7 +364,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-13'
 tags:
   - post-training
   - distillation
@@ -373,6 +379,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional forward-KL sparse teacher vocab (not this matching default)**: `method:sparse-teacher-support` (`arXiv:2611.14850`). Qwen3 4B→1.7B 0.01% vocab ($k=15$ of 151936) no MMLU-Pro drop; 38% step-time cut; 24% peak mem. Distinct from `method:sparse-opd-supervision`. No public code. Does not replace OPD.
+- **Optional communication-as-credit OPSD (not this matching default)**: `method:opsd4mas` (`arXiv:2611.16206`). MATH pass@4 up to +20.00 vs GRPO; mean pass@1 +8.87 vs GRPO / +6.14 vs DAPO. Code Camel-Prince/OPSD4MAS. Mention on `task:multi-agent-orchestration`. Does not replace OPD or single-agent-plus-tools.
 - **Optional mid-training reverse-KL CPT**: `method:opmd-cpt` (`arXiv:2611.13855`). Distinct from `method:opmd`. Qwen3-1.7B MATH-500 pass@16 $76.6\to 82.8$ vs NTP collapse $18.2$. GitHub ShuidiH20/OPMD 404. Does not replace OPD.
 - **Related bootstrapped privileged OPSD (not this matching default)**: `method:bopd` (`arXiv:2611.13680`) on `task:privileged-teacher-opsd`. Stage I OPSD then Stage II OPD from a fresh init. Code YueWu0301/BOPD. Does not replace OPD.
 - **Related failure-only LCS OPD (not this matching default)**: `method:lcs-opd` (`arXiv:2611.13135`) on `task:outcome-only-long-horizon-agent-rl`. Longest common action subsequence. No public code. Does not replace OPD.

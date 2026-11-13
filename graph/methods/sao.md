@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers)'
+    reason: 'SAO remains async straggler replay; StateAlign is BFCL-v4 tool-state contrast'
+    use_instead: method:statealign
   - when: 'multi-turn RL mainly error recovery / long-horizon, not per-step quality'
     reason: 'Gotcha on what multi-turn RL buys; does not retarget SAO'
     use_instead: paper:multi-turn-rl-budget
@@ -85,8 +88,9 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-13'
 papers:
+  - paper:statealign
   - paper:multi-turn-rl-budget
   - paper:muon-lh-rl
   - paper:sao
