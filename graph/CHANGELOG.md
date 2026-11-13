@@ -6,6 +6,51 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-13 — weekday SOTA sweep (FOAM, SimpleHC, LGPO, Sparse Teacher Support, OPSD4MAS, StateAlign, SoScale, HiVe-Mem; notes trait-hitchhiking, history-cleaning-hurts)
+- Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-13 Librarian weekday sweep after merged PR 64 (watermark 2611.14515, 7226665, ~2268 nodes / 9248 edges). Covers Friday 13 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.14515 (listing considered 2611.14520–2611.17332) plus HF Daily 2026-11-12 / 2026-11-13 leftovers (FOAM 2611.16905, SimpleHC 2611.05984, HiVe-Mem 2611.12872). New high id 2611.16905 (ingest) / 2611.17332 (listing considered). Distinct slug `hive-mem` from `method:hive-synth`. Distinct `sparse-teacher-support` from `method:sparse-opd-supervision`. Distinct `opsd4mas` from `method:multiagent-opd`.
+- SKIP (considered, not ingested): JudgeMix 2611.16174; LoCoJAX 2611.16301; Rectified Looped Transformer 2611.16265; WIS-MeZO 2611.16317; Actor/Judge/Teacher 2611.17167; Verify by Doing 2611.15276; Pretraining Data Statistics 2611.16882; DISCERN 2611.15729; MemCredit 2611.15600; MAPE 2611.17068; PECA 2611.17128; PhysLoop 2611.16748; EasyFoam 2611.14525; AutoAssumption 2611.14844; KernelMosaic 2611.14604; EvoX 2611.15006; G-STAR 2611.13004; BookNavigator already ingested; HF 11-12 leftovers already skipped (GTAGym, SparseRead); philosophy/materials/Lie-super/EBV 2611.14520–14524.
+
+### 2026-11-13 — ingest method:foam (active on task:llm-pretraining-optimization; does not supersede method:muon2 / method:soap-muon-scale)
+- Added paper:foam, method:foam, recipe:foam (`code_status: announced`, naver-ai/foam README-only). Mention on task:full-param-memory-efficient-pretrain.
+- Status active (`sota_for: []`). Input-only SOAP plus factored Adam-moment. Matches Muon/SOAP val loss 124M–760M; t_A within 7% of AdamW; ~50% SOAP optimizer state. Distinct from method:clean. HF leftover (not on Friday cs.LG/CL/AI listing). High ingest id 2611.16905.
+
+### 2026-11-13 — ingest method:simplehc (active on task:llm-pretraining-optimization; does not supersede method:mhc / method:deepseek-v4)
+- Added paper:simplehc, method:simplehc, recipe:simplehc (`code_status: announced`, aHapBean/SimpleHC README+PDF). Mention on task:pretrain-moe-frontier.
+- Status active (`sota_for: []`). Matches mHC 15B/30B MoE with 2.4% extra train time vs vanilla. HF leftover below watermark.
+
+### 2026-11-13 — ingest method:lgpo (active on task:math-code-rl-dense; does not supersede method:cispo)
+- Added paper:lgpo, method:lgpo, recipe:lgpo (`code_status: none`).
+- Status active (`sota_for: []`). Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1.
+
+### 2026-11-13 — ingest method:sparse-teacher-support (active on task:student-distillation; does not supersede method:opd)
+- Added paper:sparse-teacher-support, method:sparse-teacher-support, recipe:sparse-teacher-support (`code_status: none`). Distinct from method:sparse-opd-supervision.
+- Status active (`sota_for: []`). Forward-KL from teacher's highest-prob vocab fraction. Qwen3 4B→1.7B 0.01% vocab (k=15 of 151936) no MMLU-Pro drop.
+
+### 2026-11-13 — ingest method:opsd4mas (active on task:student-distillation; does not supersede method:opd / method:single-agent-plus-tools)
+- Added paper:opsd4mas, method:opsd4mas, recipe:opsd4mas (`code_status: released`, Camel-Prince/OPSD4MAS). Mention on task:multi-agent-orchestration.
+- Status active (`sota_for: []`). Communication as token-level OPSD credit. MATH pass@4 up to +20.00 vs GRPO. Distinct from method:multiagent-opd.
+
+### 2026-11-13 — ingest method:statealign (active on task:agentic-async-rl; does not supersede method:sao / method:canopy)
+- Added paper:statealign, method:statealign, recipe:statealign (`code_status: released`, ZhexiLu/StateAlign). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). State-contrast RL. Qwen3-8B BFCL v4 45.5%→55.2%; hallucination 62.2%→56.1% vs outcome-only.
+
+### 2026-11-13 — ingest method:soscale (active on task:fp4-hardware-training; does not supersede method:quartet-ii)
+- Added paper:soscale, method:soscale, recipe:soscale (`code_status: none`). Distinct from DualQuant / ResCom.
+- Status active (`sota_for: []`). Hessian-aware hierarchical FP4 scale-code search plus GPTQ recovery. Qwen3-14B W4A4 retains 97.17%/99.20%/99.40% of BF16 avg under MXFP4/NVFP4/HiF4.
+
+### 2026-11-13 — ingest method:hive-mem (active on task:agent-memory; does not supersede method:ace)
+- Added paper:hive-mem, method:hive-mem, recipe:hive-mem (`code_status: released`, ViktorAxelsen/HiVe-Mem). Distinct from method:hive-synth.
+- Status active (`sota_for: []`). Horizontal expansion plus vertical evidence composition. ~90% token cut; Qwen3-VL-4B F1/LJ 32.32/57.96. Tuesday leftover 2611.12872.
+
+### 2026-11-13 — ingest paper:trait-hitchhiking (claim note on task:math-code-rl-dense; does not retarget method:cispo)
+- Added paper:trait-hitchhiking. Linked from method:cispo. No public code.
+- Price equation for non-targeted traits under GRPO. Complements paper:verifiable-rl-misalignment.
+
+### 2026-11-13 — ingest paper:history-cleaning-hurts (claim note on task:agent-memory; does not retarget method:ace)
+- Added paper:history-cleaning-hurts. Linked from method:ace. No public code.
+- After a wrong write, a truthful note raises recovery 51%→66%; a completed-action rewrite of the same value drops 50%→44%. Complements paper:memory-tax / paper:luck-carrying-lessons.
+
 ### 2026-11-12 — weekday SOTA sweep (AutoScaffold, HiLo LoRA Sync, WikiTrace, PhysOPSD, DepthGraft, BookNavigator; note verifiable-rl-misalignment)
 - Six active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-12 Librarian weekday sweep after merged PR 63 (watermark 2611.14467, 52dd665, 2249 nodes / 9184 edges). Thursday 15:00 UTC is before the 20:00 ET mailing, so `/new` still shows Wednesday 11 Nov 2026. Covers leftover Wednesday IDs after 2611.14467 through listing considered 2611.14519, plus HF Daily 2026-11-11 leftovers (HiLo 2611.13306, WikiTrace 2611.14320) and HF Daily 2026-11-12 leftovers (PhysOPSD 2611.12411, DepthGraft 2611.03142, BookNavigator 2610.39671). AutoScaffold 2611.14515 is the high ingest id. Distinct slug `hilo-lora-sync` from `method:hilo-rd` (2610.36901).

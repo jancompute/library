@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'Hessian-aware hierarchical FP4 scale-code search (SoScale)'
+  reason: 'ResCom is closed-form activation-residual PTQ; SoScale is Hessian-aware scale-code search plus GPTQ recovery'
+  use_instead: method:soscale
 - when: 'the locked first hop on task:fp4-hardware-training'
   reason: 'Quartet-II remains native FP4 training; ResCom is a closed-form activation-residual PTQ correction after calibration'
   use_instead: method:quartet-ii
@@ -15,7 +18,7 @@ do_not_use_for:
   use_instead: method:dualquant
 assumptions:
 - 'Post-training W+A quantization with a calibrated checkpoint. Closed-form, no gradient. Llama-3-8B W4A4. No public code as of 2026-10-28.'
-last_reviewed: '2026-10-28'
+last_reviewed: '2026-11-13'
 papers:
 - paper:rescom
 recipes:

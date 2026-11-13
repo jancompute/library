@@ -5,10 +5,14 @@ title: "mHC (Manifold-Constrained Hyper-Connections)"
 category: "architecture"
 status: active
 do_not_use_for:
+  - when: "Hyper-Connection simplification without residual mixing (SimpleHC)"
+    reason: "mHC remains the Sinkhorn hyper-connection used in DeepSeek-V4; SimpleHC drops residual mixing"
+    use_instead: "method:simplehc"
   - when: "multi-stream attention residuals vs vanilla / mHC / AttnRes (MSAR)"
     reason: "mHC remains the Sinkhorn hyper-connection used in DeepSeek-V4; MSAR is a later single-paper residual bake-off, not a supersession"
     use_instead: "method:msar"
 papers:
+  - paper:simplehc
   - paper:mhc
 recipes:
   - recipe:mhc

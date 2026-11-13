@@ -6,6 +6,10 @@ category: "training-systems"
 status: active
 sota_for: []
 supersedes: []
+do_not_use_for:
+  - when: "multimodal horizontal expansion + vertical evidence composition (HiVe-Mem)"
+    reason: "Hive-Synth is factory synthetic pretrain data; HiVe-Mem is multimodal agent memory"
+    use_instead: "method:hive-mem"
 papers:
   - paper:laguna-m1-xs2
 claims:

@@ -11,6 +11,10 @@ out_of_scope:
   - "Dumped 10M-token prompt"
   - "System-One control plane for conversational memory ops (Jev-Mem)"
 redirects:
+  - when: "multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook)"
+    to: "method:hive-mem"
+  - when: "history cleaning after a wrong write / completed-action rewrite (not write-time playbook)"
+    to: "paper:history-cleaning-hurts"
   - when: "evidence-linked memory / WikiTrace (not write-time playbook)"
     to: "method:wikitrace"
   - when: "file-based coding-agent memory via async OPD (CAMP-II; not write-time playbook)"
@@ -37,7 +41,7 @@ redirects:
     to: "method:jitmem"
   - when: "recurrent textual harness that backward-revises retrieved reflections (not write-time playbook)"
     to: "method:reharness"
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-13'
 current_sota:
   - method: method:ace
     as_of: "2025-10"
@@ -46,6 +50,7 @@ current_sota:
     value: "ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%"
     notes: "Incremental bullets. Without feedback ACE/DC can degrade. Dynamic Cheatsheet collapse 18282 tok @66.7 → 122 tok @57.1."
 methods:
+  - method:hive-mem
   - method:wikitrace
   - method:camp-ii
   - method:evomemstate
@@ -74,6 +79,8 @@ Agents need memory that accumulates strategies without collapsing under rewrite.
 - DMR for MemGPT. Sleep-time compute as a persona-agent complement.
 
 ## SOTA Landscape
+- **Active (multimodal expansion + composition, not this playbook default)**: `method:hive-mem` (`arXiv:2611.12872`). Horizontal expansion + vertical evidence + trainable selector. ~90% token cut (0.658M vs 7.812M); Qwen3-VL-4B F1/LJ 32.32/57.96. Code ViktorAxelsen/HiVe-Mem. Distinct from `method:hive-synth`. Does not replace ACE.
+- **Gotcha (history cleaning hurts)**: `paper:history-cleaning-hurts` (`arXiv:2611.14654`). After a wrong write, a truthful note raises recovery 51%→66%; a completed-action rewrite of the same value drops 50%→44%. Complements `paper:memory-tax` / `paper:luck-carrying-lessons`. Does not retarget ACE.
 - **Active (evidence-linked memory, not this playbook default)**: `method:wikitrace` (`arXiv:2611.14320`). Insight → compilation → raw trajectory; descend with terminal tools. $90.2$ vs No Memory $79.5$; Regression $6.5\%\to 4.5\%$. Code yukyeongleee/wikitrace. Complements `paper:luck-carrying-lessons` / `paper:memory-tax`. Does not replace ACE.
 - **Active (file-based coding-agent memory via OPD, not this playbook default)**: `method:camp-ii` (`arXiv:2611.14009`). CAMG-II $64.6$ vs CAMP-I $54.2$; TB 2.1 Qwen3.5-4B $23.1\to 30.0$. No public code. Mentions on `task:agent-continual-learning` / `task:student-distillation`. Does not replace ACE.
 - **Active (relational + RL reasoning-state, not this playbook default)**: `method:evomemstate` (`arXiv:2611.03743`). MemSyco Qwen3-8B $57.6\%$ ($+12.2$); Acc@complete LoCoMo-Refined / MemSyco $70.8\%$ / $68.5\%$. Code XMUDeepLIT/EvoMemState. Does not replace ACE.

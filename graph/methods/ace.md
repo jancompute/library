@@ -8,6 +8,12 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook)'
+    reason: 'ACE remains write-time playbook; HiVe-Mem is multimodal expansion plus composition with a trainable selector'
+    use_instead: method:hive-mem
+  - when: 'history cleaning after a wrong write / completed-action rewrite'
+    reason: 'Gotcha: rewriting a wrong write as completed hurts recovery when the world still holds the error'
+    use_instead: paper:history-cleaning-hurts
   - when: 'evidence-linked memory / WikiTrace (not write-time playbook)'
     reason: 'ACE remains write-time playbook; WikiTrace links lessons to source trajectories and descends at read time'
     use_instead: method:wikitrace
@@ -49,8 +55,10 @@ do_not_use_for:
     use_instead: "method:jitmem"
 assumptions:
   - "Generator / Reflector / Curator. Incremental bullets, not rewrite. Needs execution feedback."
-last_reviewed: "2026-10-29"
+last_reviewed: "2026-11-13"
 papers:
+  - paper:hive-mem
+  - paper:history-cleaning-hurts
   - paper:camp-ii
   - paper:evomemstate
   - paper:luck-carrying-lessons

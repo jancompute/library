@@ -11,6 +11,12 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default)'
+    reason: 'Muon2 remains the ~7B optimizer; FOAM is input-only SOAP plus factored Adam moment'
+    use_instead: method:foam
+  - when: 'Hyper-Connection simplification without residual mixing (SimpleHC; not mHC default)'
+    reason: 'Muon2 remains the ~7B optimizer; SimpleHC is an architecture residual, not an optimizer'
+    use_instead: method:simplehc
   - when: 'hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not Muon2)'
     reason: 'Muon2 remains the ~7B optimizer; DepthGraft is a KV-sharing architecture regularizer'
     use_instead: method:depthgraft
@@ -113,8 +119,10 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-13'
 papers:
+  - paper:foam
+  - paper:simplehc
   - paper:domain-inductive-biases
   - paper:muon-sw-tuning-gap
   - paper:muon-adamw-ft-gap

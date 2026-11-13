@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'forward-KL from teacher highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD)'
+    reason: 'OPD remains reverse-KL matching; Sparse Teacher Support is a forward-KL vocab-support cut'
+    use_instead: method:sparse-teacher-support
+  - when: 'multi-agent communication as token-level OPSD credit (OPSD4MAS; not matching default)'
+    reason: 'OPD remains matching; OPSD4MAS turns communication into token-level self-distill credit'
+    use_instead: method:opsd4mas
   - when: 'bootstrapped OPSD then OPD (BOPD; not matching default)'
     reason: 'OPD remains matching; BOPD retires a privileged OPSD teacher then distills a fresh init'
     use_instead: method:bopd
@@ -222,8 +228,10 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-13'
 papers:
+  - paper:sparse-teacher-support
+  - paper:opsd4mas
   - paper:bopd
   - paper:lcs-opd
   - paper:opmd-cpt

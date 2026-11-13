@@ -7,6 +7,9 @@ status: sota
 sota_for:
   - task:fp4-hardware-training
 do_not_use_for:
+  - when: "Hessian-aware hierarchical FP4 scale-code search (SoScale; not native FP4 training)"
+    reason: "Quartet-II remains native FP4 hardware training; SoScale is W4A4 scale-code PTQ search plus GPTQ recovery"
+    use_instead: "method:soscale"
   - when: "nGPT looped 4B NVFP4 recipe (Dory)"
     reason: "Quartet-II remains native FP4 hardware training; Dory is an nGPT looped 4B recipe"
     use_instead: "method:dory"
@@ -26,6 +29,7 @@ do_not_use_for:
     reason: "Quartet-II is native FP4 hardware training from scratch; TRACE / TRIAGE own RL train–rollout alignment"
     use_instead: "task:fp4-rl-train-rollout-alignment"
 papers:
+  - paper:soscale
   - paper:sparsity-24-vs-quant
   - paper:quartet-ii
 recipes:

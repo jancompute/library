@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage)"
+    to: "method:statealign"
   - when: "AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage)"
     to: "method:autoscaffold"
   - when: "verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage)"
@@ -145,6 +147,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:statealign
   - method:autoscaffold
   - method:lcs-opd
   - method:ecos
@@ -205,7 +208,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-13'
 tags:
   - post-training
   - agentic
@@ -230,6 +233,7 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Related state-contrast tool RL (not this coverage default)**: `method:statealign` (`arXiv:2611.16304`) on `task:agentic-async-rl`. Qwen3-8B BFCL v4 45.5%→55.2%; hallucination 62.2%→56.1%. Code ZhexiLu/StateAlign. Does not replace CANOPY or SAO.
 - **Related AI-designed RLVR scaffolds (not this coverage default)**: `method:autoscaffold` (`arXiv:2611.14515`) on `task:math-code-rl-dense`. Frozen-teacher class/instance scaffolds on GiGPO/GRPO. ALFWorld $+7.2$ vs GiGPO. Does not replace CANOPY.
 - **Gotcha (verifiable RL shortcuts)**: `paper:verifiable-rl-misalignment` (`arXiv:2611.12865`). A programmatic checker can certify a context-illegal shortcut. Does not retarget CANOPY.
 - **Optional failure-only LCS OPD (not this coverage default)**: `method:lcs-opd` (`arXiv:2611.13135`). Longest common executed-action subsequence. ALFWorld Unseen Qwen2.5-3B $78.4\to 85.8$ / 7B $83.6\to 94.0$. Distilling successes hurts. No public code. Does not replace CANOPY or OPD.

@@ -12,6 +12,8 @@ out_of_scope:
   - "CrewAI-default theater"
   - "Training SAO"
 redirects:
+  - when: "multi-agent communication as token-level OPSD credit (OPSD4MAS), not the MAS default"
+    to: "method:opsd4mas"
   - when: "market-based post-training of decentralized agent swarms (MPT)"
     to: "method:market-posttrain"
   - when: "Leader-Searcher-Answerer hierarchical OPD (MultiAgent-OPD), not the MAS default"
@@ -20,7 +22,7 @@ redirects:
     to: "task:software-engineering-agent-harness"
   - when: "train asynchronous RL for a tool-use policy"
     to: "task:agentic-async-rl"
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-11-13'
 current_sota:
   - method: method:single-agent-plus-tools
     as_of: "2026-06"
@@ -29,6 +31,7 @@ current_sota:
     value: "do not; 5/39 MAC configs beat human; auto MAS underperforms CoT-SC up to 10× cost"
     notes: "When MAS wins: Anthropic Jun 2025 orchestrator-worker +90.2% vs single Opus 4 on internal breadth research (~15× tokens); Gao hybrid cascade +1.1–12pp. AIME is the MAS exception."
 methods:
+  - method:opsd4mas
   - method:market-posttrain
   - method:multiagent-opd
   - method:single-agent-plus-tools
@@ -56,4 +59,6 @@ Should you use multiple agents? **Default: no.** Use one agent plus tools. This 
 - **do_not_use_for**: SWE patches, τ-bench, sequential one-context work. CrewAI-default is theater.
 - **Optional market-based swarm post-train**: `method:market-posttrain` (`arXiv:2610.22322`). Code Embodied-Minds-Lab/MPT. Does not replace single-agent-plus-tools.
 - **Related hierarchical team OPD (not this orchestration default)**: `method:multiagent-opd` (`arXiv:2610.23234`) on `task:student-distillation`.
+- **Related hierarchical team OPD (not this orchestration default)**: `method:multiagent-opd` (`arXiv:2610.23234`) on `task:student-distillation`.
+- **Related communication-as-credit OPSD (not this orchestration default)**: `method:opsd4mas` (`arXiv:2611.16206`) on `task:student-distillation`. MATH pass@4 up to +20.00 vs GRPO. Code Camel-Prince/OPSD4MAS. Does not replace single-agent-plus-tools.
 

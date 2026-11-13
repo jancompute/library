@@ -9,10 +9,14 @@ sota_for:
 supersedes:
   - method:soap
 do_not_use_for:
+  - when: "Factored One-sided Adam-Moment SOAP (FOAM; not KL-SOAP default)"
+    reason: "KL-SOAP remains unconstrained-memory large-batch SOAP; FOAM drops the output-side SOAP factor"
+    use_instead: "method:foam"
   - when: "Nyström-sketched SOAP / linear optimizer-state memory (Clean / Q-Clean)"
     reason: "KL-SOAP remains unconstrained-memory large-batch SOAP; Clean is the linear-memory sketch"
     use_instead: "method:clean"
 papers:
+  - paper:foam
   - paper:clean
   - paper:soap-muon-scale
 recipes:
@@ -25,7 +29,7 @@ claims:
     date: "2026-07"
     verified: true
     notes: "Recommended over Muon when memory is unconstrained and batch sizes scale towards 100M tokens."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-13"
 tags:
   - optimizer
   - megatron
