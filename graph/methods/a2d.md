@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle)'
+    reason: 'A2D recycles an AR weight delta; SEBO is a variance-reduced MDLM ELBO estimator'
+    use_instead: method:sebo
   - when: 'LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle)'
     reason: 'A2D recycles a weight delta; BYOD freezes the AR base and trains LoRA'
     use_instead: method:byod
@@ -36,7 +39,7 @@ do_not_use_for:
     use_instead: "method:uno"
 assumptions:
   - "Converted discrete diffusion LM from an AR checkpoint, plus an AR post-training delta. No official GitHub as of 2026-10-07."
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-11-16'
 papers:
   - paper:byod
   - paper:forkgrpo

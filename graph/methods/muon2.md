@@ -11,6 +11,12 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default)'
+    reason: 'Muon2 remains the ~7B optimizer; Loopback is a residual looped architecture'
+    use_instead: method:loopback-transformer
+  - when: 'temporary Muon weight decay looks worse at removal (evaluate at the intended budget)'
+    reason: 'Gotcha: temporary WD can look worse at removal and still finish better; does not retarget Muon2'
+    use_instead: paper:muon-temporary-wd
   - when: 'Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default)'
     reason: 'Muon2 remains the ~7B optimizer; FOAM is input-only SOAP plus factored Adam moment'
     use_instead: method:foam
@@ -119,8 +125,9 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-16'
 papers:
+  - paper:muon-temporary-wd
   - paper:foam
   - paper:simplehc
   - paper:domain-inductive-biases

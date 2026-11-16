@@ -6,6 +6,47 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-16 — weekday SOTA sweep (Loopback, Concertina, SCALAR, SEBO, TIDE, ModHarness-RL, eDMD, ACE-RL; note muon-temporary-wd)
+- Eight active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-16 Librarian weekday sweep after merged PR 65 (watermark 2611.16905 ingest / listing considered 2611.17332, 872c10d, ~2294 nodes / 9340 edges). Covers Friday 13 Nov evening through Monday 16 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.17332 (listing 2611.17338–2611.18563) plus double-check 2611.16905–2611.17332 and HF Daily 2026-11-14 / 2026-11-15 (empty weekend) / 2026-11-16 leftovers (Loopback 2611.07226, eDMD 2611.17194) plus 2026-11-13 leftover ACE-RL 2611.16409. New high id 2611.18533 (ingest) / 2611.18563 (listing considered). Distinct slug `scalar-peft` from other PEFT nodes. Distinct `sebo` from SPG. Distinct `acerl` from `method:ace`. Distinct `edmd` from `method:idm` / `method:fewsteprl`. Distinct `tide` from `method:thundersyncrl`. Distinct `modharness-rl` from `method:harnessrl` / `method:omp2-harness`.
+- SKIP (considered, not ingested): LoRAWeaver 2611.17340; RL^RT 2611.18035; Model Annealing / BiTE; MXFP6; VEPO; Antidistillation; SURFACE; Right Token / CLABS; Evidence-Governed Evolution 2611.16378; Mobile AI Factory 2611.13509; G-CAST 2611.17814; MoE router ensembling 2611.17472; ARCHER 2611.18494; Reflect-Reasoning 2611.17398; AutoRL 2611.17790; MIRIX-2.0; HF 11-16 robotics/video/eval leftovers.
+
+### 2026-11-16 — ingest method:loopback-transformer (active on task:llm-pretraining-optimization; does not supersede method:muon2 / method:elr)
+- Added paper:loopback-transformer, method:loopback-transformer, recipe:loopback-transformer (`code_status: released`, yancyou/Loopback). Mention on task:elastic-depth-looped-lm.
+- Status active (`sota_for: []`). Residual-update memory with geometric decay plus attention. ClimbMix 191M 2.6187 vs Standard 2.6234; 374M 2.4008 vs 2.4395; 778M 2.2404 vs 2.2644; 3B WikiText 16.74 vs 17.28. HF leftover 2611.07226.
+
+### 2026-11-16 — ingest method:concertina (active on task:student-distillation; does not supersede method:opd / method:elr)
+- Added paper:concertina, method:concertina, recipe:concertina (`code_status: released`, myboker/concertina). Mention on task:elastic-depth-looped-lm.
+- Status active (`sota_for: []`). Fold N teacher layers into a shared loop plus SVD low-rank corrections; FKL+CE. Qwen3-4B N=2 → 2.27B on 22B tokens retains 84% of the teacher.
+
+### 2026-11-16 — ingest method:scalar-peft (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora / method:aqlora-q)
+- Added paper:scalar-peft, method:scalar-peft, recipe:scalar-peft (`code_status: none`). Mention on task:parameter-efficient-fine-tuning.
+- Status active (`sota_for: []`). Frozen activation-derived basis; train layer scalars. Qwen2.5-7B 88.9 vs LoRA r=8 88.8 at ~1/25 params.
+
+### 2026-11-16 — ingest method:sebo (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d / method:justopd / method:forkgrpo)
+- Added paper:sebo, method:sebo, recipe:sebo (`code_status: announced`, githubhyz/See_Every_Block_Once empty). AACL-IJCNLP 2026.
+- Status active (`sota_for: []`). Full-block unbiased ELBO for masked dLLMs. LLaDA-8B-Instruct GSM8K 82.26 / MATH-500 38.00 / Sudoku 91.39 vs SPG 72.73.
+
+### 2026-11-16 — ingest method:tide (active on task:frontier-rl-posttrain-stack; does not supersede method:miles / method:sao / method:thundersyncrl)
+- Added paper:tide, method:tide, recipe:tide (`code_status: none`). Mention on task:agentic-async-rl.
+- Status active (`sota_for: []`). Colocated on-policy GPU reclaim. Up to 1.36× vs colocated; 77–97% of optimal. Distinct from method:thundersyncrl.
+
+### 2026-11-16 — ingest method:modharness-rl (active on task:agent-harness-runtime; does not supersede method:omp2-harness / method:harnessrl / method:self-hpo)
+- Added paper:modharness-rl, method:modharness-rl, recipe:modharness-rl (`code_status: none`). Project zlhe0.github.io/ModHarness-RL.
+- Status active (`sota_for: []`). Learnable Compression+Steering over typed State during GRPO. CodeSearch +14–24% vs a fixed harness.
+
+### 2026-11-16 — ingest method:edmd (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:idm / method:fewsteprl)
+- Added paper:edmd, method:edmd, recipe:edmd (`code_status: released`, Westlake-AGI-Lab/eDMD).
+- Status active (`sota_for: []`). Endpoint-only fake-score DMD; no real images. SD3-M HPSv3++ 11.171 vs D-DMD 10.841; FLUX.2-klein-4B 12.699 vs DMD2 11.337.
+
+### 2026-11-16 — ingest method:acerl (active on task:agent-memory; does not supersede method:ace / method:canopy)
+- Added paper:acerl, method:acerl, recipe:acerl (`code_status: none`). Mention on task:outcome-only-long-horizon-agent-rl. Distinct from method:ace. HF leftover 2611.16409.
+- Status active (`sota_for: []`). Freeze ACE; co-optimize actor/reflector/curator; reward handoff by a downstream actor. Qwen3-4B-Instruct RSI@3 AppWorld 0.667 vs GRPO-in-harness 0.60.
+
+### 2026-11-16 — ingest paper:muon-temporary-wd (claim note on method:muon2; does not retarget Muon2)
+- Added paper:muon-temporary-wd. Linked from method:muon2 papers and do_not_use_for; redirect on task:llm-pretraining-optimization.
+- Temporary WD λ=0.15 first 44% of 1.4B FineWeb-100B looks 0.26 nats worse at removal, overtakes at 73%, finishes 0.0275–0.028 nats better. Complements paper:muon-sw-tuning-gap.
+
 ### 2026-11-13 — weekday SOTA sweep (FOAM, SimpleHC, LGPO, Sparse Teacher Support, OPSD4MAS, StateAlign, SoScale, HiVe-Mem; notes trait-hitchhiking, history-cleaning-hurts)
 - Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-13 Librarian weekday sweep after merged PR 64 (watermark 2611.14515, 7226665, ~2268 nodes / 9248 edges). Covers Friday 13 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.14515 (listing considered 2611.14520–2611.17332) plus HF Daily 2026-11-12 / 2026-11-13 leftovers (FOAM 2611.16905, SimpleHC 2611.05984, HiVe-Mem 2611.12872). New high id 2611.16905 (ingest) / 2611.17332 (listing considered). Distinct slug `hive-mem` from `method:hive-synth`. Distinct `sparse-teacher-support` from `method:sparse-opd-supervision`. Distinct `opsd4mas` from `method:multiagent-opd`.

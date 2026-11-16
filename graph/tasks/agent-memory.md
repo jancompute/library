@@ -11,6 +11,8 @@ out_of_scope:
   - "Dumped 10M-token prompt"
   - "System-One control plane for conversational memory ops (Jev-Mem)"
 redirects:
+  - when: "Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not write-time playbook)"
+    to: "method:acerl"
   - when: "multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook)"
     to: "method:hive-mem"
   - when: "history cleaning after a wrong write / completed-action rewrite (not write-time playbook)"
@@ -41,7 +43,7 @@ redirects:
     to: "method:jitmem"
   - when: "recurrent textual harness that backward-revises retrieved reflections (not write-time playbook)"
     to: "method:reharness"
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-16'
 current_sota:
   - method: method:ace
     as_of: "2025-10"
@@ -50,6 +52,7 @@ current_sota:
     value: "ACE 59.4 vs ReAct 42.4 (+17); vs GEPA latency −82%"
     notes: "Incremental bullets. Without feedback ACE/DC can degrade. Dynamic Cheatsheet collapse 18282 tok @66.7 → 122 tok @57.1."
 methods:
+  - method:acerl
   - method:hive-mem
   - method:wikitrace
   - method:camp-ii
@@ -79,6 +82,7 @@ Agents need memory that accumulates strategies without collapsing under rewrite.
 - DMR for MemGPT. Sleep-time compute as a persona-agent complement.
 
 ## SOTA Landscape
+- **Active (Experience-Handoff RL, not this playbook default)**: `method:acerl` (`arXiv:2611.16409`). Freeze ACE; co-optimize actor/reflector/curator; reward handoff by a downstream actor. Qwen3-4B-Instruct RSI@3 AppWorld 0.667 vs GRPO-in-harness 0.60; MiniSWEBench 0.340 vs 0.26. No public code. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace ACE or CANOPY.
 - **Active (multimodal expansion + composition, not this playbook default)**: `method:hive-mem` (`arXiv:2611.12872`). Horizontal expansion + vertical evidence + trainable selector. ~90% token cut (0.658M vs 7.812M); Qwen3-VL-4B F1/LJ 32.32/57.96. Code ViktorAxelsen/HiVe-Mem. Distinct from `method:hive-synth`. Does not replace ACE.
 - **Gotcha (history cleaning hurts)**: `paper:history-cleaning-hurts` (`arXiv:2611.14654`). After a wrong write, a truthful note raises recovery 51%→66%; a completed-action rewrite of the same value drops 50%→44%. Complements `paper:memory-tax` / `paper:luck-carrying-lessons`. Does not retarget ACE.
 - **Active (evidence-linked memory, not this playbook default)**: `method:wikitrace` (`arXiv:2611.14320`). Insight → compilation → raw trajectory; descend with terminal tools. $90.2$ vs No Memory $79.5$; Regression $6.5\%\to 4.5\%$. Code yukyeongleee/wikitrace. Complements `paper:luck-carrying-lessons` / `paper:memory-tax`. Does not replace ACE.

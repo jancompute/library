@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'learnable Compression+Steering over typed State during GRPO (ModHarness-RL)'
+  reason: 'Self-HPO alternates harness and policy; ModHarness-RL proposes/verifies/replays programs inside GRPO'
+  use_instead: method:modharness-rl
 - when: 'production harness kernel (rewind, sandbox, remote, TUI)'
   reason: 'omp2 remains the kernel; Self-HPO alternates harness proposals with policy RL'
   use_instead: method:omp2-harness

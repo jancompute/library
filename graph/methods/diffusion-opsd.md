@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: 'endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default)'
+    reason: 'DiffusionOPSD remains reward OPSD; eDMD trains a fake score only on student finals'
+    use_instead: method:edmd
   - when: 'code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default)'
     reason: 'DiffusionOPSD remains T2I reward OPSD; PhysOPSD is video with compiled physics as privilege'
     use_instead: method:physopsd
@@ -45,7 +48,7 @@ claims:
     date: "2026-08-27"
     verified: true
     notes: "Translates image-level reward gradients into bounded positive/negative clean-output targets for intermediate denoising queries."
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-16'
 tags:
   - diffusion
   - post-training

@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'colocated on-policy GPU reclaim (TIDE; not async stragglers)'
+    reason: 'SAO remains async straggler replay; TIDE is colocated on-policy GPU reclaim'
+    use_instead: method:tide
   - when: 'state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers)'
     reason: 'SAO remains async straggler replay; StateAlign is BFCL-v4 tool-state contrast'
     use_instead: method:statealign
@@ -88,7 +91,7 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-16'
 papers:
   - paper:statealign
   - paper:multi-turn-rl-budget

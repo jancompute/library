@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: residual looped pretrain storing block updates (Loopback)
+  reason: MSAR is residual topology without looping; Loopback stores residual updates and reads them with decay plus attention
+  use_instead: method:loopback-transformer
 - when: hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft)
   reason: MSAR is residual topology; DepthGraft reconstructs deep KV from shallow-middle pairs
   use_instead: method:depthgraft

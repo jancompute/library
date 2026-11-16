@@ -12,6 +12,7 @@ current_sota:
     value: "Matches/exceeds DoRA"
     notes: "Vanilla LoRA + rsLoRA + LR sweep (2602.04998, 2601.22708) NOT DoRA."
 methods:
+  - method:scalar-peft
   - method:deletion-tuning
   - method:stage-lora
   - method:sama
@@ -33,8 +34,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-16'
 redirects:
+  - when: "frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep)"
+    to: "method:scalar-peft"
   - when: "gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep)"
     to: "method:deletion-tuning"
   - when: "stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep)"
@@ -74,6 +77,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional scalar PEFT (not this quality default)**: `method:scalar-peft` (`arXiv:2611.17784`). Freeze an activation-derived basis; train layer-specific scalars. Qwen2.5-7B commonsense 88.9 vs LoRA r=8 88.8 at ~1/25 params; LLaMA3-8B 87.3 vs 87.4; mem −20%, throughput +6%. No public code. Mention on `task:parameter-efficient-fine-tuning`. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional gate-projection deletion (not this quality default)**: `method:deletion-tuning` (`arXiv:2611.10866`). Binary mask, writes no new values; Llama-3-8B GSM8K $83.55$ vs FFT $83.24$ at $8.4$ MB. Code agentic-learning-ai-lab/deleting-weights. HF Daily leftover. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional SFT/RL spectral LoRA (not this quality default)**: `method:stage-lora` (`arXiv:2611.08414`). SFT flattens full $B$ with SGD-style $\mathcal{M}$; RL flattens only the orthogonal-to-subspace Adam component. GSM8K Llama-3.2-1B/3B SFT $22.82$ / $45.72$ vs Adam $22.24$ / $42.99$; RL $10.00$ / $47.66$ vs $7.61$ / $42.36$. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional Kronecker PEFT (not this quality default)**: `method:sama` (`arXiv:2611.04462`, NeurIPS 2026). Quadratic rank vs LoRA. No public code. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.

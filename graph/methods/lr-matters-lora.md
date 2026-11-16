@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; SCALAR trains only layer scalars over a frozen basis'
+    use_instead: method:scalar-peft
   - when: 'gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; Deletion Tuning zeros a gate-projection mask'
     use_instead: method:deletion-tuning
@@ -64,7 +67,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Vanilla LoRA with rank-stabilized scaling (rsLoRA, alpha/sqrt(r)) and calibrated learning rate sweep."
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-16'
 tags:
   - peft
   - lora

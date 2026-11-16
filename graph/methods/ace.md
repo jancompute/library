@@ -8,6 +8,9 @@ sota_for:
   - task:agent-memory
 supersedes: []
 do_not_use_for:
+  - when: 'Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not write-time playbook)'
+    reason: 'ACE remains write-time playbook; ACE-RL freezes ACE and co-optimizes actor/reflector/curator'
+    use_instead: method:acerl
   - when: 'multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook)'
     reason: 'ACE remains write-time playbook; HiVe-Mem is multimodal expansion plus composition with a trainable selector'
     use_instead: method:hive-mem
@@ -55,8 +58,9 @@ do_not_use_for:
     use_instead: "method:jitmem"
 assumptions:
   - "Generator / Reflector / Curator. Incremental bullets, not rewrite. Needs execution feedback."
-last_reviewed: "2026-11-13"
+last_reviewed: "2026-11-16"
 papers:
+  - paper:acerl
   - paper:hive-mem
   - paper:history-cleaning-hurts
   - paper:camp-ii

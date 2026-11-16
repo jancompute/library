@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'residual looped pretrain / Loopback Transformer (not mixed-depth ELR)'
+  reason: 'ELR remains mixed-depth elastic recurrence; Loopback stores residual updates'
+  use_instead: method:loopback-transformer
+- when: 'fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR)'
+  reason: 'ELR remains mixed-depth from scratch; Concertina folds an existing teacher'
+  use_instead: method:concertina
 - when: 'nGPT looped 4B with difficulty-aware loop curriculum (Dory)'
   reason: 'ELR remains mixed-depth elastic recurrence; Dory is an nGPT looped 4B recipe'
   use_instead: method:dory
@@ -33,7 +39,7 @@ assumptions:
 - Looped LM (dense 4B or MoE 30B-A3B in the paper). Mixed loop counts per optimizer
   update. Can convert a pretrained unlooped checkpoint late.
 - No public code as of 2026-10-13.
-last_reviewed: '2026-10-13'
+last_reviewed: '2026-11-16'
 papers:
 - paper:no-free-loop
 - paper:elr

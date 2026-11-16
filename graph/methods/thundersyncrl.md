@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "colocated on-policy GPU reclaim (TIDE; not ThunderSyncRL)"
+    reason: "ThunderSyncRL is disaggregated lossless overlap; TIDE reclaims finished colocated rollout GPUs"
+    use_instead: "method:tide"
   - when: "async straggler algorithm / importance-corrected replay"
     reason: "SAO remains the async-algorithm default; ThunderSyncRL is lossless gradient streaming"
     use_instead: "method:sao"
@@ -16,7 +19,7 @@ do_not_use_for:
 assumptions:
   - "Agentic GRPO or OPD with long heterogeneous trajectories. Paper: SWE-bench Verified and Terminal Bench 4.0."
   - "No public repo URL as of 2026-10-06 (`code_status: none`)."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-16"
 papers:
   - paper:thundersyncrl
 recipes:

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'full-block unbiased ELBO for masked dLLM post-train (SEBO)'
+    reason: 'ForkGRPO is GRPO-family dLLM RL; SEBO is an ELBO estimator'
+    use_instead: method:sebo
   - when: 'rubric precision objective against coverage-only verbosity (FORK; not ForkGRPO)'
     reason: 'ForkGRPO is dLLM rollout forking; FORK here is a rubric precision reward'
     use_instead: method:fork-precision
