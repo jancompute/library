@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'endpoint-only fake-score DMD for few-step distill (eDMD)'
+  reason: 'FewStepRL ports RL hosts onto average-velocity few-step models; eDMD is endpoint DMD distillation'
+  use_instead: method:edmd
 - when: 'aligning text-to-image diffusion or flow models with rewards'
   reason: 'DiffusionOPSD remains on-policy self-distill; FewStepRL ports hosts onto average-velocity few-step models'
   use_instead: method:diffusion-opsd

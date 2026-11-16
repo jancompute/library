@@ -15,6 +15,10 @@ out_of_scope:
 - Recurrent CED all-token recurrence (RLT)
 - Standard dense ~7B NTP optimizer (Muon2)
 redirects:
+- when: residual looped pretrain / Loopback Transformer (not mixed-depth ELR)
+  to: method:loopback-transformer
+- when: fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR)
+  to: method:concertina
 - when: nGPT looped 4B with difficulty-aware loop curriculum (Dory; not ELR default)
   to: method:dory
 - when: train all depths as a candidate set (Best-of-Depth; not ELR default)
@@ -43,6 +47,8 @@ current_sota:
   notes: ELR (2610.12582). Method status active. Listed here as first hop; method
     sota_for stays empty. Does not replace Looped Models Done Right or SMELT.
 methods:
+- method:loopback-transformer
+- method:concertina
 - method:dory
 - method:best-of-depth
 - method:uploop
@@ -51,7 +57,7 @@ methods:
 - method:looped-models-done-right
 - method:smelt
 - method:recurrent-looped-transformer
-last_reviewed: '2026-11-04'
+last_reviewed: '2026-11-16'
 tags:
 - pretraining
 - looped-lm
@@ -71,6 +77,8 @@ This is **not** Huginn-style fixed-point looping and not SMELT's compute-matched
 - **Evaluation Pitfalls**: Do not cite SMELT FLOP-savings or Huginn KV-sharing as ELR results. One-loop 4B dense can sit slightly below the unlooped baseline.
 
 ## SOTA Recommendation (as of 2026-10-13)
+- **Related residual looped pretrain (not this first hop)**: `method:loopback-transformer` (`arXiv:2611.07226`) on `task:llm-pretraining-optimization`. Stores residual updates; matched tokens and executed depth. Code yancyou/Loopback. Does not replace ELR.
+- **Related teacher-layer folding (not this first hop)**: `method:concertina` (`arXiv:2611.18113`) on `task:student-distillation`. Folds an existing teacher, not mixed-depth from scratch. Code myboker/concertina. Does not replace ELR.
 - **Optional nGPT looped 4B recipe (not this first hop)**: `method:dory` (`arXiv:2611.03998`). 6T tokens (4.5T NVFP4); 12-bench 35.2→39.7→40.6 at k=1/2/4. Weights on Hugging Face; official train code none. Does not replace ELR.
 - **Optional all-depth candidate set (not this first hop)**: `method:best-of-depth` (`arXiv:2611.04663`). N-Queens coverage 91.03% vs 45.75% final-depth. No public code. Does not replace ELR.
 - **Primary (this task only)**: **ELR** (`method:elr`, `paper:elr` `arXiv:2610.12582`). Status `active`. Listed here as first hop; method `sota_for` stays empty. No public code.

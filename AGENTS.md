@@ -26,6 +26,7 @@ task:agent-communication -> method:mcp (2602.11988, 2026-07)
   when building the SWE loop rather than the tool protocol -> task:software-engineering-agent-harness
   when wanting a multi-agent crew as the communication layer -> task:multi-agent-orchestration
 task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
+  when learnable Compression+Steering over typed State during GRPO (ModHarness-RL; not the production kernel) -> method:modharness-rl
   when sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel) -> method:harness-s
   when online KEEP/EVOLVE meta-skill for harness RSI (Meta2; not the production kernel) -> method:meta2
   when MCTS full-harness search (HarnessFlow; not the production kernel) -> method:harnessflow
@@ -54,7 +55,8 @@ task:agent-harness-runtime -> method:omp2-harness (2610.27889, 2026-09-02)
   when recursive self-rewrite of a research-agent harness (accepted rewrite is the next incumbent) -> method:aide2
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
   when recurrent textual harness for agentic continual learning (not the production kernel) -> method:reharness
-task:agent-memory -> method:ace (2611.12872, 2025-10)
+task:agent-memory -> method:ace (2611.16409, 2025-10)
+  when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not write-time playbook) -> method:acerl
   when multimodal horizontal expansion + vertical evidence composition (HiVe-Mem; not write-time playbook) -> method:hive-mem
   when history cleaning after a wrong write / completed-action rewrite (not write-time playbook) -> paper:history-cleaning-hurts
   when evidence-linked memory / WikiTrace (not write-time playbook) -> method:wikitrace
@@ -174,6 +176,7 @@ task:continuous-diffusion-lm-pretrain -> method:semicat (2610.17590, 2026-10-13)
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
 task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.41574, 2026-10-07)
+  when full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle) -> method:sebo
   when LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle) -> method:byod
   when cross-budget self-distillation for masked dLLMs (HiLo-RD) -> method:hilo-rd
   when unified discrete-diffusion cross-paradigm OPD (NLD-Uni) -> method:nld-uni
@@ -197,6 +200,7 @@ task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 202
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
   when recycle an AR post-training weight delta onto a converted dLLM -> task:diffusion-lm-ar-delta-recycle
 task:posttrain-diffusion -> method:diffusion-opsd (2611.12411, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
+  when endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default) -> method:edmd
   when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) -> method:physopsd
   when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) -> method:fewsteprl
   when intrinsic distribution matching / EMA moment constraint on DMD (IDM) -> method:idm
@@ -261,6 +265,7 @@ task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-2
   when structure-aware Muon on Monarch-factored weights (not SCALE subspace) -> method:monarch-muon
   when subspace Muon with residual correction (PMRC / SMRC) -> method:pmrc
 task:lora-quality-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26)
+  when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) -> method:deletion-tuning
   when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) -> method:stage-lora
   when Kronecker PEFT with quadratic rank (SaMA; not rsLoRA + LR sweep) -> method:sama
@@ -281,6 +286,7 @@ task:lora-skill-composition -> method:read-lora (2609.31600, 2026-09-28)
   when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA composition -> task:instruct-sft-alignment
   when deployed checkpoint must stay NF4/INT4/MXFP4 with no high-precision adapter -> task:full-lowbit-finetune
 task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26) + method:aqlora-q (2608.23816, 2026-08-26)
+  when frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default) -> method:deletion-tuning
   when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default) -> method:stage-lora
   when Kronecker PEFT with quadratic rank (SaMA; not LoRA quality default) -> method:sama
@@ -321,6 +327,7 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
 task:agentic-async-rl -> method:sao (2611.16304, 2026-08-26)
+  when colocated on-policy GPU reclaim (TIDE; not async stragglers) -> method:tide
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) -> method:statealign
   when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
   when decision-plane RL for executable actions (RLiD), not async stragglers -> method:rlid
@@ -594,6 +601,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.16304, 2026-09-04)
+  when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) -> method:acerl
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage) -> method:statealign
   when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) -> method:autoscaffold
   when verifiable RL misalignment / reward-context shortcuts (not CANOPY coverage) -> paper:verifiable-rl-misalignment
@@ -697,6 +705,7 @@ task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
 task:reasoning-rl-alignment -> method:cispo (2611.15404, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2611.14850, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when fold N teacher layers into a shared loop then FKL+CE (Concertina; not reverse-KL OPD) -> method:concertina
   when forward-KL from teacher's highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD) -> method:sparse-teacher-support
   when multi-agent communication as token-level OPSD credit (OPSD4MAS; not matching default) -> method:opsd4mas
   when on-policy mid-training distillation (OPMD-CPT; not post-train mechanism OPMD) -> method:opmd-cpt
@@ -881,6 +890,8 @@ task:dense-to-moe-upcycling -> method:maskerade (2610.19232, 2026-10-07)
   when static sparse upcycling via token-indexed embedding residuals (not routed mask experts) -> method:staple
   when heterogeneous per-layer expert utilization on a converted dense FFN -> method:spectral-moe
 task:elastic-depth-looped-lm -> method:elr (2610.42030, 2026-10-13)
+  when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) -> method:loopback-transformer
+  when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) -> method:concertina
   when nGPT looped 4B with difficulty-aware loop curriculum (Dory; not ELR default) -> method:dory
   when train all depths as a candidate set (Best-of-Depth; not ELR default) -> method:best-of-depth
   when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) -> method:uploop
@@ -904,7 +915,9 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when Kronecker delta rule linear attention (KronLSTM; not an LSTM) -> method:kronlstm
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
-task:llm-pretraining-optimization -> method:muon2 (2611.16905, 2026-08-26)
+task:llm-pretraining-optimization -> method:muon2 (2611.17876, 2026-08-26)
+  when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) -> method:loopback-transformer
+  when temporary Muon weight decay looks worse at removal (evaluate at the intended budget) -> paper:muon-temporary-wd
   when Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default) -> method:foam
   when Hyper-Connection simplification without residual mixing (SimpleHC; not mHC default) -> method:simplehc
   when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the 7B optimizer) -> method:bf16-sr
@@ -967,7 +980,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when zero-natural-data self-play pretraining (generator proposes UTM programs) -> task:zero-natural-data-self-play-pretrain
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
-task:pretrain-dense-7b -> method:muon2 (2611.16905, 2026-08-26)
+task:pretrain-dense-7b -> method:muon2 (2611.17876, 2026-08-26)
   when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
@@ -1033,6 +1046,7 @@ task:operator-weather -> method:fourcastnet-3 (2507.12144, 2026-08-28)
 task:snn-sequence-modeling -> method:longspike (2606.12895, 2026-08-26)
 task:spiking-neural-networks-training -> method:longspike (2606.12895, 2026-08-26) + method:a2sg (2606.11236, 2026-08-26)
 task:frontier-rl-posttrain-stack -> method:miles (2611.09207, 2026-09-09)
+  when colocated on-policy GPU reclaim (TIDE; not Miles / not ThunderSyncRL) -> method:tide
   when LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship) -> method:hilo-lora-sync
   when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not the production engine) -> method:bf16-sr
   when rollout-aware n-gram speculative decoding for structured-generation RL (NgramRL) -> method:ngramrl
@@ -1903,6 +1917,24 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 649. **History cleaning hurts** (claim note, no new method): `paper:history-cleaning-hurts` (`arXiv:2611.14654`) on `task:agent-memory` / `method:ace`. After a wrong write, a truthful note raises recovery 51%→66%; a completed-action rewrite of the same value drops 50%→44%. Complements `paper:memory-tax` / `paper:luck-carrying-lessons`. Does **not** retarget ACE.
 
+650. **Loopback Transformer**: **Loopback** (`method:loopback-transformer`, `arXiv:2611.07226`) on `task:llm-pretraining-optimization`. Active plug-in. Stores residual updates and reads them with geometric decay plus attention. ClimbMix 191M 2.6187 vs Standard 2.6234; 374M 2.4008 vs 2.4395; 778M 2.2404 vs 2.2644; 3B WikiText 16.74 vs 17.28, 13-task 49.45%. Code yancyou/Loopback. Mention on `task:elastic-depth-looped-lm`. HF leftover. Does **not** replace Muon2 or ELR.
+
+651. **Concertina**: **Concertina** (`method:concertina`, `arXiv:2611.18113`) on `task:student-distillation`. Active plug-in. Fold N teacher layers into a shared loop plus SVD low-rank corrections; FKL+CE. Qwen3-4B N=2 → 2.27B on 22B tokens retains 92/90/88/84% of the teacher; beats Qwen3-1.7B (36T) on 6/8. Code myboker/concertina. Mention on `task:elastic-depth-looped-lm`. Does **not** replace OPD or ELR.
+
+652. **SCALAR**: **SCALAR** (`method:scalar-peft`, `arXiv:2611.17784`) on `task:lora-quality-tuning`. Active plug-in. Freeze an activation-derived basis; train layer-specific scalars. Qwen2.5-7B commonsense 88.9 vs LoRA r=8 88.8 at ~1/25 params; LLaMA3-8B 87.3 vs 87.4; mem −20%, throughput +6%. No public code. Mention on `task:parameter-efficient-fine-tuning`. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
+
+653. **SEBO**: **SEBO** (`method:sebo`, `arXiv:2611.17754`, AACL-IJCNLP 2026) on `task:diffusion-lm-ar-delta-recycle`. Active plug-in. Full-block unbiased ELBO for masked dLLMs. LLaDA-8B-Instruct GSM8K 82.26 / MATH-500 38.00 / Sudoku 91.39 vs SPG 72.73; +12.79 avg. GitHub githubhyz/See_Every_Block_Once empty. Does **not** replace A2D, JustOPD, or ForkGRPO.
+
+654. **TIDE**: **TIDE** (`method:tide`, `arXiv:2611.17924`) on `task:frontier-rl-posttrain-stack`. Active plug-in. Colocated on-policy GPU reclaim; 1.36× vs colocated, 77–97% of optimal. Distinct from ThunderSyncRL. No public code. Mention on `task:agentic-async-rl`. Does **not** replace Miles or SAO.
+
+655. **ModHarness-RL**: **ModHarness-RL** (`method:modharness-rl`, `arXiv:2611.18533`) on `task:agent-harness-runtime`. Active plug-in. Learnable Compression+Steering over typed State during GRPO. CodeSearch +14–24% vs a fixed harness, +5–12% vs strongest alternative. No public code. Does **not** replace omp2, HarnessRL, or Self-HPO.
+
+656. **eDMD**: **eDMD** (`method:edmd`, `arXiv:2611.17194`) on `task:posttrain-diffusion`. Active plug-in. Endpoint-only fake-score DMD; no real images. SD3-M peak HPSv3++ 11.171 vs D-DMD 10.841; FLUX.2-klein-4B 12.699 vs DMD2 11.337. Code Westlake-AGI-Lab/eDMD. Does **not** replace DiffusionOPSD, Self-OPD, or IDM.
+
+657. **ACE-RL**: **ACE-RL** (`method:acerl`, `arXiv:2611.16409`) on `task:agent-memory`. Active plug-in. Freeze ACE; co-optimize actor/reflector/curator; reward handoff by a downstream actor. Qwen3-4B-Instruct RSI@3 AppWorld 0.667 vs GRPO-in-harness 0.60; MiniSWEBench 0.340 vs 0.26. No public code. Mention on `task:outcome-only-long-horizon-agent-rl`. HF leftover. Does **not** replace ACE or CANOPY.
+
+658. **Temporary Muon WD** (claim note, no new method): `paper:muon-temporary-wd` (`arXiv:2611.17876`) on `task:llm-pretraining-optimization` / `method:muon2`. λ=0.15 for the first 44% of 1.4B FineWeb-100B looks 0.26 nats worse at removal, overtakes at 73%, finishes 0.0275–0.028 nats better. Late window from 60% hurts. Complements `paper:muon-sw-tuning-gap`. Does **not** retarget Muon2.
+
 
 ---
 
@@ -2554,6 +2586,15 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `hive-mem` (2611.12872) is an active multimodal expansion-plus-composition memory plug-in. Distinct from `hive-synth`. It does not supersede `ace`.
 - `paper:trait-hitchhiking` (2611.14683) is a GRPO non-targeted-trait gotcha. It does not retarget `cispo`.
 - `paper:history-cleaning-hurts` (2611.14654) is a history-repair gotcha after a wrong write. It does not retarget `ace`.
+- `loopback-transformer` (2611.07226) is an active residual looped-pretrain plug-in. It does not supersede `muon2` or `elr`.
+- `concertina` (2611.18113) is an active teacher-layer folding plug-in. It does not supersede `opd` or `elr`.
+- `scalar-peft` (2611.17784) is an active scalar PEFT plug-in. It does not supersede `lr-matters-lora` or `aqlora-q`.
+- `sebo` (2611.17754) is an active full-block MDLM ELBO plug-in. It does not supersede `a2d`, `justopd`, or `forkgrpo`.
+- `tide` (2611.17924) is an active colocated on-policy GPU-reclaim plug-in. Distinct from `thundersyncrl`. It does not supersede `miles` or `sao`.
+- `modharness-rl` (2611.18533) is an active learnable Compression+Steering GRPO plug-in. It does not supersede `omp2-harness`, `harnessrl`, or `self-hpo`.
+- `edmd` (2611.17194) is an active endpoint-only fake-score DMD plug-in. It does not supersede `diffusion-opsd`, `self-opd`, or `idm`.
+- `acerl` (2611.16409) is an active Experience-Handoff ACE RL plug-in. Distinct from `ace`. It does not supersede `ace` or `canopy`.
+- `paper:muon-temporary-wd` (2611.17876) is a temporary Muon weight-decay gotcha. It does not retarget `muon2`.
 
 
 ---

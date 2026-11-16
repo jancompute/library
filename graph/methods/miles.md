@@ -8,6 +8,9 @@ sota_for:
   - task:frontier-rl-posttrain-stack
 supersedes: []
 do_not_use_for:
+  - when: "colocated on-policy GPU reclaim (TIDE; not Miles / not ThunderSyncRL)"
+    reason: "Miles remains the production engine; TIDE reclaims finished colocated rollout GPUs"
+    use_instead: "method:tide"
   - when: "LoRA sync via compressed gradient + local optimizer replay (HiLo/Spar; not NeMo-DCR delta ship)"
     reason: "Miles remains the production engine; HiLo compresses LoRA-factor gradients and replays the optimizer"
     use_instead: "method:hilo-lora-sync"
@@ -75,7 +78,7 @@ assumptions:
   - "Frontier MoE post-train with a split rollout/train fleet. Paper case study: GLM-5.2 744B-A40B on 64 GB300 (32/32), Megatron trainer, optimizer-state streaming to disk."
   - "SGLang rollouts; Megatron or FSDP trainer. LoRA RL is Megatron-only in v0.1."
   - "Does not replace the train-kernel defaults run inside the stack (CISPO, OPD, Muon2)."
-last_reviewed: "2026-10-09"
+last_reviewed: "2026-11-16"
 papers:
   - paper:rpeg
   - paper:thundersyncrl

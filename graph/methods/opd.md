@@ -9,6 +9,9 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'fold N teacher layers into a shared loop then FKL+CE (Concertina; not reverse-KL OPD)'
+    reason: 'OPD remains reverse-KL matching; Concertina folds teacher layers into a looped student'
+    use_instead: method:concertina
   - when: 'forward-KL from teacher highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD)'
     reason: 'OPD remains reverse-KL matching; Sparse Teacher Support is a forward-KL vocab-support cut'
     use_instead: method:sparse-teacher-support
@@ -228,7 +231,7 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-16'
 papers:
   - paper:sparse-teacher-support
   - paper:opsd4mas

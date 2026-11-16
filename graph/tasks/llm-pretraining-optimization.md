@@ -12,6 +12,10 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default)"
+    to: "method:loopback-transformer"
+  - when: "temporary Muon weight decay looks worse at removal (evaluate at the intended budget)"
+    to: "paper:muon-temporary-wd"
   - when: "Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default)"
     to: "method:foam"
   - when: "Hyper-Connection simplification without residual mixing (SimpleHC; not mHC default)"
@@ -119,6 +123,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:loopback-transformer
   - method:foam
   - method:simplehc
   - method:depthgraft
@@ -167,7 +172,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-16'
 tags:
   - pretraining
   - optimizer
@@ -181,6 +186,8 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Optional residual looped pretrain (not this optimizer default)**: `method:loopback-transformer` (`arXiv:2611.07226`). Stores residual updates and reads them with geometric decay plus attention. ClimbMix 191M 2.6187 vs Standard 2.6234; 374M 2.4008 vs 2.4395; 778M 2.2404 vs 2.2644; 3B WikiText 16.74 vs 17.28. Code yancyou/Loopback. Mention on `task:elastic-depth-looped-lm`. Does not replace Muon2 or ELR.
+- **Gotcha (temporary Muon WD)**: `paper:muon-temporary-wd` (`arXiv:2611.17876`). λ=0.15 for the first 44% of 1.4B FineWeb-100B looks 0.26 nats worse at removal, overtakes at 73%, finishes 0.0275–0.028 nats better. Late window from 60% hurts. Complements `paper:muon-sw-tuning-gap`. Does not retarget Muon2.
 - **Optional input-only SOAP (not this optimizer default)**: `method:foam` (`arXiv:2611.16905`). Matches Muon/SOAP val loss 124M–760M at ~50% SOAP optimizer state; $t_A$ within 7% of AdamW; 51% of SOAP wall-clock to SOAP quality; peak mem +7.4% vs AdamW (SOAP +12.9%). GitHub naver-ai/foam README-only. Distinct from Clean. Mention on `task:full-param-memory-efficient-pretrain`. Does not replace Muon2 or KL-SOAP.
 - **Optional Hyper-Connection simplification (not this optimizer default)**: `method:simplehc` (`arXiv:2611.05984`). Matches mHC 15B/30B MoE (loss 1.561, avg 63.1 vs mHC 62.9); extra train time 2.4% vs vanilla at C=6144 (mHC ~7.0%); backward storage −31%. GitHub aHapBean/SimpleHC announced. Mention on `task:pretrain-moe-frontier`. Does not replace mHC or DeepSeek-V4.
 - **Optional hierarchical KV reconstruction (not this optimizer default)**: `method:depthgraft` (`arXiv:2611.03142`). Deep KV reconstructed from stride-aligned shallow–middle pairs. 16B MoE MMLU-Pro $+7.0\%$ / CMMLU $+6.6\%$ / C3 $+6.4\%$; KV $\sim -1/3$. Sibling of MSAR. Code jianke0604/DepthGraft. Mentions on `task:pretrain-dense-7b` / `task:input-heavy-agentic-moe-serving`. Does not replace Muon2, MSAR, or V4.1-Flash.

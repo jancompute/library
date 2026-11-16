@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'full-block unbiased ELBO for masked dLLM post-train (SEBO)'
+  reason: 'JustOPD distills AR logits on-policy; SEBO is a variance-reduced MDLM ELBO estimator'
+  use_instead: method:sebo
 - when: 'LoRA-only AR to masked DLM conversion (BYOD; not on-policy distill)'
   reason: 'JustOPD distills AR logits on-policy; BYOD freezes the AR base and trains LoRA'
   use_instead: method:byod

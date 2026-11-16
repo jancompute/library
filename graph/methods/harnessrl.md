@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'learnable Compression+Steering over typed State during GRPO (ModHarness-RL)'
+  reason: 'HarnessRL is a JIT rubric harness; ModHarness-RL learns Compression+Steering programs during GRPO'
+  use_instead: method:modharness-rl
 - when: 'production harness kernel (rewind, sandbox, remote, TUI)'
   reason: 'omp2 remains the kernel; HarnessRL is a training-time rubric harness'
   use_instead: method:omp2-harness

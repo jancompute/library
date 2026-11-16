@@ -10,6 +10,9 @@ sota_for:
 supersedes:
   - method:qlora
 do_not_use_for:
+  - when: "frozen activation-derived basis plus layer scalars (SCALAR; not a 4-bit stack)"
+    reason: "AQLoRA-Q remains the 4-bit PEFT default; SCALAR is a scalar adapter, not a 4-bit recipe"
+    use_instead: "method:scalar-peft"
   - when: "forward-only block-spectral phone specialists (FuRA-S)"
     reason: "AQLoRA-Q remains the 4-bit PEFT default; FuRA-S is forward-only INT4 specialists"
     use_instead: "method:fura-s"

@@ -12,6 +12,8 @@ out_of_scope:
   - "Dense AR Pass@1 RLVR (CISPO)"
   - "Continuous diffusion language model pretrain (SemiCat / DoubleCat)"
 redirects:
+  - when: "full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle)"
+    to: "method:sebo"
   - when: "LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle)"
     to: "method:byod"
   - when: "cross-budget self-distillation for masked dLLMs (HiLo-RD)"
@@ -52,6 +54,7 @@ current_sota:
     value: "AR delta on converted dLLM approaches direct diffusion PT and composes with it; AR/diffusion deltas nearly orthogonal"
     notes: "A2D (2610.08108). Method status active. Does not replace DiffusionOPSD / Self-OPD / CanvasAnneal."
 methods:
+  - method:sebo
   - method:byod
   - method:hilo-rd
   - method:nld-uni
@@ -68,7 +71,7 @@ methods:
   - method:diffusion-opsd
   - method:self-opd
   - method:uno
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-16'
 tags:
   - diffusion
   - post-training
@@ -88,6 +91,7 @@ This is **not** image/flow reward alignment and not CanvasAnneal.
 - **Evaluation Pitfalls**: Do not treat this as Uno serving or as DiffusionOPSD image alignment.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Optional full-block MDLM ELBO (not this recycle hop)**: `method:sebo` (`arXiv:2611.17754`, AACL-IJCNLP 2026). Evaluate every denoising block once. LLaDA-8B-Instruct GSM8K 82.26 / MATH-500 38.00 / Sudoku 91.39 vs SPG 72.73; +12.79 avg. GitHub githubhyz/See_Every_Block_Once empty. Does not replace A2D, JustOPD, or ForkGRPO.
 - **Primary (this task only)**: **A2D** (`method:a2d`, `paper:a2d` `arXiv:2610.08108`). Status `active`. Listed here as first hop; method `sota_for` stays empty.
 - **Not This Task**: `method:diffusion-opsd` / `method:self-opd` remain image/flow post-train; `method:canvasanneal` remains discrete-DLM canvas RL.
 - **Related dLLM inference PTQ (not this recycle hop)**: `method:soloq` (`arXiv:2610.07121`) on `task:fp4-hardware-training`. Calibration-free 4-bit / NVFP4 for existing dLLMs. Does not replace A2D.

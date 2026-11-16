@@ -8,6 +8,9 @@ sota_for:
   - task:agent-harness-runtime
 supersedes: []
 do_not_use_for:
+  - when: 'learnable Compression+Steering over typed State during GRPO (ModHarness-RL; not the production kernel)'
+    reason: 'omp2 remains the production kernel; ModHarness-RL learns Compression+Steering programs during GRPO'
+    use_instead: method:modharness-rl
   - when: 'sibling-harness rescue of all-fail GRPO groups (Harness-S; not the production kernel)'
     reason: 'omp2 remains the production kernel; Harness-S freezes a sibling pool during policy GRPO'
     use_instead: method:harness-s
@@ -77,7 +80,7 @@ do_not_use_for:
 assumptions:
   - "You are implementing a harness kernel, not wrapping a 100-line ReAct loop."
   - "The four envelope tests must hold: multiplexed workspace, remote driver, spectator, untrusted factory."
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-16'
 papers:
   - paper:harness-elicitation-expansion
   - paper:harness-playbook

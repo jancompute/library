@@ -18,6 +18,7 @@ current_sota:
     value: "Outperforms Flow-GRPO, Flow-OPD, and DiffusionNFT without external task-specific teachers"
     notes: "Self-OPD (2608.26872) provides teacher-free per-step pull-push distillation for flow matching multi-objective alignment."
 methods:
+  - method:edmd
   - method:physopsd
   - method:fewsteprl
   - method:sifr
@@ -38,6 +39,8 @@ methods:
   - method:rewardverse
   - method:a2d
 redirects:
+  - when: "endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default)"
+    to: "method:edmd"
   - when: "code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default)"
     to: "method:physopsd"
   - when: "few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)"
@@ -72,7 +75,7 @@ redirects:
     to: "method:forkgrpo"
   - when: "signed advantages + Lagrange velocity-drift budget for flow RL (SIFR)"
     to: "method:sifr"
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-16'
 tags:
   - diffusion
   - post-training
@@ -86,6 +89,7 @@ tags:
 Aligning generative diffusion and flow models with downstream reward functions (aesthetic quality, text-image alignment, human preference ratings). Endpoint rewards create a structural mismatch because feedback is only observed on decoded final images, while the model operates across multi-step denoising trajectories.
 
 ## SOTA Recommendation (as of 2026-09-14)
+- **Optional endpoint-only few-step DMD (not this first hop)**: `method:edmd` (`arXiv:2611.17194`). Fake score trained only on student finals; no real images. SD3-M peak HPSv3++ 11.171 vs D-DMD 10.841; FLUX.2-klein-4B 12.699 vs DMD2 11.337. Code Westlake-AGI-Lab/eDMD. Does not replace DiffusionOPSD, Self-OPD, or IDM.
 - **Optional code-as-privilege video OPSD (not this T2I default)**: `method:physopsd` (`arXiv:2611.12411`). Executable physics code as privileged teacher context. UniVideo 13B / OmniWeaving 8.3B VideoPhy-2 $+4.2$ / $+4.1$ at 3K samples vs SFT 80K / RL 21K. Code aigc3d/PhysOPSD. Mention on `task:privileged-teacher-opsd`. Does not replace DiffusionOPSD, Self-OPD, or VISTA.
 - **Optional few-step average-velocity RL (not this first hop)**: `method:fewsteprl` (`arXiv:2611.08240`). Ports FlowGRPO / AWM / DiffusionNFT / DiffusionOPSD / ReFL onto average-velocity few-step models. HF leftover below watermark. No public code. Does not replace DiffusionOPSD or Self-OPD.
 - **Optional signed flow RL (not this first hop)**: `method:sifr` (`arXiv:2611.09175`). Signed advantages plus Lagrange velocity-drift budget. SD3.5-M / FLUX.2 Klein / Cosmos 3 Super T2I 64B; 12 backbone–reward pairs. No public code. Does not replace DiffusionOPSD or Self-OPD.
