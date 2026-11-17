@@ -13,11 +13,15 @@ do_not_use_for:
   - when: "sparse OPD token keep-mask, not rollout horizon"
     reason: "Sparse OPD drops tokens; Flash-OPD stops trajectories early"
     use_instead: "method:sparse-opd-supervision"
+  - when: "shared-batch stochastic horizons OPD (SH-OPD)"
+    reason: "Flash-OPD is per-sequence first-passage; SH-OPD samples one shared horizon per batch"
+    use_instead: "method:sh-opd"
 assumptions:
   - White-box teacher OPD where teacher–student compatibility can be checked during generation.
   - "Code: Onedean/Flash-OPD (`code_status: released`)."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-17"
 papers:
+  - paper:sh-opd
   - paper:flash-opd
 recipes:
   - recipe:flash-opd

@@ -12,6 +12,8 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "Outcome-only long-horizon agent RL (CANOPY)"
 redirects:
+  - when: "partial-order likelihood over Pareto rankings (POLPO; not Pearson aggregation)"
+    to: "method:polpo"
   - when: "two-stage OT baseline + budget-neutral token credit (TACE)"
     to: "method:tace"
   - when: "grader-noise coefficient-set calibration on rubric GRPO (SetGRPO)"
@@ -54,6 +56,7 @@ current_sota:
     value: "up to 26% fewer steps (tool format) / 65% fewer steps (math length); competitive final score"
     notes: "DARA (2610.00574). Inverse-sqrt density on advantage energy. Dual-active with CorrGRPO. GDPO is prior art, not a library node. Does not replace CISPO."
 methods:
+  - method:polpo
   - method:lambdamix
   - method:tace
   - method:setgrpo
@@ -69,7 +72,7 @@ methods:
   - method:dr-grpo
   - method:carm
   - method:lmopd
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - rl-alignment
@@ -91,6 +94,7 @@ This is **not** single-reward CISPO, not SAPO, and not CARM's off-policy sequenc
 - **Evaluation Pitfalls**: Do not treat a CISPO Pass@1 number as this task. GDPO is prior art in both papers and is **not** a library method. CorrGRPO and DARA have **no head-to-head**; they fix different residuals (Pearson scale vs active-group density).
 
 ## SOTA Recommendation (as of 2026-10-02)
+- **Optional Pareto listwise likelihood (not this Pearson/density hop)**: `method:polpo` (`arXiv:2611.19064`). Maximizes probability of rankings consistent with Pareto dominance across verifiers. Distinct from `method:gpdpo`. No public code. Does not replace CorrGRPO / DARA.
 - **Primary (correlation / scale, this task only)**: **CorrGRPO** (`method:corrgrpo`, `paper:corrgrpo` `arXiv:2609.36820`). Keep the centered total reward; replace covariance-sum std with Pearson-correlation-sum. Status `active`. Dual-active with DARA.
 - **Primary (density / sparse rewards, this task only)**: **DARA** (`method:dara`, `paper:dara` `arXiv:2610.00574`). Inverse-sqrt active-group density on GDPO-style reward-wise advantages. Status `active`. Dual-active with CorrGRPO.
 - **Not This Task**: `method:cispo` remains dense Pass@1; `method:sapo` remains MoE/VL; `method:cis-rl` remains train–infer IS; `method:carm` remains off-policy sequence masking.

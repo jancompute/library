@@ -19,6 +19,8 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO)"
+    to: "method:flashreinforce"
   - when: "likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO)"
     to: "method:lgpo"
   - when: "trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO)"
@@ -211,6 +213,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:flashreinforce
   - method:lgpo
   - method:autoscaffold
   - method:mcpo
@@ -309,7 +312,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - reasoning
@@ -325,6 +328,7 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Related critic-free one-rollout RL (not Pass@1 CISPO)**: `method:flashreinforce` (`arXiv:2611.18627`) on `task:agentic-async-rl`. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at half rollouts. Does not replace CISPO.
 - **Optional likelihood-gated on-policy RLVR (not Pass@1 CISPO)**: `method:lgpo` (`arXiv:2611.15404`). Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1. No public code. Does not replace CISPO.
 - **Gotcha (trait hitchhiking)**: `paper:trait-hitchhiking` (`arXiv:2611.14683`). Price equation for non-targeted traits under GRPO. Complements `paper:verifiable-rl-misalignment`. Does not retarget CISPO.
 - **Optional AI-designed RLVR scaffolds (not Pass@1 CISPO)**: `method:autoscaffold` (`arXiv:2611.14515`). Frozen teacher writes class/instance scaffolds from the training log; scaffold-free eval. ALFWorld $+7.2$ / search QA $+4.0$ / math $\le +2.0$ / KernelBench $+3.0$ correctness. Mentions on `task:outcome-only-long-horizon-agent-rl` / `task:web-search-agent-rl`. No public code. Does not replace CISPO, RGPO, H2R, CANOPY, or Iris.

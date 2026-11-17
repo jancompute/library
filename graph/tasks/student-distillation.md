@@ -5,6 +5,16 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "OPD for agentic coding / offline cached teacher (SWE-OPD)"
+    to: "method:swe-opd"
+  - when: "shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage)"
+    to: "method:sh-opd"
+  - when: "experience-calibrated multi-turn teacher weights (ECOD; not matching default)"
+    to: "method:ecod"
+  - when: "OPD as a teacher-SFT backdoor propagation channel"
+    to: "paper:opd-backdoor-propagation"
+  - when: "pretraining optimizer gains do not transfer to short-horizon KL distill"
+    to: "paper:optimizer-kl-distill"
   - when: "fold N teacher layers into a shared loop then FKL+CE (Concertina; not reverse-KL OPD)"
     to: "method:concertina"
   - when: "forward-KL from teacher's highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD)"
@@ -245,6 +255,9 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:swe-opd
+  - method:sh-opd
+  - method:ecod
   - method:concertina
   - method:sparse-teacher-support
   - method:opsd4mas
@@ -367,7 +380,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - distillation
@@ -382,6 +395,11 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional SWE-agent OPD (not this matching default)**: `method:swe-opd` (`arXiv:2611.21020`). Qwen3.5-9B SWE-bench Pro 35.9→39.4; offline cached teacher 59.4–72.6% fewer GPU-h. Decreasing top-K reverse-KL can still repeat. Code ernie-research/SWE-OPD. Mentions on `task:cross-tokenizer-opd` / `task:software-engineering-agent-harness`. Does not replace OPD or mini-SWE-agent.
+- **Optional shared-batch horizon OPD (not this matching default)**: `method:sh-opd` (`arXiv:2611.20687`). Shared horizon per batch; math ~45% / code ~60% of full-OPD per-update cost. Distinct from `method:flash-opd`. Code chen123CtrlS/SH-OPD. Does not replace OPD.
+- **Related experience-calibrated multi-turn OPD (not this matching default)**: `method:ecod` (`arXiv:2611.18656`) on `task:outcome-only-long-horizon-agent-rl`. Up to +4.06% vs OPD on ALFWorld unseen. No public code. Does not replace OPD or CANOPY.
+- **Gotcha (OPD teacher-SFT backdoor channel)**: `paper:opd-backdoor-propagation` (`arXiv:2611.19207`). Complements `paper:opd-safety-backdoor`. Does not retarget OPD.
+- **Gotcha (pretrain optimizer on KL distill)**: `paper:optimizer-kl-distill` (`arXiv:2611.19419`) on `task:llm-pretraining-optimization`. AdamW lowest val KL; Muon/SOAP/Shampoo do not transfer. Does not retarget OPD or Muon2.
 - **Optional teacher-layer folding (not this matching default)**: `method:concertina` (`arXiv:2611.18113`). Fold N adjacent teacher layers into a shared loop plus SVD low-rank corrections; FKL+CE. Qwen3-4B N=2 → 2.27B on 22B tokens retains 84% of the teacher; beats Qwen3-1.7B (36T) on 6/8. Code myboker/concertina. Mention on `task:elastic-depth-looped-lm`. Does not replace OPD or ELR.
 - **Optional forward-KL sparse teacher vocab (not this matching default)**: `method:sparse-teacher-support` (`arXiv:2611.14850`). Qwen3 4B→1.7B 0.01% vocab ($k=15$ of 151936) no MMLU-Pro drop; 38% step-time cut; 24% peak mem. Distinct from `method:sparse-opd-supervision`. No public code. Does not replace OPD.
 - **Optional communication-as-credit OPSD (not this matching default)**: `method:opsd4mas` (`arXiv:2611.16206`). MATH pass@4 up to +20.00 vs GRPO; mean pass@1 +8.87 vs GRPO / +6.14 vs DAPO. Code Camel-Prince/OPSD4MAS. Mention on `task:multi-agent-orchestration`. Does not replace OPD or single-agent-plus-tools.

@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage)"
+    to: "method:ecod"
   - when: "Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage)"
     to: "method:acerl"
   - when: "state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage)"
@@ -149,6 +151,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:ecod
   - method:acerl
   - method:statealign
   - method:autoscaffold
@@ -211,7 +214,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - agentic
@@ -236,6 +239,7 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional experience-calibrated multi-turn OPD (not this coverage default)**: `method:ecod` (`arXiv:2611.18656`). Weights teacher losses by student-teacher comparison plus a temporal prior. Up to +4.06% vs OPD ALFWorld unseen; paired +6.20% / +7.05% WebShop. No public code. Mention on `task:student-distillation`. Does not replace CANOPY or OPD.
 - **Related Experience-Handoff memory RL (not this coverage default)**: `method:acerl` (`arXiv:2611.16409`) on `task:agent-memory`. Freeze ACE; reward handoff artifacts by a downstream actor. Does not replace CANOPY or ACE.
 - **Related state-contrast tool RL (not this coverage default)**: `method:statealign` (`arXiv:2611.16304`) on `task:agentic-async-rl`. Qwen3-8B BFCL v4 45.5%→55.2%; hallucination 62.2%→56.1%. Code ZhexiLu/StateAlign. Does not replace CANOPY or SAO.
 - **Related AI-designed RLVR scaffolds (not this coverage default)**: `method:autoscaffold` (`arXiv:2611.14515`) on `task:math-code-rl-dense`. Frozen-teacher class/instance scaffolds on GiGPO/GRPO. ALFWorld $+7.2$ vs GiGPO. Does not replace CANOPY.

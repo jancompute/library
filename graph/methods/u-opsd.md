@@ -8,6 +8,12 @@ sota_for:
   - task:label-free-reasoner-posttrain
 supersedes: []
 do_not_use_for:
+  - when: "spectral calibration of unsupervised RLVR advantages (SpeCal)"
+    reason: "u-OPSD remains unlabeled consensus OPSD; SpeCal rescales unlabeled RLVR advantages from hidden-state spectra"
+    use_instead: "method:specal"
+  - when: "OPSD without GT via self-generated problem briefs (B-OPSD)"
+    reason: "u-OPSD is majority-vote pseudo-solutions; B-OPSD is brief-conditioned privileged OPSD"
+    use_instead: "method:b-opsd"
   - when: "OPSD entropy overshoot on a privileged / gold-conditioned teacher"
     reason: "u-OPSD is unlabeled consensus; E2-OPSD still uses solved neighbors"
     use_instead: "method:e2-opsd"
@@ -17,8 +23,10 @@ do_not_use_for:
   - when: "privileged-context content as OPSD drift rather than unlabeled consensus"
     reason: "u-OPSD remains unlabeled; Privileged Context as Drift is an evidence card"
     use_instead: "method:privileged-context-drift"
-last_reviewed: "2026-10-07"
+last_reviewed: "2026-11-17"
 papers:
+  - paper:specal
+  - paper:b-opsd
   - paper:privileged-context-drift
   - paper:u-opsd
 recipes:

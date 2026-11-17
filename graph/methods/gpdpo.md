@@ -10,10 +10,14 @@ do_not_use_for:
 - when: 'the locked first hop on task:multi-reward-rlvr'
   reason: 'CorrGRPO/DARA remain aggregation defaults; GPDPO recovers Pareto pairs from conflict-filtered rollouts'
   use_instead: method:corrgrpo
+- when: 'partial-order likelihood over Pareto rankings (POLPO)'
+  reason: 'GPDPO reuses conflict-filtered GRPO rollouts; POLPO is DPO-style listwise likelihood over Pareto rankings'
+  use_instead: method:polpo
 assumptions:
 - 'Multi-reward conflict reuse. No public code as of 2026-10-27.'
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-17'
 papers:
+- paper:polpo
 - paper:gpdpo
 recipes:
 - recipe:gpdpo

@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'pretraining optimizer gains do not transfer to short-horizon KL distill'
+    reason: 'Gotcha: AdamW lowest val KL on short-horizon FKL distill; does not retarget Muon2'
+    use_instead: paper:optimizer-kl-distill
   - when: 'residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default)'
     reason: 'Muon2 remains the ~7B optimizer; Loopback is a residual looped architecture'
     use_instead: method:loopback-transformer
@@ -125,8 +128,9 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:optimizer-kl-distill
   - paper:muon-temporary-wd
   - paper:foam
   - paper:simplehc

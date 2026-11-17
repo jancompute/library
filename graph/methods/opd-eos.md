@@ -16,11 +16,15 @@ do_not_use_for:
   - when: "privileged-teacher math OPSD with gold solutions"
     reason: "VISTA remains that first hop; this paper is base-student vs post-trained-teacher stop ids"
     use_instead: "method:vista"
+  - when: "termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD)"
+    reason: "opd-eos is stop-id mismatch on OPD; TA-OPSD is premature-stop vs repetition on privileged OPSD"
+    use_instead: "method:ta-opsd"
 assumptions:
   - "OPD with a base (or earlier-stage) student and a post-trained teacher whose stop ids may differ. Paper: Qwen3, Llama-3.2, Gemma-3, K2-Horizon; verl + sampled-token OPD; DAPO-Math-17k TTRL prompts."
   - "Decoding-stop alignment alone is the insufficient control. Semantic-class scoring is the fix."
-last_reviewed: "2026-09-18"
+last_reviewed: "2026-11-17"
 papers:
+  - paper:ta-opsd
   - paper:opd-eos
 recipes:
   - recipe:opd-eos
@@ -70,3 +74,4 @@ Not a new distill default. OPD scores the student's own tokens with the teacher.
 - Declared stop sets can match while sampled stop ids do not.
 - Termination preference can flip across training stages (K2-Horizon). Re-check ids after SFT/RL, not only at init.
 - Semantic-class stop is not a complete theory of OPD length; late inflation can persist.
+- Privileged OPSD premature-stop vs repetition is `method:ta-opsd`, not this stop-id patch.

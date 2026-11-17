@@ -8,6 +8,9 @@ sota_for:
   - task:software-engineering-agent-harness
 supersedes: []
 do_not_use_for:
+  - when: "OPD for agentic coding / SWE-bench Pro distill (SWE-OPD; not the issue-to-patch loop)"
+    reason: "mini-SWE-agent remains the issue-to-patch loop; SWE-OPD distills a coding agent"
+    use_instead: "method:swe-opd"
   - when: "training an async agent policy (tool-use RL)"
     reason: "mini-SWE-agent is a harness, not an RL optimizer"
     use_instead: "method:sao"
@@ -50,8 +53,9 @@ do_not_use_for:
 assumptions:
   - "Locked SWE-bench mini harness; bash-only ReAct; linear history; independent subprocess.run actions."
   - "Model quality, not scaffold complexity, is the ranking variable on official boards."
-last_reviewed: "2026-09-02"
+last_reviewed: "2026-11-17"
 papers:
+  - paper:swe-opd
   - paper:mini-swe-agent
   - paper:mac-meta-agent
 recipes:
