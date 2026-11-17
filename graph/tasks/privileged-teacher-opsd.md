@@ -5,6 +5,10 @@ title: "Privileged-Teacher On-Policy Self-Distillation"
 domain: "post-training"
 summary: "On-policy self-distillation where a same-size teacher is privileged with a gold reference solution and a deterministic outcome verifier, rather than a larger frozen teacher model."
 redirects:
+  - when: "termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD)"
+    to: "method:ta-opsd"
+  - when: "OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD)"
+    to: "method:b-opsd"
   - when: "code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA)"
     to: "method:physopsd"
   - when: "bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA)"
@@ -81,6 +85,8 @@ current_sota:
     value: "VISTA 44.0 / 64.3 / 66.9 vs OPSD 43.4 / 63.6 / 64.8 vs GRPO 37.7 / 62.7 / 64.0"
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
+  - method:ta-opsd
+  - method:b-opsd
   - method:physopsd
   - method:bopd
   - method:ecos
@@ -121,7 +127,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - distillation
@@ -142,6 +148,8 @@ Train a problem-only student on its own rollouts using dense token-level targets
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Optional termination-aware OPSD (not this gold-solution default)**: `method:ta-opsd` (`arXiv:2611.19925`). Stop/Continue Distillation plus Repetition-Aware Unlikelihood. Qwen3 1.7B/4B/8B beats OPSD. Distinct from `method:opd-eos`. Code gtbxdf4/TA-OPSD. Does not replace VISTA.
+- **Optional brief-conditioned OPSD without GT (not this gold-solution default)**: `method:b-opsd` (`arXiv:2611.19273`). Self-generated problem briefs, no answer. Beats OPSD average at three Qwen3 sizes on AIME24/25/HMMT25. Distinct from `method:bopd`. Code ZevineXu/B-OPSD. Does not replace VISTA or u-OPSD.
 - **Related code-as-privilege video OPSD (not this gold-solution default)**: `method:physopsd` (`arXiv:2611.12411`) on `task:posttrain-diffusion`. Executable physics code as privilege; not a gold text solution. Does not replace VISTA.
 - **Optional bootstrapped OPSD→OPD (not this first hop)**: `method:bopd` (`arXiv:2611.13680`). Stage I privileged OPSD then Stage II reference-free OPD from a fresh init. Qwen3-4B Avg@12 $18.06\to 23.98$ vs continued OPSD $19.63$. Code YueWu0301/BOPD. Mention on `task:student-distillation`. Does not replace VISTA.
 - **Related environment-calibrated agent OPSD (not this first hop)**: `method:ecos` (`arXiv:2611.12232`) on `task:outcome-only-long-horizon-agent-rl`. Command-only teacher; full-response teacher collapses. Does not replace VISTA.

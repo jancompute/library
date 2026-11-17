@@ -10,6 +10,9 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; FlashREINFORCE is critic-free one-rollout async REINFORCE'
+    use_instead: method:flashreinforce
   - when: 'likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; LGPO drops old-policy likelihoods and gates on current logp'
     use_instead: method:lgpo
@@ -217,8 +220,9 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:flashreinforce
   - paper:lgpo
   - paper:trait-hitchhiking
   - paper:autoscaffold

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'partial-order likelihood over Pareto rankings (POLPO; not Pearson aggregation)'
+    reason: 'CorrGRPO remains Pearson aggregation; POLPO is listwise likelihood over Pareto rankings'
+    use_instead: method:polpo
   - when: 'two-stage OT baseline + budget-neutral token credit (TACE)'
     reason: 'CorrGRPO remains Pearson aggregation; TACE OT-maps rewards and conserves token credit'
     use_instead: method:tace
@@ -38,8 +41,9 @@ assumptions:
   - "Several sequence-level reward components on a GRPO-family host. Paper: Qwen2.5-Coder 0.5B–7B coding; also tool calling and agent security. GDPO is a paper baseline, not a library method."
   - "Zero-variance reward rows/columns of the correlation matrix are zeroed, including the diagonal."
   - "Official code HKUST-KnowComp/CorrGRPO released as of 2026-10-01."
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:polpo
   - paper:lambdamix
   - paper:corrgrpo
 recipes:

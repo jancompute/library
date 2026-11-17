@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "OPD for agentic coding / offline cached teacher (SWE-OPD; not the 1:1 bake-off)"
+    reason: "Cross-Tokenizer OPD remains the 1:1 / k=16 bake-off; SWE-OPD reports SWE-bench Pro transfer"
+    use_instead: "method:swe-opd"
   - when: "common-support distillation for cross-tokenizer knowledge transfer (CSD)"
     reason: "Cross-Tokenizer OPD remains 1:1 plus top-k shared-vocab reverse-KL; CSD matches per-chunk continuations on the common support"
     use_instead: "method:csd"
@@ -22,8 +25,9 @@ do_not_use_for:
 assumptions:
   - "Teacher and student tokenizers disagree. Paper: Qwen3 / Llama / Gemma pairs, Jaccard 39.49–64.87%."
   - "No official GitHub as of 2026-10-07."
-last_reviewed: "2026-10-07"
+last_reviewed: "2026-11-17"
 papers:
+  - paper:swe-opd
   - paper:cross-tokenizer-opd
 recipes:
   - recipe:cross-tokenizer-opd

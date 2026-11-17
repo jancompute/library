@@ -9,6 +9,18 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'OPD for agentic coding / offline cached teacher (SWE-OPD)'
+    reason: 'OPD remains matching; SWE-OPD is agentic-coding OPD with a cached teacher'
+    use_instead: method:swe-opd
+  - when: 'shared-batch stochastic horizons OPD (SH-OPD; not matching default)'
+    reason: 'OPD remains full-horizon matching; SH-OPD samples a shared batch horizon'
+    use_instead: method:sh-opd
+  - when: 'experience-calibrated multi-turn teacher weights (ECOD; not matching default)'
+    reason: 'OPD remains matching; ECOD reweights teacher losses from student experience'
+    use_instead: method:ecod
+  - when: 'OPD as a teacher-SFT backdoor propagation channel'
+    reason: 'Gotcha: OPD transfers teacher SFT backdoors with tiny trigger exposure; does not retarget matching'
+    use_instead: paper:opd-backdoor-propagation
   - when: 'fold N teacher layers into a shared loop then FKL+CE (Concertina; not reverse-KL OPD)'
     reason: 'OPD remains reverse-KL matching; Concertina folds teacher layers into a looped student'
     use_instead: method:concertina
@@ -231,8 +243,12 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:swe-opd
+  - paper:sh-opd
+  - paper:ecod
+  - paper:opd-backdoor-propagation
   - paper:sparse-teacher-support
   - paper:opsd4mas
   - paper:bopd

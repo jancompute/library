@@ -26,6 +26,8 @@ out_of_scope:
   - "Multi-stage agent continual learning (ACLArena)"
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
 redirects:
+  - when: "OPD for agentic coding / SWE-bench Pro distill (SWE-OPD; not the issue-to-patch loop)"
+    to: "method:swe-opd"
   - when: "scalable SWE issue synthesis from historical bug fixes (not the issue-to-patch loop)"
     to: "method:swe-at-scale"
   - when: "train asynchronous RL for a tool-use policy"
@@ -76,6 +78,7 @@ current_sota:
     value: "Pro Muse Spark 1.1 61.50±3.10 (ranking now); official JSON mini+Claude 4.5 Opus high 76.8% (2026-02-17); vals.ai Claude Opus 5 97.00% / DeepSeek V4 Pro 0813 96.40% (2026-09, different snapshot)"
     notes: "Winning design is the ~100 LOC bash ReAct loop. Do not mix vals.ai 97% with official JSON 79.2%. Do not retarget SAO/CISPO/RLM."
 methods:
+  - method:swe-opd
   - method:swe-at-scale
   - method:mini-swe-agent
   - method:cca
@@ -91,7 +94,7 @@ methods:
   - method:category-aware-swe-experts
   - method:pact
   - method:pivotopd
-last_reviewed: '2026-10-16'
+last_reviewed: '2026-11-17'
 tags:
   - agents
   - agent
@@ -113,6 +116,7 @@ Choose the loop, ACI, and tools for repository-level software engineering (issue
 
 ## SOTA Landscape
 - **Default**: **mini-SWE-agent** (`method:mini-swe-agent`).
+- **Related SWE-agent OPD (not this harness loop)**: `method:swe-opd` (`arXiv:2611.21020`) on `task:student-distillation`. Distills a coding agent; not the issue-to-patch loop. Does not replace mini-SWE-agent.
 - **Active**: CCA when you need notes/context management; OpenHands/CodeAct as production OSS.
 - **Niche**: Live-SWE-agent (official JSON 79.2% tie).
 - **Not this task**: SAO, CISPO, RLM, FoldGRPO, OSWorld, Iris search-agent training. Production harness kernels (rewind/fork/remote/sandbox/TUI) are `task:agent-harness-runtime`.

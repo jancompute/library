@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "pretraining optimizer gains do not transfer to short-horizon KL distill"
+    to: "paper:optimizer-kl-distill"
   - when: "residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default)"
     to: "method:loopback-transformer"
   - when: "temporary Muon weight decay looks worse at removal (evaluate at the intended budget)"
@@ -172,7 +174,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 tags:
   - pretraining
   - optimizer
@@ -186,6 +188,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Gotcha (pretrain optimizer on KL distill)**: `paper:optimizer-kl-distill` (`arXiv:2611.19419`). AdamW generally lowest val KL on short-horizon forward-KL distill; SOAP/Shampoo/Muon do not transfer. Complements `paper:muon-adamw-ft-gap`. Mention on `task:student-distillation`. Does not retarget Muon2.
 - **Optional residual looped pretrain (not this optimizer default)**: `method:loopback-transformer` (`arXiv:2611.07226`). Stores residual updates and reads them with geometric decay plus attention. ClimbMix 191M 2.6187 vs Standard 2.6234; 374M 2.4008 vs 2.4395; 778M 2.2404 vs 2.2644; 3B WikiText 16.74 vs 17.28. Code yancyou/Loopback. Mention on `task:elastic-depth-looped-lm`. Does not replace Muon2 or ELR.
 - **Gotcha (temporary Muon WD)**: `paper:muon-temporary-wd` (`arXiv:2611.17876`). λ=0.15 for the first 44% of 1.4B FineWeb-100B looks 0.26 nats worse at removal, overtakes at 73%, finishes 0.0275–0.028 nats better. Late window from 60% hurts. Complements `paper:muon-sw-tuning-gap`. Does not retarget Muon2.
 - **Optional input-only SOAP (not this optimizer default)**: `method:foam` (`arXiv:2611.16905`). Matches Muon/SOAP val loss 124M–760M at ~50% SOAP optimizer state; $t_A$ within 7% of AdamW; 51% of SOAP wall-clock to SOAP quality; peak mem +7.4% vs AdamW (SOAP +12.9%). GitHub naver-ai/foam README-only. Distinct from Clean. Mention on `task:full-param-memory-efficient-pretrain`. Does not replace Muon2 or KL-SOAP.

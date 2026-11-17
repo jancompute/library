@@ -121,7 +121,8 @@ task:multi-agent-orchestration -> method:single-agent-plus-tools (2611.16206, 20
   when Leader-Searcher-Answerer hierarchical OPD (MultiAgent-OPD), not the MAS default -> method:multiagent-opd
   when GitHub issue to patch -> task:software-engineering-agent-harness
   when train asynchronous RL for a tool-use policy -> task:agentic-async-rl
-task:software-engineering-agent-harness -> method:mini-swe-agent (2405.15793, 2026-09)
+task:software-engineering-agent-harness -> method:mini-swe-agent (2611.21020, 2026-09)
+  when OPD for agentic coding / SWE-bench Pro distill (SWE-OPD; not the issue-to-patch loop) -> method:swe-opd
   when scalable SWE issue synthesis from historical bug fixes (not the issue-to-patch loop) -> method:swe-at-scale
   when train asynchronous RL for a tool-use policy -> task:agentic-async-rl
   when math-code RLVR with verifiable rewards -> task:math-code-rl-dense
@@ -326,7 +327,8 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2611.16304, 2026-08-26)
+task:agentic-async-rl -> method:sao (2611.18627, 2026-08-26)
+  when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) -> method:flashreinforce
   when colocated on-policy GPU reclaim (TIDE; not async stragglers) -> method:tide
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) -> method:statealign
   when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
@@ -404,7 +406,8 @@ task:coding-agent-rl-environment-construction -> method:codemidas (2609.22068, 2
   when from-scratch program reproduction envs / Program-Agent (not issue-to-patch, not OSS source factory) -> method:programgym
   when long-horizon terminal-agent data engine / pre-completed work detection (TerminalHorizon) -> method:terminalhorizon
   when fork RL rollouts from the agent's own failure states (ReTerm / recovery training) -> method:reterm
-task:cross-tokenizer-opd -> method:cross-tokenizer-opd (2610.08448, 2026-10-07)
+task:cross-tokenizer-opd -> method:cross-tokenizer-opd (2611.21020, 2026-10-07)
+  when OPD for agentic coding / offline cached teacher (SWE-OPD; not the 1:1 bake-off) -> method:swe-opd
   when common-support distillation for cross-tokenizer knowledge transfer (CSD) -> method:csd
   when trace-bridged self-distillation when teacher logp is missing (not 1:1 coverage) -> method:bridged-self-distill
   when credit alignment after chunk correspondence for cross-tokenizer OPD (CAST) -> method:cast
@@ -451,11 +454,13 @@ task:instruct-sft-alignment -> method:olmo-3 (2611.10045, 2026-08-26) + method:n
   when in-language (L2) reasoning SFT rather than general instruct -> task:multilingual-l2-reasoning-sft
   when 24GB quality LoRA rather than drift-budget instruct FT -> task:parameter-efficient-fine-tuning
   when on-policy parameter update direction SFT (OPSFT) -> method:opsft
-task:label-free-reasoner-posttrain -> method:u-opsd (2610.07842, 2026-08-28)
+task:label-free-reasoner-posttrain -> method:u-opsd (2611.20691, 2026-08-28)
+  when spectral calibration of unsupervised RLVR advantages (SpeCal) -> method:specal
   when majority-vote unsupervised RLVR collapse from cross-task coupling -> paper:unsupervised-rlvr-collapse
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
-task:math-code-rl-dense -> method:cispo (2611.15404, 2026-08-26)
+task:math-code-rl-dense -> method:cispo (2611.18627, 2026-08-26)
+  when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) -> method:flashreinforce
   when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) -> method:lgpo
   when trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO) -> paper:trait-hitchhiking
   when AI-designed RLVR scaffolds / AutoScaffold (not Pass@1 CISPO / not RGPO GT-rationale) -> method:autoscaffold
@@ -574,7 +579,8 @@ task:mllm-rl-prompt-curriculum -> method:eps-prompt-scaffolding (2609.15051, 202
   when MoE/VL RLVR loss rather than prompt curriculum -> task:math-code-rl-moe
   when outcome-only long-horizon agent RL (coverage / anti-drift or rubric credit) -> task:outcome-only-long-horizon-agent-rl
   when region-level RL / fine-grained MLLM perception (not prompt scaffolding) -> task:mllm-finegrained-perception-rl
-task:multi-reward-rlvr -> method:corrgrpo (2611.09634, 2026-10-02) + method:dara (2611.09634, 2026-10-02)
+task:multi-reward-rlvr -> method:corrgrpo (2611.19064, 2026-10-02) + method:dara (2611.09634, 2026-10-02)
+  when partial-order likelihood over Pareto rankings (POLPO; not Pearson aggregation) -> method:polpo
   when two-stage OT baseline + budget-neutral token credit (TACE) -> method:tace
   when grader-noise coefficient-set calibration on rubric GRPO (SetGRPO) -> method:setgrpo
   when gated-auxiliary projection so auxiliaries cannot reverse the primary (CONCUR) -> method:concur
@@ -600,7 +606,8 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.16304, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04)
+  when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) -> method:ecod
   when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) -> method:acerl
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage) -> method:statealign
   when AI-designed RLVR scaffolds / AutoScaffold (not CANOPY coverage) -> method:autoscaffold
@@ -667,7 +674,9 @@ task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.16304, 2026-09-04
 task:passk-reasoning-coverage -> method:es-reasoning (2610.39295, 2026-08-31)
   when group-dependent coverage rewards / Team-GRPO (not ES-reasoning) -> method:team-grpo
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
-task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
+task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
+  when termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD) -> method:ta-opsd
+  when OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD) -> method:b-opsd
   when code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA) -> method:physopsd
   when bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA) -> method:bopd
   when environment-calibrated command-only OPSD (ECOS; not gold-solution VISTA) -> method:ecos
@@ -702,9 +711,14 @@ task:privileged-teacher-opsd -> method:vista (2611.13680, 2026-08-31)
   when hidden-state privileged OPSD after GRPO (PR-OPD / invisible advantage) -> method:pr-opd
   when system-prompt verbal regularization of a privileged teacher (VRSD) -> method:vrsd
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
-task:reasoning-rl-alignment -> method:cispo (2611.15404, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
+task:reasoning-rl-alignment -> method:cispo (2611.18627, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.14850, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+task:student-distillation -> method:opd (2611.21020, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when OPD for agentic coding / offline cached teacher (SWE-OPD) -> method:swe-opd
+  when shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage) -> method:sh-opd
+  when experience-calibrated multi-turn teacher weights (ECOD; not matching default) -> method:ecod
+  when OPD as a teacher-SFT backdoor propagation channel -> paper:opd-backdoor-propagation
+  when pretraining optimizer gains do not transfer to short-horizon KL distill -> paper:optimizer-kl-distill
   when fold N teacher layers into a shared loop then FKL+CE (Concertina; not reverse-KL OPD) -> method:concertina
   when forward-KL from teacher's highest-prob vocab fraction (Sparse Teacher Support; not reverse-KL OPD) -> method:sparse-teacher-support
   when multi-agent communication as token-level OPSD credit (OPSD4MAS; not matching default) -> method:opsd4mas
@@ -915,7 +929,8 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when Kronecker delta rule linear attention (KronLSTM; not an LSTM) -> method:kronlstm
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
-task:llm-pretraining-optimization -> method:muon2 (2611.17876, 2026-08-26)
+task:llm-pretraining-optimization -> method:muon2 (2611.19419, 2026-08-26)
+  when pretraining optimizer gains do not transfer to short-horizon KL distill -> paper:optimizer-kl-distill
   when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) -> method:loopback-transformer
   when temporary Muon weight decay looks worse at removal (evaluate at the intended budget) -> paper:muon-temporary-wd
   when Factored One-sided Adam-Moment SOAP (FOAM; not Muon2 / not KL-SOAP default) -> method:foam
@@ -980,7 +995,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when zero-natural-data self-play pretraining (generator proposes UTM programs) -> task:zero-natural-data-self-play-pretrain
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
-task:pretrain-dense-7b -> method:muon2 (2611.17876, 2026-08-26)
+task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
   when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
@@ -1935,6 +1950,26 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 658. **Temporary Muon WD** (claim note, no new method): `paper:muon-temporary-wd` (`arXiv:2611.17876`) on `task:llm-pretraining-optimization` / `method:muon2`. λ=0.15 for the first 44% of 1.4B FineWeb-100B looks 0.26 nats worse at removal, overtakes at 73%, finishes 0.0275–0.028 nats better. Late window from 60% hurts. Complements `paper:muon-sw-tuning-gap`. Does **not** retarget Muon2.
 
+659. **FlashREINFORCE**: **FlashREINFORCE** (`method:flashreinforce`, `arXiv:2611.18627`) on `task:agentic-async-rl`. Active plug-in. Critic-free one-rollout async RL (One-Batch REINFORCE + Sequence Trust Region + Sample-Mean Optimization). Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at 256k vs 512k rollouts; ALFWorld 98.3%/96.5%; 6k updates at lag ~4. Code NVIDIA-NeMo/labs-molt. Distinct from `method:flash-opd`. Mention on `task:math-code-rl-dense`. Does **not** replace SAO, CISPO, FTW, or muon-lh-rl.
+
+660. **TA-OPSD**: **TA-OPSD** (`method:ta-opsd`, `arXiv:2611.19925`) on `task:privileged-teacher-opsd`. Active plug-in. Stop/Continue Distillation plus Repetition-Aware Unlikelihood. Qwen3 1.7B/4B/8B beats OPSD. Distinct from `method:opd-eos`. Code gtbxdf4/TA-OPSD. Does **not** replace VISTA.
+
+661. **B-OPSD**: **B-OPSD** (`method:b-opsd`, `arXiv:2611.19273`) on `task:privileged-teacher-opsd`. Active plug-in. Self-generated problem briefs, no GT. Beats OPSD average at three Qwen3 sizes on AIME24/25/HMMT25. Distinct from `method:bopd`. Code ZevineXu/B-OPSD. Does **not** replace VISTA or u-OPSD.
+
+662. **ECOD**: **ECOD** (`method:ecod`, `arXiv:2611.18656`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Experience-calibrated teacher weights on multi-turn OPD. Up to +4.06% vs OPD ALFWorld unseen; paired +6.20% / +7.05% WebShop. No public code. Mention on `task:student-distillation`. Does **not** replace CANOPY or OPD.
+
+663. **SWE-OPD**: **SWE-OPD** (`method:swe-opd`, `arXiv:2611.21020`) on `task:student-distillation`. Active plug-in. Agentic-coding OPD with an offline cached teacher. Qwen3.5-9B SWE-bench Pro 35.9→39.4; 59.4–72.6% fewer GPU-h. Decreasing top-K reverse-KL can still repeat. Code ernie-research/SWE-OPD. Mentions on `task:cross-tokenizer-opd` / `task:software-engineering-agent-harness`. Does **not** replace OPD, Cross-Tokenizer OPD, or mini-SWE-agent.
+
+664. **SpeCal**: **SpeCal** (`method:specal`, `arXiv:2611.20691`, KDD 2027) on `task:label-free-reasoner-posttrain`. Active plug-in. Hidden-state spectra rescale unsupervised RLVR advantages; does not redefine the unlabeled reward. No public code. Does **not** replace u-OPSD.
+
+665. **POLPO**: **POLPO** (`method:polpo`, `arXiv:2611.19064`) on `task:multi-reward-rlvr`. Active plug-in. DPO-style listwise likelihood over Pareto rankings across verifiers. Distinct from `method:gpdpo`. No public code. Does **not** replace CorrGRPO / DARA.
+
+666. **SH-OPD**: **SH-OPD** (`method:sh-opd`, `arXiv:2611.20687`) on `task:student-distillation`. Active plug-in. Shared horizon per batch; math ~45% / code ~60% of full-OPD per-update cost. Distinct from `method:flash-opd`. Code chen123CtrlS/SH-OPD. Does **not** replace OPD.
+
+667. **Pretrain optimizer KL distill** (claim note, no new method): `paper:optimizer-kl-distill` (`arXiv:2611.19419`) on `task:llm-pretraining-optimization` / `method:muon2`. AdamW lowest val KL on short-horizon FKL distill; SOAP/Shampoo/Muon do not transfer. Complements `paper:muon-adamw-ft-gap`. Mention on `task:student-distillation`. Does **not** retarget Muon2.
+
+668. **OPD backdoor propagation** (claim note, no new method): `paper:opd-backdoor-propagation` (`arXiv:2611.19207`) on `task:student-distillation` / `method:opd`. Teacher SFT backdoors transfer under OPD with tiny trigger exposure, stronger than conventional distill. Complements `paper:opd-safety-backdoor`. Does **not** retarget OPD.
+
 
 ---
 
@@ -2595,6 +2630,16 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `edmd` (2611.17194) is an active endpoint-only fake-score DMD plug-in. It does not supersede `diffusion-opsd`, `self-opd`, or `idm`.
 - `acerl` (2611.16409) is an active Experience-Handoff ACE RL plug-in. Distinct from `ace`. It does not supersede `ace` or `canopy`.
 - `paper:muon-temporary-wd` (2611.17876) is a temporary Muon weight-decay gotcha. It does not retarget `muon2`.
+- `flashreinforce` (2611.18627) is an active critic-free one-rollout async RL plug-in. Distinct from `flash-opd`. It does not supersede `sao` or `cispo`.
+- `ta-opsd` (2611.19925) is an active termination-aware privileged-OPSD plug-in. Distinct from `opd-eos`. It does not supersede `vista`.
+- `b-opsd` (2611.19273) is an active brief-conditioned OPSD plug-in without GT. Distinct from `bopd`. It does not supersede `vista` or `u-opsd`.
+- `ecod` (2611.18656) is an active experience-calibrated multi-turn OPD plug-in. It does not supersede `canopy` or `opd`.
+- `swe-opd` (2611.21020) is an active agentic-coding OPD plug-in. It does not supersede `opd`, `cross-tokenizer-opd`, or `mini-swe-agent`.
+- `specal` (2611.20691) is an active spectral-calibration plug-in on unlabeled RLVR. It does not supersede `u-opsd`.
+- `polpo` (2611.19064) is an active Pareto-listwise likelihood plug-in. Distinct from `gpdpo`. It does not supersede `corrgrpo` or `dara`.
+- `sh-opd` (2611.20687) is an active shared-batch horizon OPD plug-in. Distinct from `flash-opd`. It does not supersede `opd`.
+- `paper:optimizer-kl-distill` (2611.19419) is a pretrain-optimizer-on-KL-distill gotcha. It does not retarget `muon2`.
+- `paper:opd-backdoor-propagation` (2611.19207) is an OPD teacher-SFT backdoor-transfer gotcha. Complements `paper:opd-safety-backdoor`. It does not retarget `opd`.
 
 
 ---

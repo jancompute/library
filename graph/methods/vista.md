@@ -8,6 +8,12 @@ sota_for:
   - task:privileged-teacher-opsd
 supersedes: []
 do_not_use_for:
+  - when: 'termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD)'
+    reason: 'VISTA remains gold-solution OPSD; TA-OPSD adds stop/continue plus repetition unlikelihood'
+    use_instead: method:ta-opsd
+  - when: 'OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD)'
+    reason: 'VISTA remains gold-solution OPSD; B-OPSD replaces the gold with a self-generated brief'
+    use_instead: method:b-opsd
   - when: 'code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA)'
     reason: 'VISTA remains gold-solution text OPSD; PhysOPSD is video with compiled physics as privilege'
     use_instead: method:physopsd
@@ -83,8 +89,10 @@ do_not_use_for:
   - when: "teachable prefixes + recoverability verification against Teacher Drift (TOPSD)"
     reason: "VISTA remains gold-solution privileged OPSD; TOPSD gates prefixes when the teacher follows student errors"
     use_instead: "method:topsd"
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:ta-opsd
+  - paper:b-opsd
   - paper:bopd
   - paper:ecos
   - paper:topsd

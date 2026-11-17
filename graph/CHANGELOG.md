@@ -6,6 +6,51 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-17 — weekday SOTA sweep (FlashREINFORCE, TA-OPSD, B-OPSD, ECOD, SWE-OPD, SpeCal, POLPO, SH-OPD; notes optimizer-kl-distill, opd-backdoor-propagation)
+- Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-17 Librarian weekday sweep after merged PR 66 (watermark 2611.18533 ingest / listing considered 2611.18563, 6da3ba5, ~2319 nodes / 9410 edges). Covers Tuesday 17 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.18563 (listing 2611.18564–2611.21608) plus double-check 2611.18534–2611.18563 (empty) and HF Daily 2026-11-16 leftovers (already ingested/skipped last run) / 2026-11-17. New high id 2611.21020 (ingest) / 2611.21608 (listing considered). Distinct slug `flashreinforce` from `method:flash-opd`. Distinct `ta-opsd` from `method:opd-eos`. Distinct `b-opsd` from `method:bopd`. Distinct `polpo` from `method:gpdpo`. Distinct `sh-opd` from `method:flash-opd`.
+- SKIP (considered, not ingested): Trident 2611.18585 (test-time harness); LoopFill / LoopSkim (inference); Sage / K2-Horizon reports; GRAFT LoRA 2611.18638 (weak vs random LoRA; distinct from `method:graft`); Check Token 2611.18564; ParGLU (30–152M); CertiSum / MIXFP4; Latent Lattice 2611.21608; LEAF-OPD unlearning; PREFACE; RepoFactory; STONE 2611.18916; DistOPD 2611.18648; Agentic OPD ReAct analysis.
+
+### 2026-11-17 — ingest method:flashreinforce (active on task:agentic-async-rl; does not supersede method:sao / method:cispo / method:ftw / method:muon-lh-rl)
+- Added paper:flashreinforce, method:flashreinforce, recipe:flashreinforce (`code_status: released`, NVIDIA-NeMo/labs-molt). Mention on task:math-code-rl-dense.
+- Status active (`sota_for: []`). Critic-free one-rollout async RL. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at 256k vs 512k rollouts; ALFWorld 98.3%/96.5%; 6k updates at lag ~4. Distinct from method:flash-opd.
+
+### 2026-11-17 — ingest method:ta-opsd (active on task:privileged-teacher-opsd; does not supersede method:vista / method:opd-eos)
+- Added paper:ta-opsd, method:ta-opsd, recipe:ta-opsd (`code_status: released`, gtbxdf4/TA-OPSD).
+- Status active (`sota_for: []`). Stop/Continue Distillation plus Repetition-Aware Unlikelihood. Qwen3 1.7B/4B/8B beats OPSD. Distinct from method:opd-eos.
+
+### 2026-11-17 — ingest method:b-opsd (active on task:privileged-teacher-opsd; does not supersede method:vista / method:u-opsd / method:bopd)
+- Added paper:b-opsd, method:b-opsd, recipe:b-opsd (`code_status: released`, ZevineXu/B-OPSD).
+- Status active (`sota_for: []`). Self-generated problem briefs, no GT. Beats OPSD average at three Qwen3 sizes. Distinct from method:bopd.
+
+### 2026-11-17 — ingest method:ecod (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:opd)
+- Added paper:ecod, method:ecod, recipe:ecod (`code_status: none`). Mention on task:student-distillation.
+- Status active (`sota_for: []`). Experience-calibrated teacher weights on multi-turn OPD. Up to +4.06% vs OPD ALFWorld unseen.
+
+### 2026-11-17 — ingest method:swe-opd (active on task:student-distillation; does not supersede method:opd / method:cross-tokenizer-opd / method:mini-swe-agent)
+- Added paper:swe-opd, method:swe-opd, recipe:swe-opd (`code_status: released`, ernie-research/SWE-OPD). Mentions on task:cross-tokenizer-opd / task:software-engineering-agent-harness.
+- Status active (`sota_for: []`). Agentic-coding OPD with an offline cached teacher. Qwen3.5-9B SWE-bench Pro 35.9→39.4; 59.4–72.6% fewer GPU-h. High ingest id 2611.21020.
+
+### 2026-11-17 — ingest method:specal (active on task:label-free-reasoner-posttrain; does not supersede method:u-opsd)
+- Added paper:specal, method:specal, recipe:specal (`code_status: none`). KDD 2027.
+- Status active (`sota_for: []`). Hidden-state spectra rescale unsupervised RLVR advantages; does not redefine the unlabeled reward.
+
+### 2026-11-17 — ingest method:polpo (active on task:multi-reward-rlvr; does not supersede method:corrgrpo / method:dara / method:gpdpo)
+- Added paper:polpo, method:polpo, recipe:polpo (`code_status: none`). Distinct from method:gpdpo.
+- Status active (`sota_for: []`). DPO-style listwise likelihood over Pareto rankings across verifiers.
+
+### 2026-11-17 — ingest method:sh-opd (active on task:student-distillation; does not supersede method:opd / method:flash-opd)
+- Added paper:sh-opd, method:sh-opd, recipe:sh-opd (`code_status: released`, chen123CtrlS/SH-OPD). Distinct from method:flash-opd.
+- Status active (`sota_for: []`). Shared horizon per batch; math ~45% / code ~60% of full-OPD per-update cost.
+
+### 2026-11-17 — ingest paper:optimizer-kl-distill (claim note on method:muon2; does not retarget Muon2)
+- Added paper:optimizer-kl-distill. Linked from method:muon2 papers and do_not_use_for; redirect on task:llm-pretraining-optimization. Mention on task:student-distillation.
+- AdamW lowest val KL on short-horizon FKL distill; SOAP/Shampoo/Muon do not transfer. Complements paper:muon-adamw-ft-gap.
+
+### 2026-11-17 — ingest paper:opd-backdoor-propagation (claim note on method:opd; does not retarget OPD)
+- Added paper:opd-backdoor-propagation. Linked from method:opd papers and do_not_use_for; redirect on task:student-distillation.
+- Teacher SFT backdoors transfer under OPD with tiny trigger exposure, stronger than conventional distill. Complements paper:opd-safety-backdoor.
+
 ### 2026-11-16 — weekday SOTA sweep (Loopback, Concertina, SCALAR, SEBO, TIDE, ModHarness-RL, eDMD, ACE-RL; note muon-temporary-wd)
 - Eight active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-16 Librarian weekday sweep after merged PR 65 (watermark 2611.16905 ingest / listing considered 2611.17332, 872c10d, ~2294 nodes / 9340 edges). Covers Friday 13 Nov evening through Monday 16 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.17332 (listing 2611.17338–2611.18563) plus double-check 2611.16905–2611.17332 and HF Daily 2026-11-14 / 2026-11-15 (empty weekend) / 2026-11-16 leftovers (Loopback 2611.07226, eDMD 2611.17194) plus 2026-11-13 leftover ACE-RL 2611.16409. New high id 2611.18533 (ingest) / 2611.18563 (listing considered). Distinct slug `scalar-peft` from other PEFT nodes. Distinct `sebo` from SPG. Distinct `acerl` from `method:ace`. Distinct `edmd` from `method:idm` / `method:fewsteprl`. Distinct `tide` from `method:thundersyncrl`. Distinct `modharness-rl` from `method:harnessrl` / `method:omp2-harness`.

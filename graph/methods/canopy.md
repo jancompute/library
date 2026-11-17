@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; ECOD reweights teacher OPD losses'
+    use_instead: method:ecod
   - when: 'Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage)'
     reason: 'CANOPY remains sparse-outcome coverage; ACE-RL rewards memory handoff by a downstream actor'
     use_instead: method:acerl
@@ -141,8 +144,9 @@ assumptions:
   - "A held-out unit-test / patch verifier exists. Sparse fully-correct reward, not pass-fraction."
   - "Paper: Qwen3-14B on AppWorld train split (90 tasks), veRL, n=32, 50 turns / 32k train, 100 turns / 61k test, KL β=1e-4, lr 3e-6, 90 steps, hardest tier kept."
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:ecod
   - paper:statealign
   - paper:autoscaffold
   - paper:verifiable-rl-misalignment

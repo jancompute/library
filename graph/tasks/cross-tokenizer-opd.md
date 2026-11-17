@@ -11,6 +11,8 @@ out_of_scope:
   - "Multi-teacher capability merging (Open-MOPD)"
   - "OPD used as a safety-alignment trainer (backdoor risk note)"
 redirects:
+  - when: "OPD for agentic coding / offline cached teacher (SWE-OPD; not the 1:1 bake-off)"
+    to: "method:swe-opd"
   - when: "common-support distillation for cross-tokenizer knowledge transfer (CSD)"
     to: "method:csd"
   - when: "trace-bridged self-distillation when teacher logp is missing (not 1:1 coverage)"
@@ -31,6 +33,7 @@ current_sota:
     value: "strict 1:1 covers 85.57–96.98% of student tokens; k=16 retains ≥96% of full shared-vocab OPD"
     notes: "Cross-Tokenizer OPD (2610.08448). Method status active. Does not replace OPD on same-tokenizer student distillation."
 methods:
+  - method:swe-opd
   - method:csd
   - method:bridged-self-distill
   - method:cast
@@ -38,7 +41,7 @@ methods:
   - method:opd
   - method:sparse-opd-supervision
   - method:np-opd
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - distillation
@@ -59,6 +62,7 @@ This is **not** same-tokenizer OPD and not privileged-teacher OPSD.
 - **Evaluation Pitfalls**: Span-level MSE alignment can hurt. Do not treat this as a retarget of `method:opd` on same-tokenizer distillation.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Related SWE-agent OPD transfer (not this 1:1 bake-off)**: `method:swe-opd` (`arXiv:2611.21020`) on `task:student-distillation`. GLM-4.5-Air from DeepSeek-V4-Flash Pro 35.8→39.7 is transfer, not the library 1:1 / k=16 protocol. Does not replace Cross-Tokenizer OPD.
 - **Primary (this task only)**: **Cross-Tokenizer OPD** (`method:cross-tokenizer-opd`, `paper:cross-tokenizer-opd` `arXiv:2610.08448`). Status `active`. Listed here as first hop; method `sota_for` stays empty.
 - **Optional chunk-credit plug-in (not this coverage first hop)**: `method:cast` (`arXiv:2610.13257`) reweights student tokens inside aligned chunks so weights sum to the chunk advantage. +2.45 Mistral-7B / +1.32 Llama-3.1-8B vs strongest evaluated baseline. No public code. Does not replace Cross-Tokenizer OPD coverage or same-tokenizer OPD.
 - **Not This Task**: `method:opd` remains same-tokenizer matching; `method:vista` remains privileged-teacher OPSD.

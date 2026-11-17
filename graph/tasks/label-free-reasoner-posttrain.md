@@ -12,16 +12,19 @@ current_sota:
     value: "+8.5% to +10.7% over base; beats supervised OPSD by +2.3% to +3.2% on non-thinking"
     notes: "u-OPSD (2608.06296) majority-votes own rollouts and distills pseudo-solution-conditioned distribution onto disagreeing paths."
 redirects:
+  - when: "spectral calibration of unsupervised RLVR advantages (SpeCal)"
+    to: "method:specal"
   - when: "majority-vote unsupervised RLVR collapse from cross-task coupling"
     to: "paper:unsupervised-rlvr-collapse"
 methods:
+  - method:specal
   - method:u-opsd
   - method:ttpo
   - method:j-zero
   - method:opdvr
   - method:cispo
   - method:opsa
-last_reviewed: "2026-10-28"
+last_reviewed: "2026-11-17"
 tags:
   - post-training
   - distillation
@@ -36,6 +39,7 @@ Training and aligning multi-step reasoning capabilities on vast corpora of unlab
 
 ## SOTA Recommendation (as of 2026-08-28)
 - **Primary Method**: **u-OPSD** (`method:u-opsd`, `paper:u-opsd` `arXiv:2608.06296`) for unsupervised on-policy self-distillation.
+- **Optional spectral calibration of unlabeled RLVR (not this consensus default)**: `method:specal` (`arXiv:2611.20691`, KDD 2027). Hidden-state spectra rescale group/rollout advantages; does not redefine the unlabeled reward. No public code. Does not replace u-OPSD.
 - **When Labels/Verifiers Exist**: Prefer `method:opdvr` (for distillation with verifiers) or `method:cispo` (for train-time RL with labels).
 - **Data-free self-evolution (no existing problem corpus, including unverifiable domains)**: Use `method:j-zero`. u-OPSD remains the default for unlabeled existing math problems (no Challenger; consensus pseudo-solutions).
 - **Teacher-free on-policy self-adaptation (no consensus teacher)**: `method:opsa` on `task:teacher-free-on-policy-self-adaptation`. Does not replace u-OPSD's majority-vote protocol.

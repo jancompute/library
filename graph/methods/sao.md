@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'critic-free single-rollout async RL (FlashREINFORCE; not async stragglers)'
+    reason: 'SAO remains async straggler replay; FlashREINFORCE is critic-free one-pass REINFORCE'
+    use_instead: method:flashreinforce
   - when: 'colocated on-policy GPU reclaim (TIDE; not async stragglers)'
     reason: 'SAO remains async straggler replay; TIDE is colocated on-policy GPU reclaim'
     use_instead: method:tide
@@ -91,8 +94,9 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 papers:
+  - paper:flashreinforce
   - paper:statealign
   - paper:multi-turn-rl-budget
   - paper:muon-lh-rl

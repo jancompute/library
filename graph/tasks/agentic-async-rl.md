@@ -22,6 +22,8 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "critic-free single-rollout async RL (FlashREINFORCE; not async stragglers)"
+    to: "method:flashreinforce"
   - when: "colocated on-policy GPU reclaim (TIDE; not async stragglers)"
     to: "method:tide"
   - when: "state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers)"
@@ -104,6 +106,7 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:flashreinforce
   - method:tide
   - method:statealign
   - method:rlid
@@ -145,7 +148,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-17'
 tags:
   - post-training
   - agentic
@@ -162,6 +165,7 @@ This is **policy training**. Building a software-engineering agent loop is `task
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Optional critic-free one-rollout async RL (not this async default)**: `method:flashreinforce` (`arXiv:2611.18627`). One-Batch REINFORCE + Sequence Trust Region + Sample-Mean Optimization. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at 256k vs 512k rollouts; ALFWorld 98.3%/96.5%; 6k updates at lag ~4. Code NVIDIA-NeMo/labs-molt. Distinct from `method:flash-opd`. Mention on `task:math-code-rl-dense`. Does not replace SAO, CISPO, FTW, or muon-lh-rl.
 - **Related colocated on-policy GPU reclaim (not this async default)**: `method:tide` (`arXiv:2611.17924`) on `task:frontier-rl-posttrain-stack`. Reclaim finished colocated rollout GPUs; stays on-policy. Distinct from ThunderSyncRL. Does not replace SAO or Miles.
 - **Optional state-contrast tool RL (not this async default)**: `method:statealign` (`arXiv:2611.16304`). Qwen3-8B BFCL v4 multi-turn 45.5%→55.2%; no-tool hallucination 62.2%→56.1% vs outcome-only. Code ZhexiLu/StateAlign. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO or CANOPY.
 - **Not this async default (decision-plane RL)**: `method:rlid` (`arXiv:2611.02455`) on `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO.

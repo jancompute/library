@@ -16,10 +16,14 @@ do_not_use_for:
     - when: 'prepare-then-freeze teacher RL on student prefixes'
       reason: 'Prep-OPD RL-trains an external teacher then freezes; BOPD bootstraps a same-size OPSD teacher'
       use_instead: method:prep-opd
+    - when: 'OPSD without GT via self-generated problem briefs (B-OPSD)'
+      reason: 'BOPD is bootstrapped OPSD then OPD; B-OPSD is brief-conditioned OPSD without GT'
+      use_instead: method:b-opsd
 assumptions:
     - 'Same-size privileged OPSD teacher in Stage I, then a fresh student from the initial checkpoint in Stage II. Paper: Qwen3-4B/8B and SmolLM3-3B, LoRA r=64, 100 steps/stage. Code YueWu0301/BOPD. arXiv 2611.13680 above watermark 2611.12886.'
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-17'
 papers:
+- paper:b-opsd
 - paper:bopd
 recipes:
 - recipe:bopd
