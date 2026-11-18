@@ -15,6 +15,8 @@ out_of_scope:
 - Text-to-image / flow reward alignment (DiffusionOPSD / Self-OPD)
 - Lossless multi-token / diffusion-augmented AR serving (Uno)
 redirects:
+- when: "GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not continuous pretrain)"
+  to: "method:remar"
 - when: "temporal self-conditioning inside a frozen masked dLLM (TDLM; not continuous pretrain)"
   to: "method:tdlm"
 - when: "pure self-conditioning continuous DLM (LAW)"
@@ -45,6 +47,7 @@ current_sota:
     (design-space, not a 7B bake-off). Method sota_for stays empty. Does not replace
     A2D or CanvasAnneal.
 methods:
+- method:remar
 - method:law
 - method:lafa
 - method:justopd
@@ -54,7 +57,7 @@ methods:
 - method:diffusion-opsd
 - method:self-opd
 - method:uno
-last_reviewed: '2026-10-22'
+last_reviewed: '2026-11-18'
 tags:
 - diffusion
 - pretraining
@@ -75,6 +78,7 @@ This is **not** discrete dLLM recycle (A2D) and not image/flow alignment.
 
 ## SOTA Recommendation (as of 2026-10-13)
 - **Experimental first hop (this task only)**: **SemiCat / DoubleCat** (`method:semicat`, `paper:semicat` `arXiv:2610.13834`). Status `active`. Method `sota_for` stays empty. No public code.
+- **Related frozen-dLLM remask policy (not this continuous pretrain hop)**: `method:remar` (`arXiv:2611.22576`) on `task:diffusion-lm-ar-delta-recycle`. Discrete remasking at inference. Code EgorShibaev/remarl. Does not replace SemiCat.
 - **Not This Task**: `method:a2d` remains discrete-dLLM AR-delta recycle; `method:canvasanneal` remains discrete canvas RL; `method:diffusion-opsd` / `method:self-opd` remain image/flow post-train.
 - **Gotcha (16× compute protocol)**: `paper:dlm-ar-compute-gap` (`arXiv:2610.17590`). Under exact likelihood the gap shrinks (ELBO MDM 17.8× → DUEL 12.8×; E2D2 b=4 3.0×). Discrete vs AR, not SemiCat continuous. Project guanghanwang.com/dlm-scaling. Does not retarget SemiCat.
 - **Not this task (AR→discrete dLLM OPD)**: `method:justopd` (`arXiv:2610.17397`) on `task:diffusion-lm-ar-delta-recycle`. Does not replace SemiCat.

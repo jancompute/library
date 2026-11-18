@@ -167,6 +167,7 @@ task:continuous-control-world-model -> method:efficienttdmpc (2605.16692, 2026-0
   when continual RL of a frozen robot policy via world-model imagination rehearsal (D2R) -> method:d2r
 task:visuomotor-servo-control -> method:td-mpc2 (2310.16828, 2026-08-26)
 task:continuous-diffusion-lm-pretrain -> method:semicat (2610.17590, 2026-10-13)
+  when GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not continuous pretrain) -> method:remar
   when temporal self-conditioning inside a frozen masked dLLM (TDLM; not continuous pretrain) -> method:tdlm
   when pure self-conditioning continuous DLM (LAW) -> method:law
   when Large Flow Language Models (Lafa blockwise flow from AR init) -> method:lafa
@@ -177,6 +178,7 @@ task:continuous-diffusion-lm-pretrain -> method:semicat (2610.17590, 2026-10-13)
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
 task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.41574, 2026-10-07)
+  when GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not AR-delta recycle / not TDLM / not ForkGRPO) -> method:remar
   when full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle) -> method:sebo
   when LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle) -> method:byod
   when cross-budget self-distillation for masked dLLMs (HiLo-RD) -> method:hilo-rd
@@ -328,6 +330,7 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
 task:agentic-async-rl -> method:sao (2611.18627, 2026-08-26)
+  when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) -> method:rsc
   when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) -> method:flashreinforce
   when colocated on-policy GPU reclaim (TIDE; not async stragglers) -> method:tide
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) -> method:statealign
@@ -460,6 +463,8 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2611.20691, 2026-08-28)
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
 task:math-code-rl-dense -> method:cispo (2611.18627, 2026-08-26)
+  when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) -> method:ash
+  when reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO) -> method:rsc
   when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) -> method:flashreinforce
   when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) -> method:lgpo
   when trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO) -> paper:trait-hitchhiking
@@ -567,6 +572,7 @@ task:mechanism-grounded-agentic-rl-env -> method:vhd-play (2609.27321, 2026-09-2
   when AppWorld coverage -> task:outcome-only-long-horizon-agent-rl
   when async stragglers -> task:agentic-async-rl
 task:mllm-finegrained-perception-rl -> method:vision-rl2 (2609.19745, 2026-09-21)
+  when latent reward landing field from cross-modal geometry (Gaze-RL; not RoI / Vision-RL2) -> method:gaze-rl
   when cycle GRPO coupling region understanding and localization (CycleGRPO) -> method:cyclegrpo
   when online adaptive prompt selection / teacher scaffolding for image/VL GRPO -> task:mllm-rl-prompt-curriculum
   when video annotation-as-rollout / fine-grained video perception RL -> task:rl-video-mllm
@@ -574,6 +580,7 @@ task:mllm-finegrained-perception-rl -> method:vision-rl2 (2609.19745, 2026-09-21
   when MoE/VL RLVR loss rather than region proposal -> task:math-code-rl-moe
   when MLLM privileged OPSD with textual spatial guidance from synthetic scenes (not crop-zoom teachers) -> method:where-opd
 task:mllm-rl-prompt-curriculum -> method:eps-prompt-scaffolding (2609.15051, 2026-09-15)
+  when latent reward landing field from cross-modal geometry (Gaze-RL; not prompt scaffolding) -> method:gaze-rl
   when video annotation-as-rollout / fine-grained video perception RL -> task:rl-video-mllm
   when single-turn dense text math/code Pass@1 RLVR -> task:math-code-rl-dense
   when MoE/VL RLVR loss rather than prompt curriculum -> task:math-code-rl-moe
@@ -607,6 +614,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04)
+  when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) -> method:rsc
   when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) -> method:ecod
   when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) -> method:acerl
   when state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage) -> method:statealign
@@ -714,6 +722,7 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
 task:reasoning-rl-alignment -> method:cispo (2611.18627, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2611.21020, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix) -> method:m3opd-reasoner
   when OPD for agentic coding / offline cached teacher (SWE-OPD) -> method:swe-opd
   when shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage) -> method:sh-opd
   when experience-calibrated multi-turn teacher weights (ECOD; not matching default) -> method:ecod
@@ -930,6 +939,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2611.19419, 2026-08-26)
+  when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) -> method:tphc
   when pretraining optimizer gains do not transfer to short-horizon KL distill -> paper:optimizer-kl-distill
   when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) -> method:loopback-transformer
   when temporary Muon weight decay looks worse at removal (evaluate at the intended budget) -> paper:muon-temporary-wd
@@ -1007,6 +1017,7 @@ task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when one-step prefix-augmented OPD for continued pretrain (PA1-OPD) -> method:pa1-opd
 task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+  when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) -> method:tphc
   when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) -> method:simplehc
   when inference deactivation must match train-time weight rule -> paper:moe-expert-deactivation-weight-rule
   when Muon raises first MoE layer routing-bias span (not the architecture template) -> paper:muon-first-moe-layer
@@ -1105,6 +1116,7 @@ task:learned-video-compression -> method:dcvc-uf (2606.04410, 2026-08-26) + meth
 task:neural-video-deploy -> method:mlvc (2606.28027, 2026-08-26)
 task:neural-video-gpu -> method:dcvc-uf (2606.04410, 2026-08-26)
 task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
+  when latent reward landing field from cross-modal geometry (Gaze-RL; not OraRL annotation-as-rollout) -> method:gaze-rl
   when turn-level GRPO remaining-return + turn-mean loss for streaming video (TurnWise) -> method:turnwise
   when multi-frame video GRPO / complementary frame sets (FrameGRPO) -> method:framegrpo
   when general image/multimodal reasoning RL prompt curriculum (not video OraRL) -> task:mllm-rl-prompt-curriculum
@@ -1970,6 +1982,18 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 668. **OPD backdoor propagation** (claim note, no new method): `paper:opd-backdoor-propagation` (`arXiv:2611.19207`) on `task:student-distillation` / `method:opd`. Teacher SFT backdoors transfer under OPD with tiny trigger exposure, stronger than conventional distill. Complements `paper:opd-safety-backdoor`. Does **not** retarget OPD.
 
+669. **TPHC**: **TPHC** (`method:tphc`, `arXiv:2611.23026`) on `task:llm-pretraining-optimization`. Active plug-in. Tensor-parallel grouped Hyper-Connection updates. 1.1B / 100B SlimPajama TPHC4 2.0838 / 48.9 vs mHC4 2.0985 / 48.6; TPHC8 2.0706 / 49.3 vs mHC16 2.0885 / 49.0; 8B TP-sharded TPHC4 +9% train time vs mHC4. Code wuyou2002/TPHC. Mention on `task:pretrain-moe-frontier`. Does **not** replace mHC, SimpleHC, or DeepSeek-V4.
+
+670. **M3OPD-Reasoner**: **M3OPD-Reasoner** (`method:m3opd-reasoner`, `arXiv:2611.23034`) on `task:student-distillation`. Active plug-in. VLM GSPO teachers then MOPD then MixRL. Qwen3.5-9B 21-bench avg@8 MixRL 74.4 → MOPD+MixRL 75.9 (STEM 77.1 / perception 81.9 / video 64.1). Paper MOPD is not the library 83.4% bake-off. Code ngquangtrung57/M3OPD-Reasoner. Distinct from `method:reframe`. Does **not** replace Open-MOPD or OPD.
+
+671. **RSC**: **RSC** (`method:rsc`, `arXiv:2611.21791`) on `task:agentic-async-rl`. Active plug-in. Reverse-KL score centering of regularized IS. AppWorld 14.04 vs SC 12.28 (+14.3%); BabyAI 18.06 vs IS-PPOClip 1.83 (9.9×). GitHub BiEchi/rsc announced empty. Mentions on `task:math-code-rl-dense` / `task:outcome-only-long-horizon-agent-rl`. Does **not** replace SAO, CISPO, DLC, or CANOPY. Does **not** supersede `paper:score-centering-pg`.
+
+672. **ASH**: **ASH** (`method:ash`, `arXiv:2611.23124`) on `task:math-code-rl-dense`. Active plug-in. Hint-augmented GRPO via residual activation steering. Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34. Distinct from H2R / Guided-RLVR / SV-Training / ASE. No public GitHub. Does **not** replace CISPO.
+
+673. **Gaze-RL**: **Gaze-RL** (`method:gaze-rl`, `arXiv:2611.22438`) on `task:mllm-finegrained-perception-rl`. Active plug-in. Mean-one latent reward landing field from cross-modal geometry. Qwen2.5-VL-7B Geometry3K 36.8→47.9 vs GRPO 39.6 / DAPO 41.9; MathVista 67.2→70.4 vs GRPO 68.6. Code lixuan27/Gaze-RL-main. Mentions on `task:rl-video-mllm` / `task:mllm-rl-prompt-curriculum`. Does **not** replace Vision-RL2.
+
+674. **ReMaRL**: **ReMaRL** (`method:remar`, `arXiv:2611.22576`) on `task:diffusion-lm-ar-delta-recycle`. Active plug-in. Frozen-dLLM GRPO unmask/retain/remask. LLaDA-8B-Instruct GSM8K NFE8 53.60 vs P2′ τ=1 28.76 / calibrated τ=0.25 42.30. Code EgorShibaev/remarl. Distinct from TDLM / ForkGRPO. Mention on `task:continuous-diffusion-lm-pretrain`. Does **not** replace A2D.
+
 
 ---
 
@@ -2640,6 +2664,12 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `sh-opd` (2611.20687) is an active shared-batch horizon OPD plug-in. Distinct from `flash-opd`. It does not supersede `opd`.
 - `paper:optimizer-kl-distill` (2611.19419) is a pretrain-optimizer-on-KL-distill gotcha. It does not retarget `muon2`.
 - `paper:opd-backdoor-propagation` (2611.19207) is an OPD teacher-SFT backdoor-transfer gotcha. Complements `paper:opd-safety-backdoor`. It does not retarget `opd`.
+- `tphc` (2611.23026) is an active TP-grouped Hyper-Connection plug-in. Distinct from `simplehc` / `mhc` / `msar`. It does not supersede `mhc`, `simplehc`, or `deepseek-v4`.
+- `m3opd-reasoner` (2611.23034) is an active VLM GSPO-then-MOPD-then-MixRL plug-in. Distinct from `reframe`. Paper MOPD is not the library 83.4% bake-off. It does not supersede `open-mopd` or `opd`.
+- `rsc` (2611.21791) is an active reverse-KL score-centering plug-in. Distinct from `paper:score-centering-pg`. It does not supersede `sao`, `cispo`, `dlc`, `canopy`, or `paper:score-centering-pg`.
+- `ash` (2611.23124) is an active hint-augmented GRPO residual-steering plug-in. Distinct from `ase` / `h2r` / `guided-rlvr` / `sv-training`. It does not supersede `cispo`.
+- `gaze-rl` (2611.22438) is an active mean-one visual-credit plug-in. Distinct from `vision-rl2` / `cyclegrpo`. It does not supersede `vision-rl2`.
+- `remar` (2611.22576) is an active frozen-dLLM remask-policy plug-in. Distinct from `tdlm` / `forkgrpo`. It does not supersede `a2d`.
 
 
 ---

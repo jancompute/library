@@ -5,6 +5,8 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix)"
+    to: "method:m3opd-reasoner"
   - when: "OPD for agentic coding / offline cached teacher (SWE-OPD)"
     to: "method:swe-opd"
   - when: "shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage)"
@@ -255,6 +257,7 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:m3opd-reasoner
   - method:swe-opd
   - method:sh-opd
   - method:ecod
@@ -380,7 +383,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-18'
 tags:
   - post-training
   - distillation
@@ -395,6 +398,7 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional VLM GSPO-then-MOPD-then-MixRL (not this matching default)**: `method:m3opd-reasoner` (`arXiv:2611.23034`). Qwen3.5-9B 21-bench avg@8 MixRL 74.4 → MOPD+MixRL 75.9 (STEM 77.1 / perception 81.9 / video 64.1). Paper MOPD is not the library 83.4% bake-off. Code ngquangtrung57/M3OPD-Reasoner. Distinct from `method:reframe`. Does not replace Open-MOPD or OPD.
 - **Optional SWE-agent OPD (not this matching default)**: `method:swe-opd` (`arXiv:2611.21020`). Qwen3.5-9B SWE-bench Pro 35.9→39.4; offline cached teacher 59.4–72.6% fewer GPU-h. Decreasing top-K reverse-KL can still repeat. Code ernie-research/SWE-OPD. Mentions on `task:cross-tokenizer-opd` / `task:software-engineering-agent-harness`. Does not replace OPD or mini-SWE-agent.
 - **Optional shared-batch horizon OPD (not this matching default)**: `method:sh-opd` (`arXiv:2611.20687`). Shared horizon per batch; math ~45% / code ~60% of full-OPD per-update cost. Distinct from `method:flash-opd`. Code chen123CtrlS/SH-OPD. Does not replace OPD.
 - **Related experience-calibrated multi-turn OPD (not this matching default)**: `method:ecod` (`arXiv:2611.18656`) on `task:outcome-only-long-horizon-agent-rl`. Up to +4.06% vs OPD on ALFWorld unseen. No public code. Does not replace OPD or CANOPY.

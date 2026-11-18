@@ -6,6 +6,35 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-18 — weekday SOTA sweep (TPHC, M3OPD-Reasoner, RSC, ASH, Gaze-RL, ReMaRL)
+- Six active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-18 Librarian weekday sweep after merged PR 67 (watermark 2611.21020 ingest / listing considered 2611.21608, 820312b, 2345 nodes / 9512 edges). Covers Wednesday 18 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.21608 (listing 2611.21622–2611.23229) plus HF Daily 2026-11-17 leftovers (already ingested/skipped last run) / 2026-11-18. New high id 2611.23124 (ingest) / 2611.23229 (listing considered). Distinct slug `tphc` from `method:simplehc` / `method:mhc` / `method:msar`. Distinct `m3opd-reasoner` from `method:open-mopd` / `method:reframe`. Distinct `rsc` from `paper:score-centering-pg` (does not add to that paper's methods list). Distinct `ash` from `method:ase` / `method:h2r` / `method:guided-rlvr` / `method:sv-training`. Distinct `gaze-rl` from `method:vision-rl2` / `method:cyclegrpo`. Distinct `remar` from `method:tdlm` / `method:forkgrpo`.
+- SKIP (considered, not ingested): Streaming OPD 2611.22298 (sync 73.39 vs 74.30; SH-OPD / Flash-OPD already cover horizon); Ambient SFT WIP 2611.23229; InfuseLoop 2611.22426; BQ-LoRA 2611.22334; AGA 2611.23038 / RiDEx 2611.22052; PACT GUI 2611.22591 (slug collision with `method:pact`); Self-rewriting 2611.21885; Xing4 2611.22115; CrossEnv 2611.22777 (no code; incremental vs CodeMidas / SynthAPI / ToolSpace); HADVQ / DAQ; Structure-Residual BBC/CC; DeltaHarness / JevRSI / RSI-Prime / gameplay self-improve; TempQuant / RISA / Kernel Reality Check; “Do LLM agents still need to be told”; RepoFactory / Agentic OPD ReAct / Sage / K2-Horizon / LoopFill (honor yesterday SKIP).
+
+### 2026-11-18 — ingest method:tphc (active on task:llm-pretraining-optimization; does not supersede method:mhc / method:simplehc / method:deepseek-v4)
+- Added paper:tphc, method:tphc, recipe:tphc (`code_status: released`, wuyou2002/TPHC). Mention on task:pretrain-moe-frontier.
+- Status active (`sota_for: []`). TP-grouped Hyper-Connection updates. 1.1B / 100B SlimPajama TPHC4 2.0838 / 48.9 vs mHC4 2.0985 / 48.6; TPHC8 2.0706 / 49.3 vs mHC16 2.0885 / 49.0.
+
+### 2026-11-18 — ingest method:m3opd-reasoner (active on task:student-distillation; does not supersede method:open-mopd / method:reframe / method:opd)
+- Added paper:m3opd-reasoner, method:m3opd-reasoner, recipe:m3opd-reasoner (`code_status: released`, ngquangtrung57/M3OPD-Reasoner).
+- Status active (`sota_for: []`). VLM GSPO teachers then MOPD then MixRL. Qwen3.5-9B 21-bench avg@8 MixRL 74.4 → MOPD+MixRL 75.9. Paper MOPD is not the library 83.4% bake-off.
+
+### 2026-11-18 — ingest method:rsc (active on task:agentic-async-rl; does not supersede method:sao / method:cispo / method:dlc / method:canopy / paper:score-centering-pg)
+- Added paper:rsc, method:rsc, recipe:rsc (`code_status: announced`, BiEchi/rsc empty). Mentions on task:math-code-rl-dense / task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Reverse-KL score centering. AppWorld 14.04 vs SC 12.28 (+14.3%); BabyAI 18.06 vs IS-PPOClip 1.83 (9.9×). Does not add method:rsc to paper:score-centering-pg methods.
+
+### 2026-11-18 — ingest method:ash (active on task:math-code-rl-dense; does not supersede method:cispo / method:h2r / method:guided-rlvr / method:sv-training / method:ase)
+- Added paper:ash, method:ash, recipe:ash (`code_status: none`).
+- Status active (`sota_for: []`). Hint-augmented GRPO via residual activation steering. Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34.
+
+### 2026-11-18 — ingest method:gaze-rl (active on task:mllm-finegrained-perception-rl; does not supersede method:vision-rl2 / method:cyclegrpo / method:eps-prompt-scaffolding / method:orarl)
+- Added paper:gaze-rl, method:gaze-rl, recipe:gaze-rl (`code_status: released`, lixuan27/Gaze-RL-main). Mentions on task:rl-video-mllm / task:mllm-rl-prompt-curriculum.
+- Status active (`sota_for: []`). Mean-one latent reward landing field. Qwen2.5-VL-7B Geometry3K 36.8→47.9 vs GRPO 39.6 / DAPO 41.9; MathVista 67.2→70.4 vs GRPO 68.6.
+
+### 2026-11-18 — ingest method:remar (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d / method:tdlm / method:forkgrpo / method:semicat)
+- Added paper:remar, method:remar, recipe:remar (`code_status: released`, EgorShibaev/remarl). Mention on task:continuous-diffusion-lm-pretrain.
+- Status active (`sota_for: []`). Frozen-dLLM GRPO unmask/retain/remask. LLaDA-8B-Instruct GSM8K NFE8 53.60 vs P2′ τ=1 28.76 / calibrated τ=0.25 42.30.
+
 ### 2026-11-17 — weekday SOTA sweep (FlashREINFORCE, TA-OPSD, B-OPSD, ECOD, SWE-OPD, SpeCal, POLPO, SH-OPD; notes optimizer-kl-distill, opd-backdoor-propagation)
 - Eight active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-17 Librarian weekday sweep after merged PR 66 (watermark 2611.18533 ingest / listing considered 2611.18563, 6da3ba5, ~2319 nodes / 9410 edges). Covers Tuesday 17 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.18563 (listing 2611.18564–2611.21608) plus double-check 2611.18534–2611.18563 (empty) and HF Daily 2026-11-16 leftovers (already ingested/skipped last run) / 2026-11-17. New high id 2611.21020 (ingest) / 2611.21608 (listing considered). Distinct slug `flashreinforce` from `method:flash-opd`. Distinct `ta-opsd` from `method:opd-eos`. Distinct `b-opsd` from `method:bopd`. Distinct `polpo` from `method:gpdpo`. Distinct `sh-opd` from `method:flash-opd`.

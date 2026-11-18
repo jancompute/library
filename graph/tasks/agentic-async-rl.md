@@ -22,6 +22,8 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC)"
+    to: "method:rsc"
   - when: "critic-free single-rollout async RL (FlashREINFORCE; not async stragglers)"
     to: "method:flashreinforce"
   - when: "colocated on-policy GPU reclaim (TIDE; not async stragglers)"
@@ -106,6 +108,7 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:rsc
   - method:flashreinforce
   - method:tide
   - method:statealign
@@ -148,7 +151,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-18'
 tags:
   - post-training
   - agentic
@@ -165,6 +168,7 @@ This is **policy training**. Building a software-engineering agent loop is `task
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Optional reverse-KL score centering (not this async default)**: `method:rsc` (`arXiv:2611.21791`). Score centering plus reverse-KL next-token matching. AppWorld 14.04 vs SC 12.28 (+14.3%); BabyAI 18.06 vs IS-PPOClip 1.83 (9.9×). GitHub BiEchi/rsc announced empty. Mentions on `task:math-code-rl-dense` / `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO, CISPO, DLC, or CANOPY. Does not supersede `paper:score-centering-pg`.
 - **Optional critic-free one-rollout async RL (not this async default)**: `method:flashreinforce` (`arXiv:2611.18627`). One-Batch REINFORCE + Sequence Trust Region + Sample-Mean Optimization. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at 256k vs 512k rollouts; ALFWorld 98.3%/96.5%; 6k updates at lag ~4. Code NVIDIA-NeMo/labs-molt. Distinct from `method:flash-opd`. Mention on `task:math-code-rl-dense`. Does not replace SAO, CISPO, FTW, or muon-lh-rl.
 - **Related colocated on-policy GPU reclaim (not this async default)**: `method:tide` (`arXiv:2611.17924`) on `task:frontier-rl-posttrain-stack`. Reclaim finished colocated rollout GPUs; stays on-policy. Distinct from ThunderSyncRL. Does not replace SAO or Miles.
 - **Optional state-contrast tool RL (not this async default)**: `method:statealign` (`arXiv:2611.16304`). Qwen3-8B BFCL v4 multi-turn 45.5%→55.2%; no-tool hallucination 62.2%→56.1% vs outcome-only. Code ZhexiLu/StateAlign. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO or CANOPY.

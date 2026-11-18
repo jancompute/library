@@ -13,6 +13,8 @@ out_of_scope:
   - "NVL72 fused dispatch megakernel (Mixture-of-Kittens)"
   - "Olympiad specialist post-train (Nemotron IMO Gold)"
 redirects:
+  - when: "TP-grouped Hyper-Connections (TPHC; not V4 / mHC default)"
+    to: "method:tphc"
   - when: "Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default)"
     to: "method:simplehc"
   - when: "inference deactivation must match train-time weight rule"
@@ -61,6 +63,7 @@ current_sota:
     value: "Frontier Co-Default SOTA"
     notes: "Kimi-K3 (2607.24653) architecture co-default with DeepSeek-V4."
 methods:
+  - method:tphc
   - method:simplehc
   - method:energycal
   - method:nestor
@@ -88,7 +91,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:drmoet
   - method:maskerade
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-18'
 tags:
   - pretraining
   - moe
@@ -101,6 +104,7 @@ tags:
 Training sparse Mixture-of-Experts models enables scaling parameter capacity into hundreds of billions of parameters while keeping active FLOPs per token bounded.
 
 ## SOTA Recommendation (as of 2026-09-01)
+- **Related TP-grouped Hyper-Connections (not this architecture default)**: `method:tphc` (`arXiv:2611.23026`) on `task:llm-pretraining-optimization`. Groups residual streams for tensor-parallel updates. TPHC8 beats mHC16 at 1.1B / 100B SlimPajama. Code wuyou2002/TPHC. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Optional Hyper-Connection simplification (not this architecture default)**: `method:simplehc` (`arXiv:2611.05984`) on `task:llm-pretraining-optimization`. Matches mHC 15B/30B MoE with 2.4% extra train time vs vanilla. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Architecture**: **DeepSeek-V4** (`method:deepseek-v4`, 2606.19348) + **Kimi-K3** (`method:kimi-k3`, 2607.24653). Unchanged.
 - **Optimizer**: **MuonClip** (`paper:muonclip-kimi-k2`) / **Muon2** (`method:muon2`).

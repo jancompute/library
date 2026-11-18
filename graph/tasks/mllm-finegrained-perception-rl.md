@@ -12,6 +12,8 @@ out_of_scope:
   - "MoE/VL RLVR loss rather than region proposal (SAPO)"
   - "MLLM privileged OPSD with textual spatial guidance (Where-OPD)"
 redirects:
+  - when: "latent reward landing field from cross-modal geometry (Gaze-RL; not RoI / Vision-RL2)"
+    to: "method:gaze-rl"
   - when: "cycle GRPO coupling region understanding and localization (CycleGRPO)"
     to: "method:cyclegrpo"
   - when: "online adaptive prompt selection / teacher scaffolding for image/VL GRPO"
@@ -32,6 +34,7 @@ current_sota:
     value: "80.1 vs 74.6 / 78.7; 4B aligned 71.1 vs SD-RPN 66.6 with 4.2× fewer tokens"
     notes: "Vision-RL2 (2609.19745). Active region-level RL. Method status active (not sota). Does not replace EPS prompt scaffolding."
 methods:
+  - method:gaze-rl
   - method:cyclegrpo
   - method:vision-rl2
   - method:eps-prompt-scaffolding
@@ -39,7 +42,7 @@ methods:
   - method:cispo
   - method:sapo
   - method:where-opd
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-11-18'
 tags:
   - post-training
   - multimodal-rl
@@ -60,5 +63,6 @@ This is not a prompt curriculum and not video annotation-as-rollout.
 
 ## SOTA Recommendation (as of 2026-09-21)
 - **Primary Method (this task only)**: **Vision-RL2** (`method:vision-rl2`, `paper:vision-rl2` `arXiv:2609.19745`). Status `active`. Listed here as first hop; method `sota_for` stays empty.
+- **Optional latent reward landing field (not this RoI hop)**: `method:gaze-rl` (`arXiv:2611.22438`). Mean-one field from cross-modal geometry. Qwen2.5-VL-7B Geometry3K 36.8→47.9 vs GRPO 39.6 / DAPO 41.9; MathVista 67.2→70.4 vs GRPO 68.6. Code lixuan27/Gaze-RL-main. Mentions on `task:rl-video-mllm` / `task:mllm-rl-prompt-curriculum`. Does not replace Vision-RL2.
 - **Not This Task**: `method:eps-prompt-scaffolding` remains the multimodal prompt-curriculum first hop; `method:orarl` remains video annotation-as-rollout; `method:cispo` remains dense Pass@1; `method:sapo` remains the MoE/VL loss.
 - **Not this task (MLLM spatial-hint OPSD)**: `method:where-opd` (`arXiv:2610.02117`) on `task:privileged-teacher-opsd`. Textual coords from synthetic scenes, not a RoI proposal network. Does not replace Vision-RL2.

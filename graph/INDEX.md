@@ -352,6 +352,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when curriculum RL for a discrete diffusion LM (canvas anneal) → `method:canvasanneal`
   - do not use when aligning text-to-image diffusion or flow models with rewards → `method:diffusion-opsd`
 - **Redirects**:
+  - when GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not continuous pretrain) → `method:remar`
   - when temporal self-conditioning inside a frozen masked dLLM (TDLM; not continuous pretrain) → `method:tdlm`
   - when pure self-conditioning continuous DLM (LAW) → `method:law`
   - when Large Flow Language Models (Lafa blockwise flow from AR init) → `method:lafa`
@@ -377,6 +378,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when discrete DLM curriculum RL with a teacher canvas → `method:canvasanneal`
   - do not use when lossless multi-token AR serving → `method:uno`
 - **Redirects**:
+  - when GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not AR-delta recycle / not TDLM / not ForkGRPO) → `method:remar`
   - when full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle) → `method:sebo`
   - when LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle) → `method:byod`
   - when cross-budget self-distillation for masked dLLMs (HiLo-RD) → `method:hilo-rd`
@@ -727,6 +729,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when structural credit split for tool-call vs natural-language-summary tokens, not async stragglers → `task:tool-agent-segment-credit`
   - do not use when CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes) → `method:ftw`
 - **Redirects**:
+  - when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) → `method:rsc`
   - when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) → `method:flashreinforce`
   - when colocated on-policy GPU reclaim (TIDE; not async stragglers) → `method:tide`
   - when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) → `method:statealign`
@@ -1059,6 +1062,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when on-policy parameter update direction SFT (OPSFT), not Pass@1 RLVR → `method:opsft`
   - do not use when adaptive ground-truth rationale scaffolding for sparse-reward RLVR → `method:rgpo`
 - **Redirects**:
+  - when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) → `method:ash`
+  - when reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO) → `method:rsc`
   - when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) → `method:flashreinforce`
   - when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) → `method:lgpo`
   - when trait hitchhiking / non-targeted trait drift under GRPO (not Pass@1 CISPO) → `paper:trait-hitchhiking`
@@ -1192,6 +1197,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when MoE/VL RLVR loss rather than region proposal → `method:sapo`
   - do not use when MLLM privileged OPSD with textual spatial guidance from synthetic scenes (not crop-zoom teachers) → `method:where-opd`
 - **Redirects**:
+  - when latent reward landing field from cross-modal geometry (Gaze-RL; not RoI / Vision-RL2) → `method:gaze-rl`
   - when cycle GRPO coupling region understanding and localization (CycleGRPO) → `method:cyclegrpo`
   - when online adaptive prompt selection / teacher scaffolding for image/VL GRPO → `task:mllm-rl-prompt-curriculum`
   - when video annotation-as-rollout / fine-grained video perception RL → `task:rl-video-mllm`
@@ -1211,6 +1217,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when outcome-only long-horizon agent RL → `method:canopy`
   - do not use when region-level RL for fine-grained MLLM perception (RoI proposal, frozen reader) → `method:vision-rl2`
 - **Redirects**:
+  - when latent reward landing field from cross-modal geometry (Gaze-RL; not prompt scaffolding) → `method:gaze-rl`
   - when video annotation-as-rollout / fine-grained video perception RL → `task:rl-video-mllm`
   - when single-turn dense text math/code Pass@1 RLVR → `task:math-code-rl-dense`
   - when MoE/VL RLVR loss rather than prompt curriculum → `task:math-code-rl-moe`
@@ -1334,6 +1341,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) → `method:rsc`
   - when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) → `method:ecod`
   - when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) → `method:acerl`
   - when state-contrast RL for multi-turn tool hallucination (StateAlign; not CANOPY coverage) → `method:statealign`
@@ -1655,6 +1663,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
   - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
+  - when VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix) → `method:m3opd-reasoner`
   - when OPD for agentic coding / offline cached teacher (SWE-OPD) → `method:swe-opd`
   - when shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage) → `method:sh-opd`
   - when experience-calibrated multi-turn teacher weights (ECOD; not matching default) → `method:ecod`
@@ -2037,6 +2046,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) → `method:tphc`
   - when pretraining optimizer gains do not transfer to short-horizon KL distill → `paper:optimizer-kl-distill`
   - when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) → `method:loopback-transformer`
   - when temporary Muon weight decay looks worse at removal (evaluate at the intended budget) → `paper:muon-temporary-wd`
@@ -2181,6 +2191,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when training-free MoE expert prune by routing entropy (SPARE) → `method:spare-moe`
 - **SOTA**: `method:kimi-k3` `2607.24653` (as_of 2026-08-26) — Frontier MoE Benchmarks & Long-Context Throughput: Frontier Co-Default SOTA
 - **Redirects**:
+  - when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) → `method:tphc`
   - when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) → `method:simplehc`
   - when inference deactivation must match train-time weight rule → `paper:moe-expert-deactivation-weight-rule`
   - when Muon raises first MoE layer routing-bias span (not the architecture template) → `paper:muon-first-moe-layer`
@@ -2405,6 +2416,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when multi-frame video GRPO / complementary frame sets (FrameGRPO) → `method:framegrpo`
   - do not use when dense/sparse paired-view video RL with grounding + reliability-gated reference reward → `method:saver`
 - **Redirects**:
+  - when latent reward landing field from cross-modal geometry (Gaze-RL; not OraRL annotation-as-rollout) → `method:gaze-rl`
   - when turn-level GRPO remaining-return + turn-mean loss for streaming video (TurnWise) → `method:turnwise`
   - when multi-frame video GRPO / complementary frame sets (FrameGRPO) → `method:framegrpo`
   - when general image/multimodal reasoning RL prompt curriculum (not video OraRL) → `task:mllm-rl-prompt-curriculum`
