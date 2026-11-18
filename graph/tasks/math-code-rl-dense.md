@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training)"
+    to: "method:ash"
+  - when: "reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO)"
+    to: "method:rsc"
   - when: "critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO)"
     to: "method:flashreinforce"
   - when: "likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO)"
@@ -213,6 +217,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:ash
+  - method:rsc
   - method:flashreinforce
   - method:lgpo
   - method:autoscaffold
@@ -312,7 +318,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-18'
 tags:
   - post-training
   - reasoning
@@ -328,6 +334,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional hint-augmented GRPO via residual steering (not Pass@1 CISPO)**: `method:ash` (`arXiv:2611.23124`). Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34. Distinct from H2R / Guided-RLVR / SV-Training / ASE. No public GitHub. Does not replace CISPO.
+- **Related reverse-KL score centering (not Pass@1 CISPO)**: `method:rsc` (`arXiv:2611.21791`) on `task:agentic-async-rl`. AppWorld 14.04 vs SC 12.28. GitHub BiEchi/rsc announced empty. Does not replace CISPO. Does not supersede `paper:score-centering-pg`.
 - **Related critic-free one-rollout RL (not Pass@1 CISPO)**: `method:flashreinforce` (`arXiv:2611.18627`) on `task:agentic-async-rl`. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at half rollouts. Does not replace CISPO.
 - **Optional likelihood-gated on-policy RLVR (not Pass@1 CISPO)**: `method:lgpo` (`arXiv:2611.15404`). Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1. No public code. Does not replace CISPO.
 - **Gotcha (trait hitchhiking)**: `paper:trait-hitchhiking` (`arXiv:2611.14683`). Price equation for non-targeted traits under GRPO. Complements `paper:verifiable-rl-misalignment`. Does not retarget CISPO.

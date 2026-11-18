@@ -14,6 +14,8 @@ out_of_scope:
   - "Outcome-only long-horizon agent RL (CANOPY / DRACO)"
   - "Region-level RL / fine-grained MLLM perception (Vision-RL2)"
 redirects:
+  - when: "latent reward landing field from cross-modal geometry (Gaze-RL; not prompt scaffolding)"
+    to: "method:gaze-rl"
   - when: "video annotation-as-rollout / fine-grained video perception RL"
     to: "task:rl-video-mllm"
   - when: "single-turn dense text math/code Pass@1 RLVR"
@@ -32,6 +34,7 @@ current_sota:
     value: "Geo3K 65.39 vs 60.57; MMK12 71.15 vs 68.05"
     notes: "EPS prompt scaffolding (2609.15051, EMNLP 2026 main). Narrow multimodal prompt-curriculum task only. Does not replace CISPO / SAPO / OraRL / DataFlex / GRPO / CANOPY / DIEM."
 methods:
+  - method:gaze-rl
   - method:eps-prompt-scaffolding
   - method:orarl
   - method:dataflex-rl
@@ -40,7 +43,7 @@ methods:
   - method:grpo
   - method:diem
   - method:vision-rl2
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-11-18"
 tags:
   - post-training
   - multimodal-rl
@@ -60,5 +63,6 @@ Online RL for MLLMs assigns equal rollout budget to every training prompt. Some 
 
 ## SOTA Recommendation (as of 2026-09-15)
 - **Primary Method (this task only)**: **EPS prompt scaffolding** (`method:eps-prompt-scaffolding`, `paper:eps-prompt-scaffolding` `arXiv:2609.15051`).
+- **Related latent reward landing field (not this prompt curriculum)**: `method:gaze-rl` (`arXiv:2611.22438`) on `task:mllm-finegrained-perception-rl`. Does not rewrite prompts. Code lixuan27/Gaze-RL-main. Does not replace EPS.
 - **Not This Task**: `method:orarl` remains video annotation-as-rollout; `method:cispo` remains dense Pass@1; `method:sapo` remains the MoE/VL loss; `method:dataflex-rl` remains the static-policy null; `method:diem` remains example-reweight; `method:canopy` remains outcome-only agents; GRPO stays the host, not the first hop.
 - **Not this task (region-level perception RL)**: `method:vision-rl2` on `task:mllm-finegrained-perception-rl`. EPS rewrites prompts; Vision-RL2 trains a RoI head.
