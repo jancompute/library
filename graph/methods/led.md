@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'insert/delete Levenshtein post-train on a masked dLLM (not lookahead-edit SFT)'
+  reason: 'method:led is lookahead-edit SFT (2610.23122); Levenshtein Editing is insert/delete (2611.23750)'
+  use_instead: method:levenshtein-edit-dlm
 - when: 'recycle an AR post-training weight delta onto a converted dLLM'
   reason: 'A2D remains AR-delta recycle; LED is MDM lookahead-edit SFT'
   use_instead: method:a2d

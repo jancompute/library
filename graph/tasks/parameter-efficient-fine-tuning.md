@@ -18,6 +18,7 @@ current_sota:
     value: "4-Bit SOTA Speed/Recipe Default"
     notes: "AQLoRA-Q (2608.23816) or AutoQRA (2602.22268)."
 methods:
+  - method:curvdelta
   - method:scalar-peft
   - method:deletion-tuning
   - method:lambdamix
@@ -45,8 +46,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-19'
 redirects:
+  - when: "K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not LoRA quality default)"
+    to: "method:curvdelta"
   - when: "frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default)"
     to: "method:scalar-peft"
   - when: "gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default)"
@@ -79,6 +82,7 @@ Adapting multi-billion parameter base models to downstream tasks with minimal tr
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Optional K-FAC low-curvature PEFT (not this quality default)**: `method:curvdelta` (`arXiv:2611.24654`) on `task:lora-quality-tuning`. Gemma-3-1B math ALL 22.2 vs FT 19.4 / LoRA 17.5. Code xiaozi-max/curvdelta_learning. Does not replace the LR-sweep quality default.
 - **Optional scalar PEFT (not this quality default)**: `method:scalar-peft` (`arXiv:2611.17784`) on `task:lora-quality-tuning`. Frozen activation-derived basis plus layer scalars. Does not replace the LR-sweep quality default.
 - **Optional gate-projection deletion (not this quality default)**: `method:deletion-tuning` (`arXiv:2611.10866`) on `task:lora-quality-tuning`. Binary mask, writes no new values. Does not replace the LR-sweep quality default.
 - **Optional preference-conditioned LoRA GRPO**: `method:lambdamix` (`arXiv:2611.09634`) on `task:multi-reward-rlvr`. Does not replace the LR-sweep quality default.

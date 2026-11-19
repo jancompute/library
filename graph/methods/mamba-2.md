@@ -8,6 +8,9 @@ sota_for:
   - task:linear-time-sequence-modeling
 supersedes: []
 do_not_use_for:
+  - when: 'on-policy discrete hybrid layer selection (FlashMorph2; not Mamba-2 from scratch)'
+    reason: 'Mamba-2 remains from-scratch linear-time; FlashMorph2 converts a pretrained Transformer'
+    use_instead: method:flashmorph2
   - when: 'near-zero untied embeddings stall gated models (GroupClip / GateFloor)'
     reason: 'Mamba-2 remains the architecture hop; GroupClip is an embedding-clip stabilizer'
     use_instead: method:groupclip

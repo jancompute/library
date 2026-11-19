@@ -13,6 +13,8 @@ out_of_scope:
   - "Single-turn dense math/code RLVR (CISPO)"
   - "Routing-harness RSI post-train (NeoHorse-1)"
 redirects:
+  - when: "evidence-only document potential credit (ECA; not Iris SFT-RL climbing)"
+    to: "method:eca"
   - when: "AI-designed RLVR scaffolds / AutoScaffold (not Iris SFT-RL climbing)"
     to: "method:autoscaffold"
   - when: "controllable tool-call efficiency / anchored reference budget (CARE-PO)"
@@ -45,6 +47,7 @@ current_sota:
     value: "Iris-mini 82.2/84.8/86.9/52.3; Iris-pro 88.6/85.1/92.9/56.4"
     notes: "Iris (2609.04304). Strongest overall among reported open-source search agents in the 30-35B and ~400B ranges with CM. Does not replace CANOPY, SAO, mini-SWE-agent, FoldGRPO, or CISPO. DeepSearchQA mini loses to Aquila-mini 89.5. Frontier (Kimi-K3 91.2 BrowseComp) still ahead."
 methods:
+  - method:eca
   - method:autoscaffold
   - method:care-po
   - method:falca
@@ -58,7 +61,7 @@ methods:
   - method:mini-swe-agent
   - method:cispo
   - method:neohorse-1
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-19'
 tags:
   - post-training
   - agentic
@@ -77,6 +80,7 @@ Train a single ReAct search agent that must decide what to search, how to read r
 - **Evaluation Pitfalls**: Report with and without context management under a fixed tool set / context / judge. Do not mix discard-all + retry with the default discard-all table. Do not mix frontier heavy-compute (Apodex-H, Kimi-K3) with same-size open-source. DeepSearchQA is F1, not accuracy.
 
 ## SOTA Recommendation (as of 2026-09-08)
+- **Optional evidence-only document credit (not this climbing default)**: `method:eca` (`arXiv:2611.23824`). Φ(D) evidence-only potential; ECA-Horizon vs GRPO Qwen2.5-3B/7B macro EM +1.03 / +4.80 (45.80 vs 44.77 / 51.60 vs 46.80). Distinct from GCA / EG-GRPO. No public train code. Does not replace Iris.
 - **Related AI-designed RLVR scaffolds (not this climbing default)**: `method:autoscaffold` (`arXiv:2611.14515`) on `task:math-code-rl-dense`. Search QA $+4.0$ EM on a GiGPO host. Does not replace Iris.
 - **Primary Method**: **Iris** (`method:iris`, `paper:iris` `arXiv:2609.04304`) reverse-constructed tasks → traj/turn filter → SFT → live-search RL → SFT-RL climbing. Code/weights: AllSpark-Research/Iris.
 - **Optional tool-budget efficiency (not this climbing default)**: `method:care-po` (`arXiv:2611.12125`) on `task:outcome-only-long-horizon-agent-rl`. Anchored call-count vs a learned efficiency reward that collapsed to zero calls. Does not replace Iris.

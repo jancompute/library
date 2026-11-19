@@ -178,6 +178,7 @@ task:continuous-diffusion-lm-pretrain -> method:semicat (2610.17590, 2026-10-13)
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
 task:diffusion-lm-ar-delta-recycle -> method:a2d (2610.41574, 2026-10-07)
+  when insert/delete Levenshtein post-train on a masked dLLM (not lookahead-edit LED / not AR-delta recycle) -> method:levenshtein-edit-dlm
   when GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not AR-delta recycle / not TDLM / not ForkGRPO) -> method:remar
   when full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle) -> method:sebo
   when LoRA-only AR to masked DLM conversion (BYOD; not a weight-delta recycle) -> method:byod
@@ -268,6 +269,7 @@ task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-2
   when structure-aware Muon on Monarch-factored weights (not SCALE subspace) -> method:monarch-muon
   when subspace Muon with residual correction (PMRC / SMRC) -> method:pmrc
 task:lora-quality-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26)
+  when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep) -> method:curvdelta
   when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) -> method:deletion-tuning
   when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not rsLoRA + LR sweep) -> method:stage-lora
@@ -289,6 +291,7 @@ task:lora-skill-composition -> method:read-lora (2609.31600, 2026-09-28)
   when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA composition -> task:instruct-sft-alignment
   when deployed checkpoint must stay NF4/INT4/MXFP4 with no high-precision adapter -> task:full-lowbit-finetune
 task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26) + method:aqlora-q (2608.23816, 2026-08-26)
+  when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not LoRA quality default) -> method:curvdelta
   when frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default) -> method:deletion-tuning
   when stage-specific LoRA SFT/RL spectral updates (Stage-LoRA; not LoRA quality default) -> method:stage-lora
@@ -299,6 +302,7 @@ task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.10866, 2026
   when stacking independently trained LoRA adapters / sequential skill add without an inference router -> task:lora-skill-composition
   when preference-conditioned jointly trained per-objective LoRA GRPO (LambdaMix; not LoRA quality default) -> method:lambdamix
 task:posttrain-attention-sparsification -> method:sas (2609.13141, 2026-09-14)
+  when on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget) -> method:flashmorph2
   when interleaved scatter/gather static sparse attention (INTRA) -> method:intra
   when sparse attention with a one-token tail proxy (OpenAttention) -> method:openattention
   when forward-dense backward-sparse attention for long-context fine-tuning (LazyFlash) -> method:lazyflash
@@ -614,6 +618,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04)
+  when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) -> method:copd
   when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) -> method:rsc
   when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) -> method:ecod
   when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) -> method:acerl
@@ -721,7 +726,9 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.18627, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.21020, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+task:student-distillation -> method:opd (2611.23673, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) -> method:copd
+  when which tokens / order / reverse-KL vanishing in OPD objectives -> paper:opd-token-order
   when VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix) -> method:m3opd-reasoner
   when OPD for agentic coding / offline cached teacher (SWE-OPD) -> method:swe-opd
   when shared-batch stochastic horizons OPD (SH-OPD; not Flash-OPD first-passage) -> method:sh-opd
@@ -873,6 +880,7 @@ task:tool-agent-segment-credit -> method:slca-grpo (2609.29050, 2026-09-25)
   when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) -> method:adastep
   when hindsight-guided tree exploration and turn-level credit (not tool vs summary split) -> method:treehca
 task:web-search-agent-rl -> method:iris (2611.12125, 2026-09-08)
+  when evidence-only document potential credit (ECA; not Iris SFT-RL climbing) -> method:eca
   when AI-designed RLVR scaffolds / AutoScaffold (not Iris SFT-RL climbing) -> method:autoscaffold
   when controllable tool-call efficiency / anchored reference budget (CARE-PO) -> method:care-po
   when FALCA deep-search agent RL (propose-falsify hierarchical credit) -> method:falca
@@ -932,6 +940,7 @@ task:latent-space-lm-pretrain -> method:ncp-archpreview (2609.10715, 2026-09-11)
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
   when recurrent CED-style architecture, not next-concept latent LM -> task:recurrent-encoder-decoder-lm
 task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
+  when on-policy discrete hybrid layer selection (FlashMorph2; not Mamba-2 from scratch) -> method:flashmorph2
   when near-zero untied embeddings stall gated models (GroupClip / GateFloor; not Mamba-2 default) -> method:groupclip
   when GGA mixed-precision + Pure-Write window for GDN recurrent-state quant -> method:gga-pw
   when periodic 4-bit recurrent-state quantization (PACE) -> method:pace
@@ -939,6 +948,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2611.19419, 2026-08-26)
+  when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) -> method:chorus
   when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) -> method:tphc
   when pretraining optimizer gains do not transfer to short-horizon KL distill -> paper:optimizer-kl-distill
   when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) -> method:loopback-transformer
@@ -1006,6 +1016,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
 task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
+  when shared n-gram tables with layer-wise rescale (Chorus; not the 7B optimizer) -> method:chorus
   when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
@@ -1994,6 +2005,20 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 674. **ReMaRL**: **ReMaRL** (`method:remar`, `arXiv:2611.22576`) on `task:diffusion-lm-ar-delta-recycle`. Active plug-in. Frozen-dLLM GRPO unmask/retain/remask. LLaDA-8B-Instruct GSM8K NFE8 53.60 vs P2′ τ=1 28.76 / calibrated τ=0.25 42.30. Code EgorShibaev/remarl. Distinct from TDLM / ForkGRPO. Mention on `task:continuous-diffusion-lm-pretrain`. Does **not** replace A2D.
 
+675. **COPD**: **COPD** (`method:copd`, `arXiv:2611.23673`) on `task:student-distillation`. Active plug-in. Black-box NL consult then privileged OPSD+RL. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2 (2.46× gain); 9B 54.2→61.3 vs ActionOPD 54.6. TB 2.1 / SWE-Bench Pro V2 COPD-9B avg 30.3 vs Qwen3.5-35B-A3B 30.6. Distinct from ActionOPD / Bridged Self-Distill / Stepwise Querying / CAMP-II. No public train code. Mention on `task:outcome-only-long-horizon-agent-rl`. Does **not** replace OPD or CANOPY.
+
+676. **Levenshtein Editing**: **Levenshtein Editing** (`method:levenshtein-edit-dlm`, `arXiv:2611.23750`) on `task:diffusion-lm-ar-delta-recycle`. Active plug-in. Insert/delete post-train on a masked dLLM. LLaDA2.1-Mini 16B conf-guided 54.86→57.10 / conf-free 27.52→47.19; block 128 36.97→51.34. Distinct from `method:led` (lookahead-edit SFT). Code inclusionAI/LLaDA2.X. Does **not** replace A2D.
+
+677. **FlashMorph2**: **FlashMorph2** (`method:flashmorph2`, `arXiv:2611.24809`) on `task:posttrain-attention-sparsification`. Active plug-in. On-policy discrete hybrid layer selection. vs FlashMorph RULER 63.26→65.68 / LongBench 29.86→30.94; 0.72–3.57 GPU-h for 0.6B–8B. No public v2 repo. Mention on `task:linear-time-sequence-modeling`. Does **not** replace SAS or Mamba-2.
+
+678. **ECA**: **ECA** (`method:eca`, `arXiv:2611.23824`) on `task:web-search-agent-rl`. Active plug-in. Evidence-only Φ(D) potential. ECA-Horizon vs GRPO Qwen2.5-3B/7B macro EM +1.03 / +4.80 (45.80 vs 44.77 / 51.60 vs 46.80). Distinct from GCA / EG-GRPO. No public train code. Does **not** replace Iris.
+
+679. **Chorus**: **Chorus** (`method:chorus`, `arXiv:2611.23386`) on `task:pretrain-dense-7b`. Active plug-in. Shared n-gram tables plus layer-wise rescale. ClimbMix 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram; 9.6B Chorus 0.9148 vs FactorEngram 0.9258. Ember −99.2% table-optimizer mem. Code dualverse-ai/chorous. Mention on `task:llm-pretraining-optimization`. Does **not** replace Muon2.
+
+680. **CurvDelta**: **CurvDelta** (`method:curvdelta`, `arXiv:2611.24654`) on `task:lora-quality-tuning`. Active plug-in. K-FAC low-curvature sequential PEFT. Gemma-3-1B math ALL 22.2 vs FT 19.4 / LoRA 17.5; Llama-2-7B math CurvLoRA ALL 40.1 vs Replay 40.2 / FT 33.4. Code xiaozi-max/curvdelta_learning. Mention on `task:parameter-efficient-fine-tuning`. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
+
+681. **OPD tokens / order / reverse-KL vanishing** (claim note, no new method): `paper:opd-token-order` (`arXiv:2611.23397`) on `task:student-distillation` / `method:opd`. Sequence-level future-agreement bias; reverse-KL can vanish. Qwen3-1.7B vs Qwen3-8B: sequence-level OPD refuses nearly all WildJailbreak benign requests (teacher 17.5%). Code princeton-pli/opd-objectives-analysis. Does **not** retarget OPD.
+
 
 ---
 
@@ -2670,6 +2695,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `ash` (2611.23124) is an active hint-augmented GRPO residual-steering plug-in. Distinct from `ase` / `h2r` / `guided-rlvr` / `sv-training`. It does not supersede `cispo`.
 - `gaze-rl` (2611.22438) is an active mean-one visual-credit plug-in. Distinct from `vision-rl2` / `cyclegrpo`. It does not supersede `vision-rl2`.
 - `remar` (2611.22576) is an active frozen-dLLM remask-policy plug-in. Distinct from `tdlm` / `forkgrpo`. It does not supersede `a2d`.
+- `copd` (2611.23673) is an active black-box communicative OPD plug-in. Distinct from `actionopd` / `bridged-self-distill` / `stepwise-querying` / `camp-ii`. It does not supersede `opd` or `canopy`.
+- `levenshtein-edit-dlm` (2611.23750) is an active insert/delete dLLM post-train plug-in. Distinct from `led` (lookahead-edit SFT). It does not supersede `a2d`.
+- `flashmorph2` (2611.24809) is an active on-policy hybrid layer-selection plug-in. It does not supersede `sas` or `mamba-2`.
+- `eca` (2611.23824) is an active evidence-only document-credit plug-in. Distinct from `gca` / `eg-grpo`. It does not supersede `iris`.
+- `chorus` (2611.23386) is an active shared n-gram table plug-in. It does not supersede `muon2` or `olmo-3`.
+- `curvdelta` (2611.24654) is an active K-FAC low-curvature PEFT plug-in. It does not supersede `lr-matters-lora`.
+- `paper:opd-token-order` (2611.23397) is an OPD tokens/order/vanishing-reverse-KL gotcha. It does not retarget `opd`.
 
 
 ---

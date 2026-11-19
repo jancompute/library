@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'evidence-only document potential credit (ECA)'
+  reason: 'GCA splits search vs answer tokens; ECA is an evidence-only Φ(D) potential'
+  use_instead: method:eca
 - when: 'train a live-web multi-hop search agent (SFT-RL climbing)'
   reason: 'Iris remains that first hop; GCA is a Search-R1-style credit split'
   use_instead: method:iris

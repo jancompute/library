@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-attention-sparsification
 supersedes: []
 do_not_use_for:
+  - when: 'on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget)'
+    reason: 'SAS remains gated post-train first hop; FlashMorph2 selects which layers keep full attention'
+    use_instead: method:flashmorph2
   - when: 'interleaved scatter/gather static sparse attention (INTRA)'
     reason: 'SAS remains gated post-train first hop; INTRA is static scatter/gather sparsity'
     use_instead: method:intra

@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage)"
+    to: "method:copd"
   - when: "reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage)"
     to: "method:rsc"
   - when: "experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage)"
@@ -153,6 +155,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:copd
   - method:rsc
   - method:ecod
   - method:acerl
@@ -217,7 +220,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-18'
+last_reviewed: '2026-11-19'
 tags:
   - post-training
   - agentic
@@ -242,6 +245,7 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Related black-box communicative OPD (not this coverage default)**: `method:copd` (`arXiv:2611.23673`) on `task:student-distillation`. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2; TB 2.1 / SWE-Bench Pro V2 transfer. No public train code. Does not replace CANOPY or OPD.
 - **Related reverse-KL score centering (not this coverage default)**: `method:rsc` (`arXiv:2611.21791`) on `task:agentic-async-rl`. AppWorld 14.04 vs SC 12.28 (+14.3%). GitHub BiEchi/rsc announced empty. Does not replace CANOPY. Does not supersede `paper:score-centering-pg`.
 - **Optional experience-calibrated multi-turn OPD (not this coverage default)**: `method:ecod` (`arXiv:2611.18656`). Weights teacher losses by student-teacher comparison plus a temporal prior. Up to +4.06% vs OPD ALFWorld unseen; paired +6.20% / +7.05% WebShop. No public code. Mention on `task:student-distillation`. Does not replace CANOPY or OPD.
 - **Related Experience-Handoff memory RL (not this coverage default)**: `method:acerl` (`arXiv:2611.16409`) on `task:agent-memory`. Freeze ACE; reward handoff artifacts by a downstream actor. Does not replace CANOPY or ACE.

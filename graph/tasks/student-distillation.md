@@ -5,6 +5,10 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD)"
+    to: "method:copd"
+  - when: "which tokens / order / reverse-KL vanishing in OPD objectives"
+    to: "paper:opd-token-order"
   - when: "VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix)"
     to: "method:m3opd-reasoner"
   - when: "OPD for agentic coding / offline cached teacher (SWE-OPD)"
@@ -257,6 +261,7 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:copd
   - method:m3opd-reasoner
   - method:swe-opd
   - method:sh-opd
@@ -383,7 +388,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-18'
+last_reviewed: '2026-11-19'
 tags:
   - post-training
   - distillation
@@ -398,6 +403,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional black-box communicative OPD (not this matching default)**: `method:copd` (`arXiv:2611.23673`). Student-initiated NL consult then privileged OPSD+RL. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2 (2.46× gain); 9B 54.2→61.3 vs ActionOPD 54.6. TB 2.1 / SWE-Bench Pro V2 COPD-9B avg 30.3 vs Qwen3.5-35B-A3B 30.6. Distinct from ActionOPD / Bridged Self-Distill / Stepwise Querying / CAMP-II. No public train code. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace OPD or CANOPY.
+- **Gotcha (OPD tokens / order / vanishing reverse-KL)**: `paper:opd-token-order` (`arXiv:2611.23397`). Sequence-level future-agreement bias; reverse-KL can vanish. Qwen3-1.7B vs Qwen3-8B: sequence-level OPD refuses nearly all WildJailbreak benign requests (teacher 17.5%). Code princeton-pli/opd-objectives-analysis. Does not retarget OPD.
 - **Optional VLM GSPO-then-MOPD-then-MixRL (not this matching default)**: `method:m3opd-reasoner` (`arXiv:2611.23034`). Qwen3.5-9B 21-bench avg@8 MixRL 74.4 → MOPD+MixRL 75.9 (STEM 77.1 / perception 81.9 / video 64.1). Paper MOPD is not the library 83.4% bake-off. Code ngquangtrung57/M3OPD-Reasoner. Distinct from `method:reframe`. Does not replace Open-MOPD or OPD.
 - **Optional SWE-agent OPD (not this matching default)**: `method:swe-opd` (`arXiv:2611.21020`). Qwen3.5-9B SWE-bench Pro 35.9→39.4; offline cached teacher 59.4–72.6% fewer GPU-h. Decreasing top-K reverse-KL can still repeat. Code ernie-research/SWE-OPD. Mentions on `task:cross-tokenizer-opd` / `task:software-engineering-agent-harness`. Does not replace OPD or mini-SWE-agent.
 - **Optional shared-batch horizon OPD (not this matching default)**: `method:sh-opd` (`arXiv:2611.20687`). Shared horizon per batch; math ~45% / code ~60% of full-OPD per-update cost. Distinct from `method:flash-opd`. Code chen123CtrlS/SH-OPD. Does not replace OPD.

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'evidence-only document potential credit (ECA)'
+  reason: 'EG-GRPO is evidence-claim step credit; ECA is an evidence-only Φ(D) potential plus Horizon/TD/MC'
+  use_instead: method:eca
 - when: 'live-web multi-hop search SFT-RL climbing'
   reason: 'Iris remains first hop; EG-GRPO is evidence-guided step credit on synthetic deep-search data'
   use_instead: method:iris

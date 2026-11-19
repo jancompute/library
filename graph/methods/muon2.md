@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'shared n-gram tables with layer-wise rescale (Chorus; not Muon2)'
+    reason: 'Muon2 remains the ~7B optimizer; Chorus is shared n-gram tables plus layer-wise rescale'
+    use_instead: method:chorus
   - when: 'pretraining optimizer gains do not transfer to short-horizon KL distill'
     reason: 'Gotcha: AdamW lowest val KL on short-horizon FKL distill; does not retarget Muon2'
     use_instead: paper:optimizer-kl-distill

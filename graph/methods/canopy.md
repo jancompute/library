@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; COPD is black-box teacher distill'
+    use_instead: method:copd
   - when: 'experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage)'
     reason: 'CANOPY remains sparse-outcome coverage; ECOD reweights teacher OPD losses'
     use_instead: method:ecod

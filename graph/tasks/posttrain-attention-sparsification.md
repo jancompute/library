@@ -12,6 +12,8 @@ out_of_scope:
   - "SWE issue-to-patch harness"
   - "KV-compressed CED MoE serving (DeepSeek-V4.1-Flash)"
 redirects:
+  - when: "on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget)"
+    to: "method:flashmorph2"
   - when: "interleaved scatter/gather static sparse attention (INTRA)"
     to: "method:intra"
   - when: "sparse attention with a one-token tail proxy (OpenAttention)"
@@ -36,11 +38,12 @@ current_sota:
     value: "+6.0 to +7.7 MATH500; +10.6 to +15.5 GPQA-Diamond"
     notes: "SAS (2609.13141). End-to-end LM-loss gates vs Top-K + dense-attention distillation. Narrow task only."
 methods:
+  - method:flashmorph2
   - method:intra
   - method:openattention
   - method:lazyflash
   - method:sas
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-19'
 tags:
   - efficiency
   - sparse-attention
@@ -59,5 +62,6 @@ A dense pretrained Transformer must decode under a cap on attended context units
 - **Evaluation Pitfalls**: Do not mix this with RLM dumped-prompt offload or with Mamba-style pretrain architecture.
 
 ## SOTA Recommendation (as of 2026-09-14)
+- **Optional on-policy hybrid layer selection (not this gated-budget default)**: `method:flashmorph2` (`arXiv:2611.24809`). Vs FlashMorph RULER 63.26→65.68 / LongBench 29.86→30.94; 0.72–3.57 GPU-h for 0.6B–8B. No public v2 repo. Mention on `task:linear-time-sequence-modeling`. Does not replace SAS.
 - **Primary Method (this task only)**: **SAS** (`method:sas`, `paper:sas` `arXiv:2609.13141`).
 - **Not This Task**: `method:rlm` remains dumped-prompt offload; `method:mamba-2` remains linear-time pretrain; `method:uno` remains diffusion-augmented AR serving; `method:mini-swe-agent` remains the SWE harness; `method:deepseek-v41-flash` remains CED serving.

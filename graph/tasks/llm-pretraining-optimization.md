@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer)"
+    to: "method:chorus"
   - when: "TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default)"
     to: "method:tphc"
   - when: "pretraining optimizer gains do not transfer to short-horizon KL distill"
@@ -127,6 +129,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:chorus
   - method:tphc
   - method:loopback-transformer
   - method:foam
@@ -177,7 +180,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-18'
+last_reviewed: '2026-11-19'
 tags:
   - pretraining
   - optimizer
@@ -191,6 +194,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Related shared n-gram tables (not this optimizer default)**: `method:chorus` (`arXiv:2611.23386`) on `task:pretrain-dense-7b`. 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram. Ember −99.2% table-optimizer mem. Code dualverse-ai/chorous. Does not replace Muon2.
 - **Optional TP-grouped Hyper-Connections (not this optimizer default)**: `method:tphc` (`arXiv:2611.23026`). Groups residual streams for tensor-parallel updates. 1.1B / 100B SlimPajama TPHC4 2.0838 / 48.9 vs mHC4 2.0985 / 48.6; TPHC8 2.0706 / 49.3 vs mHC8 2.0924 / 48.8 and vs mHC16 2.0885 / 49.0; 8B TP-sharded TPHC4 +9% train time vs mHC4. Code wuyou2002/TPHC. Mention on `task:pretrain-moe-frontier`. Does not replace mHC, SimpleHC, or DeepSeek-V4.
 - **Gotcha (pretrain optimizer on KL distill)**: `paper:optimizer-kl-distill` (`arXiv:2611.19419`). AdamW generally lowest val KL on short-horizon forward-KL distill; SOAP/Shampoo/Muon do not transfer. Complements `paper:muon-adamw-ft-gap`. Mention on `task:student-distillation`. Does not retarget Muon2.
 - **Optional residual looped pretrain (not this optimizer default)**: `method:loopback-transformer` (`arXiv:2611.07226`). Stores residual updates and reads them with geometric decay plus attention. ClimbMix 191M 2.6187 vs Standard 2.6234; 374M 2.4008 vs 2.4395; 778M 2.2404 vs 2.2644; 3B WikiText 16.74 vs 17.28. Code yancyou/Loopback. Mention on `task:elastic-depth-looped-lm`. Does not replace Muon2 or ELR.

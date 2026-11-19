@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: black-box NL consult then privileged OPSD+RL (COPD)
+  reason: ActionOPD aligns semantic actions; COPD is NL consult then privileged OPSD+RL
+  use_instead: method:copd
 - when: same-tokenizer single-teacher matching distillation
   reason: OPD remains token-prob matching; ActionOPD aligns semantic actions without teacher logp
   use_instead: method:opd
