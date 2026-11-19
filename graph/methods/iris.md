@@ -8,6 +8,9 @@ sota_for:
   - task:web-search-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: "evidence-only document potential credit (ECA; not Iris SFT-RL climbing)"
+    reason: "Iris remains SFT-RL climbing; ECA is an evidence-only Φ(D) potential on a GRPO host"
+    use_instead: method:eca
   - when: "controllable tool-call efficiency / anchored reference budget (CARE-PO)"
     reason: "Iris remains SFT-RL climbing; CARE-PO is a call-count anchor on a GRPO host"
     use_instead: "method:care-po"

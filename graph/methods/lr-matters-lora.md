@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; CurvDelta is K-FAC sequential PEFT'
+    use_instead: method:curvdelta
   - when: 'frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; SCALAR trains only layer scalars over a frozen basis'
     use_instead: method:scalar-peft

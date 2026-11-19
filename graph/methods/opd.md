@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'black-box NL consult then privileged OPSD+RL (COPD; not matching default)'
+    reason: 'OPD remains logit matching; COPD consults a black-box teacher then privileged OPSD'
+    use_instead: method:copd
+  - when: 'which tokens / order / reverse-KL vanishing in OPD objectives'
+    reason: 'Gotcha: sequence-level future-agreement bias and reverse-KL vanishing; does not retarget matching'
+    use_instead: paper:opd-token-order
   - when: 'OPD for agentic coding / offline cached teacher (SWE-OPD)'
     reason: 'OPD remains matching; SWE-OPD is agentic-coding OPD with a cached teacher'
     use_instead: method:swe-opd
@@ -243,8 +249,10 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-19'
 papers:
+  - paper:copd
+  - paper:opd-token-order
   - paper:swe-opd
   - paper:sh-opd
   - paper:ecod

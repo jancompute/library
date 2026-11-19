@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'insert/delete Levenshtein post-train on a masked dLLM (not AR-delta recycle)'
+    reason: 'A2D recycles an AR weight delta; Levenshtein Editing is insert/delete post-train on a dLLM'
+    use_instead: method:levenshtein-edit-dlm
   - when: 'full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle)'
     reason: 'A2D recycles an AR weight delta; SEBO is a variance-reduced MDLM ELBO estimator'
     use_instead: method:sebo

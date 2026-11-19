@@ -12,6 +12,8 @@ out_of_scope:
   - "Dense AR Pass@1 RLVR (CISPO)"
   - "Continuous diffusion language model pretrain (SemiCat / DoubleCat)"
 redirects:
+  - when: "insert/delete Levenshtein post-train on a masked dLLM (not lookahead-edit LED / not AR-delta recycle)"
+    to: "method:levenshtein-edit-dlm"
   - when: "GRPO unmask/retain/remask policy on a frozen dLLM (ReMaRL; not AR-delta recycle / not TDLM / not ForkGRPO)"
     to: "method:remar"
   - when: "full-block unbiased ELBO for masked dLLM post-train (SEBO; not AR-delta recycle)"
@@ -56,6 +58,7 @@ current_sota:
     value: "AR delta on converted dLLM approaches direct diffusion PT and composes with it; AR/diffusion deltas nearly orthogonal"
     notes: "A2D (2610.08108). Method status active. Does not replace DiffusionOPSD / Self-OPD / CanvasAnneal."
 methods:
+  - method:levenshtein-edit-dlm
   - method:remar
   - method:sebo
   - method:byod
@@ -74,7 +77,7 @@ methods:
   - method:diffusion-opsd
   - method:self-opd
   - method:uno
-last_reviewed: '2026-11-18'
+last_reviewed: '2026-11-19'
 tags:
   - diffusion
   - post-training
@@ -94,6 +97,7 @@ This is **not** image/flow reward alignment and not CanvasAnneal.
 - **Evaluation Pitfalls**: Do not treat this as Uno serving or as DiffusionOPSD image alignment.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Optional Levenshtein insert/delete dLLM post-train (not this recycle hop)**: `method:levenshtein-edit-dlm` (`arXiv:2611.23750`). LLaDA2.1-Mini 16B conf-guided 54.86→57.10 / conf-free 27.52→47.19; block 128 36.97→51.34. Distinct from `method:led` (lookahead-edit SFT). Code inclusionAI/LLaDA2.X. Does not replace A2D.
 - **Optional frozen-dLLM remask policy (not this recycle hop)**: `method:remar` (`arXiv:2611.22576`). ~0.3M GRPO unmask/retain/remask on frozen LLaDA. GSM8K NFE8 53.60 vs P2′ τ=1 28.76 / calibrated τ=0.25 42.30. Code EgorShibaev/remarl. Distinct from TDLM / ForkGRPO. Mention on `task:continuous-diffusion-lm-pretrain`. Does not replace A2D.
 - **Optional full-block MDLM ELBO (not this recycle hop)**: `method:sebo` (`arXiv:2611.17754`, AACL-IJCNLP 2026). Evaluate every denoising block once. LLaDA-8B-Instruct GSM8K 82.26 / MATH-500 38.00 / Sudoku 91.39 vs SPG 72.73; +12.79 avg. GitHub githubhyz/See_Every_Block_Once empty. Does not replace A2D, JustOPD, or ForkGRPO.
 - **Primary (this task only)**: **A2D** (`method:a2d`, `paper:a2d` `arXiv:2610.08108`). Status `active`. Listed here as first hop; method `sota_for` stays empty.

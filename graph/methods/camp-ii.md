@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+    - when: 'black-box NL consult then privileged OPSD+RL (COPD; not file-as-memory)'
+      reason: 'CAMP-II is file-as-memory OPD; COPD is communicative black-box distill on CAMG-II'
+      use_instead: method:copd
     - when: 'write-time playbook memory (ACE default)'
       reason: 'ACE remains the agent-memory first hop; CAMP-II trains file-as-memory via asynchronous OPD'
       use_instead: method:ace

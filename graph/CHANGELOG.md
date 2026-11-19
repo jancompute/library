@@ -6,6 +6,39 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-19 — weekday SOTA sweep (COPD, Levenshtein Editing, FlashMorph2, ECA, Chorus, CurvDelta; note opd-token-order)
+- Six active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-19 Librarian weekday sweep after merged PR 68 (watermark 2611.23124 ingest / listing considered 2611.23229, dce35a3, 2363 nodes / 9566 edges). Covers Thursday 19 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.23229 plus HF Daily 2026-11-18 leftovers (already ingested/skipped last run) / 2026-11-19. New high id 2611.24809 (ingest) / 2611.24936 (listing considered). Distinct slug `levenshtein-edit-dlm` from `method:led`. Distinct `copd` from cisnlp/COPSD. Distinct `flashmorph2` from `method:sas`. Distinct `eca` from `method:gca` / `method:eg-grpo`. Distinct `chorus` from Engram (not a library node). Distinct `curvdelta` from `method:lr-matters-lora`.
+- SKIP (considered, not ingested): Streaming OPD 2611.22298; Ambient SFT 2611.23229; InfuseLoop; BQ-LoRA; AGA/RiDEx; PACT GUI; Self-rewriting 2611.21885; Xing4; CrossEnv; HADVQ/DAQ; Structure-Residual; DeltaHarness/JevRSI/RSI-Prime; TempQuant/RISA; RepoFactory / Agentic OPD ReAct / Sage / K2-Horizon / LoopFill; GUARD 2611.23476 (frozen-weight harness RSI); Late Entry 2611.24576 (inference/serving); Piccolo 2611.24651 (decision-model RSI); Clover-35B 2611.24636 (model card); Objective-Specialized mHC 2611.24567 (small retrieval study); QDA 2611.23388 (PTQ recipe search, will-release); MINT 2611.24413 (MuJoCo/control); Introspective Oversight; AnyS1/Thinking Fast Anywhere (inference System-1); GRAFT agent design 2611.23509 (slug collision with method:graft); CPT Québec French; BaseRSI (training-free weight edits); COTEX (continual tools); Inherited Adapter Experts 2611.24145; Depth Before Breadth 2611.24697; Do Frontier Ingredients (small factorial); Jailbreak Detection 2611.24936.
+
+### 2026-11-19 — ingest method:copd (active on task:student-distillation; does not supersede method:opd / method:actionopd / method:canopy)
+- Added paper:copd, method:copd, recipe:copd (`code_status: none`, project liruiluo.github.io/communicative-opsd/). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Black-box NL consult then privileged OPSD+RL. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2 (2.46× gain); 9B 54.2→61.3 vs ActionOPD 54.6. TB 2.1 / SWE-Bench Pro V2 COPD-9B avg 30.3 vs Qwen3.5-35B-A3B 30.6. Distinct from ActionOPD / Bridged Self-Distill / Stepwise Querying / CAMP-II.
+
+### 2026-11-19 — ingest method:levenshtein-edit-dlm (active on task:diffusion-lm-ar-delta-recycle; does not supersede method:a2d / method:led / method:remar)
+- Added paper:levenshtein-edit-dlm, method:levenshtein-edit-dlm, recipe:levenshtein-edit-dlm (`code_status: released`, inclusionAI/LLaDA2.X). MUST NOT use slug led.
+- Status active (`sota_for: []`). Insert/delete post-train. LLaDA2.1-Mini 16B conf-guided 54.86→57.10 / conf-free 27.52→47.19; block 128 36.97→51.34. Distinct from method:led (lookahead-edit SFT).
+
+### 2026-11-19 — ingest method:flashmorph2 (active on task:posttrain-attention-sparsification; does not supersede method:sas / method:mamba-2)
+- Added paper:flashmorph2, method:flashmorph2, recipe:flashmorph2 (`code_status: none`; v1 is LanDisen/FlashMorph). Mention on task:linear-time-sequence-modeling.
+- Status active (`sota_for: []`). On-policy discrete hybrid layer selection. vs FlashMorph RULER 63.26→65.68 / LongBench 29.86→30.94; 0.72–3.57 GPU-h for 0.6B–8B.
+
+### 2026-11-19 — ingest method:eca (active on task:web-search-agent-rl; does not supersede method:iris / method:gca / method:eg-grpo)
+- Added paper:eca, method:eca, recipe:eca (`code_status: none`; Snowball0823/ECA is unrelated).
+- Status active (`sota_for: []`). Evidence-only Φ(D) potential. ECA-Horizon vs GRPO Qwen2.5-3B/7B macro EM +1.03 / +4.80 (45.80 vs 44.77 / 51.60 vs 46.80).
+
+### 2026-11-19 — ingest method:chorus (active on task:pretrain-dense-7b; does not supersede method:muon2 / method:olmo-3)
+- Added paper:chorus, method:chorus, recipe:chorus (`code_status: released`, dualverse-ai/chorous). Mention on task:llm-pretraining-optimization.
+- Status active (`sota_for: []`). Shared n-gram tables plus layer-wise rescale. ClimbMix 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram; 9.6B Chorus 0.9148 vs FactorEngram 0.9258. Ember −99.2% table-optimizer mem.
+
+### 2026-11-19 — ingest method:curvdelta (active on task:lora-quality-tuning; does not supersede method:lr-matters-lora)
+- Added paper:curvdelta, method:curvdelta, recipe:curvdelta (`code_status: released`, xiaozi-max/curvdelta_learning). Mention on task:parameter-efficient-fine-tuning.
+- Status active (`sota_for: []`). K-FAC low-curvature sequential PEFT. Gemma-3-1B math ALL 22.2 vs FT 19.4 / LoRA 17.5; Llama-2-7B math CurvLoRA ALL 40.1 vs Replay 40.2 / FT 33.4.
+
+### 2026-11-19 — ingest paper:opd-token-order (claim note on method:opd; does not retarget OPD)
+- Added paper:opd-token-order. Linked from method:opd papers and do_not_use_for; redirect on task:student-distillation.
+- Sequence-level future-agreement bias; reverse-KL can vanish. Qwen3-1.7B vs Qwen3-8B: sequence-level OPD refuses nearly all WildJailbreak benign requests (teacher 17.5%). Code princeton-pli/opd-objectives-analysis.
+
 ### 2026-11-18 — weekday SOTA sweep (TPHC, M3OPD-Reasoner, RSC, ASH, Gaze-RL, ReMaRL)
 - Six active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-18 Librarian weekday sweep after merged PR 67 (watermark 2611.21020 ingest / listing considered 2611.21608, 820312b, 2345 nodes / 9512 edges). Covers Wednesday 18 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.21608 (listing 2611.21622–2611.23229) plus HF Daily 2026-11-17 leftovers (already ingested/skipped last run) / 2026-11-18. New high id 2611.23124 (ingest) / 2611.23229 (listing considered). Distinct slug `tphc` from `method:simplehc` / `method:mhc` / `method:msar`. Distinct `m3opd-reasoner` from `method:open-mopd` / `method:reframe`. Distinct `rsc` from `paper:score-centering-pg` (does not add to that paper's methods list). Distinct `ash` from `method:ase` / `method:h2r` / `method:guided-rlvr` / `method:sv-training`. Distinct `gaze-rl` from `method:vision-rl2` / `method:cyclegrpo`. Distinct `remar` from `method:tdlm` / `method:forkgrpo`.
