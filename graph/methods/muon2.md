@@ -14,6 +14,12 @@ do_not_use_for:
   - when: 'shared n-gram tables with layer-wise rescale (Chorus; not Muon2)'
     reason: 'Muon2 remains the ~7B optimizer; Chorus is shared n-gram tables plus layer-wise rescale'
     use_instead: method:chorus
+  - when: 'Canon layers / local token mixing (not Muon2)'
+    reason: 'Muon2 remains the ~7B optimizer; Canon is neighbor mixing inside each sublayer'
+    use_instead: method:canon-layers
+  - when: 'HiSA hidden-dimension RoPE QK sparsity (not Muon2)'
+    reason: 'Muon2 remains the ~7B optimizer; HiSA is an attention pattern'
+    use_instead: method:hisa-rope
   - when: 'pretraining optimizer gains do not transfer to short-horizon KL distill'
     reason: 'Gotcha: AdamW lowest val KL on short-horizon FKL distill; does not retarget Muon2'
     use_instead: paper:optimizer-kl-distill
@@ -131,7 +137,7 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-20'
 papers:
   - paper:optimizer-kl-distill
   - paper:muon-temporary-wd

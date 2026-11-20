@@ -6,6 +6,43 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-20 — weekday SOTA sweep (Canon Layers, VisAlloc, AutoMaster, Shadow Posterior Matching, HiSA, ROAM-GRPO; notes budget-internalization, diffusion-rl-is-steering)
+- Six active plug-ins and two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-20 Librarian weekday sweep after merged PR 69 (watermark 2611.24809 ingest / listing considered 2611.24936, 059b089, 2382 nodes / 9620 edges). Covers Friday 20 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.24936 plus HF Daily 2026-11-19 leftovers (already ingested/skipped last run) / 2026-11-20. New high id 2611.26627 (ingest) / 2611.26627 (listing considered). Distinct slug `hisa-rope` from AF1 HiSA. Distinct `shadow-posterior-matching` from `method:bpo` (PMD). Distinct `visalloc` from `method:where-opd` / `method:cv-opd`. Distinct `automaster` from `method:autosft` / `method:harness-zero` / `method:code2skill` / `method:copd`. Distinct `canon-layers` from `method:chorus`. Distinct `roam-grpo` from `method:team-grpo` / `method:dart-es` / `method:datpo`.
+- SKIP (considered, not ingested): CompoundingKernel 2611.19230 (pre-watermark kernel-search agent); honor prior Streaming OPD / Ambient SFT / Late Entry 2611.24576 / Piccolo 2611.24651 / QDA 2611.23388; On-Policy Morphing leftover 2611.24809 (= FlashMorph2); NariQ 2611.26157 (PTQ); TideCache 2611.26619 (serving); PRKV 2611.24969 (training-free KV eviction); GrepMem eval; Blind Spots Travel 2611.25191; CoLiR 2611.25989 (CRL replay); HF Daily 2026-11-20 non-train (Mind2Act, WeVisForensics, WeMM-Video, Conscious Mind, Coda-DaVinci, 3D GS, EgoCaptioner, HiUni, TuringSpace, ZeroVLN, Depth Pro 2, AltRA-Test, WAM-Policy, WM^MLLM, MoBA serving, Action Effect Matching, Weight-Space Programming, Twice-Told Critiques, VSpark, Online Mistake Detection, CPU Inside LLM, Accord, Inhabitant, Embeddings vs Grep, DailySafe, SpecWM, Direct3D-V3, Phantom Success, One Prior Two Dynamics, S1CogBench, VideoLLM Shortcut, PlayCraft, NarrowSpec, AURA, Probing/Steering, TwinD/TwinLab-Bench). Concurrent ATFlash / WavePrune mentioned in HiSA, not ingested.
+
+### 2026-11-20 — ingest method:canon-layers (active on task:pretrain-dense-7b; does not supersede method:muon2 / method:mamba-2 / method:chorus)
+- Added paper:canon-layers, method:canon-layers, recipe:canon-layers (`code_status: released`, facebookresearch/PhysicsLM4). Mentions on task:llm-pretraining-optimization / task:linear-time-sequence-modeling.
+- Status active (`sota_for: []`). Local token mixing (<0.2% params). 8B ~30% token save; Llama 8B/1T lm-eval/MMLU 66.9/60.6 vs LlamaCanon 67.7/62.4; GLA5+Canon 68.0/63.0 vs Mamba2 67.3/61.6 vs GDN2+Canon 68.2/64.0. LlamaCanon matches Llama-3.1-8B at 1/15 tokens.
+
+### 2026-11-20 — ingest method:visalloc (active on task:privileged-teacher-opsd; does not supersede method:vista / method:where-opd / method:cv-opd)
+- Added paper:visalloc, method:visalloc, recipe:visalloc (`code_status: released`, Kaelyn01/VisAlloc). Mention on task:student-distillation.
+- Status active (`sota_for: []`). Sample-level crop filter plus token-level conserved-budget OPSD. Qwen3.5-4B/9B eight-bench macro 81.44/84.92 vs Vision-OPD 80.47/84.40. Vision-OPD is not a library node.
+
+### 2026-11-20 — ingest method:automaster (active on task:student-distillation; does not supersede method:opd / method:autosft / method:harness-zero / method:code2skill / method:copd)
+- Added paper:automaster, method:automaster, recipe:automaster (`code_status: released`, RUCAIBox/AutoMaster). Mentions on task:instruct-sft-alignment / task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Skill-conditioned teacher rollouts then SFT (Skill-FT). Qwen3.5-4B/9B vs vanilla SFT: TB2.1 22.47→28.09 / 26.59→35.58; BrowseComp 43.24→46.13 / 46.85→51.53; Doc2Repo 32.30→33.72 / 36.05→40.79. 4B BrowseComp/Doc2Repo CIs include 0.
+
+### 2026-11-20 — ingest method:shadow-posterior-matching (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:self-opd / method:fewsteprl / method:edmd)
+- Added paper:shadow-posterior-matching, method:shadow-posterior-matching, recipe:shadow-posterior-matching (`code_status: released`, shadow-posterior/code). MUST NOT use slug PMD (`method:bpo`).
+- Status active (`sota_for: []`). Few-step shadow-posterior RL. 4-step SD3.5-M GenEval 0.94 / OCR 0.96 / PickScore 23.84 vs strongest 4-step baseline 0.86 / 0.95 / 23.36.
+
+### 2026-11-20 — ingest method:hisa-rope (active on task:pretrain-dense-7b; does not supersede method:sas / method:mamba-2 / method:af1)
+- Added paper:hisa-rope, method:hisa-rope, recipe:hisa-rope (`code_status: released`, ambroise-b/hisa). Mention on task:posttrain-attention-sparsification. MUST NOT use slug hisa (AF1).
+- Status active (`sota_for: []`). RoPE hidden-dimension QK sparsity. 135M 4K val 2.880 vs dense 2.906 at 29.3% QK; 16K PG19 3.170 vs dense 3.205 at 20.2% QK; Flash-HiSA 2.892 vs FA3 2.904, 238k vs 236k tok/s, ρ=34.8%.
+
+### 2026-11-20 — ingest method:roam-grpo (active on task:passk-reasoning-coverage; does not supersede method:es-reasoning / method:cispo / method:team-grpo)
+- Added paper:roam-grpo, method:roam-grpo, recipe:roam-grpo (`code_status: none`, `repo_url: none found`). Mention on task:math-code-rl-dense.
+- Status active (`sota_for: []`). Routed off-mode approach mining on a GRPO host. pass@16 +4.7%; embedding cosine distance 1.5–2× on MATH lvl5 1000-problem subset.
+
+### 2026-11-20 — ingest paper:budget-internalization (claim note on method:cispo; does not retarget CISPO)
+- Added paper:budget-internalization. Linked from method:cispo papers and do_not_use_for; redirect on task:math-code-rl-dense.
+- Qwen3.5-4B 4k-trained: 4K +34.8 pp / 64K −30.2 pp vs base. SFT on truncated traces reproduces it. Complements When2Think / LoCo / AES / LSD / `paper:two-clocks-rlvr`. Checkpoints huggingface.co/collections/JetBrains-Research/budget-internalization.
+
+### 2026-11-20 — ingest paper:diffusion-rl-is-steering (claim note on method:diffusion-opsd; does not retarget DiffusionOPSD / Self-OPD)
+- Added paper:diffusion-rl-is-steering. Linked from method:diffusion-opsd papers and do_not_use_for; redirect on task:posttrain-diffusion.
+- Constant per-block steering vectors (0.29M vs 18.8M LoRA) recover 90.0–96.3% of six image RL reward gains.
+
 ### 2026-11-19 — weekday SOTA sweep (COPD, Levenshtein Editing, FlashMorph2, ECA, Chorus, CurvDelta; note opd-token-order)
 - Six active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-19 Librarian weekday sweep after merged PR 68 (watermark 2611.23124 ingest / listing considered 2611.23229, dce35a3, 2363 nodes / 9566 edges). Covers Thursday 19 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.23229 plus HF Daily 2026-11-18 leftovers (already ingested/skipped last run) / 2026-11-19. New high id 2611.24809 (ingest) / 2611.24936 (listing considered). Distinct slug `levenshtein-edit-dlm` from `method:led`. Distinct `copd` from cisnlp/COPSD. Distinct `flashmorph2` from `method:sas`. Distinct `eca` from `method:gca` / `method:eg-grpo`. Distinct `chorus` from Engram (not a library node). Distinct `curvdelta` from `method:lr-matters-lora`.

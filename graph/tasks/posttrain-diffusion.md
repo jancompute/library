@@ -21,6 +21,7 @@ methods:
   - method:edmd
   - method:physopsd
   - method:fewsteprl
+  - method:shadow-posterior-matching
   - method:sifr
   - method:idm
   - method:doobpo
@@ -45,6 +46,10 @@ redirects:
     to: "method:physopsd"
   - when: "few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)"
     to: "method:fewsteprl"
+  - when: "few-step shadow-posterior RL (Shadow Posterior Matching; not DiffusionOPSD default / not FewStepRL)"
+    to: "method:shadow-posterior-matching"
+  - when: "RL post-training in diffusion transformers is activation steering"
+    to: "paper:diffusion-rl-is-steering"
   - when: "intrinsic distribution matching / EMA moment constraint on DMD (IDM)"
     to: "method:idm"
   - when: "likelihood-free RL fine-tune of diffusion/flow policies (DoobPO)"
@@ -75,7 +80,7 @@ redirects:
     to: "method:forkgrpo"
   - when: "signed advantages + Lagrange velocity-drift budget for flow RL (SIFR)"
     to: "method:sifr"
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-20'
 tags:
   - diffusion
   - post-training
@@ -92,6 +97,8 @@ Aligning generative diffusion and flow models with downstream reward functions (
 - **Optional endpoint-only few-step DMD (not this first hop)**: `method:edmd` (`arXiv:2611.17194`). Fake score trained only on student finals; no real images. SD3-M peak HPSv3++ 11.171 vs D-DMD 10.841; FLUX.2-klein-4B 12.699 vs DMD2 11.337. Code Westlake-AGI-Lab/eDMD. Does not replace DiffusionOPSD, Self-OPD, or IDM.
 - **Optional code-as-privilege video OPSD (not this T2I default)**: `method:physopsd` (`arXiv:2611.12411`). Executable physics code as privileged teacher context. UniVideo 13B / OmniWeaving 8.3B VideoPhy-2 $+4.2$ / $+4.1$ at 3K samples vs SFT 80K / RL 21K. Code aigc3d/PhysOPSD. Mention on `task:privileged-teacher-opsd`. Does not replace DiffusionOPSD, Self-OPD, or VISTA.
 - **Optional few-step average-velocity RL (not this first hop)**: `method:fewsteprl` (`arXiv:2611.08240`). Ports FlowGRPO / AWM / DiffusionNFT / DiffusionOPSD / ReFL onto average-velocity few-step models. HF leftover below watermark. No public code. Does not replace DiffusionOPSD or Self-OPD.
+- **Optional few-step shadow-posterior RL (not this first hop)**: `method:shadow-posterior-matching` (`arXiv:2611.25998`). 4-step SD3.5-M GenEval 0.94 / OCR 0.96 / PickScore 23.84 vs 0.86 / 0.95 / 23.36. Code shadow-posterior/code. Distinct from FewStepRL / eDMD / `method:bpo`. Does not replace DiffusionOPSD or Self-OPD.
+- **Gotcha (diffusion RL is activation steering)**: `paper:diffusion-rl-is-steering` (`arXiv:2611.26627`). Constant steering vectors (0.29M vs 18.8M LoRA) recover 90.0–96.3% of six image RL reward gains. Does not retarget DiffusionOPSD or Self-OPD.
 - **Optional signed flow RL (not this first hop)**: `method:sifr` (`arXiv:2611.09175`). Signed advantages plus Lagrange velocity-drift budget. SD3.5-M / FLUX.2 Klein / Cosmos 3 Super T2I 64B; 12 backbone–reward pairs. No public code. Does not replace DiffusionOPSD or Self-OPD.
 - **Primary Method (Reward/Self-Distill with Behavior Policy)**: **DiffusionOPSD** (`method:diffusion-opsd`, `paper:diffusion-opsd` `arXiv:2608.24646`) for on-policy self-distillation with bounded intermediate clean-output targets.
 - **Teacher-Free Flow Matching / Multi-Objective Alignment**: **Self-OPD** (`method:self-opd`, `paper:self-opd` `arXiv:2608.26872`) for stochastic SDE branching vs deterministic self-reference and reward-level multi-objective fusion without task-specific teachers.

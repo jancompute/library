@@ -10,12 +10,15 @@ do_not_use_for:
   - when: "native 1.58-bit pretraining from scratch"
     reason: "AF1 is genuine 1-bit PTQ of an existing LLM; Sparse-BitNet remains the 2026 BitNet pretrain line"
     use_instead: "method:sparse-bitnet"
+  - when: "HiSA hidden-dimension RoPE QK sparsity (not 1-bit PTQ)"
+    reason: "AF1 occupies the HiSA acronym for 1-bit PTQ; Hidden Sparse Attention is method:hisa-rope"
+    use_instead: "method:hisa-rope"
   - when: "post-training ternarization of a pretrained LLM at 1.58-bit"
     reason: "ScaleQ-1.58 is the ternary post-train default"
     use_instead: "method:scaleq-158"
 assumptions:
   - "PTQ on LLaMA/Qwen/Gemma-class checkpoints under a strict 1.0-BPW budget. EMNLP 2026 Main."
-last_reviewed: "2026-09-09"
+last_reviewed: "2026-11-20"
 papers:
   - paper:af1
 recipes:

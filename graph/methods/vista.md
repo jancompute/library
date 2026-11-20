@@ -11,6 +11,9 @@ do_not_use_for:
   - when: 'termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD)'
     reason: 'VISTA remains gold-solution OPSD; TA-OPSD adds stop/continue plus repetition unlikelihood'
     use_instead: method:ta-opsd
+  - when: 'MLLM crop-filter privileged OPSD (VisAlloc; not gold-solution VISTA)'
+    reason: 'VISTA remains text-math gold-solution OPSD; VisAlloc is MLLM crop-filter OPSD'
+    use_instead: method:visalloc
   - when: 'OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD)'
     reason: 'VISTA remains gold-solution OPSD; B-OPSD replaces the gold with a self-generated brief'
     use_instead: method:b-opsd
@@ -89,7 +92,7 @@ do_not_use_for:
   - when: "teachable prefixes + recoverability verification against Teacher Drift (TOPSD)"
     reason: "VISTA remains gold-solution privileged OPSD; TOPSD gates prefixes when the teacher follows student errors"
     use_instead: "method:topsd"
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-20'
 papers:
   - paper:ta-opsd
   - paper:b-opsd

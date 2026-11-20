@@ -14,6 +14,10 @@ do_not_use_for:
   - when: "difficulty-aware reweighting + targeted replay on an ES trainer"
     reason: "ES-reasoning remains Pass@K; DART-ES is a reweight/replay plug-in"
     use_instead: "method:dart-es"
+  - when: "routed off-mode GRPO diversity (ROAM-GRPO; not ES-reasoning)"
+    reason: "ES-reasoning remains Pass@K; ROAM is a GRPO-host diversity plug-in"
+    use_instead: "method:roam-grpo"
+last_reviewed: '2026-11-20'
 papers:
   - paper:rlvr-no-free-lunch
   - paper:es-reasoning

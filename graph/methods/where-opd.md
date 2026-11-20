@@ -19,11 +19,14 @@ do_not_use_for:
   - when: "privileged OPSD gains collapse at scale; verified on-policy scaffolds"
     reason: "OASIS is a text-math scaffold fix, not MLLM spatial hints"
     use_instead: "method:oasis"
+  - when: "MLLM crop-filter privileged OPSD (VisAlloc; not textual spatial hints)"
+    reason: "Where-OPD is textual object/coord hints; VisAlloc uses geometry-matched crops"
+    use_instead: "method:visalloc"
 assumptions:
   - "MLLM student pi_theta(I,Q); frozen/EMA teacher pi_bar(I,Q,h) where h is a textual list of relevant objects and coordinates from a procedural scene. Student sees no hint at inference."
   - "Paper: Qwen3.5-4B/9B and Qwen3-VL-4B. Post-train on synthetic counting scenes; eval on CountQA / DocVQA / OCRBench / ChartQA / EvoChart plus real-world perception suites."
   - "Official code sirkosophia/Where-OPD. Not a crop-zoom teacher (Vision-OPD / Imagine-OPD)."
-last_reviewed: "2026-10-02"
+last_reviewed: "2026-11-20"
 papers:
   - paper:where-opd
 recipes:

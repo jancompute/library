@@ -12,6 +12,9 @@ do_not_use_for:
   - when: 'black-box NL consult then privileged OPSD+RL (COPD; not matching default)'
     reason: 'OPD remains logit matching; COPD consults a black-box teacher then privileged OPSD'
     use_instead: method:copd
+  - when: 'skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default)'
+    reason: 'OPD remains logit matching; AutoMaster is skill-guided teacher SFT'
+    use_instead: method:automaster
   - when: 'which tokens / order / reverse-KL vanishing in OPD objectives'
     reason: 'Gotcha: sequence-level future-agreement bias and reverse-KL vanishing; does not retarget matching'
     use_instead: paper:opd-token-order
@@ -249,7 +252,7 @@ do_not_use_for:
   - when: "rubric-privileged OPD warm start before rubric-based RL"
     reason: "OPD remains matching distillation; RP-OPD is a rubric-privileged warm start then rubric RL"
     use_instead: "method:rp-opd"
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-20'
 papers:
   - paper:copd
   - paper:opd-token-order

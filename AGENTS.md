@@ -203,10 +203,12 @@ task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 202
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
   when recycle an AR post-training weight delta onto a converted dLLM -> task:diffusion-lm-ar-delta-recycle
-task:posttrain-diffusion -> method:diffusion-opsd (2611.12411, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
+task:posttrain-diffusion -> method:diffusion-opsd (2611.26627, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
   when endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default) -> method:edmd
   when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) -> method:physopsd
   when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) -> method:fewsteprl
+  when few-step shadow-posterior RL (Shadow Posterior Matching; not DiffusionOPSD default / not FewStepRL) -> method:shadow-posterior-matching
+  when RL post-training in diffusion transformers is activation steering -> paper:diffusion-rl-is-steering
   when intrinsic distribution matching / EMA moment constraint on DMD (IDM) -> method:idm
   when likelihood-free RL fine-tune of diffusion/flow policies (DoobPO) -> method:doobpo
   when distributional regularization for diffusion/flow reward FT (DFR) -> method:dfr
@@ -303,6 +305,7 @@ task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.10866, 2026
   when preference-conditioned jointly trained per-objective LoRA GRPO (LambdaMix; not LoRA quality default) -> method:lambdamix
 task:posttrain-attention-sparsification -> method:sas (2609.13141, 2026-09-14)
   when on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget) -> method:flashmorph2
+  when HiSA hidden-dimension RoPE QK sparsity from scratch (not SAS gated budget) -> method:hisa-rope
   when interleaved scatter/gather static sparse attention (INTRA) -> method:intra
   when sparse attention with a one-token tail proxy (OpenAttention) -> method:openattention
   when forward-dense backward-sparse attention for long-context fine-tuning (LazyFlash) -> method:lazyflash
@@ -457,6 +460,7 @@ task:instruct-sft-alignment -> method:olmo-3 (2611.10045, 2026-08-26) + method:n
   when sycophancy is established at SFT not DPO (Don't Blame The Preferences) -> paper:sycophancy-from-sft
   when post-training tunes a pretrained cue-routing circuit (sycophancy heads) -> paper:posttrain-cue-routing
   when agentic automated SFT data research (proportion / prune / repair / replace / synthesize) -> method:autosft
+  when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not AutoSFT mix research) -> method:automaster
   when SFT-free RL-only domain adaptation from a base model (OnePO / HuatuoGPT-3) -> method:onepo
   when in-language (L2) reasoning SFT rather than general instruct -> task:multilingual-l2-reasoning-sft
   when 24GB quality LoRA rather than drift-budget instruct FT -> task:parameter-efficient-fine-tuning
@@ -466,7 +470,7 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2611.20691, 2026-08-28)
   when majority-vote unsupervised RLVR collapse from cross-task coupling -> paper:unsupervised-rlvr-collapse
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
-task:math-code-rl-dense -> method:cispo (2611.18627, 2026-08-26)
+task:math-code-rl-dense -> method:cispo (2611.26172, 2026-08-26)
   when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) -> method:ash
   when reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO) -> method:rsc
   when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) -> method:flashreinforce
@@ -560,6 +564,8 @@ task:math-code-rl-dense -> method:cispo (2611.18627, 2026-08-26)
   when target-ESS tempered IS (TETPO) rather than Pass@1 CISPO -> method:tetpo
   when rollout batch size vs sqrt-LR rule; two clocks of progress vs failure -> paper:two-clocks-rlvr
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
+  when fixed-budget RLVR trades test-time scaling for in-budget accuracy (budget internalization) -> paper:budget-internalization
+  when routed off-mode GRPO diversity (ROAM-GRPO; not Pass@1 CISPO) -> method:roam-grpo
   when single-rollout token credit via causal vs hindsight JSD (HP-RLVR) -> method:hp-rlvr
   when scale RLVR EMA beta with eta so eta/(1-beta) stays in a safe regime -> method:rlvr-momentum
 task:math-code-rl-moe -> method:sapo (2511.20347, 2026-08-26)
@@ -619,6 +625,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04)
   when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) -> method:copd
+  when skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage) -> method:automaster
   when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) -> method:rsc
   when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) -> method:ecod
   when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) -> method:acerl
@@ -686,9 +693,11 @@ task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04
   when multi-turn RL mainly error recovery / long-horizon, not per-step quality -> paper:multi-turn-rl-budget
 task:passk-reasoning-coverage -> method:es-reasoning (2610.39295, 2026-08-31)
   when group-dependent coverage rewards / Team-GRPO (not ES-reasoning) -> method:team-grpo
+  when routed off-mode GRPO diversity (ROAM-GRPO; not ES-reasoning) -> method:roam-grpo
   when pass@1 vs pass@k no-free-lunch under RLVR -> paper:rlvr-no-free-lunch
 task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD) -> method:ta-opsd
+  when MLLM crop-filter privileged OPSD (VisAlloc; not gold-solution VISTA / not Where-OPD) -> method:visalloc
   when OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD) -> method:b-opsd
   when code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA) -> method:physopsd
   when bootstrapped OPSD then OPD (BOPD; not gold-solution VISTA) -> method:bopd
@@ -724,10 +733,12 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when hidden-state privileged OPSD after GRPO (PR-OPD / invisible advantage) -> method:pr-opd
   when system-prompt verbal regularization of a privileged teacher (VRSD) -> method:vrsd
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
-task:reasoning-rl-alignment -> method:cispo (2611.18627, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
+task:reasoning-rl-alignment -> method:cispo (2611.26172, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2611.23673, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
   when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) -> method:copd
+  when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default) -> method:automaster
+  when MLLM crop-filter privileged OPSD (VisAlloc; not matching default / not Where-OPD) -> method:visalloc
   when which tokens / order / reverse-KL vanishing in OPD objectives -> paper:opd-token-order
   when VLM GSPO teachers then MOPD then MixRL (M3OPD-Reasoner; not Open-MOPD / not Reframe observation mix) -> method:m3opd-reasoner
   when OPD for agentic coding / offline cached teacher (SWE-OPD) -> method:swe-opd
@@ -941,6 +952,7 @@ task:latent-space-lm-pretrain -> method:ncp-archpreview (2609.10715, 2026-09-11)
   when recurrent CED-style architecture, not next-concept latent LM -> task:recurrent-encoder-decoder-lm
 task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when on-policy discrete hybrid layer selection (FlashMorph2; not Mamba-2 from scratch) -> method:flashmorph2
+  when Canon layers / local token mixing on GLA/GDN (not Mamba-2 from scratch) -> method:canon-layers
   when near-zero untied embeddings stall gated models (GroupClip / GateFloor; not Mamba-2 default) -> method:groupclip
   when GGA mixed-precision + Pure-Write window for GDN recurrent-state quant -> method:gga-pw
   when periodic 4-bit recurrent-state quantization (PACE) -> method:pace
@@ -949,6 +961,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2611.19419, 2026-08-26)
   when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) -> method:chorus
+  when Canon layers / local token mixing (not Muon2 / not the 7B optimizer) -> method:canon-layers
   when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) -> method:tphc
   when pretraining optimizer gains do not transfer to short-horizon KL distill -> paper:optimizer-kl-distill
   when residual looped pretrain / Loopback Transformer (not Muon2 / not ELR default) -> method:loopback-transformer
@@ -1017,6 +1030,8 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
 task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
   when shared n-gram tables with layer-wise rescale (Chorus; not the 7B optimizer) -> method:chorus
+  when Canon layers / local token mixing at 8B (not the 7B optimizer) -> method:canon-layers
+  when HiSA hidden-dimension RoPE QK sparsity from scratch (not the 7B optimizer) -> method:hisa-rope
   when hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer) -> method:depthgraft
   when on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer) -> method:opmd-cpt
   when KL-recovery MTP gradient (Soft-MTP), not the 7B optimizer -> method:soft-mtp
@@ -2019,6 +2034,23 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 681. **OPD tokens / order / reverse-KL vanishing** (claim note, no new method): `paper:opd-token-order` (`arXiv:2611.23397`) on `task:student-distillation` / `method:opd`. Sequence-level future-agreement bias; reverse-KL can vanish. Qwen3-1.7B vs Qwen3-8B: sequence-level OPD refuses nearly all WildJailbreak benign requests (teacher 17.5%). Code princeton-pli/opd-objectives-analysis. Does **not** retarget OPD.
 
+682. **Canon Layers**: **Canon Layers** (`method:canon-layers`, `arXiv:2611.24963`) on `task:pretrain-dense-7b`. Active plug-in. Local token mixing (<0.2% params). 8B ~30% token save; Llama 8B/1T lm-eval/MMLU 66.9/60.6 vs LlamaCanon 67.7/62.4; GLA5+Canon 68.0/63.0 vs Mamba2 67.3/61.6 vs GDN2+Canon 68.2/64.0. Code facebookresearch/PhysicsLM4. Mentions on `task:llm-pretraining-optimization` / `task:linear-time-sequence-modeling`. Does **not** replace Muon2 or Mamba-2.
+
+683. **VisAlloc**: **VisAlloc** (`method:visalloc`, `arXiv:2611.25069`) on `task:privileged-teacher-opsd`. Active plug-in. Sample-level crop filter plus conserved token-budget OPSD. Qwen3.5-4B/9B eight-bench macro 81.44/84.92 vs Vision-OPD 80.47/84.40. Code Kaelyn01/VisAlloc. Mention on `task:student-distillation`. Distinct from Where-OPD / CV-OPD. Vision-OPD is not a library node. Does **not** replace VISTA.
+
+684. **AutoMaster**: **AutoMaster** (`method:automaster`, `arXiv:2611.26510`) on `task:student-distillation`. Active plug-in. Skill-conditioned teacher rollouts then SFT (Skill-FT). Qwen3.5-4B/9B vs vanilla SFT TB2.1 22.47→28.09 / 26.59→35.58; BrowseComp 43.24→46.13 / 46.85→51.53. Code RUCAIBox/AutoMaster. Mentions on `task:instruct-sft-alignment` / `task:outcome-only-long-horizon-agent-rl`. Distinct from AutoSFT / Harness-Zero / Code2Skill / COPD. Does **not** replace OPD.
+
+685. **Shadow Posterior Matching**: **SPM** (`method:shadow-posterior-matching`, `arXiv:2611.25998`) on `task:posttrain-diffusion`. Active plug-in. Few-step shadow-posterior RL. 4-step SD3.5-M GenEval 0.94 / OCR 0.96 / PickScore 23.84 vs strongest 4-step baseline 0.86 / 0.95 / 23.36. Code shadow-posterior/code. MUST NOT use slug PMD (`method:bpo`). Does **not** replace DiffusionOPSD, Self-OPD, or FewStepRL.
+
+686. **HiSA**: **HiSA** (`method:hisa-rope`, `arXiv:2611.26363`) on `task:pretrain-dense-7b`. Active plug-in. RoPE hidden-dimension QK sparsity. 135M 4K val 2.880 vs dense 2.906 at 29.3% QK; 16K PG19 3.170 vs 3.205 at 20.2% QK. Code ambroise-b/hisa. Distinct from AF1 HiSA. Mention on `task:posttrain-attention-sparsification`. Does **not** replace Muon2 or SAS.
+
+687. **ROAM-GRPO**: **ROAM-GRPO** (`method:roam-grpo`, `arXiv:2611.25926`) on `task:passk-reasoning-coverage`. Active plug-in. Routed off-mode approach mining on a GRPO host. pass@16 +4.7%; embedding cosine distance 1.5–2× on MATH lvl5. No public code. Mention on `task:math-code-rl-dense`. Distinct from Team-GRPO / DART-ES / DATPO. Does **not** replace ES-reasoning or CISPO.
+
+688. **Budget Internalization** (claim note, no new method): `paper:budget-internalization` (`arXiv:2611.26172`) on `task:math-code-rl-dense` / `method:cispo`. Qwen3.5-4B 4k-trained: 4K +34.8 pp / 64K −30.2 pp vs base. SFT on truncated traces reproduces it. Complements When2Think / LoCo / AES / LSD / `paper:two-clocks-rlvr`. Does **not** retarget CISPO.
+
+689. **Diffusion RL is activation steering** (claim note, no new method): `paper:diffusion-rl-is-steering` (`arXiv:2611.26627`) on `task:posttrain-diffusion` / `method:diffusion-opsd`. Constant steering (0.29M vs 18.8M LoRA) recovers 90.0–96.3% of six image RL reward gains. Does **not** retarget DiffusionOPSD or Self-OPD.
+
+
 
 ---
 
@@ -2702,6 +2734,15 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `chorus` (2611.23386) is an active shared n-gram table plug-in. It does not supersede `muon2` or `olmo-3`.
 - `curvdelta` (2611.24654) is an active K-FAC low-curvature PEFT plug-in. It does not supersede `lr-matters-lora`.
 - `paper:opd-token-order` (2611.23397) is an OPD tokens/order/vanishing-reverse-KL gotcha. It does not retarget `opd`.
+- `canon-layers` (2611.24963) is an active local token-mixing plug-in. It does not supersede `muon2` or `mamba-2`.
+- `visalloc` (2611.25069) is an active MLLM crop-filter privileged-OPSD plug-in. Distinct from `where-opd` / `cv-opd`. It does not supersede `vista`.
+- `automaster` (2611.26510) is an active skill-conditioned teacher-SFT plug-in. Distinct from `autosft` / `harness-zero` / `code2skill` / `copd`. It does not supersede `opd`.
+- `shadow-posterior-matching` (2611.25998) is an active few-step shadow-posterior RL plug-in. Distinct from `fewsteprl` / `edmd` / `method:bpo`. It does not supersede `diffusion-opsd` or `self-opd`.
+- `hisa-rope` (2611.26363) is an active RoPE hidden-dimension QK-sparsity plug-in. Distinct from AF1 HiSA. It does not supersede `sas` or `mamba-2`.
+- `roam-grpo` (2611.25926) is an active GRPO-host diversity plug-in. Distinct from `team-grpo` / `dart-es` / `datpo`. It does not supersede `es-reasoning` or `cispo`.
+- `paper:budget-internalization` (2611.26172) is a fixed-budget RLVR length-internalization gotcha. It does not retarget `cispo`.
+- `paper:diffusion-rl-is-steering` (2611.26627) is a diffusion-RL activation-steering gotcha. It does not retarget `diffusion-opsd` or `self-opd`.
+
 
 
 ---

@@ -7,6 +7,8 @@ summary: "On-policy self-distillation where a same-size teacher is privileged wi
 redirects:
   - when: "termination-aware OPSD / stop-continue plus repetition unlikelihood (TA-OPSD)"
     to: "method:ta-opsd"
+  - when: "MLLM crop-filter privileged OPSD (VisAlloc; not gold-solution VISTA / not Where-OPD)"
+    to: "method:visalloc"
   - when: "OPSD without GT via self-generated problem briefs (B-OPSD; not bootstrapped BOPD)"
     to: "method:b-opsd"
   - when: "code-as-privilege video OPSD (PhysOPSD; not gold-solution VISTA)"
@@ -86,6 +88,7 @@ current_sota:
     notes: "VISTA (2608.28306) keeps the OPSD student update and adapts the privileged teacher on verified rollouts at top-k teacher-first KL positions."
 methods:
   - method:ta-opsd
+  - method:visalloc
   - method:b-opsd
   - method:physopsd
   - method:bopd
@@ -127,7 +130,7 @@ methods:
   - method:sampling-sft
   - method:air-opd
   - method:rc-opd
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-20'
 tags:
   - post-training
   - distillation
@@ -149,6 +152,7 @@ Train a problem-only student on its own rollouts using dense token-level targets
 ## SOTA Recommendation (as of 2026-09-08)
 
 - **Optional termination-aware OPSD (not this gold-solution default)**: `method:ta-opsd` (`arXiv:2611.19925`). Stop/Continue Distillation plus Repetition-Aware Unlikelihood. Qwen3 1.7B/4B/8B beats OPSD. Distinct from `method:opd-eos`. Code gtbxdf4/TA-OPSD. Does not replace VISTA.
+- **Optional MLLM crop-filter OPSD (not this gold-solution default)**: `method:visalloc` (`arXiv:2611.25069`). Sample-level crop filter plus conserved token-budget OPSD. Qwen3.5-4B/9B eight-bench macro 81.44/84.92 vs Vision-OPD 80.47/84.40. Code Kaelyn01/VisAlloc. Mention on `task:student-distillation`. Distinct from Where-OPD / CV-OPD. Vision-OPD is not a library node. Does not replace VISTA.
 - **Optional brief-conditioned OPSD without GT (not this gold-solution default)**: `method:b-opsd` (`arXiv:2611.19273`). Self-generated problem briefs, no answer. Beats OPSD average at three Qwen3 sizes on AIME24/25/HMMT25. Distinct from `method:bopd`. Code ZevineXu/B-OPSD. Does not replace VISTA or u-OPSD.
 - **Related code-as-privilege video OPSD (not this gold-solution default)**: `method:physopsd` (`arXiv:2611.12411`) on `task:posttrain-diffusion`. Executable physics code as privilege; not a gold text solution. Does not replace VISTA.
 - **Optional bootstrapped OPSD→OPD (not this first hop)**: `method:bopd` (`arXiv:2611.13680`). Stage I privileged OPSD then Stage II reference-free OPD from a fresh init. Qwen3-4B Avg@12 $18.06\to 23.98$ vs continued OPSD $19.63$. Code YueWu0301/BOPD. Mention on `task:student-distillation`. Does not replace VISTA.

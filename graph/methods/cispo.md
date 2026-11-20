@@ -37,6 +37,12 @@ do_not_use_for:
   - when: 'adaptive entropy-sparing length control (AES; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; AES is a GRPO-host entropy-sparing length plug-in'
     use_instead: method:aes
+  - when: 'fixed-budget RLVR trades test-time scaling for in-budget accuracy'
+    reason: 'Gotcha: a rollout cap can be internalized; does not retarget CISPO'
+    use_instead: paper:budget-internalization
+  - when: 'routed off-mode GRPO diversity (ROAM-GRPO; not Pass@1 CISPO)'
+    reason: 'CISPO remains Pass@1; ROAM is coverage/diversity on a GRPO host'
+    use_instead: method:roam-grpo
   - when: 'conformal adaptive GRPO group size (C-GRPO; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; C-GRPO is a conformal group-size plug-in on GRPO'
     use_instead: method:c-grpo
@@ -220,8 +226,9 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-20'
 papers:
+  - paper:budget-internalization
   - paper:flashreinforce
   - paper:lgpo
   - paper:trait-hitchhiking

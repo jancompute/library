@@ -17,6 +17,12 @@ do_not_use_for:
   - when: 'few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)'
     reason: 'DiffusionOPSD remains on-policy self-distill; FewStepRL ports hosts onto average-velocity few-step models'
     use_instead: method:fewsteprl
+  - when: 'few-step shadow-posterior RL (Shadow Posterior Matching; not DiffusionOPSD default)'
+    reason: 'DiffusionOPSD remains on-policy self-distill; SPM is few-step black-box RL'
+    use_instead: method:shadow-posterior-matching
+  - when: 'RL post-training in diffusion transformers is activation steering'
+    reason: 'Gotcha: most measured diffusion-RL gain is a constant activation shift; does not retarget DiffusionOPSD'
+    use_instead: paper:diffusion-rl-is-steering
   - when: 'intrinsic distribution matching / EMA moment constraint on DMD (IDM)'
     reason: 'DiffusionOPSD remains reward OPSD; IDM is few-step DMD plus EMA moments'
     use_instead: method:idm
@@ -33,6 +39,7 @@ do_not_use_for:
     reason: "DiffusionOPSD remains image-policy OPSD; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:diffusion-rl-is-steering
   - paper:physopsd
   - paper:fewsteprl
   - paper:sifr
@@ -48,7 +55,7 @@ claims:
     date: "2026-08-27"
     verified: true
     notes: "Translates image-level reward gradients into bounded positive/negative clean-output targets for intermediate denoising queries."
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-20'
 tags:
   - diffusion
   - post-training

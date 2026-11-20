@@ -205,6 +205,10 @@ redirects:
     to: "paper:two-clocks-rlvr"
   - when: "NO-THINK-mode GRPO gains that reactivate THINK-mode behavior"
     to: "paper:thinking-leakage"
+  - when: "fixed-budget RLVR trades test-time scaling for in-budget accuracy (budget internalization)"
+    to: "paper:budget-internalization"
+  - when: "routed off-mode GRPO diversity (ROAM-GRPO; not Pass@1 CISPO)"
+    to: "method:roam-grpo"
   - when: "single-rollout token credit via causal vs hindsight JSD (HP-RLVR)"
     to: "method:hp-rlvr"
   - when: "scale RLVR EMA beta with eta so eta/(1-beta) stays in a safe regime"
@@ -229,6 +233,7 @@ methods:
   - method:resi-math
   - method:fade
   - method:team-grpo
+  - method:roam-grpo
   - method:cros
   - method:sv-training
   - method:scarl
@@ -318,7 +323,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-18'
+last_reviewed: '2026-11-20'
 tags:
   - post-training
   - reasoning
@@ -335,6 +340,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 ## SOTA Recommendation (as of 2026-09-09)
 
 - **Optional hint-augmented GRPO via residual steering (not Pass@1 CISPO)**: `method:ash` (`arXiv:2611.23124`). Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34. Distinct from H2R / Guided-RLVR / SV-Training / ASE. No public GitHub. Does not replace CISPO.
+- **Gotcha (budget internalization)**: `paper:budget-internalization` (`arXiv:2611.26172`). Qwen3.5-4B 4k-trained: 4K +34.8 pp / 64K −30.2 pp vs base. SFT on truncated traces reproduces it. Complements When2Think / LoCo / AES / LSD / `paper:two-clocks-rlvr`. Does not retarget CISPO.
+- **Related routed off-mode GRPO diversity (not Pass@1 CISPO)**: `method:roam-grpo` (`arXiv:2611.25926`) on `task:passk-reasoning-coverage`. pass@16 +4.7%. No public code. Does not replace CISPO.
 - **Related reverse-KL score centering (not Pass@1 CISPO)**: `method:rsc` (`arXiv:2611.21791`) on `task:agentic-async-rl`. AppWorld 14.04 vs SC 12.28. GitHub BiEchi/rsc announced empty. Does not replace CISPO. Does not supersede `paper:score-centering-pg`.
 - **Related critic-free one-rollout RL (not Pass@1 CISPO)**: `method:flashreinforce` (`arXiv:2611.18627`) on `task:agentic-async-rl`. Qwen2.5-Math-1.5B 38.0 vs GRPO +1.7 at half rollouts. Does not replace CISPO.
 - **Optional likelihood-gated on-policy RLVR (not Pass@1 CISPO)**: `method:lgpo` (`arXiv:2611.15404`). Soft trust region from current-policy likelihood; drops old-policy logp. Qwen2.5-3B 3.37h→2.85h/epoch (~18%). Ratio clip is a no-op when ratio=1. No public code. Does not replace CISPO.

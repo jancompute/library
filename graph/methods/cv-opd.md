@@ -13,10 +13,13 @@ do_not_use_for:
 - when: MLLM privileged OPSD with textual spatial guidance from synthetic scenes
   reason: Where-OPD is privileged spatial hints; CV-OPD is contrastive positive/negative crops
   use_instead: method:where-opd
+- when: MLLM crop-filter privileged OPSD (VisAlloc; not contrastive crop OPD)
+  reason: VisAlloc is privileged OPSD with a conserved token budget; CV-OPD is contrastive crops
+  use_instead: method:visalloc
 assumptions:
 - VLM OPD where the answer can shortcut past visual evidence. Fine-grained visual benches in the paper.
 - No official GitHub as of 2026-10-12.
-last_reviewed: '2026-10-12'
+last_reviewed: '2026-11-20'
 papers:
 - paper:cv-opd
 recipes:

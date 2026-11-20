@@ -16,10 +16,13 @@ do_not_use_for:
 - when: 'drift-budget instruct FT (DCO)'
   reason: 'DCO is a layer-selective trainer; AutoSFT searches data actions'
   use_instead: method:dco
+- when: 'skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT)'
+  reason: 'AutoSFT researches mix actions; AutoMaster conditions teacher rollouts on skills'
+  use_instead: method:automaster
 assumptions:
 - 'SFT data research with a fixed model/trainer/budget and a pool that can be proportioned, pruned, repaired, replaced, or synthesized.'
 - 'Code: Thinking-Space/AutoSFT (code_status: released).'
-last_reviewed: '2026-10-16'
+last_reviewed: '2026-11-20'
 papers:
 - paper:autosft
 recipes:
