@@ -15,6 +15,9 @@ do_not_use_for:
   - when: "sycophancy is established at SFT not DPO (Don't Blame The Preferences)"
     reason: 'Gotcha: sycophancy is already in the SFT checkpoint; does not retarget OLMo-3'
     use_instead: paper:sycophancy-from-sft
+  - when: 'skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not Dolci)'
+    reason: 'OLMo-3 remains the open instruct stack; AutoMaster is skill-guided teacher SFT'
+    use_instead: method:automaster
   - when: 'domain inductive biases still matter in foundation pretraining mixes'
     reason: 'Gotcha: domain biases are not obsolete at foundation scale; does not retarget OLMo-3'
     use_instead: paper:domain-inductive-biases
@@ -72,7 +75,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Dolma-3 multi-trillion token open mix + Dolci curated SFT and verifiable reward alignment."
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-20'
 tags:
   - pretraining
   - open-data

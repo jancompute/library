@@ -16,6 +16,9 @@ do_not_use_for:
   - when: "single-teacher text distillation without a harness action-space mismatch"
     reason: "OPD remains the distill default; this is harness-behavior transfer, not token reverse-KL"
     use_instead: "method:opd"
+  - when: "skill-conditioned teacher rollouts then SFT (AutoMaster; not harness-behavior distill)"
+    reason: "Harness-Zero maps harness behaviors into a fixed action space; AutoMaster is skill-conditioned SFT"
+    use_instead: "method:automaster"
   - when: "multi-teacher student distillation"
     reason: "Open-MOPD remains multi-teacher distill"
     use_instead: "method:open-mopd"
@@ -38,7 +41,7 @@ assumptions:
   - "Target harness h is a fixed mini-SWE-agent-style bash loop. Evolved student harness h* is adapted into a private reference K for the harnessing agent. Review discussion is not visible to the student."
   - "Paper: Qwen3.5-9B SFT student; SpreadsheetBench Verified / AppWorld / USPTO Retrosynthesis. Harbor Docker sandboxes. Tinker SFT recipe."
   - "Code: metaevo-ai/harness-zero. Weights: Hugging Face metaevo-ai."
-last_reviewed: "2026-09-23"
+last_reviewed: '2026-11-20'
 papers:
   - paper:harness-zero
 recipes:

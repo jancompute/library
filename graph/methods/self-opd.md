@@ -11,6 +11,9 @@ do_not_use_for:
   - when: "few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)"
     reason: "Self-OPD remains teacher-free flow matching; FewStepRL ports hosts onto average-velocity few-step models"
     use_instead: "method:fewsteprl"
+  - when: "few-step shadow-posterior RL (Shadow Posterior Matching; not Self-OPD default)"
+    reason: "Self-OPD remains teacher-free flow matching; SPM is few-step black-box RL"
+    use_instead: "method:shadow-posterior-matching"
   - when: "flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k)"
     reason: "Self-OPD remains teacher-free flow matching; MEND is proximal velocity matching on a flow RL host"
     use_instead: "method:mend"
@@ -32,7 +35,7 @@ claims:
     date: "2026-08-28"
     verified: true
     notes: "Stochastic SDE branching vs deterministic self-reference baseline; all-branch pull-push velocity loss with reward-level multi-objective fusion."
-last_reviewed: '2026-11-09'
+last_reviewed: '2026-11-20'
 tags:
   - diffusion
   - flow-matching

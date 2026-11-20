@@ -13,9 +13,12 @@ do_not_use_for:
 - when: 'aligning text-to-image diffusion or flow models with rewards'
   reason: 'DiffusionOPSD remains on-policy self-distill; FewStepRL ports hosts onto average-velocity few-step models'
   use_instead: method:diffusion-opsd
+- when: 'few-step shadow-posterior RL (Shadow Posterior Matching; not average-velocity host port)'
+  reason: 'FewStepRL ports existing hosts; SPM is shadow-posterior credit'
+  use_instead: method:shadow-posterior-matching
 assumptions:
 - 'A few-step average-velocity diffusion/flow checkpoint. Paper adapts FlowGRPO / AWM / DiffusionNFT / DiffusionOPSD / ReFL. No public code as of 2026-11-10. HF Daily leftover below watermark 2611.09634, ingested 2026-11-10. arXiv 2611.08240.'
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-20'
 papers:
 - paper:fewsteprl
 recipes:

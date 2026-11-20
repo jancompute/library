@@ -25,11 +25,14 @@ do_not_use_for:
   - when: "read-time curation of raw trajectories (not write-time playbook)"
     reason: "Code2Skill is write-time skill synthesis from source; JitMem curates raw traces at read time"
     use_instead: "method:jitmem"
+  - when: "skill-conditioned teacher rollouts then SFT (AutoMaster; not repo skill banks)"
+    reason: "Code2Skill lifts repo units into skills; AutoMaster uses skills to collect teacher traces"
+    use_instead: "method:automaster"
 assumptions:
   - "Source units from maintained GitHub repos (>500 stars in the paper pool). Records are atomic, composite, or pattern. Acceptance is LLM reconstruction-plus-judge, not a proof of program equivalence."
   - "Default eval retrieves from a 10% sample of CodeSkillBank into a draft–review–revise loop. Compact summaries retain most utility at much lower context."
   - "GitHub https://github.com/ant-intl/Code2Skill is a pre-release publication implementation as of 2026-09-21. Dataset: ant-intl/DeveloperSkills-Code2Skill."
-last_reviewed: "2026-09-24"
+last_reviewed: "2026-11-20"
 papers:
   - paper:code2skill
 recipes:

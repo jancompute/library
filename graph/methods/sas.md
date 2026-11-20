@@ -11,6 +11,9 @@ do_not_use_for:
   - when: 'on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget)'
     reason: 'SAS remains gated post-train first hop; FlashMorph2 selects which layers keep full attention'
     use_instead: method:flashmorph2
+  - when: 'HiSA hidden-dimension RoPE QK sparsity from scratch (not SAS gated budget)'
+    reason: 'SAS remains gated post-train first hop; HiSA trains sparse QK from scratch'
+    use_instead: method:hisa-rope
   - when: 'interleaved scatter/gather static sparse attention (INTRA)'
     reason: 'SAS remains gated post-train first hop; INTRA is static scatter/gather sparsity'
     use_instead: method:intra
@@ -35,7 +38,7 @@ do_not_use_for:
 assumptions:
   - "Dense pretrained Transformer. Train only AttnGates; freeze the backbone. Paper: Qwen3-4B/8B/14B, OpenR1-Math-220k, block size 64, 8x H20."
   - "Host selector is the SeerAttention-R AttnGate; SAS changes the training signal from dense-attention distillation to LM-loss gates."
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-20'
 papers:
   - paper:sas
 recipes:

@@ -23,6 +23,7 @@ methods:
   - method:drive-ft
   - method:metacurate
   - method:autosft
+  - method:automaster
   - method:onepo
   - method:olmo-3
   - method:nemotron-cascade-2
@@ -53,6 +54,8 @@ redirects:
     to: "paper:posttrain-cue-routing"
   - when: "agentic automated SFT data research (proportion / prune / repair / replace / synthesize)"
     to: "method:autosft"
+  - when: "skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not AutoSFT mix research)"
+    to: "method:automaster"
   - when: "SFT-free RL-only domain adaptation from a base model (OnePO / HuatuoGPT-3)"
     to: "method:onepo"
   - when: "in-language (L2) reasoning SFT rather than general instruct"
@@ -61,7 +64,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-11-10'
+last_reviewed: '2026-11-20'
 tags:
   - post-training
   - instruct
@@ -87,6 +90,7 @@ Transforming base pre-trained models into safe, capable, instruction-following c
 - **Optional on-policy-direction SFT**: `method:opsft` (`arXiv:2609.36659`). Qwen3-4B DeepMath mean 40.11 vs GRPO 38.96 vs SFT 34.22 (6.4h vs 16.5h). Mention on `task:math-code-rl-dense`. Code ssfgunner/OPSFT. Does not replace OLMo-3 or CISPO.
 
 - **Optional agentic SFT data research**: `method:autosft` (`arXiv:2610.22194`). Analysis +6.5 IFEval; synthesis +3.4. Code Thinking-Space/AutoSFT. Does not replace OLMo-3.
+- **Optional skill-conditioned teacher SFT (not this instruct default)**: `method:automaster` (`arXiv:2611.26510`) on `task:student-distillation`. Skill-FT. Qwen3.5-4B/9B TB2.1 22.47→28.09 / 26.59→35.58. Code RUCAIBox/AutoMaster. Distinct from AutoSFT. Does not replace OLMo-3.
 - **Optional evolving SWE trajectory filter**: `method:metacurate` (`arXiv:2610.23134`). Highest mean SWE-Verified among compared SFT filters. Does not replace OLMo-3 or AutoSFT.
 - **Gotcha (sycophancy from SFT)**: `paper:sycophancy-from-sft` (`arXiv:2611.10045`). SFT $\ge 92\%$ of pref-aligned / $\ge 85\%$ of final; pref increases in $4/9$ cases by $4.2$pp avg. Complements `paper:posttrain-cue-routing`. Does not retarget OLMo-3.
 - **Gotcha (cue-routing circuit)**: `paper:posttrain-cue-routing` (`arXiv:2610.22937`). Chat SFT can activate pretrained sycophancy heads. Does not retarget OLMo-3.

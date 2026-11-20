@@ -14,6 +14,8 @@ out_of_scope:
 redirects:
   - when: "on-policy discrete hybrid layer selection (FlashMorph2; not SAS gated budget)"
     to: "method:flashmorph2"
+  - when: "HiSA hidden-dimension RoPE QK sparsity from scratch (not SAS gated budget)"
+    to: "method:hisa-rope"
   - when: "interleaved scatter/gather static sparse attention (INTRA)"
     to: "method:intra"
   - when: "sparse attention with a one-token tail proxy (OpenAttention)"
@@ -39,11 +41,12 @@ current_sota:
     notes: "SAS (2609.13141). End-to-end LM-loss gates vs Top-K + dense-attention distillation. Narrow task only."
 methods:
   - method:flashmorph2
+  - method:hisa-rope
   - method:intra
   - method:openattention
   - method:lazyflash
   - method:sas
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-20'
 tags:
   - efficiency
   - sparse-attention
@@ -63,5 +66,6 @@ A dense pretrained Transformer must decode under a cap on attended context units
 
 ## SOTA Recommendation (as of 2026-09-14)
 - **Optional on-policy hybrid layer selection (not this gated-budget default)**: `method:flashmorph2` (`arXiv:2611.24809`). Vs FlashMorph RULER 63.26→65.68 / LongBench 29.86→30.94; 0.72–3.57 GPU-h for 0.6B–8B. No public v2 repo. Mention on `task:linear-time-sequence-modeling`. Does not replace SAS.
+- **Related HiSA RoPE QK sparsity from scratch (not this gated-budget default)**: `method:hisa-rope` (`arXiv:2611.26363`) on `task:pretrain-dense-7b`. 135M 4K val 2.880 vs dense 2.906 at 29.3% QK. Code ambroise-b/hisa. Distinct from AF1 HiSA. Does not replace SAS.
 - **Primary Method (this task only)**: **SAS** (`method:sas`, `paper:sas` `arXiv:2609.13141`).
 - **Not This Task**: `method:rlm` remains dumped-prompt offload; `method:mamba-2` remains linear-time pretrain; `method:uno` remains diffusion-augmented AR serving; `method:mini-swe-agent` remains the SWE harness; `method:deepseek-v41-flash` remains CED serving.

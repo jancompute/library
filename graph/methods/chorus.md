@@ -16,9 +16,12 @@ do_not_use_for:
   - when: 'standard dense ~7B NTP from scratch on web/open data'
     reason: 'Muon2+OLMo-3 remain the 7B default; Chorus is a table architecture plug-in'
     use_instead: method:muon2
+  - when: 'Canon layers / local token mixing rather than n-gram tables'
+    reason: 'Canon mixes neighbors inside each sublayer; Chorus is shared n-gram tables'
+    use_instead: method:canon-layers
 assumptions:
   - 'N-gram hash tables shared across layers with per-layer rescale/project. Paper: 17.1M–9.6B ClimbMix/FineWeb/DCLM. Code dualverse-ai/chorous (typo in repo name) as of 2026-11-19. Ember is table-optimizer-state compression, not a Muon replacement.'
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-20'
 papers:
 - paper:chorus
 recipes:

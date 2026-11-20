@@ -14,6 +14,10 @@ current_sota:
 redirects:
   - when: "shared n-gram tables with layer-wise rescale (Chorus; not the 7B optimizer)"
     to: "method:chorus"
+  - when: "Canon layers / local token mixing at 8B (not the 7B optimizer)"
+    to: "method:canon-layers"
+  - when: "HiSA hidden-dimension RoPE QK sparsity from scratch (not the 7B optimizer)"
+    to: "method:hisa-rope"
   - when: "hierarchical cross-layer KV reconstruction as pretrain regularizer (DepthGraft; not the 7B optimizer)"
     to: "method:depthgraft"
   - when: "on-policy mid-training distillation (OPMD-CPT; not the 7B optimizer)"
@@ -36,6 +40,8 @@ redirects:
     to: "method:pa1-opd"
 methods:
   - method:chorus
+  - method:canon-layers
+  - method:hisa-rope
   - method:depthgraft
   - method:opmd-cpt
   - method:soft-mtp
@@ -63,7 +69,7 @@ methods:
   - method:synth
   - method:self-play-pretraining
   - method:muonio
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-20'
 tags:
   - pretraining
   - dense-lm
@@ -77,6 +83,8 @@ Training a ~7B dense language model from scratch requires optimizing billions of
 
 ## SOTA Recommendation (as of 2026-09-08)
 - **Optional shared n-gram tables (not this 7B optimizer)**: `method:chorus` (`arXiv:2611.23386`). 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram; ClimbMix 9.6B 0.9148 vs FactorEngram 0.9258. Code dualverse-ai/chorous. Mention on `task:llm-pretraining-optimization`. Does not replace Muon2.
+- **Optional Canon layers (not this 7B optimizer)**: `method:canon-layers` (`arXiv:2611.24963`). Local token mixing; 8B ~30% token save; LlamaCanon 8B/1T lm-eval/MMLU 67.7/62.4 vs Llama 66.9/60.6. Code facebookresearch/PhysicsLM4. Mentions on `task:llm-pretraining-optimization` / `task:linear-time-sequence-modeling`. Does not replace Muon2 or Mamba-2.
+- **Optional HiSA RoPE QK sparsity (not this 7B optimizer)**: `method:hisa-rope` (`arXiv:2611.26363`). 135M 4K val 2.880 vs dense 2.906 at 29.3% QK; 16K PG19 3.170 vs 3.205 at 20.2% QK. Code ambroise-b/hisa. Distinct from AF1 HiSA. Mention on `task:posttrain-attention-sparsification`. Does not replace Muon2 or SAS.
 - **Related hierarchical KV reconstruction (not this 7B optimizer)**: `method:depthgraft` (`arXiv:2611.03142`) on `task:llm-pretraining-optimization`. Pretrain regularizer, not Muon2. Does not replace Muon2.
 - **Related mid-training reverse-KL CPT (not this 7B optimizer)**: `method:opmd-cpt` (`arXiv:2611.13855`) on `task:student-distillation`. Distinct from `method:opmd`. Qwen NTP on MegaMath collapses; OPMD-CPT does not. Does not replace Muon2.
 - **Primary Optimizer**: **Muon2** (`method:muon2`, 2604.09967) + **KL-SOAP** (`method:soap-muon-scale`, 2607.20548) if GPU memory allows. Default I/O layers stay AdamW; optional `method:muonio` (`arXiv:2610.02705`) for embedding \(1\to 2\) / LM-head \(2\to\infty\). Unchanged hidden-layer default.
