@@ -8,6 +8,9 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'Neyman task budgets plus watershed forks (Weir; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; Weir is prefix-tree shrinkage plus Neyman budgets'
+    use_instead: method:weir
   - when: 'black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage)'
     reason: 'CANOPY remains sparse-outcome coverage; COPD is black-box teacher distill'
     use_instead: method:copd
@@ -147,8 +150,9 @@ assumptions:
   - "A held-out unit-test / patch verifier exists. Sparse fully-correct reward, not pass-fraction."
   - "Paper: Qwen3-14B on AppWorld train split (90 tasks), veRL, n=32, 50 turns / 32k train, 100 turns / 61k test, KL β=1e-4, lr 3e-6, 90 steps, hardest tier kept."
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-23'
 papers:
+  - paper:weir
   - paper:ecod
   - paper:statealign
   - paper:autoscaffold

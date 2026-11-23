@@ -5,6 +5,10 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD)"
+    to: "method:rollout-reuse"
+  - when: "state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD)"
+    to: "method:state-kl-opd"
   - when: "black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD)"
     to: "method:copd"
   - when: "skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default)"
@@ -265,6 +269,8 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:rollout-reuse
+  - method:state-kl-opd
   - method:copd
   - method:automaster
   - method:visalloc
@@ -394,7 +400,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 tags:
   - post-training
   - distillation
@@ -409,6 +415,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional reuse of teacher GRPO traces (not this matching default)**: `method:rollout-reuse` (`arXiv:2611.26803`, NeurIPS 2026). Pass-rate ordered SFT then mixed-success DPO with teacher-top1. Maths avg@8 vs canonical −0.37 (CI includes 0); naive SFT −1.95. Avoids 58.3M maths + 17.6M coding regen. Gemma-2-2B MATH500 4.3%→17.1%. Code vashistht/rollout_reuse. Does not replace OPD.
+- **Optional state-conditioned FKL/RKL OPD (not this matching default)**: `method:state-kl-opd` (`arXiv:2611.27125`). Forward KL when student coverage of the teacher top-p set is low. Base math Avg@8 +2.36/+2.50/+1.72 vs sampled-token OPD. Code zhangxinnan123/learning-dynamic-opd. Distinct from Cal-OPD / OPD-EOS / AOPD. Does not replace OPD.
 - **Optional black-box communicative OPD (not this matching default)**: `method:copd` (`arXiv:2611.23673`). Student-initiated NL consult then privileged OPSD+RL. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2 (2.46× gain); 9B 54.2→61.3 vs ActionOPD 54.6. TB 2.1 / SWE-Bench Pro V2 COPD-9B avg 30.3 vs Qwen3.5-35B-A3B 30.6. Distinct from ActionOPD / Bridged Self-Distill / Stepwise Querying / CAMP-II. No public train code. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace OPD or CANOPY.
 - **Optional skill-conditioned teacher SFT (not this matching default)**: `method:automaster` (`arXiv:2611.26510`). Skill-FT teacher rollouts then SFT. Qwen3.5-4B/9B vs vanilla SFT TB2.1 22.47→28.09 / 26.59→35.58. Code RUCAIBox/AutoMaster. Mentions on `task:instruct-sft-alignment` / `task:outcome-only-long-horizon-agent-rl`. Distinct from AutoSFT / Harness-Zero / Code2Skill / COPD. Does not replace OPD.
 - **Related MLLM crop-filter OPSD (not this matching default)**: `method:visalloc` (`arXiv:2611.25069`) on `task:privileged-teacher-opsd`. 4B/9B eight-bench macro 81.44/84.92 vs Vision-OPD 80.47/84.40. Code Kaelyn01/VisAlloc. Does not replace OPD or VISTA.

@@ -554,7 +554,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: ~7B dense pretrain optimizer (Muon2); Native FP4 hardware training from scratch (Quartet-II); Quality LoRA on 24GB (vanilla LoRA + rsLoRA + LR sweep)
 
 ### task:lora-quality-tuning — LoRA Quality Tuning on Single GPU
-- **SOTA**: `method:lr-matters-lora` `2611.10866` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Matches/exceeds DoRA
+- **SOTA**: `method:lr-matters-lora` `2611.27148` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Matches/exceeds DoRA
+  - do not use when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - do not use when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep) → `method:curvdelta`
   - do not use when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) → `method:scalar-peft`
   - do not use when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) → `method:deletion-tuning`
@@ -570,6 +571,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when dynamic tangent LoRA branch via residual-gradient SVD → `method:dt-lora`
   - do not use when stacking independently trained LoRA adapters / sequential skill add without an inference router → `method:read-lora`
 - **Redirects**:
+  - when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep) → `method:curvdelta`
   - when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) → `method:scalar-peft`
   - when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) → `method:deletion-tuning`
@@ -602,7 +604,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Single-adapter quality LoRA on 24GB (vanilla LoRA + rsLoRA + LR sweep); 4-bit PEFT stack (AQLoRA-Q / AutoQRA); Instruct FT under a behavioral-drift budget / layer-selective freeze (DCO); RLVR-stable rank-normalized LoRA A (NoRA); Fully low-bit checkpoints with no high-precision adapter (GradCodeS)
 
 ### task:parameter-efficient-fine-tuning — Parameter-Efficient Fine-Tuning (PEFT) & Low-Rank Adaptation
-- **SOTA**: `method:lr-matters-lora` `2611.10866` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Vanilla LoRA + rsLoRA + LR sweep SOTA (NOT DoRA)
+- **SOTA**: `method:lr-matters-lora` `2611.27148` (as_of 2026-08-26) — Single GPU PEFT / MMLU / GSM8k: Vanilla LoRA + rsLoRA + LR sweep SOTA (NOT DoRA)
+  - do not use when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - do not use when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep) → `method:curvdelta`
   - do not use when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) → `method:scalar-peft`
   - do not use when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) → `method:deletion-tuning`
@@ -622,6 +625,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when forward-only block-spectral phone specialists (FuRA-S) → `method:fura-s`
   - do not use when NVFP4 data-flow LoRA on Blackwell consumer GPUs (PACT; not Actor-then-Critic) → `method:pact-nvfp4-lora`
 - **Redirects**:
+  - when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not LoRA quality default) → `method:curvdelta`
   - when frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default) → `method:scalar-peft`
   - when gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default) → `method:deletion-tuning`
@@ -715,7 +719,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:agentic-async-rl — Agentic Asynchronous Reinforcement Learning
 - **Scope**: Training a tool-use / sandbox policy with asynchronous RL. Not choosing a software-engineering harness.
-- **SOTA**: `method:sao` `2611.18627` (as_of 2026-08-26) — Agentic Tool-Use & Multi-Turn Sandbox Benchmarks: Default SOTA for agentic async RL
+- **SOTA**: `method:sao` `2611.27375` (as_of 2026-08-26) — Agentic Tool-Use & Multi-Turn Sandbox Benchmarks: Default SOTA for agentic async RL
+  - do not use when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) → `method:gumbel-substitution`
+  - do not use when Neyman task budgets plus watershed forks (Weir; not async stragglers) → `method:weir`
   - do not use when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) → `method:flashreinforce`
   - do not use when colocated on-policy GPU reclaim (TIDE; not async stragglers) → `method:tide`
   - do not use when state-contrast RL for multi-turn tool hallucination (StateAlign; not async stragglers) → `method:statealign`
@@ -745,6 +751,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when structural credit split for tool-call vs natural-language-summary tokens, not async stragglers → `task:tool-agent-segment-credit`
   - do not use when CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes) → `method:ftw`
 - **Redirects**:
+  - when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) → `method:gumbel-substitution`
+  - when Neyman task budgets plus watershed forks (Weir; not async stragglers) → `method:weir`
   - when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) → `method:rsc`
   - when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) → `method:flashreinforce`
   - when colocated on-policy GPU reclaim (TIDE; not async stragglers) → `method:tide`
@@ -926,7 +934,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:fp4-rl-train-rollout-alignment — FP4 RL Train–Rollout Quantization Alignment
 - **Scope**: Low-precision RL train–rollout mismatch. Dual-active first hops are TRACE (rollout-guided QAT that caches mantissa/scale) and TRIAGE (direction-aware mismatch stabilization). Not native FP4 pretrain from scratch, not the Pass@1 loss, not the production RL engine.
-- **SOTA**: `method:trace` `2610.07767` (as_of 2026-10-07) — Qwen3.5-35B-A3B / 122B-A10B / Qwen3.8-Flash-Next FP4 RL: up to 5.4× rollout speedup
+- **SOTA**: `method:trace` `2611.27375` (as_of 2026-10-07) — Qwen3.5-35B-A3B / 122B-A10B / Qwen3.8-Flash-Next FP4 RL: up to 5.4× rollout speedup
+  - do not use when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default) → `method:gumbel-substitution`
   - do not use when symmetric residual-corrected FP4 MoE RL (MoeResQ) → `method:moeresq`
   - do not use when discrepancy-lag correction of sampler/trainer mismatch (DLC) → `method:dlc`
   - do not use when unbiased fp32 to bf16 export of the served copy (Fair Cast) → `method:fair-cast`
@@ -935,7 +944,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when native FP4 forward/backward hardware training from scratch → `method:quartet-ii`
   - do not use when direction-aware NVFP4 mismatch rebalance rather than rollout-guided QAT → `method:triage`
   - do not use when dense Pass@1 math/code RLVR loss → `method:cispo`
-- **SOTA**: `method:triage` `2610.07043` (as_of 2026-10-07) — Qwen3-4B / Qwen3-30B-A3B native NVFP4 RL, >34500 GPU-h B300: up to 2.3×
+- **SOTA**: `method:triage` `2611.27375` (as_of 2026-10-07) — Qwen3-4B / Qwen3-30B-A3B native NVFP4 RL, >34500 GPU-h B300: up to 2.3×
+  - do not use when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default) → `method:gumbel-substitution`
   - do not use when discrepancy-lag correction of sampler/trainer mismatch (DLC) → `method:dlc`
   - do not use when unbiased fp32 to bf16 export of the served copy (Fair Cast) → `method:fair-cast`
   - do not use when direction-aware NVFP4 mismatch (TRIAGE) → `method:rounding-align-rl`
@@ -943,6 +953,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when rollout-guided QAT that caches mantissa/scale, not direction-aware rebalance → `method:trace`
   - do not use when dense Pass@1 math/code RLVR loss → `method:cispo`
 - **Redirects**:
+  - when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default) → `method:gumbel-substitution`
   - when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not TRACE/TRIAGE default) → `method:bf16-sr`
   - when symmetric residual-corrected FP4 MoE RL (MoeResQ; not TRACE/TRIAGE default) → `method:moeresq`
   - when discrepancy-lag correction of sampler/trainer mismatch (DLC) → `method:dlc`
@@ -1009,7 +1020,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:math-code-rl-dense — Mathematical and Code RL Reasoning (Dense Policies)
 - **Scope**: Single-turn (or short-CoT) dense math/code RLVR with a programmatic verifier. Pass@1 default is CISPO.
-- **SOTA**: `method:cispo` `2611.26172` (as_of 2026-08-26) — MATH-500 / AIME 2024 / LiveCodeBench: Default SOTA for Dense RL
+- **SOTA**: `method:cispo` `2611.27227` (as_of 2026-08-26) — MATH-500 / AIME 2024 / LiveCodeBench: Default SOTA for Dense RL
+  - do not use when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) → `method:creditfilter`
+  - do not use when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - do not use when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) → `method:flashreinforce`
   - do not use when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) → `method:lgpo`
   - do not use when trait hitchhiking / non-targeted trait drift under GRPO → `paper:trait-hitchhiking`
@@ -1083,6 +1096,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when on-policy parameter update direction SFT (OPSFT), not Pass@1 RLVR → `method:opsft`
   - do not use when adaptive ground-truth rationale scaffolding for sparse-reward RLVR → `method:rgpo`
 - **Redirects**:
+  - when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) → `method:creditfilter`
+  - when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) → `method:ash`
   - when reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO) → `method:rsc`
   - when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) → `method:flashreinforce`
@@ -1318,7 +1333,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
-- **SOTA**: `method:canopy` `2611.18656` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+- **SOTA**: `method:canopy` `2611.27570` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+  - do not use when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) → `method:weir`
   - do not use when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) → `method:copd`
   - do not use when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) → `method:ecod`
   - do not use when Experience-Handoff RL of ACE actor/reflector/curator (ACE-RL; not CANOPY coverage) → `method:acerl`
@@ -1365,6 +1381,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) → `method:weir`
   - when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) → `method:copd`
   - when skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage) → `method:automaster`
   - when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) → `method:rsc`
@@ -1514,7 +1531,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when self-distillation OOD: SDPO/OPSD gains largely do not transfer → `paper:self-distillation-ood`
 
 ### task:reasoning-rl-alignment — Reinforcement Learning & Reasoning Post-Training
-- **SOTA**: `method:cispo` `2611.26172` (as_of 2026-08-26) — AIME 2024 / MATH-500: SOTA for Dense Long-CoT
+- **SOTA**: `method:cispo` `2611.27227` (as_of 2026-08-26) — AIME 2024 / MATH-500: SOTA for Dense Long-CoT
+  - do not use when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) → `method:creditfilter`
+  - do not use when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - do not use when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) → `method:flashreinforce`
   - do not use when likelihood-gated on-policy RLVR / drop old-policy logp (LGPO; not Pass@1 CISPO) → `method:lgpo`
   - do not use when trait hitchhiking / non-targeted trait drift under GRPO → `paper:trait-hitchhiking`
@@ -1595,7 +1614,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior → `paper:thinking-leakage`
 
 ### task:student-distillation — Small Local Student Distillation from Strong Teacher
-- **SOTA**: `method:opd` `2611.23673` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+- **SOTA**: `method:opd` `2611.26803` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+  - do not use when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) → `method:rollout-reuse`
+  - do not use when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) → `method:state-kl-opd`
   - do not use when black-box NL consult then privileged OPSD+RL (COPD; not matching default) → `method:copd`
   - do not use when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default) → `method:automaster`
   - do not use when which tokens / order / reverse-KL vanishing in OPD objectives → `paper:opd-token-order`
@@ -1698,6 +1719,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
   - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
+  - when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) → `method:rollout-reuse`
+  - when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) → `method:state-kl-opd`
   - when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) → `method:copd`
   - when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default) → `method:automaster`
   - when MLLM crop-filter privileged OPSD (VisAlloc; not matching default / not Where-OPD) → `method:visalloc`
@@ -2050,7 +2073,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) → `method:replayssm`
 
 ### task:llm-pretraining-optimization — Large Language Model Pretraining Optimization
-- **SOTA**: `method:muon2` `2611.19419` (as_of 2026-08-26) — Moonlight 7B Pretraining / FineWeb: ~2x token efficiency vs AdamW
+- **SOTA**: `method:muon2` `2611.27193` (as_of 2026-08-26) — Moonlight 7B Pretraining / FineWeb: ~2x token efficiency vs AdamW
+  - do not use when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) → `method:cmhc`
   - do not use when shared n-gram tables with layer-wise rescale (Chorus; not Muon2) → `method:chorus`
   - do not use when Canon layers / local token mixing (not Muon2) → `method:canon-layers`
   - do not use when HiSA hidden-dimension RoPE QK sparsity (not Muon2) → `method:hisa-rope`
@@ -2094,6 +2118,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) → `method:cmhc`
   - when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) → `method:chorus`
   - when Canon layers / local token mixing (not Muon2 / not the 7B optimizer) → `method:canon-layers`
   - when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) → `method:tphc`
@@ -2181,7 +2206,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when text/vision/audio MoE mixing laws rather than the open text mix → `method:multimodal-data-mixtures`
 
 ### task:pretrain-dense-7b — Pretrain Dense ~7B Language Model from Scratch
-- **SOTA**: `method:muon2` `2611.19419` (as_of 2026-08-26) — Moonlight Scaling Laws / FineWeb Token Mix: ~2x token efficiency vs AdamW
+- **SOTA**: `method:muon2` `2611.27193` (as_of 2026-08-26) — Moonlight Scaling Laws / FineWeb Token Mix: ~2x token efficiency vs AdamW
+  - do not use when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) → `method:cmhc`
   - do not use when shared n-gram tables with layer-wise rescale (Chorus; not Muon2) → `method:chorus`
   - do not use when Canon layers / local token mixing (not Muon2) → `method:canon-layers`
   - do not use when HiSA hidden-dimension RoPE QK sparsity (not Muon2) → `method:hisa-rope`
@@ -2248,6 +2274,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when training-free MoE expert prune by routing entropy (SPARE) → `method:spare-moe`
 - **SOTA**: `method:kimi-k3` `2607.24653` (as_of 2026-08-26) — Frontier MoE Benchmarks & Long-Context Throughput: Frontier Co-Default SOTA
 - **Redirects**:
+  - when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not V4 / mHC default) → `method:cmhc`
   - when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) → `method:tphc`
   - when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) → `method:simplehc`
   - when inference deactivation must match train-time weight rule → `paper:moe-expert-deactivation-weight-rule`

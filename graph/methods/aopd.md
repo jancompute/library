@@ -7,13 +7,17 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD)'
+  reason: 'AOPD gates on advantage; State-KL routes on coverage of the teacher top-p set'
+  use_instead: method:state-kl-opd
 - when: 'the locked first hop on task:student-distillation'
   reason: 'OPD remains matching at every student state; AOPD follows the teacher only when the advantage says it helps the student'
   use_instead: method:opd
 assumptions:
 - 'On-policy student rollouts with a teacher logp. No public code as of 2026-10-26.'
-last_reviewed: '2026-10-26'
+last_reviewed: '2026-11-23'
 papers:
+- paper:state-kl-opd
 - paper:aopd
 recipes:
 - recipe:aopd

@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default)'
+    reason: 'TRACE / TRIAGE remain NVFP4 dual-active with trusted engines; Gumbel substitution removes untrusted-sampler drift without q(y)'
+    use_instead: method:gumbel-substitution
   - when: 'symmetric residual-corrected FP4 MoE RL (MoeResQ)'
     reason: 'TRACE / TRIAGE remain NVFP4 dual-active; MoeResQ is residual-corrected simulated HiF4 MoE RL'
     use_instead: method:moeresq
@@ -36,6 +39,7 @@ assumptions:
   - "No official GitHub as of 2026-10-07."
 last_reviewed: "2026-10-07"
 papers:
+  - paper:gumbel-substitution
   - paper:trace
 recipes:
   - recipe:trace

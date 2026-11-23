@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default)'
+  reason: 'DLC splits numerical discrepancy from policy lag on trusted logp; Gumbel substitution does not need q(y)'
+  use_instead: method:gumbel-substitution
 - when: 'the locked first hop on task:fp4-rl-train-rollout-alignment'
   reason: 'TRACE / TRIAGE remain FP4 train-rollout first hops; DLC splits numerical discrepancy from policy lag'
   use_instead: method:trace
@@ -15,8 +18,9 @@ do_not_use_for:
   use_instead: method:fair-cast
 assumptions:
 - 'Disaggregated sampler/trainer RL. Official code Skylanding/Training-Inference-Mismatch.'
-last_reviewed: '2026-11-02'
+last_reviewed: '2026-11-23'
 papers:
+- paper:gumbel-substitution
 - paper:dlc
 recipes:
 - recipe:dlc

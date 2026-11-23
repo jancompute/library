@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default)'
+    reason: 'TRIAGE remains NVFP4 dual-active with trusted engines; Gumbel substitution removes untrusted-sampler drift without q(y)'
+    use_instead: method:gumbel-substitution
   - when: 'discrepancy-lag correction of sampler/trainer mismatch (DLC)'
     reason: 'TRIAGE remains NVFP4 dual-active; DLC splits numerical discrepancy from policy lag'
     use_instead: method:dlc
@@ -28,8 +31,9 @@ do_not_use_for:
 assumptions:
   - "Native NVFP4 RL. Paper: Qwen3-4B / 30B-A3B; >34500 GPU-h B300."
   - "No official GitHub as of 2026-10-07."
-last_reviewed: "2026-10-07"
+last_reviewed: "2026-11-23"
 papers:
+  - paper:gumbel-substitution
   - paper:triage
 recipes:
   - recipe:triage

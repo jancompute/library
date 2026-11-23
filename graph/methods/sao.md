@@ -10,6 +10,12 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers)'
+    reason: 'SAO remains async straggler replay; Gumbel substitution removes untrusted-sampler drift'
+    use_instead: method:gumbel-substitution
+  - when: 'Neyman task budgets plus watershed forks (Weir; not async stragglers)'
+    reason: 'SAO remains async straggler replay; Weir is prefix-tree shrinkage plus Neyman budgets'
+    use_instead: method:weir
   - when: 'critic-free single-rollout async RL (FlashREINFORCE; not async stragglers)'
     reason: 'SAO remains async straggler replay; FlashREINFORCE is critic-free one-pass REINFORCE'
     use_instead: method:flashreinforce
@@ -94,8 +100,10 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-11-17'
+last_reviewed: '2026-11-23'
 papers:
+  - paper:gumbel-substitution
+  - paper:weir
   - paper:flashreinforce
   - paper:statealign
   - paper:multi-turn-rl-budget

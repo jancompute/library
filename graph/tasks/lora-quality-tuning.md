@@ -35,8 +35,10 @@ methods:
   - method:anlr-lora
   - method:iso-lora
   - method:read-lora
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-23'
 redirects:
+  - when: "LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)"
+    to: "paper:lora-rlvr-rank-collapse"
   - when: "K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep)"
     to: "method:curvdelta"
   - when: "frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep)"
@@ -80,6 +82,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Gotcha (LoRA RLVR rank collapse)**: `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`). Qwen3-8B DeepMath-Hard \(r=64\) 73.1% → \(r=128\) 4.7% / \(r=256\) 2.3%. Do not revive DoRA. Code Shrimpstanot/structure-over-scale. Does not retarget lr-matters-lora or CISPO.
 - **Optional K-FAC low-curvature PEFT (not this quality default)**: `method:curvdelta` (`arXiv:2611.24654`). Gemma-3-1B math ALL 22.2 vs FT 19.4 / LoRA 17.5; Llama-2-7B math CurvLoRA ALL 40.1 vs Replay 40.2 / FT 33.4. Code xiaozi-max/curvdelta_learning. Mention on `task:parameter-efficient-fine-tuning`. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional scalar PEFT (not this quality default)**: `method:scalar-peft` (`arXiv:2611.17784`). Freeze an activation-derived basis; train layer-specific scalars. Qwen2.5-7B commonsense 88.9 vs LoRA r=8 88.8 at ~1/25 params; LLaMA3-8B 87.3 vs 87.4; mem −20%, throughput +6%. No public code. Mention on `task:parameter-efficient-fine-tuning`. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.
 - **Optional gate-projection deletion (not this quality default)**: `method:deletion-tuning` (`arXiv:2611.10866`). Binary mask, writes no new values; Llama-3-8B GSM8K $83.55$ vs FFT $83.24$ at $8.4$ MB. Code agentic-learning-ai-lab/deleting-weights. HF Daily leftover. Does **not** supersede vanilla LoRA + rsLoRA + LR sweep.

@@ -270,7 +270,8 @@ task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-2
   when mixed-precision scaling law for which pass to keep high precision (not optimizer-state memory) -> method:mixed-precision-scaling
   when structure-aware Muon on Monarch-factored weights (not SCALE subspace) -> method:monarch-muon
   when subspace Muon with residual correction (PMRC / SMRC) -> method:pmrc
-task:lora-quality-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26)
+task:lora-quality-tuning -> method:lr-matters-lora (2611.27148, 2026-08-26)
+  when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) -> paper:lora-rlvr-rank-collapse
   when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep) -> method:curvdelta
   when frozen activation-derived basis plus layer scalars (SCALAR; not rsLoRA + LR sweep) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not rsLoRA + LR sweep) -> method:deletion-tuning
@@ -292,7 +293,8 @@ task:lora-skill-composition -> method:read-lora (2609.31600, 2026-09-28)
   when memory must fit a 4-bit PEFT stack -> task:4bit-peft-quantization
   when instruct FT under a behavioral-drift budget / layer-selective freeze of instruct models rather than LoRA composition -> task:instruct-sft-alignment
   when deployed checkpoint must stay NF4/INT4/MXFP4 with no high-precision adapter -> task:full-lowbit-finetune
-task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.10866, 2026-08-26) + method:aqlora-q (2608.23816, 2026-08-26)
+task:parameter-efficient-fine-tuning -> method:lr-matters-lora (2611.27148, 2026-08-26) + method:aqlora-q (2608.23816, 2026-08-26)
+  when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) -> paper:lora-rlvr-rank-collapse
   when K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not LoRA quality default) -> method:curvdelta
   when frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default) -> method:scalar-peft
   when gate-projection binary-mask deletion (Deletion Tuning; not LoRA quality default) -> method:deletion-tuning
@@ -336,7 +338,9 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2611.18627, 2026-08-26)
+task:agentic-async-rl -> method:sao (2611.27375, 2026-08-26)
+  when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) -> method:gumbel-substitution
+  when Neyman task budgets plus watershed forks (Weir; not async stragglers) -> method:weir
   when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) -> method:rsc
   when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) -> method:flashreinforce
   when colocated on-policy GPU reclaim (TIDE; not async stragglers) -> method:tide
@@ -437,7 +441,8 @@ task:direct-preference-alignment -> method:olmo-3 (2611.10045, 2026-08-26)
   when preference-optimization vocabulary collapse from common-mode hidden offsets (ECHO) -> paper:echo-vocab-collapse
   when DPO hyperparameter landscape and transfer across scale -> paper:dpo-hp-landscape
 task:distill-reasoner-verifier -> method:opdvr (2608.24696, 2026-08-27)
-task:fp4-rl-train-rollout-alignment -> method:trace (2610.07767, 2026-10-07) + method:triage (2610.07043, 2026-10-07)
+task:fp4-rl-train-rollout-alignment -> method:trace (2611.27375, 2026-10-07) + method:triage (2611.27375, 2026-10-07)
+  when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default) -> method:gumbel-substitution
   when stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not TRACE/TRIAGE default) -> method:bf16-sr
   when symmetric residual-corrected FP4 MoE RL (MoeResQ; not TRACE/TRIAGE default) -> method:moeresq
   when discrepancy-lag correction of sampler/trainer mismatch (DLC) -> method:dlc
@@ -470,7 +475,9 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2611.20691, 2026-08-28)
   when majority-vote unsupervised RLVR collapse from cross-task coupling -> paper:unsupervised-rlvr-collapse
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
-task:math-code-rl-dense -> method:cispo (2611.26172, 2026-08-26)
+task:math-code-rl-dense -> method:cispo (2611.27227, 2026-08-26)
+  when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) -> method:creditfilter
+  when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) -> paper:lora-rlvr-rank-collapse
   when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) -> method:ash
   when reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO) -> method:rsc
   when critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO) -> method:flashreinforce
@@ -623,7 +630,8 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.18656, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.27570, 2026-09-04)
+  when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) -> method:weir
   when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) -> method:copd
   when skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage) -> method:automaster
   when reverse-KL score centering for off-policy agent IS (RSC; not CANOPY coverage) -> method:rsc
@@ -733,9 +741,11 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when hidden-state privileged OPSD after GRPO (PR-OPD / invisible advantage) -> method:pr-opd
   when system-prompt verbal regularization of a privileged teacher (VRSD) -> method:vrsd
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
-task:reasoning-rl-alignment -> method:cispo (2611.26172, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
+task:reasoning-rl-alignment -> method:cispo (2611.27227, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.23673, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+task:student-distillation -> method:opd (2611.26803, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) -> method:rollout-reuse
+  when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) -> method:state-kl-opd
   when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) -> method:copd
   when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not matching default) -> method:automaster
   when MLLM crop-filter privileged OPSD (VisAlloc; not matching default / not Where-OPD) -> method:visalloc
@@ -959,7 +969,8 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when Kronecker delta rule linear attention (KronLSTM; not an LSTM) -> method:kronlstm
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
-task:llm-pretraining-optimization -> method:muon2 (2611.19419, 2026-08-26)
+task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
+  when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) -> method:cmhc
   when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) -> method:chorus
   when Canon layers / local token mixing (not Muon2 / not the 7B optimizer) -> method:canon-layers
   when TP-grouped Hyper-Connections vs mHC (TPHC; not SimpleHC / not mHC default) -> method:tphc
@@ -1028,7 +1039,7 @@ task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
   when zero-natural-data self-play pretraining (generator proposes UTM programs) -> task:zero-natural-data-self-play-pretrain
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
   when text/vision/audio MoE mixing laws rather than the open text mix -> method:multimodal-data-mixtures
-task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
+task:pretrain-dense-7b -> method:muon2 (2611.27193, 2026-08-26)
   when shared n-gram tables with layer-wise rescale (Chorus; not the 7B optimizer) -> method:chorus
   when Canon layers / local token mixing at 8B (not the 7B optimizer) -> method:canon-layers
   when HiSA hidden-dimension RoPE QK sparsity from scratch (not the 7B optimizer) -> method:hisa-rope
@@ -1043,6 +1054,7 @@ task:pretrain-dense-7b -> method:muon2 (2611.19419, 2026-08-26)
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when one-step prefix-augmented OPD for continued pretrain (PA1-OPD) -> method:pa1-opd
 task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+  when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not V4 / mHC default) -> method:cmhc
   when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) -> method:tphc
   when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) -> method:simplehc
   when inference deactivation must match train-time weight rule -> paper:moe-expert-deactivation-weight-rule
@@ -2050,6 +2062,20 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 689. **Diffusion RL is activation steering** (claim note, no new method): `paper:diffusion-rl-is-steering` (`arXiv:2611.26627`) on `task:posttrain-diffusion` / `method:diffusion-opsd`. Constant steering (0.29M vs 18.8M LoRA) recovers 90.0–96.3% of six image RL reward gains. Does **not** retarget DiffusionOPSD or Self-OPD.
 
+690. **Rollout Reuse**: **Rollout Reuse** (`method:rollout-reuse`, `arXiv:2611.26803`, NeurIPS 2026) on `task:student-distillation`. Active plug-in. Pass-rate ordered SFT then mixed-success DPO from saved teacher GRPO traces. Maths avg@8 vs canonical −0.37 (CI includes 0); naive SFT −1.95. Avoids 58.3M maths + 17.6M coding regen. Gemma-2-2B MATH500 4.3%→17.1%. Code vashistht/rollout_reuse. Does **not** replace OPD.
+
+691. **cmHC**: **cmHC** (`method:cmhc`, `arXiv:2611.27193`) on `task:llm-pretraining-optimization`. Active plug-in. Contract mHC-lite permutation bases toward the Birkhoff barycenter (λ=0.97, K=2). OpenWebText vs mHC-lite −0.0073/−0.0024/−0.0045 S/M/L. 6B-MoE −0.002 vs mHC at 71.5k. Code Newiz430/cmHC. Mention on `task:pretrain-moe-frontier`. Does **not** replace Muon2, mHC, SimpleHC, or TPHC.
+
+692. **CreditFilter**: **CreditFilter** (`method:creditfilter`, `arXiv:2611.27227`) on `task:math-code-rl-dense`. Active plug-in. Within-response entropy-rank token window on a DAPO host. Three-seed vs DAPO MATH500 0.860±0.025 vs 0.783±0.107 (+7.7), AIME24 +10.5, AIME25 +9.1. Code yoctta/CreditFilter. Distinct from GMTS. Does **not** replace CISPO.
+
+693. **State-KL OPD**: **State-KL OPD** (`method:state-kl-opd`, `arXiv:2611.27125`) on `task:student-distillation`. Active plug-in. FKL when student coverage of the teacher top-p set is low, else RKL. Base math Avg@8 +2.36/+2.50/+1.72 vs sampled-token OPD. Code zhangxinnan123/learning-dynamic-opd. Distinct from Cal-OPD / OPD-EOS / AOPD. Does **not** replace OPD.
+
+694. **Gumbel Substitution**: **Gumbel Substitution** (`method:gumbel-substitution`, `arXiv:2611.27375`) on `task:fp4-rl-train-rollout-alignment`. Active plug-in. Shared-Gumbel sampler/trainer token substitution without q(y). Lab uncorrected drift 170–4800×. 9B Reliquary 158 steps / 15.75B tokens match 0.979, 1.21% substituted. SWE-bench 17.3→43.6. Code reliquadotai/reliquary. Mention on `task:agentic-async-rl`. NOT a TRACE bake-off. Does **not** replace TRACE / TRIAGE.
+
+695. **Weir**: **Weir** (`method:weir`, `arXiv:2611.27570`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Neyman task budgets plus watershed forks. 3B/7B vs CAPO QA 32.18/37.85 vs 28.99/35.63; ALFWorld 84.83/87.81 vs 81.09/84.33; WebShop 78.47/81.90 vs 76.27/80.40; 0.71–0.72× tokens. No public code. CAPO is not a library node. Mention on `task:agentic-async-rl`. Does **not** replace CANOPY.
+
+696. **LoRA RLVR rank collapse** (claim note, no new method): `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`) on `task:lora-quality-tuning` / `method:lr-matters-lora` / `method:cispo`. Qwen3-8B DeepMath-Hard r=64 73.1% → r=128 4.7% / r=256 2.3%. Do not revive DoRA. Code Shrimpstanot/structure-over-scale. Does **not** retarget lr-matters-lora or CISPO.
+
 
 
 ---
@@ -2742,6 +2768,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `roam-grpo` (2611.25926) is an active GRPO-host diversity plug-in. Distinct from `team-grpo` / `dart-es` / `datpo`. It does not supersede `es-reasoning` or `cispo`.
 - `paper:budget-internalization` (2611.26172) is a fixed-budget RLVR length-internalization gotcha. It does not retarget `cispo`.
 - `paper:diffusion-rl-is-steering` (2611.26627) is a diffusion-RL activation-steering gotcha. It does not retarget `diffusion-opsd` or `self-opd`.
+- `rollout-reuse` (2611.26803) is an active SFT/DPO reuse of teacher GRPO traces. It does not supersede `opd`.
+- `cmhc` (2611.27193) is an active Birkhoff-contraction Hyper-Connection plug-in. Distinct from `mhc` / `simplehc` / `tphc`. It does not supersede `muon2` or `mhc`.
+- `creditfilter` (2611.27227) is an active DAPO-host within-response entropy-rank window. Distinct from `gmts`. It does not supersede `cispo`.
+- `state-kl-opd` (2611.27125) is an active state-conditioned FKL/RKL OPD plug-in. Distinct from `cal-opd` / `opd-eos` / `aopd`. It does not supersede `opd`.
+- `gumbel-substitution` (2611.27375) is an active shared-Gumbel token-substitution plug-in. Distinct from TRACE / TRIAGE / DLC. It does not supersede `trace` or `triage`.
+- `weir` (2611.27570) is an active Neyman-budget plus watershed-fork plug-in. Distinct from `canopy` / `treehca` / `tsbpo`. It does not supersede `canopy`.
+- `paper:lora-rlvr-rank-collapse` (2611.27148) is a LoRA RLVR rank-collapse gotcha. It does not retarget `lr-matters-lora` or `cispo`.
 
 
 

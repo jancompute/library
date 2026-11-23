@@ -46,8 +46,10 @@ methods:
   - method:iso-lora
   - method:dco
   - method:read-lora
-last_reviewed: '2026-11-19'
+last_reviewed: '2026-11-23'
 redirects:
+  - when: "LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)"
+    to: "paper:lora-rlvr-rank-collapse"
   - when: "K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not LoRA quality default)"
     to: "method:curvdelta"
   - when: "frozen activation-derived basis plus layer scalars (SCALAR; not LoRA quality default)"
@@ -82,6 +84,7 @@ Adapting multi-billion parameter base models to downstream tasks with minimal tr
 
 ## SOTA Recommendation (as of 2026-09-01)
 
+- **Gotcha (LoRA RLVR rank collapse)**: `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`) on `task:lora-quality-tuning`. Qwen3-8B DeepMath-Hard \(r=64\) 73.1% → \(r=128\) 4.7%. Do not revive DoRA. Does not retarget lr-matters-lora or CISPO.
 - **Optional K-FAC low-curvature PEFT (not this quality default)**: `method:curvdelta` (`arXiv:2611.24654`) on `task:lora-quality-tuning`. Gemma-3-1B math ALL 22.2 vs FT 19.4 / LoRA 17.5. Code xiaozi-max/curvdelta_learning. Does not replace the LR-sweep quality default.
 - **Optional scalar PEFT (not this quality default)**: `method:scalar-peft` (`arXiv:2611.17784`) on `task:lora-quality-tuning`. Frozen activation-derived basis plus layer scalars. Does not replace the LR-sweep quality default.
 - **Optional gate-projection deletion (not this quality default)**: `method:deletion-tuning` (`arXiv:2611.10866`) on `task:lora-quality-tuning`. Binary mask, writes no new values. Does not replace the LR-sweep quality default.

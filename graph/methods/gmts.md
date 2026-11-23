@@ -7,6 +7,9 @@ status: niche
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|)"
+    reason: "GMTS ranks tokens across the batch by |entropy × advantage|; CreditFilter ranks within each response"
+    use_instead: "method:creditfilter"
   - when: "choosing the dense math/code RLVR optimizer"
     reason: "GMTS is a token-filter add-on, not an RL objective; CISPO remains the Pass@1 default"
     use_instead: "method:cispo"
@@ -19,8 +22,9 @@ do_not_use_for:
 assumptions:
   - "Host RLVR already computes per-token entropy, importance ratio, advantage, and clip indicator (GRPO/DAPO/CISPO-family)."
   - "Paper evaluates plug-in to GRPO and DAPO on Qwen2.5-Math/Coder 1.5B/7B and Qwen3-8B; default keep ratio is top 20%."
-last_reviewed: "2026-09-01"
+last_reviewed: "2026-11-23"
 papers:
+  - paper:creditfilter
   - paper:gmts
 recipes:
   - recipe:gmts

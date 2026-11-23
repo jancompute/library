@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD)"
+    reason: "Cal-OPD gates on teacher–student discrepancy residuals; State-KL routes FKL/RKL from coverage of the teacher top-p set"
+    use_instead: "method:state-kl-opd"
   - when: "single-teacher student distillation is the goal and TSD calibration is not the bottleneck"
     reason: "OPD remains the distill default; Cal-OPD is a residual-advantage plug-in on top of OPD"
     use_instead: "method:opd"
@@ -32,8 +35,9 @@ assumptions:
   - "White-box teacher that can be forwarded under extra context while the student trajectory is held fixed. Paper: DAPO-17K filtered by Qwen3-235B-A22B-Instruct-2507; Avg@16 on AMC23/AIME24/25/26/HMMT26/MATH500."
   - "Default interventions are positive and negative evaluative feedback, not solution-level privilege. Relaxation λ=5. Implemented in verl on 8×H20 (4 student + 4 teacher), 100 steps, 256 trajectories/step, lr 1e-6, train response 16384."
   - "No public GitHub as of 2026-09-21. Reimplement the residual advantage on verl."
-last_reviewed: "2026-09-22"
+last_reviewed: "2026-11-23"
 papers:
+  - paper:state-kl-opd
   - paper:cal-opd
 recipes:
   - recipe:cal-opd
