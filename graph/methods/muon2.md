@@ -11,6 +11,9 @@ supersedes:
   - method:muon
   - method:muon-scalable
 do_not_use_for:
+  - when: 'contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)'
+    reason: 'Muon2 remains the ~7B optimizer; cmHC is a residual-mixing geometry, not an optimizer'
+    use_instead: method:cmhc
   - when: 'shared n-gram tables with layer-wise rescale (Chorus; not Muon2)'
     reason: 'Muon2 remains the ~7B optimizer; Chorus is shared n-gram tables plus layer-wise rescale'
     use_instead: method:chorus
@@ -137,8 +140,9 @@ do_not_use_for:
   - when: "finite Newton-Schulz plus epsilon loses spectral max-margin"
     reason: "Gotcha on practical Muon NS; does not retarget the 7B default"
     use_instead: "paper:muon-ns-bias"
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 papers:
+  - paper:cmhc
   - paper:optimizer-kl-distill
   - paper:muon-temporary-wd
   - paper:foam

@@ -15,6 +15,8 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "Neyman task budgets plus watershed forks (Weir; not CANOPY coverage)"
+    to: "method:weir"
   - when: "black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage)"
     to: "method:copd"
   - when: "skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage)"
@@ -157,6 +159,7 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:weir
   - method:copd
   - method:automaster
   - method:rsc
@@ -223,7 +226,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 tags:
   - post-training
   - agentic
@@ -248,6 +251,7 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional Neyman budgets plus watershed forks (not this coverage default)**: `method:weir` (`arXiv:2611.27570`). 3B/7B vs CAPO QA 32.18/37.85 vs 28.99/35.63; ALFWorld 84.83/87.81 vs 81.09/84.33; WebShop 78.47/81.90 vs 76.27/80.40; 0.71–0.72× tokens. CAPO is not a library node. No public code. Mention on `task:agentic-async-rl`. Does not replace CANOPY.
 - **Related black-box communicative OPD (not this coverage default)**: `method:copd` (`arXiv:2611.23673`) on `task:student-distillation`. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2; TB 2.1 / SWE-Bench Pro V2 transfer. No public train code. Does not replace CANOPY or OPD.
 - **Related skill-conditioned teacher SFT (not this coverage default)**: `method:automaster` (`arXiv:2611.26510`) on `task:student-distillation`. Skill-FT. Qwen3.5-4B/9B TB2.1 22.47→28.09 / 26.59→35.58. Code RUCAIBox/AutoMaster. Does not replace CANOPY.
 - **Related reverse-KL score centering (not this coverage default)**: `method:rsc` (`arXiv:2611.21791`) on `task:agentic-async-rl`. AppWorld 14.04 vs SC 12.28 (+14.3%). GitHub BiEchi/rsc announced empty. Does not replace CANOPY. Does not supersede `paper:score-centering-pg`.

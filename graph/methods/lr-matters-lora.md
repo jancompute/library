@@ -11,6 +11,9 @@ supersedes:
   - method:dora
   - method:delora
 do_not_use_for:
+  - when: 'LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)'
+    reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; this is a rank-collapse gotcha, not a DoRA revival'
+    use_instead: paper:lora-rlvr-rank-collapse
   - when: 'K-FAC low-curvature sequential PEFT (CurvDelta / CurvLoRA; not rsLoRA + LR sweep)'
     reason: 'Quality default remains vanilla LoRA + rsLoRA + LR sweep; CurvDelta is K-FAC sequential PEFT'
     use_instead: method:curvdelta
@@ -54,6 +57,7 @@ do_not_use_for:
     reason: "Quality default is a single-adapter recipe; READ owns multi-skill composition"
     use_instead: "method:read-lora"
 papers:
+  - paper:lora-rlvr-rank-collapse
   - paper:deletion-tuning
   - paper:lora-task-format
   - paper:lr-matters-lora
@@ -70,7 +74,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Vanilla LoRA with rank-stabilized scaling (rsLoRA, alpha/sqrt(r)) and calibrated learning rate sweep."
-last_reviewed: '2026-11-16'
+last_reviewed: '2026-11-23'
 tags:
   - peft
   - lora

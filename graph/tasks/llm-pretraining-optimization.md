@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)"
+    to: "method:cmhc"
   - when: "shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer)"
     to: "method:chorus"
   - when: "Canon layers / local token mixing (not Muon2 / not the 7B optimizer)"
@@ -131,6 +133,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:cmhc
   - method:chorus
   - method:canon-layers
   - method:tphc
@@ -183,7 +186,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 tags:
   - pretraining
   - optimizer
@@ -197,6 +200,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Optional contracted Hyper-Connections (not this optimizer default)**: `method:cmhc` (`arXiv:2611.27193`). \(\tilde{P}=\lambda P+(1-\lambda)11^{\top}/n\), \(\lambda=0.97\), \(K=2\). OpenWebText vs mHC-lite −0.0073/−0.0024/−0.0045 S/M/L. 6B-MoE −0.002 vs mHC at 71.5k. Code Newiz430/cmHC. Mention on `task:pretrain-moe-frontier`. Does not replace Muon2, mHC, SimpleHC, or TPHC.
 - **Related shared n-gram tables (not this optimizer default)**: `method:chorus` (`arXiv:2611.23386`) on `task:pretrain-dense-7b`. 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram. Ember −99.2% table-optimizer mem. Code dualverse-ai/chorous. Does not replace Muon2.
 - **Related Canon layers (not this optimizer default)**: `method:canon-layers` (`arXiv:2611.24963`) on `task:pretrain-dense-7b`. Local token mixing; 8B ~30% token save. Code facebookresearch/PhysicsLM4. Does not replace Muon2.
 - **Optional TP-grouped Hyper-Connections (not this optimizer default)**: `method:tphc` (`arXiv:2611.23026`). Groups residual streams for tensor-parallel updates. 1.1B / 100B SlimPajama TPHC4 2.0838 / 48.9 vs mHC4 2.0985 / 48.6; TPHC8 2.0706 / 49.3 vs mHC8 2.0924 / 48.8 and vs mHC16 2.0885 / 49.0; 8B TP-sharded TPHC4 +9% train time vs mHC4. Code wuyou2002/TPHC. Mention on `task:pretrain-moe-frontier`. Does not replace mHC, SimpleHC, or DeepSeek-V4.

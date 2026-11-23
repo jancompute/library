@@ -12,6 +12,8 @@ out_of_scope:
   - "Frontier RL post-train engine (Miles)"
   - "W4A4 PTQ noise law (KBBQ)"
 redirects:
+  - when: "shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not TRACE/TRIAGE default)"
+    to: "method:gumbel-substitution"
   - when: "stochastic rounding on FP32→BF16 RLVR shadow (BF16+SR; not TRACE/TRIAGE default)"
     to: "method:bf16-sr"
   - when: "symmetric residual-corrected FP4 MoE RL (MoeResQ; not TRACE/TRIAGE default)"
@@ -52,6 +54,7 @@ current_sota:
     value: "up to 2.3×"
     notes: "TRIAGE (2610.07043). Dual-active with TRACE. Method status active. No head-to-head vs TRACE."
 methods:
+  - method:gumbel-substitution
   - method:bf16-sr
   - method:moeresq
   - method:dlc
@@ -67,7 +70,7 @@ methods:
   - method:mxfp4-mi355x
   - method:sapo
   - method:cispo
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-23'
 tags:
   - post-training
   - quantization
@@ -89,6 +92,7 @@ This is **not** native FP4 hardware training from scratch.
 - **Evaluation Pitfalls**: TRACE and TRIAGE have **no head-to-head**. TRACE caches rollout mantissa/scale into QAT; TRIAGE rebalances amplifying negative-advantage/negative-gap updates. Do not retarget Quartet-II.
 
 ## SOTA Recommendation (as of 2026-10-07)
+- **Optional shared-Gumbel token substitution (not this first hop)**: `method:gumbel-substitution` (`arXiv:2611.27375`). Sampler/trainer share public Gumbel; trainer substitutes \(v^*=\arg\max(\ell^p+G)\). Lab uncorrected drift 170–4800×. 9B Reliquary 158 steps / 15.75B tokens match 0.979, 1.21% substituted. SWE-bench 17.3→43.6. Code reliquadotai/reliquary. Mention on `task:agentic-async-rl`. Does not replace TRACE / TRIAGE.
 - **Optional BF16 stochastic rounding (not this first hop)**: `method:bf16-sr` (`arXiv:2611.13545`). FP32-shadow→BF16 SR matches FP16 RLVR speed; raising LR also matches speed but increases KL. Distinct from Fair Cast. No public code. Does not replace TRACE / TRIAGE.
 - **Optional residual-corrected FP4 MoE RL (not this first hop)**: `method:moeresq` (`arXiv:2611.04376`). Qwen3-30B-A3B GRPO AMC23 84.45 vs BF16 85.10 vs HiF4 65.23. Simulated HiF4; routers BF16. No public code. Does not replace TRACE / TRIAGE.
 - **Primary (rollout-guided QAT, this task only)**: **TRACE** (`method:trace`, `paper:trace` `arXiv:2610.07767`). Status `active`. Dual-active with TRIAGE.

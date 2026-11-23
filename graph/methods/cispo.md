@@ -10,6 +10,12 @@ sota_for:
 supersedes:
   - method:dapo
 do_not_use_for:
+  - when: 'entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|)'
+    reason: 'CISPO remains Pass@1; CreditFilter is a DAPO-host within-response entropy-rank window'
+    use_instead: method:creditfilter
+  - when: 'LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)'
+    reason: 'Gotcha: vanilla LoRA collapses at high rank under cold-start GRPO; does not retarget CISPO'
+    use_instead: paper:lora-rlvr-rank-collapse
   - when: 'critic-free single-rollout async RL (FlashREINFORCE; not Pass@1 CISPO)'
     reason: 'CISPO remains Pass@1; FlashREINFORCE is critic-free one-rollout async REINFORCE'
     use_instead: method:flashreinforce
@@ -226,8 +232,10 @@ do_not_use_for:
   - when: "adaptive ground-truth rationale scaffolding for sparse-reward RLVR"
     reason: "CISPO remains Pass@1; RGPO scaffolds GT rationales"
     use_instead: "method:rgpo"
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 papers:
+  - paper:creditfilter
+  - paper:lora-rlvr-rank-collapse
   - paper:budget-internalization
   - paper:flashreinforce
   - paper:lgpo

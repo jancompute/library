@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|)"
+    to: "method:creditfilter"
+  - when: "LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)"
+    to: "paper:lora-rlvr-rank-collapse"
   - when: "hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training)"
     to: "method:ash"
   - when: "reverse-KL score centering of regularized IS (RSC; not Pass@1 CISPO)"
@@ -221,6 +225,7 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:creditfilter
   - method:ash
   - method:rsc
   - method:flashreinforce
@@ -323,7 +328,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-23'
 tags:
   - post-training
   - reasoning
@@ -339,6 +344,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional within-response entropy-rank token window (not Pass@1 CISPO)**: `method:creditfilter` (`arXiv:2611.27227`). DAPO host. Three-seed vs DAPO MATH500 0.860±0.025 vs 0.783±0.107 (+7.7), AIME24 +10.5, AIME25 +9.1. Code yoctta/CreditFilter. Distinct from GMTS. Does not replace CISPO.
+- **Gotcha (LoRA RLVR rank collapse)**: `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`). Qwen3-8B DeepMath-Hard \(r=64\) 73.1% → \(r=128\) 4.7% / \(r=256\) 2.3%. Do not revive DoRA. Code Shrimpstanot/structure-over-scale. Does not retarget CISPO or lr-matters-lora.
 - **Optional hint-augmented GRPO via residual steering (not Pass@1 CISPO)**: `method:ash` (`arXiv:2611.23124`). Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34. Distinct from H2R / Guided-RLVR / SV-Training / ASE. No public GitHub. Does not replace CISPO.
 - **Gotcha (budget internalization)**: `paper:budget-internalization` (`arXiv:2611.26172`). Qwen3.5-4B 4k-trained: 4K +34.8 pp / 64K −30.2 pp vs base. SFT on truncated traces reproduces it. Complements When2Think / LoCo / AES / LSD / `paper:two-clocks-rlvr`. Does not retarget CISPO.
 - **Related routed off-mode GRPO diversity (not Pass@1 CISPO)**: `method:roam-grpo` (`arXiv:2611.25926`) on `task:passk-reasoning-coverage`. pass@16 +4.7%. No public code. Does not replace CISPO.
