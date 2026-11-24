@@ -535,6 +535,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when ternary abs-max column-wise one-sparse optimizer for full-param LLM FT → `method:taco`
   - do not use when choosing the ~7B dense pretrain optimizer → `method:muon2`
 - **Redirects**:
+  - when principal-random subspace Muon with linear rank reallocation (DRAM; not SCALE / not PMRC) → `method:dram`
   - when Factored One-sided Adam-Moment SOAP (FOAM; not SCALE subspace) → `method:foam`
   - when in-backward MoE expert updates (Sonar-MoE; not SCALE subspace) → `method:sonar-moe`
   - when coupled-state replay for MoE adaptation memory (DuplexTune) → `method:duplextune`
@@ -1096,6 +1097,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when on-policy parameter update direction SFT (OPSFT), not Pass@1 RLVR → `method:opsft`
   - do not use when adaptive ground-truth rationale scaffolding for sparse-reward RLVR → `method:rgpo`
 - **Redirects**:
+  - when attention process RM mixed into GRPO/GPG/DAPO (APRM; not TIPS / not Pass@1 CISPO) → `method:aprm`
+  - when SAE-guided token credit on GRPO/GSPO (SAEPO; not GMTS |E·ω| / not CreditFilter) → `method:saepo`
   - when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) → `method:creditfilter`
   - when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) → `paper:lora-rlvr-rank-collapse`
   - when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) → `method:ash`
@@ -1381,6 +1384,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not CANOPY coverage) → `method:muted-distillation`
   - when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) → `method:weir`
   - when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) → `method:copd`
   - when skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage) → `method:automaster`
@@ -1719,6 +1723,10 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
   - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
+  - when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) → `method:vopd`
+  - when dual-branch strong/weak teacher contrast at student prefixes (cOPD; not COPD communicative OPD / not Open-MOPD) → `method:contrastive-opd`
+  - when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not OPD-EOS) → `method:muted-distillation`
+  - when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not ELR / not Concertina) → `method:recurrent-student-opd`
   - when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) → `method:rollout-reuse`
   - when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) → `method:state-kl-opd`
   - when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) → `method:copd`
@@ -2024,6 +2032,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when compute-matched MoE looping of middle layers (FLOPs/params/KV matched) → `method:smelt`
   - do not use when experimental CED all-token recurrence with no measured results → `method:recurrent-looped-transformer`
 - **Redirects**:
+  - when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not mixed-depth ELR / not Concertina) → `method:recurrent-student-opd`
   - when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) → `method:loopback-transformer`
   - when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) → `method:concertina`
   - when nGPT looped 4B with difficulty-aware loop curriculum (Dory; not ELR default) → `method:dory`
@@ -2118,6 +2127,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace) → `method:dram`
   - when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) → `method:cmhc`
   - when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) → `method:chorus`
   - when Canon layers / local token mixing (not Muon2 / not the 7B optimizer) → `method:canon-layers`

@@ -10,6 +10,8 @@ out_of_scope:
   - "Native FP4 hardware training from scratch (Quartet-II)"
   - "Quality LoRA on 24GB (vanilla LoRA + rsLoRA + LR sweep)"
 redirects:
+  - when: "principal-random subspace Muon with linear rank reallocation (DRAM; not SCALE / not PMRC)"
+    to: "method:dram"
   - when: "Factored One-sided Adam-Moment SOAP (FOAM; not SCALE subspace)"
     to: "method:foam"
   - when: "in-backward MoE expert updates (Sonar-MoE; not SCALE subspace)"
@@ -50,6 +52,7 @@ current_sota:
     value: "Default SOTA for memory-efficient full-parameter training"
     notes: "SCALE (2506.16659, ICML 2026) not GaLore."
 methods:
+  - method:dram
   - method:foam
   - method:sonar-moe
   - method:duplextune
@@ -65,7 +68,7 @@ methods:
   - method:scale
   - method:galore
   - method:taco
-last_reviewed: '2026-11-13'
+last_reviewed: '2026-11-24'
 tags:
   - efficiency
   - optimizer
@@ -77,6 +80,7 @@ tags:
 
 ## SOTA Recommendation (as of 2026-08-26)
 
+- **Optional principal-random subspace Muon (not this SCALE default)**: `method:dram` (`arXiv:2611.28595`). Rank reallocation \((k-1,1)\to(0,k)\). LLaMA-60/130/350M C4 avg 36.28 / 37.19 / 38.55 best low-memory; FT peak mem vs Full-Muon 17.9–20.7%. Mention on `task:llm-pretraining-optimization`. Distinct from PMRC / SCALE. No public code. Does not replace SCALE or Muon2.
 - **Related input-only SOAP (not this SCALE default)**: `method:foam` (`arXiv:2611.16905`) on `task:llm-pretraining-optimization`. Half SOAP optimizer state; AdamW-like wall-clock. Does not replace SCALE, Muon2, or KL-SOAP.
 - **Optional in-backward MoE experts**: `method:sonar-moe` (`arXiv:2611.03577`). 19–22% peak mem; bitwise-identical without expert clip. No public code. Does not replace SCALE.
 - **Primary Method**: **SCALE** (`method:scale`, 2506.16659, ICML 2026) — not GaLore.

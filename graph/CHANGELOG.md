@@ -6,6 +6,39 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-24 — weekday SOTA sweep (DRAM, VOPD, cOPD, Muted Distillation, Recurrent Student OPD, APRM, SAEPO)
+- Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-24 Librarian weekday sweep after merged PR 71 (watermark 2611.27570 ingest / listing considered 2611.27983, 364e7e6, 2421 nodes / 9764 edges). Covers Monday 23 Nov 2026 evening through Tuesday 24 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.27983 plus skipped-over IDs 2611.27571–2611.27983 already triaged in PR 71, plus HF Daily 2026-11-23 leftovers / 2026-11-24. New high id 2611.30627 (ingest) / 2611.31154 (listing considered). Distinct slug `vopd` from `method:opdvr` and from holi-lab/vOPD 2605.07865. Distinct `contrastive-opd` from `method:copd`. Distinct `dram` from SCALE / PMRC. Distinct `aprm` from TIPS. Distinct `saepo` from GMTS / CreditFilter.
+- SKIP (considered, not ingested): SAFE-DRIFT 2611.28560; LoopRes 2611.31094 (post-train looping; `paper:no-free-loop`); DelayOPSD 2611.30534; ES vs PG 2611.29795; Language Model Harnesses 2611.28298; BitShare PTQ; Feedback Shortcut serving; LiveLoRA serving; WingBench 2611.28418; FOPL 2611.30338; ExSD 2611.28638; HME-PFD; Don't Train It Write It / Recursive Self-Editing (WeightCode skipped PR 70); Distill the Correction T2I 2611.31048; Tool-to-Self 2611.28564; What Makes Good Data 2611.30207; CausalNTP; Hidden Sensitivity; JKO-GRPO VLA; HyperHarness; Quantizing dLLMs; TAP; GeoMerge-OPD; OVOGO; PackLoop serving; Loop-Count Schedules; Motion Mamba 2.0; Embo-Harness; Let the Fixer Decide 2611.12164 (pre-watermark); Glimpse of Training VLMs; Distilling Visual Agents 2611.28618; Pipeline-Parallel Depth-Recurrent 2611.30581; Feedback-Free Self-Evolution; Prune to Expand; Learning Video Foresight OPSD; honor PR 71/70 SKIP lists (Composable Soft-Prompt Distillation; Self-WSP/WeightCode; LLMs Memorize Hallucinations; Search-Native; Clover-35B).
+
+### 2026-11-24 — ingest method:dram (active on task:full-param-memory-efficient-pretrain; does not supersede method:scale / method:muon2 / method:pmrc)
+- Added paper:dram, method:dram, recipe:dram (`code_status: none`, `repo_url: none found`). Mention on task:llm-pretraining-optimization.
+- Status active (`sota_for: []`). Principal-random subspace Muon with linear rank reallocation \((k-1,1)\to(0,k)\). LLaMA-60/130/350M C4 avg 36.28 / 37.19 / 38.55 best low-memory. FT peak mem vs Full-Muon 17.9–20.7% (Qwen3-8B 52.80→42.47). No SCALE bake-off.
+
+### 2026-11-24 — ingest method:vopd (active on task:student-distillation; does not supersede method:opd / method:opdvr / method:vista)
+- Added paper:vopd, method:vopd, recipe:vopd (`code_status: announced`, juntongshi48/VOPD).
+- Status active (`sota_for: []`). Verifier-grounded teacher extrapolation at \(\lambda=0.25\). Qwen3-4B eight-bench avg 66.38 vs OPD 64.71 / ExOPD 65.25 / teacher 64.16. 4B→1.7B 53.32 vs OPD 50.88. Distinct from OPDVR and holi-lab/vOPD 2605.07865.
+
+### 2026-11-24 — ingest method:contrastive-opd (active on task:student-distillation; does not supersede method:opd / method:copd / method:open-mopd)
+- Added paper:contrastive-opd, method:contrastive-opd, recipe:contrastive-opd (`code_status: none`, `repo_url: none found`).
+- Status active (`sota_for: []`). Dual-branch strong/weak teacher contrast. MUST NOT reuse slug `copd`. JustRL Pass@16 77.46 vs JSD 75.14; Qwen3 4B/0.6B/1.7B 65.32 vs W2S-OPD 57.80.
+
+### 2026-11-24 — ingest method:muted-distillation (active on task:student-distillation; does not supersede method:opd / method:canopy)
+- Added paper:muted-distillation, method:muted-distillation, recipe:muted-distillation (`code_status: none`, `repo_url: none found`). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Hide student thoughts from the OPD teacher; reverse-KL on the visible tail. OfficeQA Pro / SpreadsheetBench tokens −57% / −53% vs OPD; SpreadsheetBench pass@1 +4.8.
+
+### 2026-11-24 — ingest method:recurrent-student-opd (active on task:student-distillation; does not supersede method:opd / method:elr / method:concertina)
+- Added paper:recurrent-student-opd, method:recurrent-student-opd, recipe:recurrent-student-opd (`code_status: none`, `repo_url: none found`). Mention on task:elastic-depth-looped-lm.
+- Status active (`sota_for: []`). Convert the student to cross-token recurrence during OPD (~+3% params, \(1.1\times\) decode). 0.4B + 3.9B teacher GSM8K/MATH500 +10.7 / +6.0 vs vanilla OPD. Qwen2.5-0.5B + 7B 57.5/41.6 vs 53.7/37.6.
+
+### 2026-11-24 — ingest method:aprm (active on task:math-code-rl-dense; does not supersede method:cispo / method:tips)
+- Added paper:aprm, method:aprm, recipe:aprm (`code_status: none`, `repo_url: none found`).
+- Status active (`sota_for: []`). ~46M attention process RM, ranking+counterfactual, \(\beta=0.3\). Average pass@8 +2.88%. Qwen3-1.7B GRPO 52.62→55.97; 4B GRPO 61.68→65.06. Distinct from TIPS / SAEPO.
+
+### 2026-11-24 — ingest method:saepo (active on task:math-code-rl-dense; does not supersede method:cispo / method:gmts / method:creditfilter)
+- Added paper:saepo, method:saepo, recipe:saepo (`code_status: none`, `repo_url: none found`).
+- Status active (`sota_for: []`). Frozen SAE contrast of correct vs incorrect group tokens. Qwen3-1.7B GRPO math 35.56→38.68; GSPO 36.63→39.55; 4B GRPO code 12.11→17.68. Silent groups get no SAE signal.
+
 ### 2026-11-23 — weekday SOTA sweep (Rollout Reuse, cmHC, CreditFilter, State-KL OPD, Gumbel Substitution, Weir; note lora-rlvr-rank-collapse)
 - Six active plug-ins and one paper-only note. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-23 Librarian weekday sweep after merged PR 70 (watermark 2611.26627 ingest / listing considered 2611.26627, afe1881, 2402 nodes / 9680 edges). Covers Friday 20 Nov 2026 evening through Monday 23 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.26627 plus HF Daily 2026-11-20 leftovers / 2026-11-21 / 2026-11-22 / 2026-11-23. New high id 2611.27570 (ingest) / 2611.27983 (listing considered). Distinct slug `cmhc` from `method:mhc` / `method:simplehc` / `method:tphc`. Distinct `creditfilter` from `method:gmts`. Distinct `state-kl-opd` from `method:cal-opd` / `method:opd-eos` / `method:aopd`. Distinct `gumbel-substitution` from TRACE / TRIAGE / DLC. Distinct `rollout-reuse` from live reverse-KL OPD. Distinct `weir` from CANOPY / TreeHCA / TSBPO.
