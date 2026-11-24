@@ -254,6 +254,7 @@ task:full-lowbit-finetune -> method:gradcodes (2611.13410, 2026-09-01)
   when native FP4 forward/backward hardware training from scratch -> task:fp4-hardware-training
   when quality LoRA on 24GB without a fully quantized checkpoint constraint -> task:lora-quality-tuning
 task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-26)
+  when principal-random subspace Muon with linear rank reallocation (DRAM; not SCALE / not PMRC) -> method:dram
   when Factored One-sided Adam-Moment SOAP (FOAM; not SCALE subspace) -> method:foam
   when in-backward MoE expert updates (Sonar-MoE; not SCALE subspace) -> method:sonar-moe
   when coupled-state replay for MoE adaptation memory (DuplexTune) -> method:duplextune
@@ -476,6 +477,8 @@ task:label-free-reasoner-posttrain -> method:u-opsd (2611.20691, 2026-08-28)
 task:label-free-test-time-reasoner -> method:ttpo (2608.27448, 2026-08-28)
   when multiple-solution test-time RL that breaks the frequency conflict (MS-TTRL) -> method:ms-ttrl
 task:math-code-rl-dense -> method:cispo (2611.27227, 2026-08-26)
+  when attention process RM mixed into GRPO/GPG/DAPO (APRM; not TIPS / not Pass@1 CISPO) -> method:aprm
+  when SAE-guided token credit on GRPO/GSPO (SAEPO; not GMTS |E·ω| / not CreditFilter) -> method:saepo
   when entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|) -> method:creditfilter
   when LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default) -> paper:lora-rlvr-rank-collapse
   when hint-augmented GRPO via residual activation steering (ASH; not Pass@1 CISPO / not H2R / not Guided-RLVR / not SV-Training) -> method:ash
@@ -631,6 +634,7 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
 task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.27570, 2026-09-04)
+  when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not CANOPY coverage) -> method:muted-distillation
   when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) -> method:weir
   when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) -> method:copd
   when skill-conditioned teacher rollouts then SFT (AutoMaster; not CANOPY coverage) -> method:automaster
@@ -744,6 +748,10 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
 task:reasoning-rl-alignment -> method:cispo (2611.27227, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
 task:student-distillation -> method:opd (2611.26803, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+  when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) -> method:vopd
+  when dual-branch strong/weak teacher contrast at student prefixes (cOPD; not COPD communicative OPD / not Open-MOPD) -> method:contrastive-opd
+  when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not OPD-EOS) -> method:muted-distillation
+  when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not ELR / not Concertina) -> method:recurrent-student-opd
   when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) -> method:rollout-reuse
   when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) -> method:state-kl-opd
   when black-box NL consult then privileged OPSD+RL (COPD; not matching default / not ActionOPD) -> method:copd
@@ -942,6 +950,7 @@ task:dense-to-moe-upcycling -> method:maskerade (2610.19232, 2026-10-07)
   when static sparse upcycling via token-indexed embedding residuals (not routed mask experts) -> method:staple
   when heterogeneous per-layer expert utilization on a converted dense FFN -> method:spectral-moe
 task:elastic-depth-looped-lm -> method:elr (2610.42030, 2026-10-13)
+  when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not mixed-depth ELR / not Concertina) -> method:recurrent-student-opd
   when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) -> method:loopback-transformer
   when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) -> method:concertina
   when nGPT looped 4B with difficulty-aware loop curriculum (Dory; not ELR default) -> method:dory
@@ -970,6 +979,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
+  when principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace) -> method:dram
   when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) -> method:cmhc
   when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) -> method:chorus
   when Canon layers / local token mixing (not Muon2 / not the 7B optimizer) -> method:canon-layers
@@ -2076,6 +2086,19 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 696. **LoRA RLVR rank collapse** (claim note, no new method): `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`) on `task:lora-quality-tuning` / `method:lr-matters-lora` / `method:cispo`. Qwen3-8B DeepMath-Hard r=64 73.1% → r=128 4.7% / r=256 2.3%. Do not revive DoRA. Code Shrimpstanot/structure-over-scale. Does **not** retarget lr-matters-lora or CISPO.
 
+697. **DRAM**: **DRAM** (`method:dram`, `arXiv:2611.28595`) on `task:full-param-memory-efficient-pretrain`. Active plug-in. Principal-random subspace Muon with linear rank reallocation \((k-1,1)\to(0,k)\). LLaMA-60/130/350M C4 avg 36.28 / 37.19 / 38.55 best low-memory; FT peak mem vs Full-Muon 17.9–20.7%. Mention on `task:llm-pretraining-optimization`. Distinct from SCALE / PMRC. No public code. Does **not** replace SCALE or Muon2.
+
+698. **VOPD**: **VOPD** (`method:vopd`, `arXiv:2611.30325`) on `task:student-distillation`. Active plug-in. Verifier-grounded teacher extrapolation at \(\lambda=0.25\). Qwen3-4B eight-bench avg 66.38 vs OPD 64.71 / ExOPD 65.25 / teacher 64.16. 4B→1.7B 53.32 vs OPD 50.88. Distinct from OPDVR / VISTA / holi-lab/vOPD 2605.07865. Code juntongshi48/VOPD announced. Does **not** replace OPD.
+
+699. **cOPD**: **cOPD** (`method:contrastive-opd`, `arXiv:2611.28359`) on `task:student-distillation`. Active plug-in. Dual-branch strong/weak teacher contrast. MUST NOT reuse slug `copd`. JustRL Pass@16 77.46 vs JSD 75.14; Qwen3 4B/0.6B/1.7B 65.32 vs W2S-OPD 57.80. No public code. Does **not** replace OPD or COPD.
+
+700. **Muted Distillation**: **Muted Distillation** (`method:muted-distillation`, `arXiv:2611.28445`) on `task:student-distillation`. Active plug-in. Hide student thoughts from the OPD teacher; reverse-KL on the visible tail. OfficeQA Pro / SpreadsheetBench tokens −57% / −53% vs OPD; SpreadsheetBench pass@1 +4.8. Mention on `task:outcome-only-long-horizon-agent-rl`. No public code. Does **not** replace OPD or CANOPY.
+
+701. **Recurrent Student OPD**: **Recurrent Student OPD** (`method:recurrent-student-opd`, `arXiv:2611.28603`) on `task:student-distillation`. Active plug-in. Convert the student to cross-token recurrence during OPD (~+3% params, \(1.1\times\) decode). 0.4B + 3.9B teacher GSM8K/MATH500 +10.7 / +6.0 vs vanilla OPD. Qwen2.5-0.5B + 7B 57.5/41.6 vs 53.7/37.6. Mention on `task:elastic-depth-looped-lm`. Distinct from ELR / Concertina. No public code. Does **not** replace OPD or ELR.
+
+702. **APRM**: **APRM** (`method:aprm`, `arXiv:2611.30627`) on `task:math-code-rl-dense`. Active plug-in. ~46M attention process RM, ranking+counterfactual, \(\beta=0.3\). Average pass@8 +2.88%. Qwen3-1.7B GRPO 52.62→55.97; 4B GRPO 61.68→65.06. Distinct from TIPS / SAEPO. No public code. Does **not** replace CISPO.
+
+703. **SAEPO**: **SAEPO** (`method:saepo`, `arXiv:2611.29936`) on `task:math-code-rl-dense`. Active plug-in. Frozen SAE contrast of correct vs incorrect group tokens. Qwen3-1.7B GRPO math 35.56→38.68; GSPO 36.63→39.55; 4B GRPO code 12.11→17.68. Distinct from GMTS / CreditFilter / APRM. No public code. Does **not** replace CISPO.
 
 
 ---
@@ -2775,6 +2798,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `gumbel-substitution` (2611.27375) is an active shared-Gumbel token-substitution plug-in. Distinct from TRACE / TRIAGE / DLC. It does not supersede `trace` or `triage`.
 - `weir` (2611.27570) is an active Neyman-budget plus watershed-fork plug-in. Distinct from `canopy` / `treehca` / `tsbpo`. It does not supersede `canopy`.
 - `paper:lora-rlvr-rank-collapse` (2611.27148) is a LoRA RLVR rank-collapse gotcha. It does not retarget `lr-matters-lora` or `cispo`.
+- `dram` (2611.28595) is an active principal-random subspace Muon plug-in. Distinct from SCALE / PMRC. It does not supersede `scale` or `muon2`.
+- `vopd` (2611.30325) is an active verifier-grounded OPD plug-in. Distinct from `opdvr` / `vista` / holi-lab/vOPD 2605.07865. It does not supersede `opd`.
+- `contrastive-opd` (2611.28359) is an active dual-branch contrastive OPD plug-in. MUST NOT reuse slug `copd`. It does not supersede `opd` or `copd`.
+- `muted-distillation` (2611.28445) is an active muted-thought OPD plug-in. It does not supersede `opd` or `canopy`.
+- `recurrent-student-opd` (2611.28603) is an active recurrent-student OPD plug-in. Distinct from ELR / Concertina. It does not supersede `opd` or `elr`.
+- `aprm` (2611.30627) is an active attention process RM plug-in. Distinct from TIPS. It does not supersede `cispo`.
+- `saepo` (2611.29936) is an active SAE-guided token-credit plug-in. Distinct from GMTS / CreditFilter. It does not supersede `cispo`.
 
 
 

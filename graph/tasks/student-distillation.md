@@ -5,6 +5,14 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA)"
+    to: "method:vopd"
+  - when: "dual-branch strong/weak teacher contrast at student prefixes (cOPD; not COPD communicative OPD / not Open-MOPD)"
+    to: "method:contrastive-opd"
+  - when: "hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not OPD-EOS)"
+    to: "method:muted-distillation"
+  - when: "convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not ELR / not Concertina)"
+    to: "method:recurrent-student-opd"
   - when: "reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD)"
     to: "method:rollout-reuse"
   - when: "state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD)"
@@ -269,6 +277,10 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:vopd
+  - method:contrastive-opd
+  - method:muted-distillation
+  - method:recurrent-student-opd
   - method:rollout-reuse
   - method:state-kl-opd
   - method:copd
@@ -400,7 +412,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-24'
 tags:
   - post-training
   - distillation
@@ -415,6 +427,10 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional verifier-grounded OPD (not this matching default)**: `method:vopd` (`arXiv:2611.30325`). Teacher extrapolation with group-relative verifier advantage at \(\lambda=0.25\). Qwen3-4B eight-bench avg 66.38 vs OPD 64.71 / ExOPD 65.25 / teacher 64.16. 4B→1.7B 53.32 vs OPD 50.88. Distinct from OPDVR / VISTA / holi-lab/vOPD 2605.07865. Code juntongshi48/VOPD announced. Does not replace OPD.
+- **Optional dual-branch contrastive OPD (not this matching default)**: `method:contrastive-opd` (`arXiv:2611.28359`). Strong/weak teacher contrast. MUST NOT reuse slug `copd`. JustRL Pass@16 77.46 vs JSD 75.14; Qwen3 4B/0.6B/1.7B 65.32 vs W2S-OPD 57.80. No public code. Does not replace OPD or COPD.
+- **Optional muted-thought OPD (not this matching default)**: `method:muted-distillation` (`arXiv:2611.28445`). Hide student thoughts from the teacher; reverse-KL on the visible tail. OfficeQA Pro / SpreadsheetBench tokens −57% / −53% vs OPD; SpreadsheetBench pass@1 +4.8. Mention on `task:outcome-only-long-horizon-agent-rl`. No public code. Does not replace OPD.
+- **Optional recurrent student OPD (not this matching default)**: `method:recurrent-student-opd` (`arXiv:2611.28603`). Cross-token recurrence during OPD (~+3% params, \(1.1\times\) decode). 0.4B + 3.9B teacher GSM8K/MATH500 +10.7 / +6.0 vs vanilla OPD. Qwen2.5-0.5B + 7B 57.5/41.6 vs 53.7/37.6. Mention on `task:elastic-depth-looped-lm`. Distinct from ELR / Concertina. No public code. Does not replace OPD or ELR.
 - **Optional reuse of teacher GRPO traces (not this matching default)**: `method:rollout-reuse` (`arXiv:2611.26803`, NeurIPS 2026). Pass-rate ordered SFT then mixed-success DPO with teacher-top1. Maths avg@8 vs canonical −0.37 (CI includes 0); naive SFT −1.95. Avoids 58.3M maths + 17.6M coding regen. Gemma-2-2B MATH500 4.3%→17.1%. Code vashistht/rollout_reuse. Does not replace OPD.
 - **Optional state-conditioned FKL/RKL OPD (not this matching default)**: `method:state-kl-opd` (`arXiv:2611.27125`). Forward KL when student coverage of the teacher top-p set is low. Base math Avg@8 +2.36/+2.50/+1.72 vs sampled-token OPD. Code zhangxinnan123/learning-dynamic-opd. Distinct from Cal-OPD / OPD-EOS / AOPD. Does not replace OPD.
 - **Optional black-box communicative OPD (not this matching default)**: `method:copd` (`arXiv:2611.23673`). Student-initiated NL consult then privileged OPSD+RL. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2 (2.46× gain); 9B 54.2→61.3 vs ActionOPD 54.6. TB 2.1 / SWE-Bench Pro V2 COPD-9B avg 30.3 vs Qwen3.5-35B-A3B 30.6. Distinct from ActionOPD / Bridged Self-Distill / Stepwise Querying / CAMP-II. No public train code. Mention on `task:outcome-only-long-horizon-agent-rl`. Does not replace OPD or CANOPY.

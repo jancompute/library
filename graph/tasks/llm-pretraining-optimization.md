@@ -12,6 +12,8 @@ current_sota:
     value: "~2x token efficiency vs AdamW"
     notes: "Muon2 (2604.09967) + KL-SOAP (2607.20548) if memory allows."
 redirects:
+  - when: "principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace)"
+    to: "method:dram"
   - when: "contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)"
     to: "method:cmhc"
   - when: "shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer)"
@@ -133,6 +135,7 @@ redirects:
   - when: "finite Newton-Schulz plus epsilon loses Muon spectral max-margin"
     to: "paper:muon-ns-bias"
 methods:
+  - method:dram
   - method:cmhc
   - method:chorus
   - method:canon-layers
@@ -186,7 +189,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-24'
 tags:
   - pretraining
   - optimizer
@@ -200,6 +203,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 
 ## SOTA Landscape (as of 2026-09-08)
 
+- **Related principal-random subspace Muon (not this optimizer default)**: `method:dram` (`arXiv:2611.28595`) on `task:full-param-memory-efficient-pretrain`. Rank reallocation \((k-1,1)\to(0,k)\). 17.9–20.7% peak mem vs Full-Muon. No public code. Does not replace Muon2 or SCALE.
 - **Optional contracted Hyper-Connections (not this optimizer default)**: `method:cmhc` (`arXiv:2611.27193`). \(\tilde{P}=\lambda P+(1-\lambda)11^{\top}/n\), \(\lambda=0.97\), \(K=2\). OpenWebText vs mHC-lite −0.0073/−0.0024/−0.0045 S/M/L. 6B-MoE −0.002 vs mHC at 71.5k. Code Newiz430/cmHC. Mention on `task:pretrain-moe-frontier`. Does not replace Muon2, mHC, SimpleHC, or TPHC.
 - **Related shared n-gram tables (not this optimizer default)**: `method:chorus` (`arXiv:2611.23386`) on `task:pretrain-dense-7b`. 1.2B tables 0.9229 BPB beat 9.6B Engram/FactorEngram. Ember −99.2% table-optimizer mem. Code dualverse-ai/chorous. Does not replace Muon2.
 - **Related Canon layers (not this optimizer default)**: `method:canon-layers` (`arXiv:2611.24963`) on `task:pretrain-dense-7b`. Local token mixing; 8B ~30% token save. Code facebookresearch/PhysicsLM4. Does not replace Muon2.

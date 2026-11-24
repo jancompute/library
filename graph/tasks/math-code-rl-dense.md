@@ -19,6 +19,10 @@ out_of_scope:
   - "Cancellation-aware off-policy sequence masking (CARM)"
   - "MCMC projection sampling then ordinary SFT (Sampling SFT)"
 redirects:
+  - when: "attention process RM mixed into GRPO/GPG/DAPO (APRM; not TIPS / not Pass@1 CISPO)"
+    to: "method:aprm"
+  - when: "SAE-guided token credit on GRPO/GSPO (SAEPO; not GMTS |E·ω| / not CreditFilter)"
+    to: "method:saepo"
   - when: "entropy-rank token keep-mask on DAPO/GRPO (CreditFilter; not GMTS |E·ω|)"
     to: "method:creditfilter"
   - when: "LoRA RLVR rank collapse / structure over scale (not rsLoRA + LR sweep / not CISPO default)"
@@ -225,6 +229,8 @@ current_sota:
     value: "Default SOTA for Dense RL"
     notes: "CISPO via MiniMax-M1 (2506.13585) + ScaleRL (2510.13786)."
 methods:
+  - method:aprm
+  - method:saepo
   - method:creditfilter
   - method:ash
   - method:rsc
@@ -328,7 +334,7 @@ methods:
   - method:mesh-learning
   - method:opsft
   - method:rgpo
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-24'
 tags:
   - post-training
   - reasoning
@@ -344,6 +350,8 @@ Training dense language models to generate long chains of thought (CoT) and veri
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional attention process RM (not Pass@1 CISPO)**: `method:aprm` (`arXiv:2611.30627`). ~46M attention process RM, ranking+counterfactual, \(\beta=0.3\). Average pass@8 +2.88%. Qwen3-1.7B GRPO 52.62→55.97; 4B GRPO 61.68→65.06. Distinct from TIPS / SAEPO. No public code. Does not replace CISPO.
+- **Optional SAE-guided token credit (not Pass@1 CISPO)**: `method:saepo` (`arXiv:2611.29936`). Frozen SAE contrast of correct vs incorrect group tokens. Qwen3-1.7B GRPO math 35.56→38.68; 4B GRPO code 12.11→17.68. Distinct from GMTS / CreditFilter / APRM. No public code. Does not replace CISPO.
 - **Optional within-response entropy-rank token window (not Pass@1 CISPO)**: `method:creditfilter` (`arXiv:2611.27227`). DAPO host. Three-seed vs DAPO MATH500 0.860±0.025 vs 0.783±0.107 (+7.7), AIME24 +10.5, AIME25 +9.1. Code yoctta/CreditFilter. Distinct from GMTS. Does not replace CISPO.
 - **Gotcha (LoRA RLVR rank collapse)**: `paper:lora-rlvr-rank-collapse` (`arXiv:2611.27148`). Qwen3-8B DeepMath-Hard \(r=64\) 73.1% → \(r=128\) 4.7% / \(r=256\) 2.3%. Do not revive DoRA. Code Shrimpstanot/structure-over-scale. Does not retarget CISPO or lr-matters-lora.
 - **Optional hint-augmented GRPO via residual steering (not Pass@1 CISPO)**: `method:ash` (`arXiv:2611.23124`). Qwen3-4B-Base pass@8 math avg 50.54 GRPO → 55.83 ASH; OOD 66.86 → 70.47 vs HILL 53.58 / 68.34. Distinct from H2R / Guided-RLVR / SV-Training / ASE. No public GitHub. Does not replace CISPO.
