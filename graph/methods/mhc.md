@@ -5,6 +5,9 @@ title: "mHC (Manifold-Constrained Hyper-Connections)"
 category: "architecture"
 status: active
 do_not_use_for:
+  - when: "grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC)"
+    reason: "mHC remains Sinkhorn on the Birkhoff polytope; GHC partitions each residual branch into groups with distinct stream mixes"
+    use_instead: "method:ghc"
   - when: "contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)"
     reason: "mHC remains Sinkhorn on the Birkhoff polytope; cmHC contracts permutation bases toward the interior"
     use_instead: "method:cmhc"
@@ -15,6 +18,7 @@ do_not_use_for:
     reason: "mHC remains the Sinkhorn hyper-connection used in DeepSeek-V4; MSAR is a later single-paper residual bake-off, not a supersession"
     use_instead: "method:msar"
 papers:
+  - paper:ghc
   - paper:cmhc
   - paper:simplehc
   - paper:mhc

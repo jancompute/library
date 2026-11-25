@@ -101,7 +101,8 @@ task:hybrid-computer-use-agent-rl -> method:recreationworld (2609.22000, 2026-09
   when programmatic checker AppWorld coverage / anti-drift -> task:outcome-only-long-horizon-agent-rl
   when data/env construction for coding-agent RL from source code -> task:coding-agent-rl-environment-construction
   when synthesized GUI software environments for computer-use agent training (not OSWorld 2.0 ranking) -> method:softwaregym
-task:long-context-prompt-offload -> method:rlm (2611.05306, 2025-12)
+task:long-context-prompt-offload -> method:rlm (2611.31258, 2025-12)
+  when behavior-distortion compaction RL for long-horizon agents (RECAP; not dumped-corpus offload) -> method:recap
   when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) -> method:booknavigator
   when compaction without retraining a native window (You Don't Need Long Context) -> paper:you-dont-need-long-context
   when trained compaction notes inside a 20K window (MEMENTO) -> method:memento
@@ -109,7 +110,8 @@ task:long-context-prompt-offload -> method:rlm (2611.05306, 2025-12)
   when long tool/web/SWE trajectory with folding -> task:long-horizon-tool-agent
   when post-train sparse attention / context ranking under a fixed budget -> task:posttrain-attention-sparsification
   when trained self-call + range-read harness (8K window matching a 1M native model on long docs) -> method:tacm
-task:long-horizon-tool-agent -> method:foldgrpo (2510.11967, 2025-10)
+task:long-horizon-tool-agent -> method:foldgrpo (2611.31258, 2025-10)
+  when behavior-distortion compaction RL (RECAP; not FoldGRPO folding / not RLM) -> method:recap
   when dumped corpus much larger than the window -> task:long-context-prompt-offload
   when SWE harness without folding -> task:software-engineering-agent-harness
   when outcome-only long-horizon agent RL (signal starvation / drift or outcome-blind rubrics) -> task:outcome-only-long-horizon-agent-rl
@@ -203,7 +205,8 @@ task:pixel-diffusion-pretrain -> method:representation-guidance (2610.12978, 202
   when aligning text-to-image diffusion or flow models with rewards -> task:posttrain-diffusion
   when continuous diffusion language model pretrain (not pixel DiT) -> task:continuous-diffusion-lm-pretrain
   when recycle an AR post-training weight delta onto a converted dLLM -> task:diffusion-lm-ar-delta-recycle
-task:posttrain-diffusion -> method:diffusion-opsd (2611.26627, 2026-08-27) + method:self-opd (2611.08240, 2026-08-28)
+task:posttrain-diffusion -> method:diffusion-opsd (2611.30986, 2026-08-27) + method:self-opd (2611.30986, 2026-08-28)
+  when instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default) -> method:itdm
   when endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default) -> method:edmd
   when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) -> method:physopsd
   when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) -> method:fewsteprl
@@ -437,7 +440,7 @@ task:data-free-self-evolution -> method:j-zero (2608.26582, 2026-08-31)
   when seed-grounded synthetic single-stage pretraining from Wikipedia/Wikibooks seeds -> task:synthetic-single-stage-pretrain
   when unlabeled existing math problems with majority-vote pseudo-solutions -> task:label-free-reasoner-posttrain
   when test-time adaptation on unlabeled queries -> task:label-free-test-time-reasoner
-task:direct-preference-alignment -> method:olmo-3 (2611.10045, 2026-08-26)
+task:direct-preference-alignment -> method:olmo-3 (2611.32918, 2026-08-26)
   when single-pair delta-learning generator bias in DPO -> paper:delta-learning-limits
   when preference-optimization vocabulary collapse from common-mode hidden offsets (ECHO) -> paper:echo-vocab-collapse
   when DPO hyperparameter landscape and transfer across scale -> paper:dpo-hp-landscape
@@ -457,7 +460,8 @@ task:fp4-rl-train-rollout-alignment -> method:trace (2611.27375, 2026-10-07) + m
   when MoE/VL RLVR loss rather than FP4 train–rollout alignment -> task:math-code-rl-moe
   when production post-train stack rather than FP4 RL numerics -> task:frontier-rl-posttrain-stack
   when INT4 KV-cache async RLVR rollouts with INT8 sink/recent protection (not NVFP4 train–rollout mismatch) -> method:kv4-rl
-task:instruct-sft-alignment -> method:olmo-3 (2611.10045, 2026-08-26) + method:nemotron-cascade-2 (2603.19220, 2026-08-26)
+task:instruct-sft-alignment -> method:olmo-3 (2611.32918, 2026-08-26) + method:nemotron-cascade-2 (2603.19220, 2026-08-26)
+  when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) -> method:instructreplay
   when LoRA-probe SFT data selection (SFTProbe) -> method:sftprobe
   when steering-vector residual-stream hook in SFT/distill (SV-Training) -> method:sv-training
   when leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master -> paper:weight-update-leverage
@@ -633,7 +637,10 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.27570, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.32884, 2026-09-04)
+  when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) -> method:rlvb
+  when behavior-distortion compaction RL (RECAP; not CANOPY coverage) -> method:recap
+  when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) -> method:cot-proxy
   when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not CANOPY coverage) -> method:muted-distillation
   when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) -> method:weir
   when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) -> method:copd
@@ -747,7 +754,9 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.27227, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.26803, 2026-08-26) + method:open-mopd (2611.12886, 2026-08-28)
+task:student-distillation -> method:opd (2611.33148, 2026-08-26) + method:open-mopd (2611.32515, 2026-08-28)
+  when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) -> method:cot-proxy
+  when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) -> method:bac-mopd
   when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) -> method:vopd
   when dual-branch strong/weak teacher contrast at student prefixes (cOPD; not COPD communicative OPD / not Open-MOPD) -> method:contrastive-opd
   when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not OPD-EOS) -> method:muted-distillation
@@ -979,6 +988,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
 task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
+  when grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC) -> method:ghc
   when principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace) -> method:dram
   when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) -> method:cmhc
   when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) -> method:chorus
@@ -1040,7 +1050,7 @@ task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
   when nested width-elastic supernet at ~widest-subnet cost with μP-style HP transfer -> method:shell-elastic
   when history-adaptive spectral clipping of AdamW gradients (CAST-SSC; not CAST OPD) -> method:cast-ssc
   when finite Newton-Schulz plus epsilon loses Muon spectral max-margin -> paper:muon-ns-bias
-task:open-data-recipe -> method:olmo-3 (2611.10045, 2026-08-26)
+task:open-data-recipe -> method:olmo-3 (2611.32918, 2026-08-26)
   when domain inductive biases still matter in foundation pretraining mixes -> paper:domain-inductive-biases
   when synthetic rewrite scaling under compute and data constraints -> paper:synthetic-rewrite-laws
   when unique-token epoch / repetition geometry under a finite pretrain corpus (not the open mix) -> task:data-constrained-pretrain
@@ -1064,6 +1074,7 @@ task:pretrain-dense-7b -> method:muon2 (2611.27193, 2026-08-26)
   when Muon-style norm-aware update for embedding tables (1->2) and LM head (2->inf) instead of AdamW -> method:muonio
   when one-step prefix-augmented OPD for continued pretrain (PA1-OPD) -> method:pa1-opd
 task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + method:kimi-k3 (2607.24653, 2026-08-26)
+  when grouped Hyper-Connection residual read/write (GHC; not V4 / not cmHC / not TPHC) -> method:ghc
   when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not V4 / mHC default) -> method:cmhc
   when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) -> method:tphc
   when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) -> method:simplehc
@@ -2100,6 +2111,20 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 703. **SAEPO**: **SAEPO** (`method:saepo`, `arXiv:2611.29936`) on `task:math-code-rl-dense`. Active plug-in. Frozen SAE contrast of correct vs incorrect group tokens. Qwen3-1.7B GRPO math 35.56→38.68; GSPO 36.63→39.55; 4B GRPO code 12.11→17.68. Distinct from GMTS / CreditFilter / APRM. No public code. Does **not** replace CISPO.
 
+704. **GHC**: **Grouped Hyper-Connections** (`method:ghc`, `arXiv:2611.31350`) on `task:llm-pretraining-optimization`. Active plug-in. Grouped residual read/write. 430M dense 2.0161 vs IHC 2.0351; 13BA0.6B 1.6775/43.96 vs IHC 1.6901/42.59; +35% vs Pre-Norm. Mention on `task:pretrain-moe-frontier`. Distinct from mHC / SimpleHC / TPHC / cmHC. No public code. Does **not** replace Muon2 or DeepSeek-V4.
+
+705. **BaC-MOPD**: **BaC-MOPD** (`method:bac-mopd`, `arXiv:2611.32515`) on `task:student-distillation`. Active plug-in. Merge init plus error-replay plus balanced reverse-KL. Industrial 97.0% specialist-gain recovery vs IM-MOPD 79.8%. Open Qwen3-4B 95.7% / 97.5% vs IM-MOPD 94.1%. Paper IM-MOPD is not the library 83.4% bake-off. `code_status: announced`. Does **not** replace Open-MOPD or OPD.
+
+706. **RECAP**: **RECAP** (`method:recap`, `arXiv:2611.31258`) on `task:long-horizon-tool-agent`. Active plug-in. Behavior-distortion compaction RL. Qwen3.5-4B 32K BrowseComp-Plus 62.8 vs GRPO 58.2 (+4.6); SWE-Verified 51.1 vs 46.8. Code eth-medical-ai-lab/recap. Mentions on `task:long-context-prompt-offload` / `task:outcome-only-long-horizon-agent-rl`. Distinct from RLM / MEMENTO / TACM / Mosaic. Does **not** replace FoldGRPO, RLM, or CANOPY.
+
+707. **RLVB**: **RLVB** (`method:rlvb`, `arXiv:2611.32884`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Simulator posterior over a hidden answer; never reads the written belief. +17.1% vs base; GRPO/PPO fall below base. Code declare-lab/RLVB. Does **not** replace CANOPY or CISPO.
+
+708. **InstructReplay**: **InstructReplay** (`method:instructreplay`, `arXiv:2611.32918`) on `task:instruct-sft-alignment`. Active plug-in. Frozen M0 assistant-turn replay during factual FT. General-bench decline 28.1→2.4 vs standard FT −35 pts. Code xiaofengShi/InstructReplay. Distinct from DCO / OnePO / AutoSFT. Does **not** replace OLMo-3 or DCO.
+
+709. **CoT-Proxy**: **CoT-Proxy** (`method:cot-proxy`, `arXiv:2611.33148`) on `task:student-distillation`. Active plug-in. Empty think block plus KL replay. Qwen3-4B AppWorld 7%→18% / 35%; GPT-5.6 Luna 7%→48% AppWorld, 3%→28% SWE-Verified. Mention on `task:outcome-only-long-horizon-agent-rl`. Distinct from ActionOPD / Muted Distillation. No public code. Does **not** replace OPD or CANOPY.
+
+710. **iTDM**: **iTDM** (`method:itdm`, `arXiv:2611.30986`) on `task:posttrain-diffusion`. Active plug-in. Instantaneous TDM; auxiliary denoiser restores baseline invariance under CFG / off-policy. GenEval2 ~3× faster to 0.87; FLUX.3 5.6B. Code Luo-Yihong/iTDM. HF Daily leftover. Distinct from MEND / DiffusionART / FewStepRL. Does **not** replace DiffusionOPSD or Self-OPD.
+
 
 ---
 
@@ -2805,6 +2830,13 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `recurrent-student-opd` (2611.28603) is an active recurrent-student OPD plug-in. Distinct from ELR / Concertina. It does not supersede `opd` or `elr`.
 - `aprm` (2611.30627) is an active attention process RM plug-in. Distinct from TIPS. It does not supersede `cispo`.
 - `saepo` (2611.29936) is an active SAE-guided token-credit plug-in. Distinct from GMTS / CreditFilter. It does not supersede `cispo`.
+- `ghc` (2611.31350) is an active grouped Hyper-Connection residual plug-in. Distinct from mHC / SimpleHC / TPHC / cmHC. It does not supersede `muon2` or `deepseek-v4`.
+- `bac-mopd` (2611.32515) is an active branch-and-consolidate MOPD plug-in. Paper IM-MOPD is not the library 83.4% bake-off. It does not supersede `open-mopd` or `opd`.
+- `recap` (2611.31258) is an active behavior-distortion compaction RL plug-in. Distinct from RLM / MEMENTO / TACM / Mosaic. It does not supersede `foldgrpo`, `rlm`, or `canopy`.
+- `rlvb` (2611.32884) is an active verifiable-belief RL plug-in. It does not supersede `canopy` or `cispo`.
+- `instructreplay` (2611.32918) is an active assistant-turn replay plug-in during factual FT. Distinct from DCO. It does not supersede `olmo-3` or `dco`.
+- `cot-proxy` (2611.33148) is an active action-only / CoT-proxy distill plug-in. Distinct from ActionOPD / Muted Distillation. It does not supersede `opd` or `canopy`.
+- `itdm` (2611.30986) is an active instantaneous TDM diffusion RL plug-in. Distinct from MEND / DiffusionART / FewStepRL. It does not supersede `diffusion-opsd` or `self-opd`.
 
 
 

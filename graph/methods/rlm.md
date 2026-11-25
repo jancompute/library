@@ -8,6 +8,9 @@ sota_for:
   - task:long-context-prompt-offload
 supersedes: []
 do_not_use_for:
+  - when: "behavior-distortion compaction RL for long-horizon agents (RECAP; not dumped-corpus offload)"
+    reason: "RLM is dumped-prompt REPL offload; RECAP jointly trains agent summaries so compact history preserves post-compaction actions"
+    use_instead: "method:recap"
   - when: "textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload)"
     reason: "RLM is dumped-prompt REPL offload; BookNavigator is an RL study interface over a textbook"
     use_instead: "method:booknavigator"
@@ -40,6 +43,7 @@ assumptions:
   - "No 405B-style claims. Do not cite unofficial BrowseComp+ 47.3; paper Table 1 is 91.3."
 last_reviewed: "2026-10-05"
 papers:
+  - paper:recap
   - paper:you-dont-need-long-context
   - paper:rlm
 recipes:

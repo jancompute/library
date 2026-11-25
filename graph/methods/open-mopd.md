@@ -8,6 +8,9 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default)'
+    reason: 'Open-MOPD remains the 83.4% bake-off; BaC-MOPD consolidates specialists that have drifted far from a shared checkpoint'
+    use_instead: method:bac-mopd
   - when: 'observation-aligned MOPD for VL agents (Reframe)'
     reason: 'Open-MOPD remains text token-share / gap-aware budget; Reframe mixes teachers at the shared observation'
     use_instead: method:reframe
@@ -67,6 +70,7 @@ do_not_use_for:
     use_instead: "method:p2-mopd"
 last_reviewed: '2026-11-10'
 papers:
+  - paper:bac-mopd
   - paper:reframe
   - paper:rds-mopd
   - paper:agentic-opd

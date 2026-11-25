@@ -6,6 +6,39 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-25 — weekday SOTA sweep (GHC, BaC-MOPD, RECAP, RLVB, InstructReplay, CoT-Proxy, iTDM)
+- Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
+- Window: 2026-11-25 Librarian weekday sweep after merged PR 72 (watermark 2611.30627 ingest / listing considered 2611.31154, afdf892). Covers Tuesday 24 Nov 2026 evening through Wednesday 25 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.31154 plus HF Daily 2026-11-24 leftovers / 2026-11-25. New high id 2611.33148 (ingest) / 2611.33153 (listing considered). Distinct slug `ghc` from `method:mhc` / `method:simplehc` / `method:tphc` / `method:cmhc`. Distinct `bac-mopd` from Open-MOPD (paper IM-MOPD is not the library 83.4% bake-off). Distinct `recap` from FoldGRPO / RLM / MEMENTO / TACM / Mosaic. Distinct `rlvb` from CANOPY / CISPO. Distinct `instructreplay` from DCO / OLMo-3. Distinct `cot-proxy` from ActionOPD / Muted Distillation. Distinct `itdm` from DiffusionOPSD / Self-OPD / MEND / FewStepRL.
+- SKIP (considered, not ingested): NABLA 2611.32781 (math.OC theory optimizer, no LLM bake-off); SwiftLoop 2611.31481 (inference-time loop freeze); scOPD 2611.31257 (single-cell annotation OPD); SkillCore 2611.32246 (SFT skill internalization); HuluOPD 2611.32021 (medical specialist VLM OPD); GreenDynaMix 2611.31737 (thermal mixed-precision inference); FN-Prune 2611.31747 (training-free MoE prune); VC-OPD 2611.32292 (MLLM visual-cue privileged OPSD); MSPO 2611.32687 (module-specific VL GRPO, +2.01pp vs GRPO, not CISPO); SGD large LR 2611.32762 (linear/two-layer theory); Draft Calibration 2611.33111 (speculative serving); weight-reader 2611.29120 (pre-watermark leftover); honor PR 72 SKIP list.
+
+### 2026-11-25 — ingest method:ghc (active on task:llm-pretraining-optimization; does not supersede method:muon2 / method:mhc / method:simplehc / method:tphc / method:cmhc)
+- Added paper:ghc, method:ghc, recipe:ghc (`code_status: none`, `repo_url: none found`). Mention on task:pretrain-moe-frontier.
+- Status active (`sota_for: []`). Grouped residual read/write. 430M dense val loss 2.0161 vs IHC 2.0351 / Pre-Norm 2.0713; +35% train efficiency vs Pre-Norm. 13BA0.6B MoE 1.6775 / 43.96 vs IHC 1.6901 / 42.59. Distinct from mHC / SimpleHC / TPHC / cmHC.
+
+### 2026-11-25 — ingest method:bac-mopd (active on task:student-distillation; does not supersede method:open-mopd / method:opd)
+- Added paper:bac-mopd, method:bac-mopd, recipe:bac-mopd (`code_status: announced`).
+- Status active (`sota_for: []`). Merge init plus error-replay plus balanced reverse-KL. Industrial 97.0% specialist-gain recovery vs IM-MOPD 79.8%. Open Qwen3-4B 95.7% / 97.5% vs IM-MOPD 94.1%. Paper IM-MOPD is not the library 83.4% bake-off.
+
+### 2026-11-25 — ingest method:recap (active on task:long-horizon-tool-agent; does not supersede method:foldgrpo / method:rlm / method:canopy)
+- Added paper:recap, method:recap, recipe:recap (`code_status: released`, eth-medical-ai-lab/recap). Mentions on task:long-context-prompt-offload / task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Behavior-distortion compaction RL. Qwen3.5-4B 32K BrowseComp-Plus 62.8 vs GRPO 58.2 (+4.6); SWE-Verified 51.1 vs 46.8 (+4.3). Distinct from RLM / MEMENTO / TACM / Mosaic.
+
+### 2026-11-25 — ingest method:rlvb (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:cispo)
+- Added paper:rlvb, method:rlvb, recipe:rlvb (`code_status: released`, declare-lab/RLVB).
+- Status active (`sota_for: []`). Simulator posterior over a hidden answer; never reads the written belief. +17.1% vs base; GRPO/PPO fall below base.
+
+### 2026-11-25 — ingest method:instructreplay (active on task:instruct-sft-alignment; does not supersede method:olmo-3 / method:dco)
+- Added paper:instructreplay, method:instructreplay, recipe:instructreplay (`code_status: released`, xiaofengShi/InstructReplay).
+- Status active (`sota_for: []`). Frozen M0 assistant-turn replay during factual FT. General-bench decline 28.1→2.4 vs standard FT −35 pts (SmolLM3-3B IFEval 71%→9%). Distinct from DCO / OnePO / AutoSFT.
+
+### 2026-11-25 — ingest method:cot-proxy (active on task:student-distillation; does not supersede method:opd / method:canopy / method:actionopd / method:muted-distillation)
+- Added paper:cot-proxy, method:cot-proxy, recipe:cot-proxy (`code_status: none`, `repo_url: none found`). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Empty think block plus KL replay. Qwen3-4B AppWorld 7%→18% action-only / 35% with CoT-proxy; GPT-5.6 Luna closed teacher 7%→48% AppWorld, 3%→28% SWE-Verified.
+
+### 2026-11-25 — ingest method:itdm (active on task:posttrain-diffusion; does not supersede method:diffusion-opsd / method:self-opd)
+- Added paper:itdm, method:itdm, recipe:itdm (`code_status: released`, Luo-Yihong/iTDM). HF Daily leftover (2611.30986).
+- Status active (`sota_for: []`). Instantaneous TDM; auxiliary denoiser restores baseline invariance under CFG / off-policy. GenEval2 ~3× faster to 0.87; FLUX.3 5.6B. Distinct from MEND / DiffusionART / FewStepRL.
+
 ### 2026-11-24 — weekday SOTA sweep (DRAM, VOPD, cOPD, Muted Distillation, Recurrent Student OPD, APRM, SAEPO)
 - Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-24 Librarian weekday sweep after merged PR 71 (watermark 2611.27570 ingest / listing considered 2611.27983, 364e7e6, 2421 nodes / 9764 edges). Covers Monday 23 Nov 2026 evening through Tuesday 24 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.27983 plus skipped-over IDs 2611.27571–2611.27983 already triaged in PR 71, plus HF Daily 2026-11-23 leftovers / 2026-11-24. New high id 2611.30627 (ingest) / 2611.31154 (listing considered). Distinct slug `vopd` from `method:opdvr` and from holi-lab/vOPD 2605.07865. Distinct `contrastive-opd` from `method:copd`. Distinct `dram` from SCALE / PMRC. Distinct `aprm` from TIPS. Distinct `saepo` from GMTS / CreditFilter.

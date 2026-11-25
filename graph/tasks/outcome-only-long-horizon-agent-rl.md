@@ -15,6 +15,12 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage)"
+    to: "method:rlvb"
+  - when: "behavior-distortion compaction RL (RECAP; not CANOPY coverage)"
+    to: "method:recap"
+  - when: "action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage)"
+    to: "method:cot-proxy"
   - when: "hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not CANOPY coverage)"
     to: "method:muted-distillation"
   - when: "Neyman task budgets plus watershed forks (Weir; not CANOPY coverage)"
@@ -161,6 +167,9 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:rlvb
+  - method:recap
+  - method:cot-proxy
   - method:muted-distillation
   - method:weir
   - method:copd
@@ -229,7 +238,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-24'
+last_reviewed: '2026-11-25'
 tags:
   - post-training
   - agentic
@@ -254,6 +263,9 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional verifiable-belief RL (not this coverage default)**: `method:rlvb` (`arXiv:2611.32884`). Simulator posterior over a hidden answer; never reads the written belief. +17.1% vs base; GRPO/PPO fall below base. Code declare-lab/RLVB. Does not replace CANOPY or CISPO.
+- **Related behavior-distortion compaction RL (not this coverage default)**: `method:recap` (`arXiv:2611.31258`) on `task:long-horizon-tool-agent`. Qwen3.5-4B 32K BrowseComp-Plus +4.6 / SWE-Verified +4.3 vs GRPO. Code eth-medical-ai-lab/recap. Does not replace CANOPY or FoldGRPO.
+- **Related action-only / CoT-proxy distill (not this coverage default)**: `method:cot-proxy` (`arXiv:2611.33148`) on `task:student-distillation`. Qwen3-4B AppWorld 7%→18% / 35%; closed teacher 7%→48%. No public code. Does not replace CANOPY or OPD.
 - **Related muted-thought OPD (not this coverage default)**: `method:muted-distillation` (`arXiv:2611.28445`) on `task:student-distillation`. Hide student thoughts from the teacher; OfficeQA Pro / SpreadsheetBench tokens −57% / −53% vs OPD. No public code. Does not replace CANOPY or OPD.
 - **Optional Neyman budgets plus watershed forks (not this coverage default)**: `method:weir` (`arXiv:2611.27570`). 3B/7B vs CAPO QA 32.18/37.85 vs 28.99/35.63; ALFWorld 84.83/87.81 vs 81.09/84.33; WebShop 78.47/81.90 vs 76.27/80.40; 0.71–0.72× tokens. CAPO is not a library node. No public code. Mention on `task:agentic-async-rl`. Does not replace CANOPY.
 - **Related black-box communicative OPD (not this coverage default)**: `method:copd` (`arXiv:2611.23673`) on `task:student-distillation`. CAMG-II 4B 45.3→59.8 vs ActionOPD 51.2; TB 2.1 / SWE-Bench Pro V2 transfer. No public train code. Does not replace CANOPY or OPD.

@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: 'instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default)'
+    reason: 'DiffusionOPSD remains on-policy self-distill; iTDM is instantaneous TDM that restores baseline invariance under CFG / off-policy rollouts'
+    use_instead: method:itdm
   - when: 'endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default)'
     reason: 'DiffusionOPSD remains reward OPSD; eDMD trains a fake score only on student finals'
     use_instead: method:edmd
@@ -39,6 +42,7 @@ do_not_use_for:
     reason: "DiffusionOPSD remains image-policy OPSD; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:itdm
   - paper:diffusion-rl-is-steering
   - paper:physopsd
   - paper:fewsteprl

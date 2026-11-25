@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC)'
+    reason: 'SimpleHC drops residual mixing; GHC expands read/write interfaces via groups'
+    use_instead: method:ghc
   - when: 'contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)'
     reason: 'SimpleHC drops residual mixing; cmHC contracts permutation bases toward the Birkhoff interior'
     use_instead: method:cmhc
@@ -23,6 +26,7 @@ assumptions:
   - 'Hyper-Connection residual streams (HC / mHC) where residual mixing and per-stream memory dominate train time. Paper: 15B/30B MoE. GitHub aHapBean/SimpleHC is README+PDF as of 2026-11-13.'
 last_reviewed: '2026-11-23'
 papers:
+- paper:ghc
 - paper:cmhc
 - paper:simplehc
 recipes:

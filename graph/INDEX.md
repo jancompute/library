@@ -183,7 +183,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:long-context-prompt-offload — Long-Context Prompt Offload
 - **Scope**: Dumped corpus ≫ context window. RLM REPL offload. Not a SWE harness and not trajectory folding.
-- **SOTA**: `method:rlm` `2611.05306` (as_of 2025-12) — GPT-5 Table 1 OOLONG-Pairs / BrowseComp+ 1K (depth=1): OOLONG-Pairs 58.0 vs compaction 0.1 vs Claude Code offload 6.5; BrowseComp+ 1K 91.3 vs compaction 70.5 vs base 0.0 OOM
+- **SOTA**: `method:rlm` `2611.31258` (as_of 2025-12) — GPT-5 Table 1 OOLONG-Pairs / BrowseComp+ 1K (depth=1): OOLONG-Pairs 58.0 vs compaction 0.1 vs Claude Code offload 6.5; BrowseComp+ 1K 91.3 vs compaction 70.5 vs base 0.0 OOM
+  - do not use when behavior-distortion compaction RL for long-horizon agents (RECAP; not dumped-corpus offload) → `method:recap`
   - do not use when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) → `method:booknavigator`
   - do not use when compaction without retraining a native window (You Don't Need Long Context) → `paper:you-dont-need-long-context`
   - do not use when GitHub-issue-to-patch / SWE harness → `method:mini-swe-agent`
@@ -194,6 +195,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when corpus already on a filesystem you can grep → `method:coding-agent-file-offload`
   - do not use when trained self-call + range-read harness (8K window matching a 1M native model on long docs) → `method:tacm`
 - **Redirects**:
+  - when behavior-distortion compaction RL for long-horizon agents (RECAP; not dumped-corpus offload) → `method:recap`
   - when textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload) → `method:booknavigator`
   - when compaction without retraining a native window (You Don't Need Long Context) → `paper:you-dont-need-long-context`
   - when trained compaction notes inside a 20K window (MEMENTO) → `method:memento`
@@ -205,7 +207,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:long-horizon-tool-agent — Long-Horizon Tool Agent
 - **Scope**: Many sequential tool steps whose history must be folded. Not dumped-prompt offload and not the SWE harness without folding.
-- **SOTA**: `method:foldgrpo` `2510.11967` (as_of 2025-10) — BrowseComp-Plus / SWE-Bench Verified, Seed-OSS-36B 32K×10: BrowseComp-Plus 0.620 vs ReAct 327K+GRPO 0.540 vs ReAct 32K 0.286; SWE-Bench Verified 0.580 vs ReAct 327K+GRPO 0.574; GPT-5 ReAct 0.793 / 0.718 still ahead
+- **SOTA**: `method:foldgrpo` `2611.31258` (as_of 2025-10) — BrowseComp-Plus / SWE-Bench Verified, Seed-OSS-36B 32K×10: BrowseComp-Plus 0.620 vs ReAct 327K+GRPO 0.540 vs ReAct 32K 0.286; SWE-Bench Verified 0.580 vs ReAct 327K+GRPO 0.574; GPT-5 ReAct 0.793 / 0.718 still ahead
+  - do not use when behavior-distortion compaction RL (RECAP; not FoldGRPO folding / not RLM) → `method:recap`
   - do not use when dumped corpus ≫ window → `method:rlm`
   - do not use when SWE harness without folding → `method:mini-swe-agent`
   - do not use when training async agent RL without folding → `method:sao`
@@ -216,6 +219,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when diagnose which multi-turn tool calls are trainable (nested sampling / contextual bandit) → `method:critical-state-rl`
   - do not use when structural credit split for tool-call vs natural-language-summary tokens (not folding) → `task:tool-agent-segment-credit`
 - **Redirects**:
+  - when behavior-distortion compaction RL (RECAP; not FoldGRPO folding / not RLM) → `method:recap`
   - when dumped corpus much larger than the window → `task:long-context-prompt-offload`
   - when SWE harness without folding → `task:software-engineering-agent-harness`
   - when outcome-only long-horizon agent RL (signal starvation / drift or outcome-blind rubrics) → `task:outcome-only-long-horizon-agent-rl`
@@ -417,7 +421,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Text-to-image / flow reward alignment (DiffusionOPSD / Self-OPD); Continuous diffusion language model pretrain (SemiCat); Discrete dLLM AR-delta recycle (A2D); Video reward models / RGPO (RewardVerse)
 
 ### task:posttrain-diffusion — Diffusion Post-Training and Reward Alignment
-- **SOTA**: `method:diffusion-opsd` `2611.26627` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
+- **SOTA**: `method:diffusion-opsd` `2611.30986` (as_of 2026-08-27) — SD 3.5-M / Z-Image-Turbo (10 Evaluators): Best in 19/20 reward-matched settings; 40-63% GPU-hr reduction
+  - do not use when instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default) → `method:itdm`
   - do not use when endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default) → `method:edmd`
   - do not use when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) → `method:physopsd`
   - do not use when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) → `method:fewsteprl`
@@ -428,12 +433,14 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when distributional regularization for diffusion/flow reward FT (DFR) → `method:dfr`
   - do not use when flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k) → `method:mend`
   - do not use when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
-- **SOTA**: `method:self-opd` `2611.08240` (as_of 2026-08-28) — Flow Matching Visual Alignment (Single & Mixed Reward Benchmarks): Outperforms Flow-GRPO, Flow-OPD, and DiffusionNFT without external task-specific teachers
+- **SOTA**: `method:self-opd` `2611.30986` (as_of 2026-08-28) — Flow Matching Visual Alignment (Single & Mixed Reward Benchmarks): Outperforms Flow-GRPO, Flow-OPD, and DiffusionNFT without external task-specific teachers
+  - do not use when instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default) → `method:itdm`
   - do not use when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) → `method:fewsteprl`
   - do not use when few-step shadow-posterior RL (Shadow Posterior Matching; not Self-OPD default) → `method:shadow-posterior-matching`
   - do not use when flow-model RL via proximal velocity matching (~100 updates vs Flow-GRPO ~4k) → `method:mend`
   - do not use when signed advantages + Lagrange velocity-drift budget for flow RL (SIFR) → `method:sifr`
 - **Redirects**:
+  - when instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default) → `method:itdm`
   - when endpoint-only fake-score DMD for few-step distill (eDMD; not DiffusionOPSD default) → `method:edmd`
   - when code-as-privilege video OPSD (PhysOPSD; not DiffusionOPSD default) → `method:physopsd`
   - when few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default) → `method:fewsteprl`
@@ -910,7 +917,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Zero-natural-data self-play pretraining from random init (UTM programs / byte NTP); Seed-grounded synthetic pretraining from Wikipedia/Wikibooks (SYNTH); Unlabeled existing math problems (u-OPSD); Test-time unlabeled adaptation (TTPO)
 
 ### task:direct-preference-alignment — Direct Preference Alignment & Offline Post-Training
-- **SOTA**: `method:olmo-3` `2611.10045` (as_of 2026-08-26) — AlpacaEval 2 / Arena-Hard: OLMo-3 Dolci Open Stack
+- **SOTA**: `method:olmo-3` `2611.32918` (as_of 2026-08-26) — AlpacaEval 2 / Arena-Hard: OLMo-3 Dolci Open Stack
+  - do not use when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) → `method:instructreplay`
   - do not use when sycophancy is established at SFT not DPO (Don't Blame The Preferences) → `paper:sycophancy-from-sft`
   - do not use when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not Dolci) → `method:automaster`
   - do not use when domain inductive biases still matter in foundation pretraining mixes → `paper:domain-inductive-biases`
@@ -971,7 +979,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: Native FP4 forward/backward hardware training from scratch (Quartet-II / MXFP4); Dense math/code Pass@1 RLVR loss (CISPO); MoE/VL RLVR algorithm (SAPO); Frontier RL post-train engine (Miles); W4A4 PTQ noise law (KBBQ)
 
 ### task:instruct-sft-alignment — Chat / Instruct SFT & General Alignment
-- **SOTA**: `method:olmo-3` `2611.10045` (as_of 2026-08-26) — AlpacaEval 2 / Arena-Hard / IFEval: Open SOTA Stack
+- **SOTA**: `method:olmo-3` `2611.32918` (as_of 2026-08-26) — AlpacaEval 2 / Arena-Hard / IFEval: Open SOTA Stack
+  - do not use when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) → `method:instructreplay`
   - do not use when sycophancy is established at SFT not DPO (Don't Blame The Preferences) → `paper:sycophancy-from-sft`
   - do not use when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not Dolci) → `method:automaster`
   - do not use when domain inductive biases still matter in foundation pretraining mixes → `paper:domain-inductive-biases`
@@ -988,6 +997,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when SFT-free RL-only domain adaptation from a base model → `method:onepo`
 - **SOTA**: `method:nemotron-cascade-2` `2603.19220` (as_of 2026-08-26) — Arena-Hard / Multi-Stage SFT: Industrial SOTA Alt
 - **Redirects**:
+  - when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) → `method:instructreplay`
   - when LoRA-probe SFT data selection (SFTProbe) → `method:sftprobe`
   - when steering-vector residual-stream hook in SFT/distill (SV-Training) → `method:sv-training`
   - when leverage of a weight update across SFT / RL / DPO; bf16 freeze without fp32 master → `paper:weight-update-leverage`
@@ -1336,7 +1346,10 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
-- **SOTA**: `method:canopy` `2611.27570` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+- **SOTA**: `method:canopy` `2611.32884` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+  - do not use when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) → `method:rlvb`
+  - do not use when behavior-distortion compaction RL (RECAP; not CANOPY coverage) → `method:recap`
+  - do not use when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) → `method:cot-proxy`
   - do not use when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) → `method:weir`
   - do not use when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) → `method:copd`
   - do not use when experience-calibrated OPD for multi-turn agents (ECOD; not CANOPY coverage) → `method:ecod`
@@ -1384,6 +1397,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) → `method:rlvb`
+  - when behavior-distortion compaction RL (RECAP; not CANOPY coverage) → `method:recap`
+  - when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) → `method:cot-proxy`
   - when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not CANOPY coverage) → `method:muted-distillation`
   - when Neyman task budgets plus watershed forks (Weir; not CANOPY coverage) → `method:weir`
   - when black-box NL consult then privileged OPSD+RL (COPD; not CANOPY coverage) → `method:copd`
@@ -1618,7 +1634,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior → `paper:thinking-leakage`
 
 ### task:student-distillation — Small Local Student Distillation from Strong Teacher
-- **SOTA**: `method:opd` `2611.26803` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+- **SOTA**: `method:opd` `2611.33148` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+  - do not use when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) → `method:cot-proxy`
+  - do not use when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - do not use when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) → `method:rollout-reuse`
   - do not use when state-conditioned FKL/RKL OPD from student coverage of teacher top-p (State-KL OPD; not Cal-OPD / not AOPD) → `method:state-kl-opd`
   - do not use when black-box NL consult then privileged OPSD+RL (COPD; not matching default) → `method:copd`
@@ -1702,7 +1720,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when multi-turn agent OPD at pivotal early mistakes (prevent reverse-KL + recover forward-KL) → `method:pivotopd`
   - do not use when act-first / reason-later multi-turn OPD (inverse dynamics + async full-response distill) → `method:actfirst-opd`
   - do not use when rubric-privileged OPD warm start before rubric-based RL → `method:rp-opd`
-- **SOTA**: `method:open-mopd` `2611.12886` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+- **SOTA**: `method:open-mopd` `2611.32515` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+  - do not use when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - do not use when observation-aligned MOPD for VL agents (Reframe) → `method:reframe`
   - do not use when DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD) → `method:rds-mopd`
   - do not use when mine discarded GRPO checkpoints via HCN+LAD (Agentic-OPD) → `method:agentic-opd`
@@ -1723,6 +1742,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
   - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
+  - when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) → `method:cot-proxy`
+  - when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) → `method:vopd`
   - when dual-branch strong/weak teacher contrast at student prefixes (cOPD; not COPD communicative OPD / not Open-MOPD) → `method:contrastive-opd`
   - when hide student thoughts from the OPD teacher / tail-only reverse-KL (Muted Distillation; not OPD-EOS) → `method:muted-distillation`
@@ -2127,6 +2148,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when history-adaptive spectral clipping of AdamW gradients (CAST-SSC) → `method:cast-ssc`
   - do not use when finite Newton-Schulz plus epsilon loses spectral max-margin → `paper:muon-ns-bias`
 - **Redirects**:
+  - when grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC) → `method:ghc`
   - when principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace) → `method:dram`
   - when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default) → `method:cmhc`
   - when shared n-gram tables with layer-wise rescale (Chorus; not Muon2 / not the 7B optimizer) → `method:chorus`
@@ -2190,7 +2212,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when finite Newton-Schulz plus epsilon loses Muon spectral max-margin → `paper:muon-ns-bias`
 
 ### task:open-data-recipe — Open Foundation Data Recipe & Pretraining Mix
-- **SOTA**: `method:olmo-3` `2611.10045` (as_of 2026-08-26) — Dolma-3 Open Token Mix: Default SOTA open data recipe
+- **SOTA**: `method:olmo-3` `2611.32918` (as_of 2026-08-26) — Dolma-3 Open Token Mix: Default SOTA open data recipe
+  - do not use when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) → `method:instructreplay`
   - do not use when sycophancy is established at SFT not DPO (Don't Blame The Preferences) → `paper:sycophancy-from-sft`
   - do not use when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not Dolci) → `method:automaster`
   - do not use when domain inductive biases still matter in foundation pretraining mixes → `paper:domain-inductive-biases`
@@ -2284,6 +2307,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when training-free MoE expert prune by routing entropy (SPARE) → `method:spare-moe`
 - **SOTA**: `method:kimi-k3` `2607.24653` (as_of 2026-08-26) — Frontier MoE Benchmarks & Long-Context Throughput: Frontier Co-Default SOTA
 - **Redirects**:
+  - when grouped Hyper-Connection residual read/write (GHC; not V4 / not cmHC / not TPHC) → `method:ghc`
   - when contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not V4 / mHC default) → `method:cmhc`
   - when TP-grouped Hyper-Connections (TPHC; not V4 / mHC default) → `method:tphc`
   - when Hyper-Connection simplification without residual mixing (SimpleHC; not V4 / mHC default) → `method:simplehc`

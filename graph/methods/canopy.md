@@ -8,6 +8,15 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; RLVB scores commit-vs-continue from a simulator posterior'
+    use_instead: method:rlvb
+  - when: 'behavior-distortion compaction RL (RECAP; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; RECAP jointly trains compaction with the policy'
+    use_instead: method:recap
+  - when: 'action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; CoT-Proxy is teacher-action distill'
+    use_instead: method:cot-proxy
   - when: 'Neyman task budgets plus watershed forks (Weir; not CANOPY coverage)'
     reason: 'CANOPY remains sparse-outcome coverage; Weir is prefix-tree shrinkage plus Neyman budgets'
     use_instead: method:weir
@@ -152,6 +161,9 @@ assumptions:
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
 last_reviewed: '2026-11-23'
 papers:
+  - paper:rlvb
+  - paper:recap
+  - paper:cot-proxy
   - paper:weir
   - paper:ecod
   - paper:statealign
