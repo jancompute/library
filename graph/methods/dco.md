@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default)"
+    reason: "DCO is a layer-selective KL-budget FT; InstructReplay matches frozen M0 on saved assistant turns during factual FT"
+    use_instead: "method:instructreplay"
   - when: "choosing the open instruct / chat SFT stack"
     reason: "DCO is a drift-budget direction probe on an existing instruct model; OLMo-3 Dolci remains the open instruct default"
     use_instead: "method:olmo-3"

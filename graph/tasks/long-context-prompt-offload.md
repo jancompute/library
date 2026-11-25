@@ -12,6 +12,8 @@ out_of_scope:
   - "Recursive summary as the only strategy"
   - "Post-train sparse attention under a fixed budget (SAS)"
 redirects:
+  - when: "behavior-distortion compaction RL for long-horizon agents (RECAP; not dumped-corpus offload)"
+    to: "method:recap"
   - when: "textbook-study RL / BookNavigator (studying a book, not dumped-corpus offload)"
     to: "method:booknavigator"
   - when: "compaction without retraining a native window (You Don't Need Long Context)"
@@ -26,7 +28,7 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "trained self-call + range-read harness (8K window matching a 1M native model on long docs)"
     to: "method:tacm"
-last_reviewed: '2026-11-12'
+last_reviewed: '2026-11-25'
 current_sota:
   - method: method:rlm
     as_of: "2025-12"
@@ -35,6 +37,7 @@ current_sota:
     value: "OOLONG-Pairs 58.0 vs compaction 0.1 vs Claude Code offload 6.5; BrowseComp+ 1K 91.3 vs compaction 70.5 vs base 0.0 OOM"
     notes: "Depth 1 working setting. Do not cite unofficial BrowseComp+ 47.3. Do not replace mini-SWE-agent."
 methods:
+  - method:recap
   - method:booknavigator
   - method:memento
   - method:rlm
@@ -60,6 +63,7 @@ The input is a dense dumped string far larger than the model window. Do not comp
 
 ## SOTA Landscape
 
+- **Related behavior-distortion compaction RL (not this dumped-prompt default)**: `method:recap` (`arXiv:2611.31258`) on `task:long-horizon-tool-agent`. Jointly trains agent summaries so compact history preserves post-compaction actions. Code eth-medical-ai-lab/recap. Does not replace RLM.
 - **Related textbook-study RL (not this dumped-prompt default)**: `method:booknavigator` (`arXiv:2610.39671`) on `task:olympiad-math-posttrain`. Page/section study interface, not a 10M dump. Does not replace RLM.
 - **Gotcha (compaction without retrain)**: `paper:you-dont-need-long-context` (`arXiv:2611.05306`). Compaction can replace a long native window for many dumped-document jobs. Does not retarget RLM or MEMENTO.
 - **Optional trained compaction (not this dumped-prompt default)**: `method:memento` (`arXiv:2611.00244`). Qwen3-8B book QA 36.9%→67.8% at ≤20K over books to 2.5M tokens. No public code. Does not replace RLM.

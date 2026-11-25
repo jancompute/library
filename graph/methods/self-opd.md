@@ -8,6 +8,9 @@ sota_for:
   - task:posttrain-diffusion
 supersedes: []
 do_not_use_for:
+  - when: "instantaneous trajectory distribution matching for diffusion RL (iTDM; not DiffusionOPSD default)"
+    reason: "Self-OPD remains teacher-free flow matching; iTDM is instantaneous TDM that restores baseline invariance under CFG / off-policy"
+    use_instead: "method:itdm"
   - when: "few-step average-velocity diffusion RL (FewStepRL; not DiffusionOPSD default)"
     reason: "Self-OPD remains teacher-free flow matching; FewStepRL ports hosts onto average-velocity few-step models"
     use_instead: "method:fewsteprl"
@@ -21,6 +24,7 @@ do_not_use_for:
     reason: "Self-OPD remains teacher-free flow matching; SIFR is signed-advantage flow RL"
     use_instead: "method:sifr"
 papers:
+  - paper:itdm
   - paper:fewsteprl
   - paper:sifr
   - paper:mend

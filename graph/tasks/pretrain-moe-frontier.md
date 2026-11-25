@@ -13,6 +13,8 @@ out_of_scope:
   - "NVL72 fused dispatch megakernel (Mixture-of-Kittens)"
   - "Olympiad specialist post-train (Nemotron IMO Gold)"
 redirects:
+  - when: "grouped Hyper-Connection residual read/write (GHC; not V4 / not cmHC / not TPHC)"
+    to: "method:ghc"
   - when: "contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not V4 / mHC default)"
     to: "method:cmhc"
   - when: "TP-grouped Hyper-Connections (TPHC; not V4 / mHC default)"
@@ -65,6 +67,7 @@ current_sota:
     value: "Frontier Co-Default SOTA"
     notes: "Kimi-K3 (2607.24653) architecture co-default with DeepSeek-V4."
 methods:
+  - method:ghc
   - method:cmhc
   - method:tphc
   - method:simplehc
@@ -94,7 +97,7 @@ methods:
   - method:recurrent-looped-transformer
   - method:drmoet
   - method:maskerade
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-25'
 tags:
   - pretraining
   - moe
@@ -107,6 +110,7 @@ tags:
 Training sparse Mixture-of-Experts models enables scaling parameter capacity into hundreds of billions of parameters while keeping active FLOPs per token bounded.
 
 ## SOTA Recommendation (as of 2026-09-01)
+- **Related grouped Hyper-Connections (not this architecture default)**: `method:ghc` (`arXiv:2611.31350`) on `task:llm-pretraining-optimization`. 13BA0.6B MoE 1.6775 / 43.96 vs IHC 1.6901 / 42.59. No public code. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Related contracted Hyper-Connections (not this architecture default)**: `method:cmhc` (`arXiv:2611.27193`) on `task:llm-pretraining-optimization`. \(\lambda=0.97\) on first \(K=2\) layers. 6B-MoE −0.002 vs mHC at 71.5k. Code Newiz430/cmHC. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Related TP-grouped Hyper-Connections (not this architecture default)**: `method:tphc` (`arXiv:2611.23026`) on `task:llm-pretraining-optimization`. Groups residual streams for tensor-parallel updates. TPHC8 beats mHC16 at 1.1B / 100B SlimPajama. Code wuyou2002/TPHC. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.
 - **Optional Hyper-Connection simplification (not this architecture default)**: `method:simplehc` (`arXiv:2611.05984`) on `task:llm-pretraining-optimization`. Matches mHC 15B/30B MoE with 2.4% extra train time vs vanilla. Does not replace DeepSeek-V4 / Kimi-K3 or mHC.

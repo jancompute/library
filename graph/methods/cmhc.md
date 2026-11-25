@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC)'
+    reason: 'cmHC contracts permutation bases; GHC partitions each branch into groups with distinct stream mixes'
+    use_instead: method:ghc
   - when: 'choosing the ~7B dense pretrain optimizer'
     reason: 'cmHC is a residual-mixing geometry on mHC-lite bases, not the optimizer; Muon2 remains the 7B default'
     use_instead: method:muon2
@@ -23,6 +26,7 @@ assumptions:
   - 'Host is mHC-lite permutation-basis mixing. Default λ=0.97 on the first K=2 layers; no new parameters. nanoGPT-S/M/L on 8xH100, 10k steps. 6B-MoE at 71.5k; 300B-MoE gap is at 2k steps only. Fused kernels are Ascend 910C / CANN 9.1.0. Code Newiz430/cmHC as of 2026-11-23.'
 last_reviewed: '2026-11-23'
 papers:
+- paper:ghc
 - paper:cmhc
 recipes:
 - recipe:cmhc

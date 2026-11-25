@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: action-only distill with empty think block / CoT-proxies (CoT-Proxy)
+  reason: ActionOPD is action-level OPD; CoT-Proxy is SFT on teacher actions with an empty think block
+  use_instead: method:cot-proxy
 - when: black-box NL consult then privileged OPSD+RL (COPD)
   reason: ActionOPD aligns semantic actions; COPD is NL consult then privileged OPSD+RL
   use_instead: method:copd

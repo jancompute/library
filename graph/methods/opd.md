@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation)'
+    reason: 'OPD remains reverse-KL matching; CoT-Proxy is action-only SFT with an empty think block plus optional short proxies'
+    use_instead: method:cot-proxy
+  - when: 'branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default)'
+    reason: 'OPD remains single-teacher matching; BaC-MOPD consolidates drifted specialists'
+    use_instead: method:bac-mopd
   - when: 'reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD)'
     reason: 'OPD remains reverse-KL matching on student rollouts; Rollout Reuse SFT/DPO-trains from a saved teacher GRPO archive'
     use_instead: method:rollout-reuse
@@ -260,6 +266,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-11-23'
 papers:
+  - paper:cot-proxy
+  - paper:bac-mopd
   - paper:rollout-reuse
   - paper:state-kl-opd
   - paper:copd

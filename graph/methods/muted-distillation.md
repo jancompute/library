@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation)'
+    reason: 'Muted Distillation hides student thoughts from a live OPD teacher; CoT-Proxy is action-only SFT with an empty think block'
+    use_instead: method:cot-proxy
   - when: 'same-tokenizer single-teacher matching distillation'
     reason: 'OPD remains the matching default; muted distillation hides thought tokens from the teacher'
     use_instead: method:opd

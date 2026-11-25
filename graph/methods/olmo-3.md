@@ -12,6 +12,9 @@ supersedes:
   - method:olmo-2-curriculum
   - method:tulu3-rlvr
 do_not_use_for:
+  - when: 'assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default)'
+    reason: 'OLMo-3 remains the open instruct stack; InstructReplay matches frozen M0 on saved assistant turns during factual FT'
+    use_instead: method:instructreplay
   - when: "sycophancy is established at SFT not DPO (Don't Blame The Preferences)"
     reason: 'Gotcha: sycophancy is already in the SFT checkpoint; does not retarget OLMo-3'
     use_instead: paper:sycophancy-from-sft
@@ -55,6 +58,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:instructreplay
   - paper:sycophancy-from-sft
   - paper:domain-inductive-biases
   - paper:weight-update-leverage

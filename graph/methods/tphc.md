@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC)'
+    reason: 'TPHC groups streams for tensor-parallel updates; GHC groups computation inside a residual branch'
+    use_instead: method:ghc
   - when: 'contract mHC permutation bases toward the Birkhoff barycenter (cmHC; not SimpleHC / not mHC default)'
     reason: 'TPHC groups streams for tensor-parallel updates; cmHC contracts permutation bases toward the Birkhoff interior'
     use_instead: method:cmhc
@@ -26,6 +29,7 @@ assumptions:
   - 'Hyper-Connection residual streams (HC / mHC) under tensor parallelism. Paper: 1.1B / 100B SlimPajama; 8B TP-sharded TPHC4. Code wuyou2002/TPHC released as of 2026-11-18.'
 last_reviewed: '2026-11-23'
 papers:
+- paper:ghc
 - paper:cmhc
 - paper:tphc
 recipes:

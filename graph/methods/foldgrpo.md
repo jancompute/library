@@ -8,6 +8,9 @@ sota_for:
   - task:long-horizon-tool-agent
 supersedes: []
 do_not_use_for:
+  - when: "behavior-distortion compaction RL (RECAP; not FoldGRPO folding / not RLM)"
+    reason: "FoldGRPO folds completed sub-trajectories; RECAP trains summaries so compact history preserves post-compaction actions"
+    use_instead: "method:recap"
   - when: "dumped corpus ≫ window"
     reason: "this folds trajectories, not a stuffed prompt"
     use_instead: "method:rlm"
@@ -40,6 +43,7 @@ assumptions:
   - "Open reimplementation: sunnweiwei/FoldAgent (may differ from paper train code)."
 last_reviewed: "2026-09-01"
 papers:
+  - paper:recap
   - paper:foldgrpo
 recipes:
   - recipe:foldgrpo

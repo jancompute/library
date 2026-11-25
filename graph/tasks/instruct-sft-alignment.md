@@ -18,6 +18,7 @@ current_sota:
     value: "Industrial SOTA Alt"
     notes: "Nemotron-Cascade-2 (2603.19220) for industrial multi-stage SFT."
 methods:
+  - method:instructreplay
   - method:sftprobe
   - method:sv-training
   - method:drive-ft
@@ -38,6 +39,8 @@ methods:
   - method:dco
   - method:opsft
 redirects:
+  - when: "assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default)"
+    to: "method:instructreplay"
   - when: "LoRA-probe SFT data selection (SFTProbe)"
     to: "method:sftprobe"
   - when: "steering-vector residual-stream hook in SFT/distill (SV-Training)"
@@ -64,7 +67,7 @@ redirects:
     to: "task:parameter-efficient-fine-tuning"
   - when: "on-policy parameter update direction SFT (OPSFT)"
     to: "method:opsft"
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-25'
 tags:
   - post-training
   - instruct
@@ -80,6 +83,7 @@ Transforming base pre-trained models into safe, capable, instruction-following c
 
 ## SOTA Recommendation (as of 2026-09-11)
 
+- **Optional assistant-turn replay during factual FT (not this instruct default)**: `method:instructreplay` (`arXiv:2611.32918`). Frozen M0 assistant turns. General-bench decline 28.1→2.4 vs standard FT −35 pts (SmolLM3-3B IFEval 71%→9%). Code xiaofengShi/InstructReplay. Does not replace OLMo-3 or DCO.
 - **Optional SFT data probe**: `method:sftprobe` (`arXiv:2611.00554`, NeurIPS 2026). 5k matches 89k OpenThoughts-Math; 7.5k +2.5%. Project bigml-cs-ucla.github.io/SFTProbe-page/. Does not replace OLMo-3.
 - **Primary Open Stack**: **OLMo-3 Dolci** (`method:olmo-3`, 2512.13961).
 - **Industrial Alternative**: **Nemotron-Cascade-2** (`method:nemotron-cascade-2`, 2603.19220).
