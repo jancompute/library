@@ -8,6 +8,9 @@ sota_for:
   - task:student-distillation
 supersedes: []
 do_not_use_for:
+  - when: 'uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD)'
+    reason: 'Open-MOPD remains the 83.4% bake-off; Uni-MOPD is a merge-then-short-MOPD recipe; paper Open-MOPD is not that bake-off'
+    use_instead: method:uni-mopd
   - when: 'branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default)'
     reason: 'Open-MOPD remains the 83.4% bake-off; BaC-MOPD consolidates specialists that have drifted far from a shared checkpoint'
     use_instead: method:bac-mopd
@@ -70,6 +73,7 @@ do_not_use_for:
     use_instead: "method:p2-mopd"
 last_reviewed: '2026-11-10'
 papers:
+  - paper:uni-mopd
   - paper:bac-mopd
   - paper:reframe
   - paper:rds-mopd

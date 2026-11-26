@@ -7,6 +7,9 @@ status: sota
 sota_for:
   - task:all-zero-verifier-groups
 do_not_use_for:
+  - when: "all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT)"
+    reason: "VeriGate gates process supervision; SPLICE splices frozen-proposal options at a branch point"
+    use_instead: "method:splice"
   - when: "hindsight-to-foresight distillation when verifier groups are silent"
     reason: "VeriGate gates process supervision; SRD distills hindsight into foresight"
     use_instead: "method:srd"
@@ -14,6 +17,7 @@ do_not_use_for:
     reason: "VeriGate gates a PRM on same-model all-zero groups; GRAFT replaces the group with a peer's rollouts"
     use_instead: "method:graft"
 papers:
+  - paper:splice
   - paper:verigate
 recipes:
   - recipe:verigate

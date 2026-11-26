@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not mixed-depth ELR)'
+  reason: 'ELR remains mixed-depth elastic recurrence; MoLT is KV-as-memory CED readout'
+  use_instead: method:molt
+- when: 'gated Core looped MoE plus extra experts (Gated-Loop MoE; not mixed-depth ELR)'
+  reason: 'ELR remains mixed-depth elastic recurrence; Gated-Loop MoE shares a Core and adds extra experts'
+  use_instead: method:gated-loop-moe
 - when: 'residual looped pretrain / Loopback Transformer (not mixed-depth ELR)'
   reason: 'ELR remains mixed-depth elastic recurrence; Loopback stores residual updates'
   use_instead: method:loopback-transformer
@@ -41,6 +47,8 @@ assumptions:
 - No public code as of 2026-10-13.
 last_reviewed: '2026-11-16'
 papers:
+- paper:molt
+- paper:gated-loop-moe
 - paper:no-free-loop
 - paper:elr
 recipes:

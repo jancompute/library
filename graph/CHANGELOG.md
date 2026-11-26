@@ -6,6 +6,31 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-26 — weekday SOTA sweep (MoLT, Uni-MOPD, CARE-OPD, SPLICE, Gated-Loop MoE)
+- Five active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR / SMELT).
+- Window: 2026-11-26 Librarian weekday sweep after merged PR 73 (watermark 2611.33148 ingest / listing considered 2611.33153, 5b5a4b8, 2463 nodes / 9906 edges). Covers Wednesday 25 Nov 2026 evening through Thursday 26 Nov 2026 (US Thanksgiving) arXiv cs.LG/cs.CL/cs.AI after 2611.33153 plus HF Daily 2026-11-25 leftovers / 2026-11-26. Thanksgiving listing did announce. New high id 2611.34923 (ingest) / 2611.34934 (listing considered). Distinct slug `care-opd` from `method:care-po`. Distinct `uni-mopd` from Open-MOPD (paper Open-MOPD is not the library 83.4% bake-off) / BaC-MOPD / training-free OPD. Distinct `molt` from RLT / ELR / SMELT. Distinct `splice` from GRAFT / Harness-S / PICO / VeriGate. Distinct `gated-loop-moe` from SMELT (200B PPL listing is not SMELT Chinchilla).
+- SKIP (considered, not ingested): KiRA 2611.33183 / 2611.33232; SWGDN 2611.33237 / 2611.33243; CONTLORA 2611.33335 / 2611.33399; Learning from Recurrence 2611.33400 / 2611.33307; DLM KD 2611.33640; TTS / Any-Rate PTQ / T2I analysis / Single-Database Rewards / TransHarness / vSFT / Semantic Density; NOPO 2611.17287 (pre-watermark leftover, not ingesting); honor PR 73 SKIP list.
+
+### 2026-11-26 — ingest method:molt (active on task:recurrent-encoder-decoder-lm; does not supersede method:recurrent-looped-transformer / method:elr / method:smelt)
+- Added paper:molt, method:molt, recipe:molt (`code_status: released`, hustvl/MoLT). Mentions on task:elastic-depth-looped-lm / task:compute-matched-moe-looped-pretrain.
+- Status active (`sota_for: []`). KV-as-memory looping plus U-MoLT encoder-decoder readout. 400B-token U-MoLT vs OLMo3: 1.7× val CE token efficiency at 700M; 3B MoE 10-domain PPL −0.75 / 10-task +2.1pp. Qwen3.5-0.8B-Base 100B CPT 1.4×. Distinct from mixed-depth ELR and SMELT middle-layer looping.
+
+### 2026-11-26 — ingest method:uni-mopd (active on task:student-distillation; does not supersede method:open-mopd / method:opd / method:bac-mopd)
+- Added paper:uni-mopd, method:uni-mopd, recipe:uni-mopd (`code_status: announced`, AmberHeart/Uni-MOPD checkpoints).
+- Status active (`sota_for: []`). Uniform merge of same-base specialists already matches 200 MOPD updates on the base; short full-vocab reverse-KL then 3.3× vs released Open-MOPD code. Paper Open-MOPD is not the library 83.4% bake-off. Distinct from BaC-MOPD / training-free OPD.
+
+### 2026-11-26 — ingest method:care-opd (active on task:student-distillation; does not supersede method:opd / method:canopy / method:care-po)
+- Added paper:care-opd, method:care-opd, recipe:care-opd (`code_status: none`, `repo_url: none found`). Mention on task:outcome-only-long-horizon-agent-rl.
+- Status active (`sota_for: []`). Prefix-replay OPD with confidence gating and hindsight allocation. SWE-Verified 59.5% vs async online OPD; −45% E2E; −44% env actions. Distinct from SWE-OPD / PivotOPD / State-OPD / ECOD / CARE-PO.
+
+### 2026-11-26 — ingest method:splice (active on task:outcome-only-long-horizon-agent-rl; does not supersede method:canopy / method:graft / method:verigate)
+- Added paper:splice, method:splice, recipe:splice (`code_status: none`, `repo_url: none found`). Mentions on task:all-zero-verifier-groups / task:agentic-async-rl.
+- Status active (`sota_for: []`). Frozen proposal splices bounded options at a branch point; learner-conditioned continuations. +2.8–9.8pp vs GRPO on SWE-Verified and BrowseComp-Plus; +10.8pp graduation on initially failed SWE. Distinct from GRAFT / Harness-S / PICO / VeriGate.
+
+### 2026-11-26 — ingest method:gated-loop-moe (active on task:compute-matched-moe-looped-pretrain; does not supersede method:smelt / method:elr / method:recurrent-looped-transformer)
+- Added paper:gated-loop-moe, method:gated-loop-moe, recipe:gated-loop-moe (`code_status: announced`). Mention on task:elastic-depth-looped-lm.
+- Status active (`sota_for: []`). Gated Core plus extra experts. 69B MLA +1.16pp / 51B KDA +2.29pp after 1T vs budget-matched non-recurrent. 200B PPL listing is not SMELT Chinchilla. GitHub announced URL 404.
+
 ### 2026-11-25 — weekday SOTA sweep (GHC, BaC-MOPD, RECAP, RLVB, InstructReplay, CoT-Proxy, iTDM)
 - Seven active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR).
 - Window: 2026-11-25 Librarian weekday sweep after merged PR 72 (watermark 2611.30627 ingest / listing considered 2611.31154, afdf892). Covers Tuesday 24 Nov 2026 evening through Wednesday 25 Nov 2026 arXiv cs.LG/cs.CL/cs.AI after 2611.31154 plus HF Daily 2026-11-24 leftovers / 2026-11-25. New high id 2611.33148 (ingest) / 2611.33153 (listing considered). Distinct slug `ghc` from `method:mhc` / `method:simplehc` / `method:tphc` / `method:cmhc`. Distinct `bac-mopd` from Open-MOPD (paper IM-MOPD is not the library 83.4% bake-off). Distinct `recap` from FoldGRPO / RLM / MEMENTO / TACM / Mosaic. Distinct `rlvb` from CANOPY / CISPO. Distinct `instructreplay` from DCO / OLMo-3. Distinct `cot-proxy` from ActionOPD / Muted Distillation. Distinct `itdm` from DiffusionOPSD / Self-OPD / MEND / FewStepRL.

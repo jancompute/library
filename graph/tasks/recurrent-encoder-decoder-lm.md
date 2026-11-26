@@ -15,6 +15,8 @@ out_of_scope:
   - "Compute-matched MoE looping of middle layers (SMELT)"
   - "Elastic mixed-depth looped LM training (ELR)"
 redirects:
+  - when: "KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT)"
+    to: "method:molt"
   - when: "exact hybrid logp for deferred looped-transformer RL (ScaleRLT)"
     to: "method:scalerlt"
   - when: "LSTM-style looped transformer with shared KV cache"
@@ -53,6 +55,7 @@ current_sota:
     value: "none reported"
     notes: "RLT (2026-09-12). Experimental. Report develops encoder memory + all-token recurrence; does not report measured results. Conceptual sibling of DeepSeek-V4.1-Flash CED, not a replacement."
 methods:
+  - method:molt
   - method:scalerlt
   - method:lstm-looped-kv
   - method:par
@@ -62,7 +65,7 @@ methods:
   - method:deepseek-v41-flash
   - method:ncp-archpreview
   - method:deepseek-v4
-last_reviewed: '2026-10-27'
+last_reviewed: '2026-11-26'
 tags:
   - pretraining
   - architecture
@@ -81,6 +84,7 @@ Train or specify a language model whose decoder carries complete state across ev
 - **Evaluation Pitfalls**: Do not treat "infinite temporal depth" as infinite work per token. Do not cite V4.1-Flash serving numbers as RLT results. Do not retarget Muon2, DeepSeek-V4 / Kimi-K3, NCP, mini-SWE-agent, or V4.1-Flash serving SOTA.
 
 ## SOTA Recommendation (as of 2026-09-12)
+- **Optional KV-as-memory looping (not this experimental first hop)**: `method:molt` (`arXiv:2611.34923`). U-MoLT 400B-token pretrain beats OLMo3 at 700M/1.5B/3B MoE; 1.7× val CE token efficiency at 700M. Code hustvl/MoLT. Mentions on `task:elastic-depth-looped-lm` / `task:compute-matched-moe-looped-pretrain`. Does not replace RLT, ELR, or SMELT.
 - **Experimental first hop (this task only)**: **Recurrent Looped Transformer** (`method:recurrent-looped-transformer`, `paper:recurrent-looped-transformer`). Status `experimental`. No measured efficiency or scaling.
 - **Production CED serving (different task)**: `method:deepseek-v41-flash` on `task:input-heavy-agentic-moe-serving`.
 - **Not This Task**: `method:muon2` remains the ~7B optimizer; `method:deepseek-v4` / `method:kimi-k3` remain frontier MoE pretrain; `method:ncp-archpreview` remains latent-space LM; `method:mini-swe-agent` remains the SWE harness.

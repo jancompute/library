@@ -8,6 +8,12 @@ sota_for:
   - task:outcome-only-long-horizon-agent-rl
 supersedes: []
 do_not_use_for:
+  - when: 'all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S / not CANOPY coverage)'
+    reason: 'CANOPY remains sparse-outcome coverage; SPLICE splices frozen-proposal options at a branch point'
+    use_instead: method:splice
+  - when: 'prefix-replay OPD (CARE-OPD; not CANOPY coverage / not CARE-PO)'
+    reason: 'CANOPY remains sparse-outcome coverage; CARE-OPD is prefix-replay distillation'
+    use_instead: method:care-opd
   - when: 'RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage)'
     reason: 'CANOPY remains sparse-outcome coverage; RLVB scores commit-vs-continue from a simulator posterior'
     use_instead: method:rlvb
@@ -161,6 +167,8 @@ assumptions:
   - "SWE transfer retunes n=16, KL 1e-2, 80 turns / 36k, and -0.2 for no-patch terminals. Not a literal hyperparameter copy."
 last_reviewed: '2026-11-23'
 papers:
+  - paper:splice
+  - paper:care-opd
   - paper:rlvb
   - paper:recap
   - paper:cot-proxy

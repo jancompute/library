@@ -15,6 +15,10 @@ out_of_scope:
   - "Data/env construction for coding-agent RL from source code (CodeMidas)"
   - "Multi-stage agent continual learning (ACLArena)"
 redirects:
+  - when: "all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S / not CANOPY coverage)"
+    to: "method:splice"
+  - when: "prefix-replay OPD (CARE-OPD; not CANOPY coverage / not CARE-PO)"
+    to: "method:care-opd"
   - when: "RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage)"
     to: "method:rlvb"
   - when: "behavior-distortion compaction RL (RECAP; not CANOPY coverage)"
@@ -167,6 +171,8 @@ current_sota:
     value: "86.9 / 67.6"
     notes: "CANOPY (2609.01245). Sparse outcome reward, n=32, KL-anchored on-policy. Does not replace SAO, FoldGRPO, CISPO, mini-swe-agent, or omp2-harness. DRACO is the outcome-blind rubric sibling, not a supersession."
 methods:
+  - method:splice
+  - method:care-opd
   - method:rlvb
   - method:recap
   - method:cot-proxy
@@ -238,7 +244,7 @@ methods:
   - method:scad
   - method:metarubric
   - method:hierarchical-moe-routing-control
-last_reviewed: '2026-11-25'
+last_reviewed: '2026-11-26'
 tags:
   - post-training
   - agentic
@@ -263,6 +269,8 @@ Two siblings share this task and are not substitutes:
 
 ## SOTA Recommendation (as of 2026-09-04)
 
+- **Optional all-fail GRPO splice salvage (not this coverage default)**: `method:splice` (`arXiv:2611.34777`). Frozen proposal splices bounded options at a branch point; learner-conditioned continuations. +2.8–9.8pp vs GRPO on SWE-Verified and BrowseComp-Plus; +10.8pp graduation on initially failed SWE. Mentions on `task:all-zero-verifier-groups` / `task:agentic-async-rl`. Distinct from GRAFT / Harness-S / PICO / VeriGate. No public code. Does not replace CANOPY.
+- **Related prefix-replay OPD (not this coverage default)**: `method:care-opd` (`arXiv:2611.34756`) on `task:student-distillation`. SWE-Verified 59.5% vs async online OPD; −45% E2E / −44% env actions. Distinct from CARE-PO. No public code. Does not replace CANOPY or OPD.
 - **Optional verifiable-belief RL (not this coverage default)**: `method:rlvb` (`arXiv:2611.32884`). Simulator posterior over a hidden answer; never reads the written belief. +17.1% vs base; GRPO/PPO fall below base. Code declare-lab/RLVB. Does not replace CANOPY or CISPO.
 - **Related behavior-distortion compaction RL (not this coverage default)**: `method:recap` (`arXiv:2611.31258`) on `task:long-horizon-tool-agent`. Qwen3.5-4B 32K BrowseComp-Plus +4.6 / SWE-Verified +4.3 vs GRPO. Code eth-medical-ai-lab/recap. Does not replace CANOPY or FoldGRPO.
 - **Related action-only / CoT-proxy distill (not this coverage default)**: `method:cot-proxy` (`arXiv:2611.33148`) on `task:student-distillation`. Qwen3-4B AppWorld 7%→18% / 35%; closed teacher 7%→48%. No public code. Does not replace CANOPY or OPD.

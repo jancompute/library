@@ -727,7 +727,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:agentic-async-rl — Agentic Asynchronous Reinforcement Learning
 - **Scope**: Training a tool-use / sandbox policy with asynchronous RL. Not choosing a software-engineering harness.
-- **SOTA**: `method:sao` `2611.27375` (as_of 2026-08-26) — Agentic Tool-Use & Multi-Turn Sandbox Benchmarks: Default SOTA for agentic async RL
+- **SOTA**: `method:sao` `2611.34777` (as_of 2026-08-26) — Agentic Tool-Use & Multi-Turn Sandbox Benchmarks: Default SOTA for agentic async RL
+  - do not use when all-fail GRPO splice salvage (SPLICE; not async stragglers) → `method:splice`
   - do not use when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) → `method:gumbel-substitution`
   - do not use when Neyman task budgets plus watershed forks (Weir; not async stragglers) → `method:weir`
   - do not use when critic-free single-rollout async RL (FlashREINFORCE; not async stragglers) → `method:flashreinforce`
@@ -759,6 +760,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when structural credit split for tool-call vs natural-language-summary tokens, not async stragglers → `task:tool-agent-segment-credit`
   - do not use when CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes) → `method:ftw`
 - **Redirects**:
+  - when all-fail GRPO splice salvage (SPLICE; not async stragglers) → `method:splice`
   - when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) → `method:gumbel-substitution`
   - when Neyman task budgets plus watershed forks (Weir; not async stragglers) → `method:weir`
   - when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) → `method:rsc`
@@ -837,10 +839,12 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 - **Out of scope**: SWE issue-to-patch harness (mini-SWE-agent); Async tool-latency / straggler RL (SAO); AppWorld outcome-only coverage / anti-drift (CANOPY); Live-web multi-hop search-agent climbing (Iris); Single-turn dense math/code RLVR (CISPO); Text-only single-teacher distillation default (OPD); Regularized harness RSI with a frozen backbone (RRSI); Harness distillation into weights under a fixed target harness (Harness-Zero); Recursive self-rewrite of a research-agent harness (AIDE2); Harness curriculum as a non-stationary bandit over failure-pattern arms (ActiveSaddler)
 
 ### task:all-zero-verifier-groups — All-Zero Verifier Groups & Process Supervision
-- **SOTA**: `method:verigate` `2605.30451` (as_of 2026-08-26) — All-Zero Verifier Group Benchmarks / Process Supervision: Default SOTA for verifier gating
+- **SOTA**: `method:verigate` `2611.34777` (as_of 2026-08-26) — All-Zero Verifier Group Benchmarks / Process Supervision: Default SOTA for verifier gating
+  - do not use when all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT) → `method:splice`
   - do not use when hindsight-to-foresight distillation when verifier groups are silent → `method:srd`
   - do not use when multi-model / all-fail group salvage by peer trajectory exchange → `method:graft`
 - **Redirects**:
+  - when all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT) → `method:splice`
   - when policy-compatible joint decoding when all rollouts fail (PICO) → `method:pico`
   - when hindsight-to-foresight distillation when verifier groups are silent (SRD) → `method:srd`
   - when escaping the RLVR zero-advantage trap with recursive calibrated problem synthesis → `method:magicbeanstalk`
@@ -1346,7 +1350,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:outcome-only-long-horizon-agent-rl — Outcome-Only Long-Horizon Agent RL
 - **Scope**: Policy training for multi-turn agents judged only at episode end, where the failure modes are signal starvation (all-success / all-fail groups) and policy drift on a small revisited task pool. Includes the outcome-blind rubric variant when no programmatic checker exists.
-- **SOTA**: `method:canopy` `2611.32884` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+- **SOTA**: `method:canopy` `2611.34777` (as_of 2026-09-04) — AppWorld Test-Normal / Test-Challenge TGC, Qwen3-14B (Feb 2026 leaderboard): 86.9 / 67.6
+  - do not use when all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S / not CANOPY coverage) → `method:splice`
+  - do not use when prefix-replay OPD (CARE-OPD; not CANOPY coverage / not CARE-PO) → `method:care-opd`
   - do not use when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) → `method:rlvb`
   - do not use when behavior-distortion compaction RL (RECAP; not CANOPY coverage) → `method:recap`
   - do not use when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) → `method:cot-proxy`
@@ -1397,6 +1403,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when learning rubric rewards for rubric-based RL (vacuous credit) → `method:metarubric`
   - do not use when per-state shrinkage of step-level advantage for agentic RL (GiGPO-style groups) → `method:adastep`
 - **Redirects**:
+  - when all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S / not CANOPY coverage) → `method:splice`
+  - when prefix-replay OPD (CARE-OPD; not CANOPY coverage / not CARE-PO) → `method:care-opd`
   - when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) → `method:rlvb`
   - when behavior-distortion compaction RL (RECAP; not CANOPY coverage) → `method:recap`
   - when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) → `method:cot-proxy`
@@ -1634,7 +1642,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior → `paper:thinking-leakage`
 
 ### task:student-distillation — Small Local Student Distillation from Strong Teacher
-- **SOTA**: `method:opd` `2611.33148` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+- **SOTA**: `method:opd` `2611.34756` (as_of 2026-08-26) — GSM8k / HumanEval / MT-Bench Student Evaluation: Default SOTA for single-teacher student distillation
+  - do not use when prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO) → `method:care-opd`
+  - do not use when uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD) → `method:uni-mopd`
   - do not use when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) → `method:cot-proxy`
   - do not use when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - do not use when reuse teacher GRPO traces as SFT/DPO instead of regenerating (Rollout Reuse; not live reverse-KL OPD) → `method:rollout-reuse`
@@ -1720,7 +1730,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when multi-turn agent OPD at pivotal early mistakes (prevent reverse-KL + recover forward-KL) → `method:pivotopd`
   - do not use when act-first / reason-later multi-turn OPD (inverse dynamics + async full-response distill) → `method:actfirst-opd`
   - do not use when rubric-privileged OPD warm start before rubric-based RL → `method:rp-opd`
-- **SOTA**: `method:open-mopd` `2611.32515` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+- **SOTA**: `method:open-mopd` `2611.34397` (as_of 2026-08-28) — Multi-Teacher Capability Integration (SmolLM3-3B Benchmark): 83.4% headroom recovery in a single deployable student
+  - do not use when uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD) → `method:uni-mopd`
   - do not use when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - do not use when observation-aligned MOPD for VL agents (Reframe) → `method:reframe`
   - do not use when DRO domain-mixture scheduling for multi-teacher OPD (RDS-MOPD) → `method:rds-mopd`
@@ -1742,6 +1753,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when representation-level (hidden-state) multi-teacher OPD → `method:latent-mopd`
   - do not use when parameter-prior MOPD (experts as trainable mixing coefficients; P2-MOPD) → `method:p2-mopd`
 - **Redirects**:
+  - when uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD) → `method:uni-mopd`
+  - when prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO) → `method:care-opd`
   - when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) → `method:cot-proxy`
   - when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) → `method:bac-mopd`
   - when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) → `method:vopd`
@@ -1982,7 +1995,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:compute-matched-moe-looped-pretrain — Compute-Matched MoE Looped Pretraining
 - **Scope**: Compute-matched looped MoE pretrain recipes (which layers to loop, how many visits, width/expert/KV matching). First hop is SMELT. Does not choose the frontier MoE architecture template.
-- **SOTA**: `method:smelt` `2610.19975` (as_of 2026-09-01) — Chinchilla-style MoE scaling ladder, compute-optimal CE Gain vs unlooped Baseline: 6.8–18.0% on the fitted sparse-grid frontier (10^20–10^21 FLOPs)
+- **SOTA**: `method:smelt` `2611.34276` (as_of 2026-09-01) — Chinchilla-style MoE scaling ladder, compute-optimal CE Gain vs unlooped Baseline: 6.8–18.0% on the fitted sparse-grid frontier (10^20–10^21 FLOPs)
+  - do not use when gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla) → `method:gated-loop-moe`
+  - do not use when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping) → `method:molt`
   - do not use when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) → `method:uploop`
   - do not use when asymmetric compute across looped MoE visits (compress first, full-res second) → `method:latentloop`
   - do not use when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) → `method:looped-models-done-right`
@@ -1992,6 +2007,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when recurrent CED all-token recurrence → `method:recurrent-looped-transformer`
   - do not use when elastic mixed-depth looped LM (gated state update / mixed loop counts) → `method:elr`
 - **Redirects**:
+  - when gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla) → `method:gated-loop-moe`
+  - when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping) → `method:molt`
   - when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) → `method:uploop`
   - when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) → `method:looped-models-done-right`
   - when choosing the frontier MoE architecture template → `task:pretrain-moe-frontier`
@@ -2042,7 +2059,9 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:elastic-depth-looped-lm — Elastic-Depth Looped Language Models
 - **Scope**: Elastic / mixed-depth looped LM training (gated state update, mixed loop counts per optimizer step, loop-index/budget conditioning, late mixed-depth conversion). First hop is ELR. Not Huginn-style fixed-point looping, not compute-matched MoE layer looping, not CED all-token recurrence.
-- **SOTA**: `method:elr` `2610.42030` (as_of 2026-10-13) — 4B dense / 30B-A3B MoE 10-task avg vs matched unlooped baseline: 4B −0.52 / +7.25; 30B-A3B +1.04 / +4.75
+- **SOTA**: `method:elr` `2611.34923` (as_of 2026-10-13) — 4B dense / 30B-A3B MoE 10-task avg vs matched unlooped baseline: 4B −0.52 / +7.25; 30B-A3B +1.04 / +4.75
+  - do not use when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not mixed-depth ELR) → `method:molt`
+  - do not use when gated Core looped MoE plus extra experts (Gated-Loop MoE; not mixed-depth ELR) → `method:gated-loop-moe`
   - do not use when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) → `method:loopback-transformer`
   - do not use when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) → `method:concertina`
   - do not use when nGPT looped 4B with difficulty-aware loop curriculum (Dory) → `method:dory`
@@ -2053,6 +2072,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when compute-matched MoE looping of middle layers (FLOPs/params/KV matched) → `method:smelt`
   - do not use when experimental CED all-token recurrence with no measured results → `method:recurrent-looped-transformer`
 - **Redirects**:
+  - when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not mixed-depth ELR) → `method:molt`
+  - when gated Core looped MoE plus extra experts (Gated-Loop MoE; not mixed-depth ELR) → `method:gated-loop-moe`
   - when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not mixed-depth ELR / not Concertina) → `method:recurrent-student-opd`
   - when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) → `method:loopback-transformer`
   - when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) → `method:concertina`
@@ -2331,7 +2352,8 @@ Regenerate with `python -m library index`. Never hand-edit this file.
 
 ### task:recurrent-encoder-decoder-lm — Recurrent Encoder-Decoder Language Models
 - **Scope**: Recurrent CED-style LM architecture: causal encoder KV memory plus a recurrent decoder that carries hidden state and layerwise SWA cache across every prompt and response token. Experimental first hop is Recurrent Looped Transformer.
-- **SOTA**: `method:recurrent-looped-transformer` `2610.28871` (as_of 2026-09-12) — Technical report (mechanisms only): none reported
+- **SOTA**: `method:recurrent-looped-transformer` `2611.34923` (as_of 2026-09-12) — Technical report (mechanisms only): none reported
+  - do not use when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT) → `method:molt`
   - do not use when exact hybrid logp for deferred looped-transformer RL (ScaleRLT) → `method:scalerlt`
   - do not use when LSTM-style looped transformer with shared KV cache → `method:lstm-looped-kv`
   - do not use when truncated-backprop gradient loss in looped transformers → `paper:truncated-backprop-looped`
@@ -2344,6 +2366,7 @@ Regenerate with `python -m library index`. Never hand-edit this file.
   - do not use when GitHub issue to patch / SWE harness → `method:mini-swe-agent`
   - do not use when compute-matched looped MoE (middle layers twice) → `method:smelt`
 - **Redirects**:
+  - when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT) → `method:molt`
   - when exact hybrid logp for deferred looped-transformer RL (ScaleRLT) → `method:scalerlt`
   - when LSTM-style looped transformer with shared KV cache → `method:lstm-looped-kv`
   - when looped LM depth reuse needs train/run agreement more than normalisation → `paper:looped-depth-reusable`

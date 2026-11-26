@@ -16,10 +16,14 @@ do_not_use_for:
   - when: 'training-free / forward-only fusion of same-base specialists'
     reason: 'Training-free OPD fuses without an update; BaC-MOPD uses merge only as the MOPD init'
     use_instead: method:training-free-opd
+  - when: 'uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD)'
+    reason: 'Uni-MOPD merges then short full-vocab reverse-KL; BaC-MOPD uses merge as init then error-replay plus balanced reverse-KL'
+    use_instead: method:uni-mopd
 assumptions:
   - 'Same architecture and tokenizer as the specialists. Merge init, error-replay queries, frozen self-teacher, per-teacher then equal-across-teachers reverse-KL. Industrial six-specialist and open Qwen3-4B five-domain. Code announced, not released, as of 2026-11-25. Paper IM-MOPD numbers are not the library 83.4% bake-off.'
 last_reviewed: '2026-11-25'
 papers:
+- paper:uni-mopd
 - paper:bac-mopd
 recipes:
 - recipe:bac-mopd

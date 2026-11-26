@@ -7,6 +7,12 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla)'
+    reason: 'SMELT remains compute-matched middle-layer looping; Gated-Loop MoE shares a Core and adds extra experts. 200B PPL listing is not this Chinchilla protocol'
+    use_instead: method:gated-loop-moe
+  - when: 'KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping)'
+    reason: 'SMELT remains middle-layer looping; MoLT is KV-as-memory CED readout'
+    use_instead: method:molt
   - when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
     reason: 'SMELT remains compute-matched MoE looping; UpLoop is dense progressive-depth copy'
     use_instead: method:uploop
@@ -37,6 +43,8 @@ assumptions:
   - "Paper ladder: 100M/200M/600M/1.6B active, up to 54B non-embedding, S≈85/95/97%. Internal corpus, AdamW WSD. No public code as of 2026-09-12."
 last_reviewed: "2026-10-06"
 papers:
+  - paper:gated-loop-moe
+  - paper:molt
   - paper:latentloop
   - paper:smelt
 recipes:

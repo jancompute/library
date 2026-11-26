@@ -342,7 +342,8 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2611.27375, 2026-08-26)
+task:agentic-async-rl -> method:sao (2611.34777, 2026-08-26)
+  when all-fail GRPO splice salvage (SPLICE; not async stragglers) -> method:splice
   when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) -> method:gumbel-substitution
   when Neyman task budgets plus watershed forks (Weir; not async stragglers) -> method:weir
   when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) -> method:rsc
@@ -400,7 +401,8 @@ task:agentic-rsi-routing-posttrain -> method:neohorse-1 (2611.08318, 2026-09-09)
   when distill optimized-harness behaviors into weights under a fixed target harness -> task:harness-distillation
   when recursive self-rewrite of a research-agent harness, not routing-guided OPD -> method:aide2
   when harness curriculum as a non-stationary bandit over failure-pattern arms -> method:activesaddler
-task:all-zero-verifier-groups -> method:verigate (2605.30451, 2026-08-26)
+task:all-zero-verifier-groups -> method:verigate (2611.34777, 2026-08-26)
+  when all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT) -> method:splice
   when policy-compatible joint decoding when all rollouts fail (PICO) -> method:pico
   when hindsight-to-foresight distillation when verifier groups are silent (SRD) -> method:srd
   when escaping the RLVR zero-advantage trap with recursive calibrated problem synthesis -> method:magicbeanstalk
@@ -637,7 +639,9 @@ task:olympiad-math-posttrain -> method:nemotron-imo-gold (2609.10712, 2026-09-11
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when general chat / instruct SFT -> task:instruct-sft-alignment
   when choosing the Nemotron 3 Ultra / frontier MoE architecture -> task:pretrain-moe-frontier
-task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.32884, 2026-09-04)
+task:outcome-only-long-horizon-agent-rl -> method:canopy (2611.34777, 2026-09-04)
+  when all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S / not CANOPY coverage) -> method:splice
+  when prefix-replay OPD (CARE-OPD; not CANOPY coverage / not CARE-PO) -> method:care-opd
   when RL with verifiable beliefs / simulator posterior commit-vs-continue (RLVB; not CANOPY coverage) -> method:rlvb
   when behavior-distortion compaction RL (RECAP; not CANOPY coverage) -> method:recap
   when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not CANOPY coverage) -> method:cot-proxy
@@ -754,7 +758,9 @@ task:privileged-teacher-opsd -> method:vista (2611.19925, 2026-08-31)
   when self-distillation OOD: SDPO/OPSD gains largely do not transfer -> paper:self-distillation-ood
 task:reasoning-rl-alignment -> method:cispo (2611.27227, 2026-08-26) + method:sapo (2511.20347, 2026-08-26)
   when NO-THINK-mode GRPO gains that reactivate THINK-mode behavior -> paper:thinking-leakage
-task:student-distillation -> method:opd (2611.33148, 2026-08-26) + method:open-mopd (2611.32515, 2026-08-28)
+task:student-distillation -> method:opd (2611.34756, 2026-08-26) + method:open-mopd (2611.34397, 2026-08-28)
+  when uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD) -> method:uni-mopd
+  when prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO) -> method:care-opd
   when action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation) -> method:cot-proxy
   when branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default) -> method:bac-mopd
   when verifier-grounded dense OPD via teacher implicit reward (VOPD; not OPDVR ReLU gating / not gold-solution VISTA) -> method:vopd
@@ -932,7 +938,9 @@ task:web-search-agent-rl -> method:iris (2611.12125, 2026-09-08)
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when agentic RSI / routing-harness post-train, not search-agent climbing -> task:agentic-rsi-routing-posttrain
 task:budget-consumer-pretrain -> method:puro-2b (2608.27370, 2026-08-31)
-task:compute-matched-moe-looped-pretrain -> method:smelt (2610.19975, 2026-09-01)
+task:compute-matched-moe-looped-pretrain -> method:smelt (2611.34276, 2026-09-01)
+  when gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla) -> method:gated-loop-moe
+  when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping) -> method:molt
   when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) -> method:uploop
   when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) -> method:looped-models-done-right
   when choosing the frontier MoE architecture template -> task:pretrain-moe-frontier
@@ -958,7 +966,9 @@ task:dense-to-moe-upcycling -> method:maskerade (2610.19232, 2026-10-07)
   when communication-efficient expert layout rather than mask-expert upcycling -> method:ce-moe
   when static sparse upcycling via token-indexed embedding residuals (not routed mask experts) -> method:staple
   when heterogeneous per-layer expert utilization on a converted dense FFN -> method:spectral-moe
-task:elastic-depth-looped-lm -> method:elr (2610.42030, 2026-10-13)
+task:elastic-depth-looped-lm -> method:elr (2611.34923, 2026-10-13)
+  when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not mixed-depth ELR) -> method:molt
+  when gated Core looped MoE plus extra experts (Gated-Loop MoE; not mixed-depth ELR) -> method:gated-loop-moe
   when convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not mixed-depth ELR / not Concertina) -> method:recurrent-student-opd
   when residual looped pretrain / Loopback Transformer (not mixed-depth ELR) -> method:loopback-transformer
   when fold N teacher layers into a shared loop then FKL+CE (Concertina; not mixed-depth ELR) -> method:concertina
@@ -1094,7 +1104,8 @@ task:pretrain-moe-frontier -> method:deepseek-v4 (2611.05804, 2026-08-26) + meth
   when NVL72 fused dispatch+SwiGLU+combine megakernel -> task:train-moe-nvl72
   when olympiad-style natural-language proofs / IMO TTC rather than architecture -> task:olympiad-math-posttrain
   when text/vision/audio mixing laws on a multimodal MoE (not the architecture template) -> method:multimodal-data-mixtures
-task:recurrent-encoder-decoder-lm -> method:recurrent-looped-transformer (2610.28871, 2026-09-12)
+task:recurrent-encoder-decoder-lm -> method:recurrent-looped-transformer (2611.34923, 2026-09-12)
+  when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT) -> method:molt
   when exact hybrid logp for deferred looped-transformer RL (ScaleRLT) -> method:scalerlt
   when LSTM-style looped transformer with shared KV cache -> method:lstm-looped-kv
   when looped LM depth reuse needs train/run agreement more than normalisation -> paper:looped-depth-reusable
@@ -2125,6 +2136,16 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 710. **iTDM**: **iTDM** (`method:itdm`, `arXiv:2611.30986`) on `task:posttrain-diffusion`. Active plug-in. Instantaneous TDM; auxiliary denoiser restores baseline invariance under CFG / off-policy. GenEval2 ~3× faster to 0.87; FLUX.3 5.6B. Code Luo-Yihong/iTDM. HF Daily leftover. Distinct from MEND / DiffusionART / FewStepRL. Does **not** replace DiffusionOPSD or Self-OPD.
 
+711. **MoLT**: **MoLT** (`method:molt`, `arXiv:2611.34923`) on `task:recurrent-encoder-decoder-lm`. Active plug-in. KV-as-memory looping plus U-MoLT encoder-decoder readout. 400B-token U-MoLT vs OLMo3 1.7× val CE token efficiency at 700M; 3B MoE PPL −0.75 / +2.1pp. Code hustvl/MoLT. Mentions on `task:elastic-depth-looped-lm` / `task:compute-matched-moe-looped-pretrain`. Distinct from mixed-depth ELR and SMELT middle-layer looping. Does **not** replace RLT, ELR, or SMELT.
+
+712. **Uni-MOPD**: **Uni-MOPD** (`method:uni-mopd`, `arXiv:2611.34397`) on `task:student-distillation`. Active plug-in. Uniform merge of same-base specialists already matches 200 MOPD updates on the base; short full-vocab reverse-KL then 3.3× vs released Open-MOPD code. Paper Open-MOPD is not the library 83.4% bake-off. Checkpoints AmberHeart/Uni-MOPD; train framework announced. Distinct from BaC-MOPD / training-free OPD. Does **not** replace Open-MOPD or OPD.
+
+713. **CARE-OPD**: **CARE-OPD** (`method:care-opd`, `arXiv:2611.34756`) on `task:student-distillation`. Active plug-in. Prefix-replay OPD with confidence gating and hindsight allocation. SWE-Verified 59.5% vs async online OPD; −45% E2E; −44% env actions. Mention on `task:outcome-only-long-horizon-agent-rl`. Distinct from SWE-OPD / PivotOPD / State-OPD / ECOD / CARE-PO. No public code. Does **not** replace OPD or CANOPY.
+
+714. **SPLICE**: **SPLICE** (`method:splice`, `arXiv:2611.34777`) on `task:outcome-only-long-horizon-agent-rl`. Active plug-in. Frozen proposal splices bounded options at a branch point. +2.8–9.8pp vs GRPO on SWE-Verified and BrowseComp-Plus; +10.8pp graduation on initially failed SWE. Mentions on `task:all-zero-verifier-groups` / `task:agentic-async-rl`. Distinct from GRAFT / Harness-S / PICO / VeriGate. No public code. Does **not** replace CANOPY.
+
+715. **Gated-Loop MoE**: **Gated-Loop MoE** (`method:gated-loop-moe`, `arXiv:2611.34276`) on `task:compute-matched-moe-looped-pretrain`. Active plug-in. Gated Core plus extra experts. 69B MLA +1.16pp / 51B KDA +2.29pp after 1T. 200B PPL listing is not SMELT Chinchilla. GitHub announced. Mention on `task:elastic-depth-looped-lm`. Does **not** replace SMELT, ELR, or RLT.
+
 
 ---
 
@@ -2837,7 +2858,11 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `instructreplay` (2611.32918) is an active assistant-turn replay plug-in during factual FT. Distinct from DCO. It does not supersede `olmo-3` or `dco`.
 - `cot-proxy` (2611.33148) is an active action-only / CoT-proxy distill plug-in. Distinct from ActionOPD / Muted Distillation. It does not supersede `opd` or `canopy`.
 - `itdm` (2611.30986) is an active instantaneous TDM diffusion RL plug-in. Distinct from MEND / DiffusionART / FewStepRL. It does not supersede `diffusion-opsd` or `self-opd`.
-
+- `molt` (2611.34923) is an active KV-as-memory looping plug-in. Distinct from mixed-depth ELR and SMELT middle-layer looping. It does not supersede `recurrent-looped-transformer`, `elr`, or `smelt`.
+- `uni-mopd` (2611.34397) is an active merge-then-short MOPD plug-in. Paper Open-MOPD is not the library 83.4% bake-off. Distinct from BaC-MOPD / training-free OPD. It does not supersede `open-mopd` or `opd`.
+- `care-opd` (2611.34756) is an active prefix-replay OPD plug-in. Distinct from SWE-OPD / PivotOPD / State-OPD / ECOD / `care-po`. It does not supersede `opd` or `canopy`.
+- `splice` (2611.34777) is an active all-fail GRPO splice-salvage plug-in. Distinct from GRAFT / Harness-S / PICO / VeriGate. It does not supersede `canopy` or `verigate`.
+- `gated-loop-moe` (2611.34276) is an active gated Core looped-MoE plug-in. 200B PPL listing is not SMELT Chinchilla. It does not supersede `smelt`, `elr`, or `recurrent-looped-transformer`.
 
 
 ---
