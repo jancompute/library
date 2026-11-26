@@ -7,6 +7,9 @@ status: experimental
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: 'KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT)'
+    reason: 'RLT remains experimental CED with no measured results; MoLT is KV-as-memory looping with U-MoLT encoder-decoder readout'
+    use_instead: method:molt
   - when: 'exact hybrid logp for deferred looped-transformer RL (ScaleRLT)'
     reason: 'RLT remains the experimental CED architecture; ScaleRLT is the RL logp numeric fix'
     use_instead: method:scalerlt
@@ -46,6 +49,7 @@ assumptions:
   - "Report dated 2026-09-12. No measured efficiency, scaling, or RL results. GitHub has PDFs and a site, not a trainer."
 last_reviewed: '2026-10-21'
 papers:
+  - paper:molt
   - paper:truncated-backprop-looped
   - paper:looped-models-done-right
   - paper:recurrent-looped-transformer

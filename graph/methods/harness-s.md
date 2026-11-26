@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S)'
+  reason: 'Harness-S re-rolls under sibling harnesses; SPLICE splices frozen-proposal options at a branch point'
+  use_instead: method:splice
 - when: 'the locked first hop on task:agent-harness-runtime'
   reason: 'omp2 remains the production harness kernel; Harness-S is sibling-harness rescue during policy GRPO'
   use_instead: method:omp2-harness
@@ -29,6 +32,7 @@ assumptions:
 - 'Frozen sibling-harness pool during policy GRPO. Rescue only all-fail groups. Transfer evaluated under H0. Code DeepExperience/Harness-S. HF Daily 2026-11-06 leftover (2611.04277).'
 last_reviewed: '2026-11-06'
 papers:
+- paper:splice
 - paper:harness-s
 recipes:
 - recipe:harness-s

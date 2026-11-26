@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+  - when: "all-fail GRPO splice salvage (SPLICE; not GRAFT / not Harness-S)"
+    reason: "GRAFT swaps peer-model traces; SPLICE splices frozen-proposal options at a branch point"
+    use_instead: "method:splice"
   - when: "sibling-harness rescue of all-fail GRPO groups (Harness-S)"
     reason: "GRAFT exchanges peer-model traces; Harness-S re-rolls the same policy under sibling harnesses"
     use_instead: "method:harness-s"
@@ -31,6 +34,7 @@ assumptions:
   - "No public GitHub as of 2026-09-30. Tokenizers may differ; compatibility is an empirical logp proxy, not an exact cross-tokenizer IS ratio."
 last_reviewed: "2026-10-01"
 papers:
+  - paper:splice
   - paper:graft
 recipes:
   - recipe:graft

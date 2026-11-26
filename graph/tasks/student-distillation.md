@@ -5,6 +5,10 @@ title: "Small Local Student Distillation from Strong Teacher"
 domain: "post-training"
 summary: "Distilling reasoning and conversational capabilities from multi-hundred-billion parameter frontier teachers into small local student models."
 redirects:
+  - when: "uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD)"
+    to: "method:uni-mopd"
+  - when: "prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO)"
+    to: "method:care-opd"
   - when: "action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation)"
     to: "method:cot-proxy"
   - when: "branch-and-consolidate multi-teacher OPD of drifted specialists (BaC-MOPD; not Open-MOPD default)"
@@ -281,6 +285,8 @@ current_sota:
     value: "83.4% headroom recovery in a single deployable student"
     notes: "Open-MOPD (2608.19098) fixes multi-teacher imbalance with token-share balancing and gap-aware dynamic budgeting."
 methods:
+  - method:uni-mopd
+  - method:care-opd
   - method:cot-proxy
   - method:bac-mopd
   - method:vopd
@@ -418,7 +424,7 @@ methods:
   - method:lmopd
   - method:latent-mopd
   - method:rp-opd
-last_reviewed: '2026-11-25'
+last_reviewed: '2026-11-26'
 tags:
   - post-training
   - distillation
@@ -433,6 +439,8 @@ Training small local students (1B–8B) from large teacher models (70B–405B) w
 
 ## SOTA Recommendation (as of 2026-09-09)
 
+- **Optional uniform-merge then short MOPD (not this matching default)**: `method:uni-mopd` (`arXiv:2611.34397`). Uniform merge of same-base specialists already matches 200 MOPD updates on the base; short full-vocab reverse-KL then outperforms Open-MOPD at 3.3× wall-clock vs released Open-MOPD code. Paper Open-MOPD is not the library 83.4% bake-off. Checkpoints AmberHeart/Uni-MOPD; train framework announced. Distinct from BaC-MOPD / training-free OPD. Does not replace Open-MOPD or OPD.
+- **Optional prefix-replay OPD (not this matching default)**: `method:care-opd` (`arXiv:2611.34756`). Student-seeded teacher completions plus confidence gating and hindsight allocation. SWE-Verified 59.5% vs async online OPD; −45% E2E time; −44% env actions. Mention on `task:outcome-only-long-horizon-agent-rl`. Distinct from SWE-OPD / PivotOPD / State-OPD / ECOD / CARE-PO. No public code. Does not replace OPD or CANOPY.
 - **Optional action-only / CoT-proxy distill (not this matching default)**: `method:cot-proxy` (`arXiv:2611.33148`). Empty think block plus KL replay. Qwen3-4B AppWorld 7%→18% action-only / 35% with CoT-proxy; GPT-5.6 Luna closed teacher 7%→48% AppWorld, 3%→28% SWE-Verified. Mention on `task:outcome-only-long-horizon-agent-rl`. No public code. Distinct from ActionOPD / Muted Distillation. Does not replace OPD or CANOPY.
 - **Optional branch-and-consolidate MOPD (not this matching default)**: `method:bac-mopd` (`arXiv:2611.32515`). Merge init plus error-replay plus balanced reverse-KL. Industrial 97.0% specialist-gain recovery vs IM-MOPD 79.8%. Open Qwen3-4B 95.7% / 97.5% vs IM-MOPD 94.1%. Paper IM-MOPD is not the library 83.4% bake-off. Code announced. Does not replace Open-MOPD or OPD.
 - **Optional verifier-grounded OPD (not this matching default)**: `method:vopd` (`arXiv:2611.30325`). Teacher extrapolation with group-relative verifier advantage at \(\lambda=0.25\). Qwen3-4B eight-bench avg 66.38 vs OPD 64.71 / ExOPD 65.25 / teacher 64.16. 4B→1.7B 53.32 vs OPD 50.88. Distinct from OPDVR / VISTA / holi-lab/vOPD 2605.07865. Code juntongshi48/VOPD announced. Does not replace OPD.

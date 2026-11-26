@@ -10,6 +10,9 @@ supersedes:
   - method:grpo
   - method:dr-grpo
 do_not_use_for:
+  - when: 'all-fail GRPO splice salvage (SPLICE; not async stragglers)'
+    reason: 'SAO remains async straggler replay; SPLICE splices frozen-proposal options at a branch point'
+    use_instead: method:splice
   - when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers)'
     reason: 'SAO remains async straggler replay; Gumbel substitution removes untrusted-sampler drift'
     use_instead: method:gumbel-substitution
@@ -102,6 +105,7 @@ do_not_use_for:
     use_instead: "method:ftw"
 last_reviewed: '2026-11-23'
 papers:
+  - paper:splice
   - paper:gumbel-substitution
   - paper:weir
   - paper:flashreinforce

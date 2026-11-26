@@ -7,6 +7,9 @@ status: active
 sota_for: []
 supersedes: []
 do_not_use_for:
+- when: 'all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT)'
+  reason: 'PICO jointly decodes expert-guided traces; SPLICE splices frozen-proposal options at a branch point'
+  use_instead: method:splice
 - when: 'the locked first hop on task:all-zero-verifier-groups'
   reason: 'VeriGate remains the all-zero / process-supervision gate; PICO jointly decodes expert-guided policy-compatible traces when groups are silent'
   use_instead: method:verigate
@@ -20,6 +23,7 @@ assumptions:
 - 'Hard-problem RLVR with expert traces used as decoding constraints, not cloned SFT. No public code as of 2026-10-28.'
 last_reviewed: '2026-10-28'
 papers:
+- paper:splice
 - paper:pico
 recipes:
 - recipe:pico

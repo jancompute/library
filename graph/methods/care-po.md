@@ -13,10 +13,14 @@ do_not_use_for:
 - when: 'train a live-web multi-hop search agent (SFT-RL climbing)'
   reason: 'Iris remains the search-agent recipe; CARE-PO is a call-count anchor on a GRPO host'
   use_instead: method:iris
+- when: 'prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO)'
+  reason: 'CARE-PO is a tool-budget efficiency plug-in; CARE-OPD is prefix-replay distillation'
+  use_instead: method:care-opd
 assumptions:
 - 'Tool-using agent with a countable call budget. Paper: GAIA operating-point grid; 27B efficiency-reward collapse ablation. No public code as of 2026-11-10. arXiv 2611.12125 above watermark 2611.09634.'
 last_reviewed: '2026-11-10'
 papers:
+- paper:care-opd
 - paper:care-po
 recipes:
 - recipe:care-po

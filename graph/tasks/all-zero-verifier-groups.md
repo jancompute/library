@@ -5,6 +5,8 @@ title: "All-Zero Verifier Groups & Process Supervision"
 domain: "post-training"
 summary: "Robust reinforcement learning gradient estimation and process reward supervision when verification groups contain zero positive solutions."
 redirects:
+  - when: "all-fail GRPO splice salvage (SPLICE; not PICO / not GRAFT)"
+    to: "method:splice"
   - when: "policy-compatible joint decoding when all rollouts fail (PICO)"
     to: "method:pico"
   - when: "hindsight-to-foresight distillation when verifier groups are silent (SRD)"
@@ -21,6 +23,7 @@ current_sota:
     value: "Default SOTA for verifier gating"
     notes: "VeriGate (2605.30451) gates process supervision strictly behind trusted outcome checks."
 methods:
+  - method:splice
   - method:pico
   - method:magicbeanstalk
   - method:tips
@@ -31,7 +34,7 @@ methods:
   - method:cliff
   - method:thinkprior
   - method:graft
-last_reviewed: "2026-10-28"
+last_reviewed: "2026-11-26"
 tags:
   - post-training
   - reasoning
@@ -48,6 +51,7 @@ Handling hard reasoning problems where all sampled candidate rollouts fail (all-
 - **Primary Method**: **VeriGate** (`method:verigate`, 2605.30451). Unchanged.
 - **Optional first-mistake credit (not a PRM)**: `method:cliff` (`arXiv:2609.02817`) locates one Pitfall Step with an off-the-shelf teacher. Active plug-in. Does not replace VeriGate or CISPO.
 - **Optional cold-start silent-group prompt prior**: `method:thinkprior` (`arXiv:2609.09075`) ranks prompts before GRPO-family training. Cuts waste; not a VeriGate replacement and not a CISPO loss change.
+- **Optional all-fail GRPO splice salvage (not a PRM)**: `method:splice` (`arXiv:2611.34777`) on `task:outcome-only-long-horizon-agent-rl`. Frozen proposal splices bounded options at a branch point. +2.8–9.8pp vs GRPO; +10.8pp graduation on initially failed SWE. Distinct from GRAFT / Harness-S / PICO. No public code. Does not replace VeriGate or CISPO.
 - **Optional cross-model all-fail salvage (not a PRM)**: `method:graft` (`arXiv:2609.37868`) replaces receiver all-fail groups with mixed peer trajectory groups. Distinct from VeriGate. Does not replace VeriGate or CISPO.
 - **Optional hindsight-to-foresight distill (not a PRM)**: `method:srd` (`arXiv:2610.08077`) on `task:math-code-rl-dense`. 2B all-fail groups RLVR 0.0% vs SRD 60.6%. Code SalesforceAIResearch/SRD. Does not replace VeriGate or CISPO.
 - **Optional recursive problem synthesis (not a PRM)**: `method:magicbeanstalk` (`arXiv:2610.12659`) on `task:math-code-rl-dense`. Grows mid-difficulty children from always-fail seeds instead of discarding them. Does not replace VeriGate, SRD, or CISPO.

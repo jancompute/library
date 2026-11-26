@@ -16,11 +16,15 @@ do_not_use_for:
 - when: 'privileged same-size gold teacher OPSD'
   reason: 'VISTA remains scoring-teacher OPSD'
   use_instead: method:vista
+- when: 'uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD)'
+  reason: 'Training-free OPD fuses without an update; Uni-MOPD merges then short reverse-KL'
+  use_instead: method:uni-mopd
 assumptions:
 - 'Specialists that share a base checkpoint and linear layers. Paper: Olmo 3 7B math and code specialists.'
 - 'Code: none found as of 2026-10-16.'
 last_reviewed: '2026-10-16'
 papers:
+- paper:uni-mopd
 - paper:training-free-opd
 recipes:
 - recipe:training-free-opd

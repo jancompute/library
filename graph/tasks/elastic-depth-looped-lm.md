@@ -15,6 +15,10 @@ out_of_scope:
 - Recurrent CED all-token recurrence (RLT)
 - Standard dense ~7B NTP optimizer (Muon2)
 redirects:
+- when: KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not mixed-depth ELR)
+  to: method:molt
+- when: gated Core looped MoE plus extra experts (Gated-Loop MoE; not mixed-depth ELR)
+  to: method:gated-loop-moe
 - when: convert the student to cross-token recurrence during OPD (Recurrent Student OPD; not mixed-depth ELR / not Concertina)
   to: method:recurrent-student-opd
 - when: residual looped pretrain / Loopback Transformer (not mixed-depth ELR)
@@ -49,6 +53,8 @@ current_sota:
   notes: ELR (2610.12582). Method status active. Listed here as first hop; method
     sota_for stays empty. Does not replace Looped Models Done Right or SMELT.
 methods:
+- method:molt
+- method:gated-loop-moe
 - method:recurrent-student-opd
 - method:loopback-transformer
 - method:concertina
@@ -60,7 +66,7 @@ methods:
 - method:looped-models-done-right
 - method:smelt
 - method:recurrent-looped-transformer
-last_reviewed: '2026-11-24'
+last_reviewed: '2026-11-26'
 tags:
 - pretraining
 - looped-lm
@@ -80,6 +86,8 @@ This is **not** Huginn-style fixed-point looping and not SMELT's compute-matched
 - **Evaluation Pitfalls**: Do not cite SMELT FLOP-savings or Huginn KV-sharing as ELR results. One-loop 4B dense can sit slightly below the unlooped baseline.
 
 ## SOTA Recommendation (as of 2026-10-13)
+- **Related KV-as-memory looping (not this first hop)**: `method:molt` (`arXiv:2611.34923`) on `task:recurrent-encoder-decoder-lm`. U-MoLT 1.7× val CE token efficiency at 700M vs OLMo3. Code hustvl/MoLT. Does not replace ELR.
+- **Related gated Core looped MoE (not this first hop)**: `method:gated-loop-moe` (`arXiv:2611.34276`) on `task:compute-matched-moe-looped-pretrain`. 69B MLA +1.16pp / 51B KDA +2.29pp after 1T. GitHub announced. Does not replace ELR.
 - **Related recurrent student OPD (not this first hop)**: `method:recurrent-student-opd` (`arXiv:2611.28603`) on `task:student-distillation`. Cross-token recurrence during OPD, not mixed-depth looping. No public code. Does not replace ELR.
 - **Related residual looped pretrain (not this first hop)**: `method:loopback-transformer` (`arXiv:2611.07226`) on `task:llm-pretraining-optimization`. Stores residual updates; matched tokens and executed depth. Code yancyou/Loopback. Does not replace ELR.
 - **Related teacher-layer folding (not this first hop)**: `method:concertina` (`arXiv:2611.18113`) on `task:student-distillation`. Folds an existing teacher, not mixed-depth from scratch. Code myboker/concertina. Does not replace ELR.

@@ -22,6 +22,8 @@ out_of_scope:
   - "Category-aware SWE expert RL (Category-Aware SWE Experts)"
   - "Structural tool vs summary credit under GRPO (SLCA-GRPO)"
 redirects:
+  - when: "all-fail GRPO splice salvage (SPLICE; not async stragglers)"
+    to: "method:splice"
   - when: "shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers)"
     to: "method:gumbel-substitution"
   - when: "Neyman task budgets plus watershed forks (Weir; not async stragglers)"
@@ -112,6 +114,7 @@ current_sota:
     value: "Default SOTA for agentic async RL"
     notes: "SAO (2607.07508) decouples environment tool execution from policy optimization with importance-corrected replay buffers."
 methods:
+  - method:splice
   - method:gumbel-substitution
   - method:weir
   - method:rsc
@@ -157,7 +160,7 @@ methods:
   - method:pact
   - method:slca-grpo
   - method:ftw
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-26'
 tags:
   - post-training
   - agentic
@@ -174,6 +177,7 @@ This is **policy training**. Building a software-engineering agent loop is `task
 
 ## SOTA Recommendation (as of 2026-09-08)
 
+- **Related all-fail GRPO splice salvage (not this async default)**: `method:splice` (`arXiv:2611.34777`) on `task:outcome-only-long-horizon-agent-rl`. Frozen proposal splices bounded options. +2.8–9.8pp vs GRPO. No public code. Does not replace SAO or CANOPY.
 - **Related shared-Gumbel token substitution (not this async default)**: `method:gumbel-substitution` (`arXiv:2611.27375`) on `task:fp4-rl-train-rollout-alignment`. Public Gumbel; trainer substitutes \(v^*=\arg\max(\ell^p+G)\). 9B Reliquary 158 steps / 15.75B tokens match 0.979. Code reliquadotai/reliquary. Does not replace SAO or TRACE / TRIAGE.
 - **Related Neyman budgets plus watershed forks (not this async default)**: `method:weir` (`arXiv:2611.27570`) on `task:outcome-only-long-horizon-agent-rl`. 3B/7B vs CAPO at 0.71–0.72× tokens. No public code. Does not replace SAO or CANOPY.
 - **Optional reverse-KL score centering (not this async default)**: `method:rsc` (`arXiv:2611.21791`). Score centering plus reverse-KL next-token matching. AppWorld 14.04 vs SC 12.28 (+14.3%); BabyAI 18.06 vs IS-PPOClip 1.83 (9.9×). GitHub BiEchi/rsc announced empty. Mentions on `task:math-code-rl-dense` / `task:outcome-only-long-horizon-agent-rl`. Does not replace SAO, CISPO, DLC, or CANOPY. Does not supersede `paper:score-centering-pg`.

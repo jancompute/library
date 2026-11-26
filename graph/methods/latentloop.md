@@ -16,11 +16,15 @@ do_not_use_for:
 - when: choosing the frontier MoE architecture template
   reason: DeepSeek-V4 / Kimi-K3 remain the sparse-from-scratch template
   use_instead: method:deepseek-v4
+- when: gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla)
+  reason: LatentLoop reallocates FLOPs across visits; Gated-Loop MoE shares a Core and adds extra experts
+  use_instead: method:gated-loop-moe
 assumptions:
 - Shared MoE weights across two visits; separate attention. Compress the first visit's sequence, full-res the second, reallocate FLOPs to width.
 - Paper: 15 configs 1.3B-7B; largest budget >10^21 FLOPs. No public code as of 2026-10-15.
 last_reviewed: '2026-10-15'
 papers:
+- paper:gated-loop-moe
 - paper:latentloop
 recipes:
 - recipe:latentloop

@@ -9,6 +9,12 @@ sota_for:
 supersedes:
   - method:on-policy-distillation
 do_not_use_for:
+  - when: 'prefix-replay OPD (CARE-OPD; not SWE-OPD / not CARE-PO)'
+    reason: 'OPD remains live reverse-KL matching; CARE-OPD replays student prefixes into a teacher then gates by confidence'
+    use_instead: method:care-opd
+  - when: 'uniform merge then short full-vocab reverse-KL MOPD (Uni-MOPD; not Open-MOPD default / not BaC-MOPD)'
+    reason: 'OPD remains single-teacher matching; Uni-MOPD merges same-base specialists then short MOPD'
+    use_instead: method:uni-mopd
   - when: 'action-only distill with empty think block / CoT-proxies (CoT-Proxy; not ActionOPD / not Muted Distillation)'
     reason: 'OPD remains reverse-KL matching; CoT-Proxy is action-only SFT with an empty think block plus optional short proxies'
     use_instead: method:cot-proxy
@@ -266,6 +272,8 @@ do_not_use_for:
     use_instead: "method:rp-opd"
 last_reviewed: '2026-11-23'
 papers:
+  - paper:care-opd
+  - paper:uni-mopd
   - paper:cot-proxy
   - paper:bac-mopd
   - paper:rollout-reuse
