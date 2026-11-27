@@ -13,6 +13,9 @@ do_not_use_for:
   - when: 'all-fail GRPO splice salvage (SPLICE; not async stragglers)'
     reason: 'SAO remains async straggler replay; SPLICE splices frozen-proposal options at a branch point'
     use_instead: method:splice
+  - when: 'quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not async stragglers)'
+    reason: 'SAO remains async straggler replay; Maco-RL is quota MixRL skill-add'
+    use_instead: method:maco-rl
   - when: 'shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers)'
     reason: 'SAO remains async straggler replay; Gumbel substitution removes untrusted-sampler drift'
     use_instead: method:gumbel-substitution
@@ -103,8 +106,9 @@ do_not_use_for:
   - when: "CEM-style critic-free RFT from replay when group rollouts are impractical (stateful sandboxes)"
     reason: "SAO remains async straggler replay; FTW is CEM-style ordinal filter on replay when GRPO groups cannot be reconstructed"
     use_instead: "method:ftw"
-last_reviewed: '2026-11-23'
+last_reviewed: '2026-11-27'
 papers:
+  - paper:maco-rl
   - paper:splice
   - paper:gumbel-substitution
   - paper:weir

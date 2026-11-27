@@ -16,6 +16,8 @@ out_of_scope:
 redirects:
   - when: "gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla)"
     to: "method:gated-loop-moe"
+  - when: "parameter revisit buys almost nothing in looped LLM pretrain (LoopTitan)"
+    to: "paper:looptitan"
   - when: "KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping)"
     to: "method:molt"
   - when: "FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)"
@@ -55,7 +57,7 @@ methods:
   - method:ce-moe
   - method:deepseek-v4
   - method:kimi-k3
-last_reviewed: '2026-11-26'
+last_reviewed: '2026-11-27'
 tags:
   - pretraining
   - moe
@@ -75,6 +77,7 @@ Decide whether looping MoE layers helps when you cannot spend extra FLOPs, extra
 
 ## SOTA Recommendation (as of 2026-09-12)
 - **Optional gated Core looped MoE (not this first hop)**: `method:gated-loop-moe` (`arXiv:2611.34276`). Shared Core plus extra experts; 69B MLA +1.16pp / 51B KDA +2.29pp after 1T. 200B PPL listing is not the SMELT Chinchilla protocol. GitHub announced. Mention on `task:elastic-depth-looped-lm`. Does not replace SMELT.
+- **Gotcha (LoopTitan)**: `paper:looptitan` (`arXiv:2611.34821`). Extra parameter revisits buy almost nothing vs matched compute. Code datamllab/LoopTitan. Does not retarget SMELT or Gated-Loop MoE.
 - **Related KV-as-memory looping (not this first hop)**: `method:molt` (`arXiv:2611.34923`) on `task:recurrent-encoder-decoder-lm`. U-MoLT encoder-decoder readout, not middle-layer looping. Code hustvl/MoLT. Does not replace SMELT.
 - **Primary Method (this task only)**: **SMELT** (`method:smelt`, `paper:smelt` `arXiv:2609.01343`). Status `active`. Loop the middle 50% of MoE layers twice; narrow width; raise experts; scale looped residuals by \(1/2\); match FLOPs / non-embedding params / KV.
 - **Not This Task**: `method:deepseek-v4` / `method:kimi-k3` remain frontier MoE co-defaults; `method:ce-moe` remains the communication-layout niche.

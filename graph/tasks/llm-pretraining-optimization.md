@@ -92,6 +92,8 @@ redirects:
     to: "method:flashmask-3"
   - when: "4-bit AdamW optimizer-state quantization in preconditioner space (ZIP-SR)"
     to: "method:zip-sr"
+  - when: "4-bit EMA optimizer-state dithering (BReD; not Muon2 / not ZIP-SR)"
+    to: "method:bred"
   - when: "thresholded Muon orthogonalization of small vs large singular values"
     to: "method:spectrally-targeted-muon"
   - when: "pilot-run cubic rule for Adam's shared beta (β1=β2=β)"
@@ -164,6 +166,7 @@ methods:
   - method:shell-elastic
   - method:msar
   - method:zip-sr
+  - method:bred
   - method:spectrally-targeted-muon
   - method:dga-muon
   - method:clean
@@ -192,7 +195,7 @@ methods:
   - method:muonio
   - method:adam-beta-cubic
   - method:bulkboost
-last_reviewed: '2026-11-25'
+last_reviewed: '2026-11-27'
 tags:
   - pretraining
   - optimizer
@@ -236,6 +239,7 @@ Pretraining modern neural network models involves minimizing cross-entropy loss 
 - **Not this task (seed-grounded synthetic single-stage pretrain)**: `method:synth` (`arXiv:2609.37891`) on `task:synthetic-single-stage-pretrain`. AdamW NTP on SYNTH; not a Muon2 retarget.
 - **Not this task (zero-natural-data UTM self-play)**: `method:self-play-pretraining` (`arXiv:2609.30063`) on `task:zero-natural-data-self-play-pretrain`. Experimental <25M.
 - **Optional 4-bit AdamW-state quantization**: `method:zip-sr` (`arXiv:2610.12444`) stochastic rounding in preconditioner space. Up to 70% TorchAO gap cut vs 32-bit AdamW. No public code. Does not replace Muon2, SCALE, or TACO.
+- **Optional 4-bit EMA optimizer-state dithering (not this 7B default)**: `method:bred` (`arXiv:2611.33951`) on `task:full-param-memory-efficient-pretrain`. PPL ≤0.5 pretrain / ≤0.2 FT. Code ZhanHeshen/BReD. Does not replace Muon2, SCALE, or ZIP-SR.
 - **Optional thresholded Muon orthogonalization**: `method:spectrally-targeted-muon` (`arXiv:2610.10965`) small singular values carry the Muon gain. CIFAR-10 / NanoGPT speedruns, not a 7B bake-off. No public code. Does not replace Muon2, BulkBoost, or Musec.
 - **Optional residual topology (not this optimizer default)**: `method:msar` (`arXiv:2610.13630`) Multi-Stream Attention Residuals. Beats vanilla/mHC/AttnRes on 12 benches at 18B and 28B MoE; iso-loss 1.58× vs 1.35× AttnRes, 1.30× mHC. Single-paper baselines; no supersedes. Code jianke0604/MSAR. Composes with Muon2.
 - **Gotcha (massive-activation life cycle)**: `paper:massive-activation-lifecycle` (`arXiv:2610.00423`). Weight decay causally controls massive-activation magnitude (peak ~ λ^{-1/2}; timing log-linear in λ). Attention sinks / low-bit training. Code apd-smcclendon/massive_activations_2. Does not retarget Muon2.

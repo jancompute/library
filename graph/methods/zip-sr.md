@@ -16,11 +16,15 @@ do_not_use_for:
   - when: "ternary column-wise one-sparse FT optimizer state"
     reason: "TACO is FT-axis sparse state; ZIP-SR is 4-bit AdamW moments"
     use_instead: "method:taco"
+  - when: "4-bit EMA optimizer-state dithering (BReD; not ZIP-SR)"
+    reason: "ZIP-SR is 4-bit AdamW moments; BReD dithers EMA optimizer state"
+    use_instead: "method:bred"
 assumptions:
   - "Host is AdamW. Paper: 130M-2.7B GPT/Llama-style pretrain and full-param SFT."
   - "No official GitHub as of 2026-10-09." 
-last_reviewed: "2026-10-09"
+last_reviewed: "2026-11-27"
 papers:
+  - paper:bred
   - paper:zip-sr
 recipes:
   - recipe:zip-sr

@@ -13,11 +13,15 @@ do_not_use_for:
   - when: 'the locked first hop on task:linear-time-sequence-modeling'
     reason: 'PACE is an active plug-in; method:mamba-2 remains the first hop'
     use_instead: method:mamba-2
+  - when: 'symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not PACE)'
+    reason: 'PACE remains periodic 4-bit SSM rounding; Stable GDN-2 rewrites GDN-2 erase/write'
+    use_instead: method:stable-gdn-2
 assumptions:
 - 'Fixed-size recurrent state. Periodic rounding plus a short token buffer. No public code as of 2026-10-22.'
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-27'
 papers:
-- paper:pace
+  - paper:stable-gdn-2
+  - paper:pace
 recipes:
 - recipe:pace
 claims:

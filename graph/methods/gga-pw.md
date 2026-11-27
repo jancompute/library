@@ -13,10 +13,14 @@ do_not_use_for:
 - when: 'periodic 4-bit recurrent-state quantization (PACE)'
   reason: 'PACE is periodic rounding plus a token buffer; GGA-PW is GDN mixed-precision plus pure-write'
   use_instead: method:pace
+- when: 'symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not GGA-PW)'
+  reason: 'GGA-PW remains GDN state quant; Stable GDN-2 rewrites GDN-2 erase/write'
+  use_instead: method:stable-gdn-2
 assumptions:
 - 'Gated DeltaNet recurrent state. Mixed-precision heads plus FP8 recency window. No public code as of 2026-10-30.'
-last_reviewed: '2026-10-30'
+last_reviewed: '2026-11-27'
 papers:
+- paper:stable-gdn-2
 - paper:gga-pw
 recipes:
 - recipe:gga-pw

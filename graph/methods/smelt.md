@@ -13,6 +13,9 @@ do_not_use_for:
   - when: 'KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping)'
     reason: 'SMELT remains middle-layer looping; MoLT is KV-as-memory CED readout'
     use_instead: method:molt
+  - when: 'parameter revisit buys almost nothing in looped LLM pretrain (LoopTitan)'
+    reason: 'Gotcha on extra revisits vs matched compute; does not retarget SMELT'
+    use_instead: paper:looptitan
   - when: 'FLOP-matched dense looped pretrain via progressive depth copy (UpLoop)'
     reason: 'SMELT remains compute-matched MoE looping; UpLoop is dense progressive-depth copy'
     use_instead: method:uploop
@@ -41,8 +44,9 @@ assumptions:
   - "Match per-token FLOPs, total non-embedding parameters, and KV cache against an unlooped MoE Baseline. Typical residual mismatch: FLOPs <4%, params <1%, KV <4%."
   - "Locked recipe: loop middle 50% of layers twice; physical depth matches the Baseline; scale looped residuals by 1/r with r=2; narrow H and raise expert count; GQA/head-size for KV."
   - "Paper ladder: 100M/200M/600M/1.6B active, up to 54B non-embedding, S≈85/95/97%. Internal corpus, AdamW WSD. No public code as of 2026-09-12."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-27"
 papers:
+  - paper:looptitan
   - paper:gated-loop-moe
   - paper:molt
   - paper:latentloop

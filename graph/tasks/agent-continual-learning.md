@@ -37,6 +37,10 @@ redirects:
     to: "method:reharness"
   - when: "chronological pretraining knowledge / specialists that need fewer update steps"
     to: "method:specialists-learn-faster"
+  - when: "quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not LoRA experts)"
+    to: "method:maco-rl"
+  - when: "SFT forgets less at lower LR and batch (Tune for Retention)"
+    to: "paper:tune-for-retention"
 current_sota:
   - method: method:aclarena
     as_of: "2026-09-23"
@@ -48,6 +52,7 @@ methods:
   - method:deletion-tuning
   - method:camp-ii
   - method:nestor
+  - method:maco-rl
   - method:specialists-learn-faster
   - method:synthself
   - method:reharness
@@ -60,7 +65,7 @@ methods:
   - method:mini-swe-agent
   - method:opd
   - method:open-mopd
-last_reviewed: '2026-11-11'
+last_reviewed: '2026-11-27'
 tags:
   - post-training
   - agentic
@@ -87,3 +92,5 @@ This is **not** Pass@1 math, not async stragglers, not AppWorld TGC, not the fro
 - **Optional small-model synthetic SDFT (not this first hop)**: `method:synthself` (`arXiv:2610.13113`) same-family aligner rewrite + rejection sampling then off-policy train. Beats 6 compared methods at 3 small scales. No public code. Does not replace ACLArena or OPD.
 - **Optional recurrent textual harness (not this first hop)**: `method:reharness` (`arXiv:2610.12668`) backward-revises retrieved reflections after each instance. Text harness, not weight-space CL. No public code. Does not replace ACLArena, ACE, or omp2.
 - **Related data-ordering gotcha (not this first hop)**: `method:specialists-learn-faster` (`arXiv:2610.13835`) on `task:open-data-recipe`. Chronological specialists need fewer update steps. Does not replace ACLArena.
+- **Optional quota MixRL skill-add (not this first hop)**: `method:maco-rl` (`arXiv:2611.34703`) on `task:agentic-async-rl`. Tight/balanced/sparse tri-buffer plus 20/60/20 quotas. Qwen3.5-27B 43.6→54.2→60.1. No public code. Does not replace ACLArena.
+- **Gotcha (Tune for Retention)**: `paper:tune-for-retention` (`arXiv:2611.34579`). Lower SFT LR and batch forget less at matched steps. Code nirmitj6/tune-for-retention-sft. Does not retarget ACLArena or OLMo-3.

@@ -22,12 +22,16 @@ do_not_use_for:
   - when: "failure-conditioned recovery (reuse failed patch + verifier feedback)"
     reason: "Category experts fix the see-saw; FC-SWE reuses a failed patch as recovery context"
     use_instead: "method:fc-swe"
+  - when: "quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not category experts)"
+    reason: "Category experts remain see-saw specialists; Maco-RL is quota MixRL skill-add"
+    use_instead: "method:maco-rl"
 assumptions:
   - "Executable SWE instances with a verifier. Categories come from SWE Labeler (repository-domain L1 → Pro-A/B/C on Pro-618)."
   - "Same-origin experts alternate Agentic-miniRL with Refresh–Repair–Expand. Integration is label-routed MOPD with ReLU-gated reward extrapolation. No external teacher trajectories."
   - "Code: alibaba/AgenticBigBang. Alibaba Logics-SWE-Qwen3.6-27B line."
-last_reviewed: "2026-09-23"
+last_reviewed: "2026-11-27"
 papers:
+  - paper:maco-rl
   - paper:category-aware-swe-experts
 recipes:
   - recipe:category-aware-swe-experts

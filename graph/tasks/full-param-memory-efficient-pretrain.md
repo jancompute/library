@@ -26,6 +26,8 @@ redirects:
     to: "method:lct"
   - when: "4-bit AdamW optimizer-state quantization in preconditioner space (ZIP-SR)"
     to: "method:zip-sr"
+  - when: "4-bit EMA optimizer-state dithering (BReD; not SCALE subspace / not ZIP-SR)"
+    to: "method:bred"
   - when: "Nyström-sketched SOAP preconditioners / linear optimizer memory (Clean / Q-Clean)"
     to: "method:clean"
   - when: "low-rank gradient sketches + predicted-KL step control for RL memory"
@@ -63,12 +65,13 @@ methods:
   - method:mixed-precision-scaling
   - method:monarch-muon
   - method:zip-sr
+  - method:bred
   - method:clean
   - method:logra
   - method:scale
   - method:galore
   - method:taco
-last_reviewed: '2026-11-24'
+last_reviewed: '2026-11-27'
 tags:
   - efficiency
   - optimizer
@@ -86,6 +89,7 @@ tags:
 - **Primary Method**: **SCALE** (`method:scale`, 2506.16659, ICML 2026) — not GaLore.
 - **Optional FT-axis sparse optimizer (not this first hop)**: `method:taco` (`arXiv:2610.02199`). Ternary abs-max column-wise one-sparse updates; 174× optimizer-state vs AdamW8bit on OPT-13B SST-2. Does not replace SCALE or Muon2.
 - **Optional 4-bit AdamW-state quantization (not this first hop)**: `method:zip-sr` (`arXiv:2610.12444`) on `task:llm-pretraining-optimization`. Preconditioner-space SR; up to 70% TorchAO gap cut. Does not replace SCALE, Muon2, or TACO.
+- **Optional 4-bit EMA dithering (not this first hop)**: `method:bred` (`arXiv:2611.33951`). Subtractive dither plus seed replay. PPL ≤0.5 pretrain / ≤0.2 FT. Code ZhanHeshen/BReD. Does not replace SCALE, ZIP-SR, or Muon2.
 - **Optional mixed-precision pass allocation (not this first hop)**: `method:mixed-precision-scaling` (`arXiv:2610.17637`) on `task:fp4-hardware-training`. Does not replace SCALE.
 - **Optional Monarch-factored Muon (not this first hop)**: `method:monarch-muon` (`arXiv:2610.17429`). 6.89B H100 peak 68.87→52.94 GB. Loses to dense Muon at 257M. Does not replace SCALE or Muon2.
 - **Optional residual-correction subspace Muon (not this first hop)**: `method:pmrc` (`arXiv:2610.19844`). LLaMA 1.3B C4 train 2.500 vs Fira 2.657 vs GaLore 2.842. No SCALE bake-off. No dedicated repo. Does not replace SCALE.
