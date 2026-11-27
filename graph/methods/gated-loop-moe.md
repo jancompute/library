@@ -19,13 +19,17 @@ do_not_use_for:
   - when: 'KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT)'
     reason: 'MoLT reuses KV as loop memory; Gated-Loop MoE gates inner-loop state and buys experts'
     use_instead: method:molt
+  - when: 'parameter revisit buys almost nothing in looped LLM pretrain (LoopTitan)'
+    reason: 'Gotcha on extra revisits vs matched compute; does not retarget Gated-Loop MoE'
+    use_instead: paper:looptitan
   - when: 'choosing the frontier MoE architecture template'
     reason: 'DeepSeek-V4 / Kimi-K3 remain the MoE template; this is an optional looped-MoE recipe'
     use_instead: method:deepseek-v4
 assumptions:
   - 'Gated inner-loop updates plus Prelude-to-Coda residual. Core 25–35% of unrolled depth; extra routed experts from saved params. 1T-token 69B MLA / 51B KDA vs budget-matched non-recurrent. 200B PPL vs named looped methods is not SMELT Chinchilla protocol. GitHub announced URL 404 as of 2026-11-26.'
-last_reviewed: '2026-11-26'
+last_reviewed: '2026-11-27'
 papers:
+- paper:looptitan
 - paper:gated-loop-moe
 recipes:
 - recipe:gated-loop-moe

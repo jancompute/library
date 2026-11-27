@@ -256,7 +256,7 @@ task:full-lowbit-finetune -> method:gradcodes (2611.13410, 2026-09-01)
   when memory must fit a 4-bit stack but a mixed-precision adapter at inference is acceptable -> task:4bit-peft-quantization
   when native FP4 forward/backward hardware training from scratch -> task:fp4-hardware-training
   when quality LoRA on 24GB without a fully quantized checkpoint constraint -> task:lora-quality-tuning
-task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-26)
+task:full-param-memory-efficient-pretrain -> method:scale (2611.33951, 2026-08-26)
   when principal-random subspace Muon with linear rank reallocation (DRAM; not SCALE / not PMRC) -> method:dram
   when Factored One-sided Adam-Moment SOAP (FOAM; not SCALE subspace) -> method:foam
   when in-backward MoE expert updates (Sonar-MoE; not SCALE subspace) -> method:sonar-moe
@@ -265,6 +265,7 @@ task:full-param-memory-efficient-pretrain -> method:scale (2610.19844, 2026-08-2
   when drift-aware streaming k-PCA GaLore-family low-rank LLM training (Ori) -> method:ori
   when losslessly compressed GPU train tensors (LCT Huffman) -> method:lct
   when 4-bit AdamW optimizer-state quantization in preconditioner space (ZIP-SR) -> method:zip-sr
+  when 4-bit EMA optimizer-state dithering (BReD; not SCALE subspace / not ZIP-SR) -> method:bred
   when Nyström-sketched SOAP preconditioners / linear optimizer memory (Clean / Q-Clean) -> method:clean
   when low-rank gradient sketches + predicted-KL step control for RL memory -> method:logra
   when choosing the ~7B dense pretrain optimizer -> task:llm-pretraining-optimization
@@ -329,7 +330,7 @@ task:training-data-attribution -> method:magic (2504.16430, 2026-09-01)
   when SAE dictionaries, circuits, or effect geometry -> task:mechanistic-interpretability-dictionaries
   when factory process / experiments-as-code / lineage -> task:industrial-model-building
   when output-layer-gradient data selection for SFT/RL (cheaper LESS/GradAlign features) -> method:lesser
-task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
+task:agent-continual-learning -> method:aclarena (2611.34703, 2026-09-23)
   when gate-projection binary-mask deletion (Deletion Tuning; not LoRA experts) -> method:deletion-tuning
   when file-based coding-agent memory via async OPD (CAMP-II; not LoRA experts) -> method:camp-ii
   when nested sparsity for scalable pretraining and continual learning (NESTOR) -> method:nestor
@@ -342,8 +343,11 @@ task:agent-continual-learning -> method:aclarena (2610.05872, 2026-09-23)
   when continual synthetic self-distillation of small / on-device models (SDFT ICL rewrite fails) -> method:synthself
   when recurrent textual harness for agentic continual learning (backward-revise retrieved reflections) -> method:reharness
   when chronological pretraining knowledge / specialists that need fewer update steps -> method:specialists-learn-faster
-task:agentic-async-rl -> method:sao (2611.34777, 2026-08-26)
+  when quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not LoRA experts) -> method:maco-rl
+  when SFT forgets less at lower LR and batch (Tune for Retention) -> paper:tune-for-retention
+task:agentic-async-rl -> method:sao (2611.34703, 2026-08-26)
   when all-fail GRPO splice salvage (SPLICE; not async stragglers) -> method:splice
+  when quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not async stragglers) -> method:maco-rl
   when shared-Gumbel sampler/trainer token substitution (Gumbel Substitution; not async stragglers) -> method:gumbel-substitution
   when Neyman task budgets plus watershed forks (Weir; not async stragglers) -> method:weir
   when reverse-KL score centering for async/off-policy IS (RSC; not async stragglers / not DLC) -> method:rsc
@@ -442,7 +446,7 @@ task:data-free-self-evolution -> method:j-zero (2608.26582, 2026-08-31)
   when seed-grounded synthetic single-stage pretraining from Wikipedia/Wikibooks seeds -> task:synthetic-single-stage-pretrain
   when unlabeled existing math problems with majority-vote pseudo-solutions -> task:label-free-reasoner-posttrain
   when test-time adaptation on unlabeled queries -> task:label-free-test-time-reasoner
-task:direct-preference-alignment -> method:olmo-3 (2611.32918, 2026-08-26)
+task:direct-preference-alignment -> method:olmo-3 (2611.34579, 2026-08-26)
   when single-pair delta-learning generator bias in DPO -> paper:delta-learning-limits
   when preference-optimization vocabulary collapse from common-mode hidden offsets (ECHO) -> paper:echo-vocab-collapse
   when DPO hyperparameter landscape and transfer across scale -> paper:dpo-hp-landscape
@@ -462,7 +466,7 @@ task:fp4-rl-train-rollout-alignment -> method:trace (2611.27375, 2026-10-07) + m
   when MoE/VL RLVR loss rather than FP4 train–rollout alignment -> task:math-code-rl-moe
   when production post-train stack rather than FP4 RL numerics -> task:frontier-rl-posttrain-stack
   when INT4 KV-cache async RLVR rollouts with INT8 sink/recent protection (not NVFP4 train–rollout mismatch) -> method:kv4-rl
-task:instruct-sft-alignment -> method:olmo-3 (2611.32918, 2026-08-26) + method:nemotron-cascade-2 (2603.19220, 2026-08-26)
+task:instruct-sft-alignment -> method:olmo-3 (2611.34579, 2026-08-26) + method:nemotron-cascade-2 (2603.19220, 2026-08-26)
   when assistant-turn replay during factual FT (InstructReplay; not DCO / not OLMo-3 default) -> method:instructreplay
   when LoRA-probe SFT data selection (SFTProbe) -> method:sftprobe
   when steering-vector residual-stream hook in SFT/distill (SV-Training) -> method:sv-training
@@ -470,6 +474,7 @@ task:instruct-sft-alignment -> method:olmo-3 (2611.32918, 2026-08-26) + method:n
   when SFT sample weighting by contribution and diversity with a prior regularizer (DRIVE) -> method:drive-ft
   when evolving SWE trajectory filters (MetaCurate) -> method:metacurate
   when sycophancy is established at SFT not DPO (Don't Blame The Preferences) -> paper:sycophancy-from-sft
+  when SFT forgets less at lower LR and batch (Tune for Retention) -> paper:tune-for-retention
   when post-training tunes a pretrained cue-routing circuit (sycophancy heads) -> paper:posttrain-cue-routing
   when agentic automated SFT data research (proportion / prune / repair / replace / synthesize) -> method:autosft
   when skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not AutoSFT mix research) -> method:automaster
@@ -892,7 +897,7 @@ task:student-distillation -> method:opd (2611.34756, 2026-08-26) + method:open-m
   when critique-guided rewrite of incorrect rollouts then privileged scoring (CriticOPD) -> method:criticopd
   when action-level OPD without teacher token probabilities -> method:actionopd
   when where the teacher's advantage lives along student trajectories (token-flip diagnostic) -> paper:opd-teacher-advantage
-task:swe-agent-category-expert-rl -> method:category-aware-swe-experts (2609.23377, 2026-09-23)
+task:swe-agent-category-expert-rl -> method:category-aware-swe-experts (2611.34703, 2026-09-23)
   when failure-conditioned recovery (reuse failed patch + verifier feedback) -> method:fc-swe
   when env construction from source only -> task:coding-agent-rl-environment-construction
   when async algorithm -> task:agentic-async-rl
@@ -938,8 +943,9 @@ task:web-search-agent-rl -> method:iris (2611.12125, 2026-09-08)
   when single-turn math/code Pass@1 RLVR -> task:math-code-rl-dense
   when agentic RSI / routing-harness post-train, not search-agent climbing -> task:agentic-rsi-routing-posttrain
 task:budget-consumer-pretrain -> method:puro-2b (2608.27370, 2026-08-31)
-task:compute-matched-moe-looped-pretrain -> method:smelt (2611.34276, 2026-09-01)
+task:compute-matched-moe-looped-pretrain -> method:smelt (2611.34821, 2026-09-01)
   when gated Core looped MoE plus extra experts (Gated-Loop MoE; not SMELT Chinchilla) -> method:gated-loop-moe
+  when parameter revisit buys almost nothing in looped LLM pretrain (LoopTitan) -> paper:looptitan
   when KV-as-memory looping / U-MoLT encoder-decoder readout (MoLT; not middle-layer looping) -> method:molt
   when FLOP-matched dense looped pretrain via progressive depth copy (UpLoop) -> method:uploop
   when Huginn-style dense fixed-point looped LMs (learned depth prior / terminal KV sharing) -> method:looped-models-done-right
@@ -988,7 +994,7 @@ task:latent-space-lm-pretrain -> method:ncp-archpreview (2609.10715, 2026-09-11)
   when frontier MoE architecture -> task:pretrain-moe-frontier
   when lossless multi-token / diffusion-augmented AR serving -> task:diffusion-augmented-ar
   when recurrent CED-style architecture, not next-concept latent LM -> task:recurrent-encoder-decoder-lm
-task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
+task:linear-time-sequence-modeling -> method:mamba-2 (2611.34051, 2024-05)
   when on-policy discrete hybrid layer selection (FlashMorph2; not Mamba-2 from scratch) -> method:flashmorph2
   when Canon layers / local token mixing on GLA/GDN (not Mamba-2 from scratch) -> method:canon-layers
   when near-zero untied embeddings stall gated models (GroupClip / GateFloor; not Mamba-2 default) -> method:groupclip
@@ -997,6 +1003,7 @@ task:linear-time-sequence-modeling -> method:mamba-2 (2405.21060, 2024-05)
   when Kronecker delta rule linear attention (KronLSTM; not an LSTM) -> method:kronlstm
   when post-train sparse attention on a dense Transformer under a fixed budget -> task:posttrain-attention-sparsification
   when checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM) -> method:replayssm
+  when symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not Mamba-2 from scratch / not GGA-PW / not PACE) -> method:stable-gdn-2
 task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
   when grouped Hyper-Connection residual read/write (GHC; not cmHC / not SimpleHC / not TPHC) -> method:ghc
   when principal-random subspace Muon with linear rank reallocation (DRAM; not Muon2 / not SCALE subspace) -> method:dram
@@ -1038,6 +1045,7 @@ task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
   when optimizer-stage mismatch cost when switching AdamW and Muon -> paper:optimizer-switch-cost
   when mask-aware distributed attention kernel (FlashMask-3) -> method:flashmask-3
   when 4-bit AdamW optimizer-state quantization in preconditioner space (ZIP-SR) -> method:zip-sr
+  when 4-bit EMA optimizer-state dithering (BReD; not Muon2 / not ZIP-SR) -> method:bred
   when thresholded Muon orthogonalization of small vs large singular values -> method:spectrally-targeted-muon
   when pilot-run cubic rule for Adam's shared beta (β1=β2=β) -> method:adam-beta-cubic
   when two-band Marchenko-Pastur spectral reweighting for Muon (BulkBoost) -> method:bulkboost
@@ -1060,7 +1068,7 @@ task:llm-pretraining-optimization -> method:muon2 (2611.27193, 2026-08-26)
   when nested width-elastic supernet at ~widest-subnet cost with μP-style HP transfer -> method:shell-elastic
   when history-adaptive spectral clipping of AdamW gradients (CAST-SSC; not CAST OPD) -> method:cast-ssc
   when finite Newton-Schulz plus epsilon loses Muon spectral max-margin -> paper:muon-ns-bias
-task:open-data-recipe -> method:olmo-3 (2611.32918, 2026-08-26)
+task:open-data-recipe -> method:olmo-3 (2611.34579, 2026-08-26)
   when domain inductive biases still matter in foundation pretraining mixes -> paper:domain-inductive-biases
   when synthetic rewrite scaling under compute and data constraints -> paper:synthetic-rewrite-laws
   when unique-token epoch / repetition geometry under a finite pretrain corpus (not the open mix) -> task:data-constrained-pretrain
@@ -2146,6 +2154,16 @@ task:rl-video-mllm -> method:orarl (2608.20492, 2026-08-27)
 
 715. **Gated-Loop MoE**: **Gated-Loop MoE** (`method:gated-loop-moe`, `arXiv:2611.34276`) on `task:compute-matched-moe-looped-pretrain`. Active plug-in. Gated Core plus extra experts. 69B MLA +1.16pp / 51B KDA +2.29pp after 1T. 200B PPL listing is not SMELT Chinchilla. GitHub announced. Mention on `task:elastic-depth-looped-lm`. Does **not** replace SMELT, ELR, or RLT.
 
+716. **Stable GDN-2**: **Stable GDN-2** (`method:stable-gdn-2`, `arXiv:2611.34051`) on `task:linear-time-sequence-modeling`. Active plug-in. Symmetric erase plus decay-regulated residual write. 1.6B RULER 128K +6.80 recurrent / nine-task hybrid +0.62. Distinct from `method:gated-deltanet-2`. No public code. Does **not** replace Mamba-2, GGA-PW, or PACE.
+
+717. **BReD**: **BReD** (`method:bred`, `arXiv:2611.33951`) on `task:full-param-memory-efficient-pretrain`. Active plug-in. Subtractive dither plus seed replay for 4-bit EMA optimizer states. PPL ≤0.5 pretrain / ≤0.2 FT. Code ZhanHeshen/BReD. Mention on `task:llm-pretraining-optimization`. Does **not** replace SCALE, ZIP-SR, or Muon2.
+
+718. **Maco-RL**: **Maco-RL** (`method:maco-rl`, `arXiv:2611.34703`) on `task:agentic-async-rl`. Active plug-in. Tight/balanced/sparse tri-buffer plus 20/60/20 quotas. Qwen3.5-27B 43.6→54.2→60.1; Qwen3.8-27B MixRL overall 67.0 vs 61.4. Mention on `task:agent-continual-learning`. No public code. Does **not** replace SAO, ACLArena, or Category-Aware SWE Experts.
+
+719. **LoopTitan** (claim note, no new method): `paper:looptitan` (`arXiv:2611.34821`) on `task:compute-matched-moe-looped-pretrain`. Extra parameter revisits buy almost nothing vs matched compute. Code datamllab/LoopTitan. Does **not** retarget SMELT or Gated-Loop MoE.
+
+720. **Tune for Retention** (claim note, no new method): `paper:tune-for-retention` (`arXiv:2611.34579`) on `task:instruct-sft-alignment`. Lower SFT LR and batch forget less at matched steps. Code nirmitj6/tune-for-retention-sft. Mention on `task:agent-continual-learning`. Does **not** retarget OLMo-3 or ACLArena.
+
 
 ---
 
@@ -2863,6 +2881,11 @@ The knowledge graph encodes the following explicit supersession relationships:
 - `care-opd` (2611.34756) is an active prefix-replay OPD plug-in. Distinct from SWE-OPD / PivotOPD / State-OPD / ECOD / `care-po`. It does not supersede `opd` or `canopy`.
 - `splice` (2611.34777) is an active all-fail GRPO splice-salvage plug-in. Distinct from GRAFT / Harness-S / PICO / VeriGate. It does not supersede `canopy` or `verigate`.
 - `gated-loop-moe` (2611.34276) is an active gated Core looped-MoE plug-in. 200B PPL listing is not SMELT Chinchilla. It does not supersede `smelt`, `elr`, or `recurrent-looped-transformer`.
+- `stable-gdn-2` (2611.34051) is an active GDN-2 erase/write rewrite. Distinct from `gated-deltanet-2`. It does not supersede `mamba-2`, `gga-pw`, or `pace`.
+- `bred` (2611.33951) is an active 4-bit EMA optimizer-state dithering plug-in. It does not supersede `scale`, `zip-sr`, or `muon2`.
+- `maco-rl` (2611.34703) is an active quota MixRL skill-add plug-in. It does not supersede `sao`, `aclarena`, or `category-aware-swe-experts`.
+- `paper:looptitan` (2611.34821) is a looped-pretrain revisit gotcha. It does not retarget `smelt` or `gated-loop-moe`.
+- `paper:tune-for-retention` (2611.34579) is an SFT LR/batch forgetting gotcha. It does not retarget `olmo-3` or `aclarena`.
 
 
 ---

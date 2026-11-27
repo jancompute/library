@@ -28,12 +28,20 @@ do_not_use_for:
   - when: "GitHub issue to patch / SWE harness"
     reason: "mini-SWE-agent remains the loop"
     use_instead: "method:mini-swe-agent"
+  - when: "quota MixRL + tri-buffer sampling for agentic skill add (Maco-RL; not LoRA experts)"
+    reason: "ACLArena remains sequential LoRA-expert stacking; Maco-RL is quota MixRL skill-add"
+    use_instead: "method:maco-rl"
+  - when: "SFT forgets less at lower LR and batch (Tune for Retention)"
+    reason: "Gotcha on SFT LR/batch vs forgetting; does not retarget ACLArena"
+    use_instead: "paper:tune-for-retention"
 assumptions:
   - "Multiple post-train stages with heterogeneous environments (paper: Math → Search → E-commerce → IF). Forgetting is the complaint, not a missing Pass@1 kernel."
   - "MLE: offline replay of filtered specialist trajectories (SDFT), then a routed network of LoRA experts each specialized by RL."
   - "Code: WillDreamer/ACLArena. HF collection willhx/aclarena. Built on slime."
-last_reviewed: "2026-10-06"
+last_reviewed: "2026-11-27"
 papers:
+  - paper:maco-rl
+  - paper:tune-for-retention
   - paper:off-policy-grafting
   - paper:aclarena
 recipes:

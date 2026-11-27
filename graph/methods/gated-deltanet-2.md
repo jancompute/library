@@ -4,7 +4,15 @@ type: method
 title: "Gated DeltaNet 2"
 category: "architecture"
 status: active
+sota_for: []
+supersedes: []
+do_not_use_for:
+  - when: "symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not Gated DeltaNet 2 stub)"
+    reason: "Gated DeltaNet 2 remains the 2605.22791 stub; Stable GDN-2 is a later erase/write rewrite"
+    use_instead: method:stable-gdn-2
+last_reviewed: '2026-11-27'
 papers:
+  - paper:stable-gdn-2
   - paper:gated-deltanet-2
 recipes:
   - recipe:gated-deltanet-2

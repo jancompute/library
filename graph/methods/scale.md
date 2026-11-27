@@ -27,7 +27,11 @@ do_not_use_for:
   - when: "choosing the ~7B dense pretrain optimizer"
     reason: "Muon2 remains the 7B pretrain default"
     use_instead: "method:muon2"
+  - when: "4-bit EMA optimizer-state dithering (BReD; not SCALE subspace)"
+    reason: "SCALE remains the subspace first hop; BReD dithers EMA optimizer state to 4-bit"
+    use_instead: "method:bred"
 papers:
+  - paper:bred
   - paper:pmrc
   - paper:logra
   - paper:scale
@@ -42,7 +46,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Scaled subspace gradient projections for smooth trajectory updates without SVD latency stalls."
-last_reviewed: '2026-10-19'
+last_reviewed: '2026-11-27'
 tags:
   - optimizer
   - pretraining

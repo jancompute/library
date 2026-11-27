@@ -12,6 +12,7 @@ current_sota:
     value: "8x vs standard attention"
     notes: "State Space Duality (SSD) connects structured state spaces with matrix multiplication tensor cores."
 methods:
+  - method:stable-gdn-2
   - method:flashmorph2
   - method:canon-layers
   - method:groupclip
@@ -40,7 +41,9 @@ redirects:
     to: "task:posttrain-attention-sparsification"
   - when: "checkpoint + recent-input buffer for hybrid SSM decode (ReplaySSM)"
     to: "method:replayssm"
-last_reviewed: '2026-11-20'
+  - when: "symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not Mamba-2 from scratch / not GGA-PW / not PACE)"
+    to: "method:stable-gdn-2"
+last_reviewed: '2026-11-27'
 tags:
   - pretraining
   - architecture
@@ -64,3 +67,4 @@ While original linear attention models suffered from expressive capacity deficit
 - **Optional embedding-clip stabilizer (not this architecture default)**: `method:groupclip` (`arXiv:2611.04449`). Untied gated models stall; GroupClip decouples embedding clip. GateFloor lives on this card. No public code. Does not replace Mamba-2.
 - **Primary Method**: **Mamba-2** (`method:mamba-2`). Unchanged.
 - **Optional hybrid SSM decode buffer (not this architecture default)**: `method:replayssm` (`arXiv:2610.13778`) checkpoint + recent-input buffer. vLLM Mamba-2 / Gated DeltaNet 1.20–1.47× decode at batch 256; ~1.8× vs vLLM spec decoding on 120B-class. Code Johnny-Liou/ReplaySSM. Relevant for RL rollout throughput. Does not replace Mamba-2.
+- **Optional GDN-2 stability rewrite (not this architecture default)**: `method:stable-gdn-2` (`arXiv:2611.34051`). Symmetric erase plus decay-regulated residual write. 1.6B RULER 128K +6.80 recurrent / nine-task hybrid +0.62. No public code. Distinct from `method:gated-deltanet-2`. Does not replace Mamba-2, GGA-PW, or PACE.

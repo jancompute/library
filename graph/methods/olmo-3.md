@@ -18,6 +18,9 @@ do_not_use_for:
   - when: "sycophancy is established at SFT not DPO (Don't Blame The Preferences)"
     reason: 'Gotcha: sycophancy is already in the SFT checkpoint; does not retarget OLMo-3'
     use_instead: paper:sycophancy-from-sft
+  - when: "SFT forgets less at lower LR and batch (Tune for Retention)"
+    reason: "Gotcha on SFT LR/batch vs forgetting; does not retarget OLMo-3"
+    use_instead: paper:tune-for-retention
   - when: 'skill-conditioned teacher rollouts then SFT (AutoMaster / Skill-FT; not Dolci)'
     reason: 'OLMo-3 remains the open instruct stack; AutoMaster is skill-guided teacher SFT'
     use_instead: method:automaster
@@ -58,6 +61,7 @@ do_not_use_for:
     reason: "OLMo-3 remains the open instruct stack; OnePO is RL-only domain adaptation"
     use_instead: "method:onepo"
 papers:
+  - paper:tune-for-retention
   - paper:instructreplay
   - paper:sycophancy-from-sft
   - paper:domain-inductive-biases
@@ -79,7 +83,7 @@ claims:
     date: "2026-08-26"
     verified: true
     notes: "Dolma-3 multi-trillion token open mix + Dolci curated SFT and verifiable reward alignment."
-last_reviewed: '2026-11-20'
+last_reviewed: '2026-11-27'
 tags:
   - pretraining
   - open-data

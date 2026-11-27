@@ -29,7 +29,11 @@ do_not_use_for:
   - when: "checkpoint + recent-input buffer for hybrid SSM decode"
     reason: "Mamba-2 remains the architecture default; ReplaySSM is a serving buffer on Mamba-2 / Gated DeltaNet"
     use_instead: "method:replayssm"
+  - when: "symmetric GDN-2 erase / decay-regulated residual write (Stable GDN-2; not Mamba-2 from scratch)"
+    reason: "Mamba-2 remains the architecture default; Stable GDN-2 rewrites GDN-2 erase/write"
+    use_instead: "method:stable-gdn-2"
 papers:
+  - paper:stable-gdn-2
   - paper:mamba-2-paper
 recipes:
   - recipe:mamba2-training

@@ -6,6 +6,31 @@ rewrite history. Format: [docs/ingestion-guide.md](../docs/ingestion-guide.md) �
 
 ---
 
+### 2026-11-27 — weekday SOTA sweep (Stable GDN-2, BReD, Maco-RL; notes LoopTitan, Tune for Retention)
+- Three active plug-ins plus two paper-only notes. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR / SMELT).
+- Window: 2026-11-27 Librarian weekday sweep after merged PR 74 (watermark 2611.34923 ingest / listing considered 2611.34934, 82efa09, 2478 nodes / 9991 edges). Covers Thursday 26 Nov 2026 leftovers through Friday 27 Nov 2026 (US holiday after Thanksgiving). Friday arXiv dump is absent; cs.LG/cs.CL/cs.AI new listings still Thu 26 Nov. Highest ingested paper this sweep is LoopTitan 2611.34821 (below MoLT 2611.34923). Listing considered moves to 2611.34938. Distinct slug `stable-gdn-2` from `method:gated-deltanet-2` (2605.22791 stub). Distinct `bred` from SCALE / ZIP-SR. Distinct `maco-rl` from SAO / ACLArena / Category-Aware SWE Experts.
+- SKIP (considered, not ingested): 2611.34935 Can image generation help visual reasoning; 2611.34938 Tokenisation is not in APX; honor Search-Native 2611.26809 SKIP from PR 70/71; HF Daily 2026-11-27 leftovers OS-Omni / ShowNow / DRBench Pro / Context Engineers (benches/inference/robot); honor PR 74 SKIP list (KiRA, SWGDN, CONTLORA, Learning from Recurrence, DLM KD, TTS, Any-Rate PTQ, T2I analysis, Single-Database Rewards, TransHarness, vSFT, Semantic Density, NOPO).
+
+### 2026-11-27 — ingest method:stable-gdn-2 (active on task:linear-time-sequence-modeling; does not supersede method:mamba-2 / method:gga-pw / method:pace / method:gated-deltanet-2)
+- Added paper:stable-gdn-2, method:stable-gdn-2, recipe:stable-gdn-2 (`code_status: none`, `repo_url: none found`).
+- Status active (`sota_for: []`). Symmetric erase plus decay-regulated residual write for GDN-2. 1.6B RULER 128K +6.80 recurrent / nine-task hybrid +0.62. Distinct from `method:gated-deltanet-2`.
+
+### 2026-11-27 — ingest method:bred (active on task:full-param-memory-efficient-pretrain; does not supersede method:scale / method:zip-sr / method:muon2)
+- Added paper:bred, method:bred, recipe:bred (`code_status: released`, ZhanHeshen/BReD). Mention on task:llm-pretraining-optimization.
+- Status active (`sota_for: []`). Subtractive dither plus seed replay for 4-bit EMA optimizer states. PPL ≤0.5 pretrain / ≤0.2 FT.
+
+### 2026-11-27 — ingest method:maco-rl (active on task:agentic-async-rl; does not supersede method:sao / method:aclarena / method:category-aware-swe-experts)
+- Added paper:maco-rl, method:maco-rl, recipe:maco-rl (`code_status: none`, `repo_url: none found`). Mention on task:agent-continual-learning.
+- Status active (`sota_for: []`). Tight/balanced/sparse tri-buffer plus 20/60/20 quotas. Qwen3.5-27B 43.6→54.2→60.1; Qwen3.8-27B MixRL overall 67.0 vs 61.4.
+
+### 2026-11-27 — ingest paper:looptitan (gotcha on method:smelt / method:gated-loop-moe; does not retarget those first hops)
+- Added paper:looptitan (`code_status: released`, datamllab/LoopTitan). Redirect on task:compute-matched-moe-looped-pretrain.
+- Extra parameter revisits buy almost nothing vs matched compute.
+
+### 2026-11-27 — ingest paper:tune-for-retention (gotcha on method:olmo-3 / method:aclarena; does not retarget those first hops)
+- Added paper:tune-for-retention (`code_status: released`, nirmitj6/tune-for-retention-sft). Redirects on task:instruct-sft-alignment / task:agent-continual-learning.
+- Lower SFT LR and batch forget less at matched steps.
+
 ### 2026-11-26 — weekday SOTA sweep (MoLT, Uni-MOPD, CARE-OPD, SPLICE, Gated-Loop MoE)
 - Five active plug-ins. No current_sota retarget (Muon2 / CISPO / OPD / Open-MOPD / SAPO / SAO / CANOPY / DRACO / SCALE / Quartet-II / AQLoRA-Q / Iris / Uno / OraRL / omp2 / RecreationWorld / Claude computer-use / Miles / mini-SWE-agent / DiffusionOPSD / Self-OPD / CodeMidas / BPCO / GradCodeS / VISTA / OLMo-3 / Mamba-2 / lr-matters-lora / SemiCat / Cross-Tokenizer OPD / J-Zero / NeoHorse-1 / ACE / TTPO / SAS / Vision-RL2 / Sparse-BitNet / A2D / CorrGRPO / DARA / TRACE / TRIAGE / RLT / VeriGate / u-OPSD / MAGIC / Representation Guidance / Repeated-Token Worth / PACE / OPSA / ES-reasoning / ELR / SMELT).
 - Window: 2026-11-26 Librarian weekday sweep after merged PR 73 (watermark 2611.33148 ingest / listing considered 2611.33153, 5b5a4b8, 2463 nodes / 9906 edges). Covers Wednesday 25 Nov 2026 evening through Thursday 26 Nov 2026 (US Thanksgiving) arXiv cs.LG/cs.CL/cs.AI after 2611.33153 plus HF Daily 2026-11-25 leftovers / 2026-11-26. Thanksgiving listing did announce. New high id 2611.34923 (ingest) / 2611.34934 (listing considered). Distinct slug `care-opd` from `method:care-po`. Distinct `uni-mopd` from Open-MOPD (paper Open-MOPD is not the library 83.4% bake-off) / BaC-MOPD / training-free OPD. Distinct `molt` from RLT / ELR / SMELT. Distinct `splice` from GRAFT / Harness-S / PICO / VeriGate. Distinct `gated-loop-moe` from SMELT (200B PPL listing is not SMELT Chinchilla).
